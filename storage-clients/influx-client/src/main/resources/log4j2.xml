@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://logging.apache.org/log4j/2.x/manual/configuration.html -->
+<Configuration status="OFF">
+	<Appenders>
+		<!-- https://logging.apache.org/log4j/2.x/manual/appenders.html#JeroMQAppender -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!-- https://marketplace.eclipse.org/content/ansi-escape-console -->
+			<!-- https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout -->
+			<PatternLayout pattern="%d{UNIX} [%t] %-5level %c{1.} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<!-- additivity attribute allows show message in ROOT logger -->
+		<Root level="INFO">
+			<AppenderRef ref="Console"/>
+		</Root>
+		<Logger name="cas.ibm.ubc.ca" level="ALL">
+			<AppenderRef ref="Console"/>
+		</Logger>
+	</Loggers>
+</Configuration>

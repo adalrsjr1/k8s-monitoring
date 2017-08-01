@@ -1,0 +1,34 @@
+# Elastic user elastic pass changeme
+# Kibana user elastic pass changeme
+
+# do not forget: sudo sysctl -w vm.max_map_count=262144
+
+version: '3'
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.5.1
+    depends_on:
+      - elasticsearch
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 5601:5601
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.1
+    deploy:
+      resources:
+        limits:
+            memory: 1g
+      restart_policy:
+        condition: any
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+      - 9400:9400
+      
+volumes:
+  esdata:
+    driver: local 
