@@ -14,8 +14,8 @@ public abstract class ZipkinRequest {
 	public Request get() {
 		
 		request = new Request.Builder()
-				            .url(urlBuilder.build())
-				            .build();
+				             .url(urlBuilder.build())
+				             .build();
 		
 		return request;
 	}
