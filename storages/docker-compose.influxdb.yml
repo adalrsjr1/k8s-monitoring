@@ -13,16 +13,20 @@ services:
       - 8086:8086
       - 8083:8083      
   grafana:
-    image: grafana/grafana:latest
+    image: tutum/grafana
     deploy:
       restart_policy:
         condition: any
     volumes:
       - ./grafana_data:/var/lib/grafana
     environment:
-      - GF_DASHBOARDS_JSON_ENABLED=true
+      - INFLUXDB_PROTO=http                 
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086                  
+      - INFLUXDB_USER=root
+      - INFLUXDB_PASS=root
     ports:
-      - 3000:3000
+      - 3000:80
       
 volumes:
   ifdata:

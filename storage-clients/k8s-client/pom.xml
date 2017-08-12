@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>cas.ibm.ubc.ca</groupId>
-	<artifactId>influx-client</artifactId>
+	<groupId>cas.ibm.ubc.ca.k8s</groupId>
+	<artifactId>k8s-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -39,9 +39,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.influxdb</groupId>
-			<artifactId>influxdb-java</artifactId>
-			<version>2.7</version>
+			<groupId>io.fabric8</groupId>
+			<artifactId>kubernetes-client</artifactId>
+			<version>2.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

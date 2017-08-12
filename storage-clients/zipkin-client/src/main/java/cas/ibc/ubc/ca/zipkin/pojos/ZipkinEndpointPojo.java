@@ -1,7 +1,7 @@
 package cas.ibc.ubc.ca.zipkin.pojos;
 
 public class ZipkinEndpointPojo {
-
+// teste
 	public final String ipv4;
 	public final String ipv6;
 	public final Integer port;

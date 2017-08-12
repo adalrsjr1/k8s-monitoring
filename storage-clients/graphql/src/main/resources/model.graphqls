@@ -1,0 +1,24 @@
+schema {
+    query: QueryType
+}
+
+type QueryType {
+    services : [Service]
+    service(name: String): Service
+}
+
+type Service {
+    id: String!
+    name: String
+    version: ServiceVersion
+    replicas: [ServiceReplica]
+}
+
+type ServiceVersion {
+    version: String
+}
+
+type ServiceReplica {
+    id: String!
+    container: String
+}
