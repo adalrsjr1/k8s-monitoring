@@ -27,7 +27,7 @@ class Namespace {
 			List<Pod> pods = k8sSession.services(name)
 			
 			Set set = pods.inject([] as Set) {set, pod ->
-				set << new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))	
+				set << Service.create(pod)	
 			}
 			
 			return new Namespace(name:name, services:set as List)
@@ -46,7 +46,7 @@ class Namespace {
 				List<Pod> pods = k8sSession.services(name)
 				
 				Set set = pods.inject([] as Set) {set, pod ->
-					set << new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+					set << Service.create(pod)
 				}
 					
 				list << new Namespace(name:name, services:set as List) 

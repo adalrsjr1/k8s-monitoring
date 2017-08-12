@@ -31,13 +31,14 @@ public class Hello {
 		
 		GraphQL graphQL = GraphQL.newGraphQL(schema).build();
 		
-		Map<String, Object > result0 = graphQL.execute("{services {name}}").getData();
-		Map<String, Object > result1 = graphQL.execute("{services {name},service(name:\"catalogue-db\"){name}}").getData();
-		Map<String, Object > result2 = graphQL.execute("{service(name:\"catalogue-db\"){id,name}}").getData();
-		Map<String, Object > result3 = graphQL.execute("{service(name:\"catalogue-db\"){name}}").getData();
-		Map<String, Object > result4 = graphQL.execute("{namespace(name:\"sock-shop\") {name, services{name,id} }}").getData();
-		Map<String, Object > result5 = graphQL.execute("{namespaces {name, services{name} }}").getData();
-		System.out.println(result5);
+//		Map<String, Object > result0 = graphQL.execute("{services {name}}").getData();
+//		Map<String, Object > result1 = graphQL.execute("{services {name},service(name:\"catalogue-db\"){name}}").getData();
+//		Map<String, Object > result3 = graphQL.execute("{service(name:\"catalogue-db\"){name}}").getData();
+//		Map<String, Object > result4 = graphQL.execute("{namespace(name:\"sock-shop\") {name, services{name,id} }}").getData();
+//		Map<String, Object > result5 = graphQL.execute("{namespaces {name, services{name} }}").getData();
+		Map<String, Object > result6 = graphQL.execute("{service(name:\"catalogue-db\"){name, serviceVersions{ n_replicas, version, replicas{name}}}}").getData();
+		
+		System.out.println(result6);
 		
 //		SchemaParser schemaParser = new SchemaParser();
 //		SchemaGenerator schemaGenerator = new SchemaGenerator();

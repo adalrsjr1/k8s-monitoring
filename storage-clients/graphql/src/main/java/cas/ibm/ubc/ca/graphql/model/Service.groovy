@@ -4,6 +4,7 @@ import cas.ibm.ubc.ca.k8s.K8sSession
 import cas.ibm.ubc.ca.k8s.model.PodUtil
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import graphql.schema.FieldDataFetcher
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import io.fabric8.kubernetes.api.model.Pod
@@ -13,13 +14,19 @@ import io.fabric8.kubernetes.api.model.Pod
 class Service {
 	String id
 	String name
+//	ServiceVersion serviceVersion
+	
+	static Service create(Pod pod) {
+		
+			new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+	}
 	
 	static DataFetcher services = new DataFetcher() {
 		Object get(DataFetchingEnvironment environment) {
 			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
 			
 			k8sSession.pods("sock-shop").collect([] as Set) { pod ->
-				new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+				Service.create(pod)
 			}
 		}
 	}
@@ -31,7 +38,8 @@ class Service {
 			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
 			
 			Pod pod = k8sSession.service(name)
-			new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+			Service.create(pod)
 		}
 	}
+	
 }

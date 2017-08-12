@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.k8s
 
+import cas.ibm.ubc.ca.k8s.model.PodUtil
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodList
@@ -38,11 +39,11 @@ class K8sSession {
 		}
 	} 
 	
-	List<Pod> services(String namespace) {
+	List<Pod> services(String name) {
 		PodList podList = pods.inAnyNamespace().list()
 		
 		podList.getItems().findAll { pod ->
-			pod.getMetadata().getName() == pod.getMetadata().getName()
+			PodUtil.podName(pod) == name
 		}
 	}
 	
@@ -66,6 +67,14 @@ class K8sSession {
 		podList.getItems().find { pod ->
 			pod.getMetadata().getName() == name
 		}	
+	}
+	
+	List<Pod> replicas(String shortName) {
+		PodList podList = pods.inAnyNamespace().list()
+		
+		podList.getItems().findAll { pod ->
+			pod.getMetadata().getName().contains(name)
+		}
 	}
 	
 }
