@@ -23,8 +23,7 @@ class Namespace {
 			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
 			
 			Ns namespace = k8sSession.namespace(name)
-			
-			List<Pod> pods = k8sSession.services(name)
+			List<Pod> pods = k8sSession.allServices(name)
 			
 			Set set = pods.inject([] as Set) {set, pod ->
 				set << Service.create(pod)	
@@ -43,7 +42,7 @@ class Namespace {
 			
 			List<Namespace> result = namespaces.inject([]) { list, ns ->
 				String name = NamespaceUtil.namespaceName(ns)
-				List<Pod> pods = k8sSession.services(name)
+				List<Pod> pods = k8sSession.allServices(name)
 				
 				Set set = pods.inject([] as Set) {set, pod ->
 					set << Service.create(pod)

@@ -25,7 +25,7 @@ class Service {
 		Object get(DataFetchingEnvironment environment) {
 			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
 			
-			k8sSession.pods("sock-shop").collect([] as Set) { pod ->
+			k8sSession.pods().collect([] as Set) { pod ->
 				Service.create(pod)
 			}
 		}

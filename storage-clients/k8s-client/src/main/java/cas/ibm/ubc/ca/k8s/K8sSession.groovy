@@ -21,8 +21,28 @@ class K8sSession {
 		namespaces.list().getItems()
 	}
 
+	List<Pod> pods() {
+		PodList podList = pods.inAnyNamespace().list()
+		
+		podList.getItems().inject([]) {l, pod ->
+			l << pod
+		}
+	}
+	
 	List<Pod> pods(String namespace) {
-		pods.inNamespace(namespace).list().getItems()
+		PodList podList = pods.inNamespace(namespace).list()
+		
+		podList.getItems().inject([]) {l, pod ->
+			l << pod
+		}
+	}
+	
+	List<Pod> allServices(String namespace) {
+		PodList podList = pods.inNamespace(namespace).list()
+		
+		return podList.getItems().collect { pod ->
+			pod
+		}
 	}
 	
 	/**

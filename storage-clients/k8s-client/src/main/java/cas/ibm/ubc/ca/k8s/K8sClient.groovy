@@ -34,14 +34,14 @@ class K8sClient {
 	
 	static void main(String[] args) {
 		
-		K8sClient.client().namespaces().list().items.each {
-			String name = it.metadata.name
-			K8sClient.client().pods().inNamespace(name).list().items.each {
-				p -> println p.metadata.name
-			}
-		}
+//		K8sClient.client().namespaces().list().items.each {
+//			String name = it.metadata.name
+//			K8sClient.client().pods().inNamespace(name).list().items.each {
+//				p -> println p.metadata.name
+//			}
+//		}
 		
-		
+		println K8sClient.client().pods().inAnyNamespace().list().getItems()
 		
 		Pod pod = K8sClient.client().pods().inNamespace("sock-shop").withName("catalogue-db-1956862931-w5c5c").get()
 		
