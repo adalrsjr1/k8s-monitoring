@@ -40,9 +40,7 @@ class K8sSession {
 	List<Pod> allServices(String namespace) {
 		PodList podList = pods.inNamespace(namespace).list()
 		
-		return podList.getItems().collect { pod ->
-			pod
-		}
+		return podList.getItems().collect { pod -> pod }
 	}
 	
 	/**
