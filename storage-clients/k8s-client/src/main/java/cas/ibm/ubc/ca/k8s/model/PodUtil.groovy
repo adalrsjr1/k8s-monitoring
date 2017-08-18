@@ -10,18 +10,8 @@ class PodUtil {
 	}
 	
 	static String podName(Pod pod) {
-		String fullName = podFullName(pod)
-		
-		String[] splittedName = fullName.split("-")
-		int nameSize = splittedName.size()
-		
-		// is it a magic number? 
-		// https://github.com/kubernetes/community/blob/master/contributors/design-proposals/identifiers.md
-		if(nameSize <= 3) {
-			return fullName.split("-")[0]
-		}
-		
-		return "${splittedName[0]}-${splittedName[1]}"
+		String generateName = pod.getMetadata().getGenerateName() 
+		return generateName.substring(0, generateName.length()-1)
 	}
 	
 	static String podId (Pod pod) {
@@ -29,6 +19,7 @@ class PodUtil {
 	}
 	
 	static  List<String> podVersion(Pod pod) {
+		// it is tested for pods with a single container
 		pod.getSpec().getContainers().inject([]) { list, p ->
 			list << p.image
 		}

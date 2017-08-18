@@ -1,0 +1,98 @@
+{
+  "kind": "NamespaceList",
+  "apiVersion": "v1",
+  "metadata": {
+    "selfLink": "/api/v1/namespaces",
+    "resourceVersion": "146126"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "default",
+        "selfLink": "/api/v1/namespacesdefault",
+        "uid": "625d1aa7-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "7",
+        "creationTimestamp": "2017-07-25T21:44:06Z"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "metadata": {
+        "name": "kube-public",
+        "selfLink": "/api/v1/namespaceskube-public",
+        "uid": "62eb805b-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "12",
+        "creationTimestamp": "2017-07-25T21:44:07Z"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "metadata": {
+        "name": "kube-system",
+        "selfLink": "/api/v1/namespaceskube-system",
+        "uid": "6258730a-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "59",
+        "creationTimestamp": "2017-07-25T21:44:06Z",
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"annotations\":{},\"name\":\"kube-system\",\"namespace\":\"\"}}\n"
+        }
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "metadata": {
+        "name": "sock-shop",
+        "selfLink": "/api/v1/namespacessock-shop",
+        "uid": "65a714b9-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45787",
+        "creationTimestamp": "2017-08-01T20:31:28Z"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "metadata": {
+        "name": "zipkin",
+        "selfLink": "/api/v1/namespaceszipkin",
+        "uid": "65ad564e-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45791",
+        "creationTimestamp": "2017-08-01T20:31:28Z"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    }
+  ]
+}
