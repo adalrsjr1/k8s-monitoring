@@ -1,9 +1,9 @@
-package test.cas.ibm.ubc.ca.k8s.model
+package test.cas.ibm.ubc.ca.k8s
 
-import cas.ibm.ubc.ca.k8s.model.PodUtil
+import cas.ibm.ubc.ca.k8s.PodUtil
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodBuilder
-import test.cas.ibm.ubc.ca.k8s.model.util.KubernetesApiMock
+import test.cas.ibm.ubc.ca.k8s.util.KubernetesApiMock
 
 class TestPodUtil extends GroovyTestCase {
 

@@ -4,7 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import cas.ibm.ubc.ca.k8s.K8sCache
-import cas.ibm.ubc.ca.k8s.model.PodUtil
+import cas.ibm.ubc.ca.k8s.PodUtil
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
 import groovy.transform.Canonical

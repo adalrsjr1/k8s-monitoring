@@ -1,8 +1,8 @@
 package cas.ibm.ubc.ca.graphql.model
 
 import cas.ibm.ubc.ca.k8s.K8sCache
-import cas.ibm.ubc.ca.k8s.model.NamespaceUtil
-import cas.ibm.ubc.ca.k8s.model.PodUtil
+import cas.ibm.ubc.ca.k8s.NamespaceUtil
+import cas.ibm.ubc.ca.k8s.PodUtil
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
 import groovy.transform.Canonical

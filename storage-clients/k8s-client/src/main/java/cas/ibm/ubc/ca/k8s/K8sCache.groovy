@@ -1,6 +1,5 @@
 package cas.ibm.ubc.ca.k8s
 
-import cas.ibm.ubc.ca.k8s.model.PodUtil
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodList

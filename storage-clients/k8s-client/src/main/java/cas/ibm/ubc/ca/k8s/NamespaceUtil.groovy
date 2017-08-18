@@ -1,4 +1,4 @@
-package cas.ibm.ubc.ca.k8s.model
+package cas.ibm.ubc.ca.k8s
 
 import io.fabric8.kubernetes.api.model.Namespace
 

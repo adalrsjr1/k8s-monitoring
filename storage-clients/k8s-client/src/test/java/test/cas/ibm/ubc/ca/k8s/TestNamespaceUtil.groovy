@@ -1,10 +1,10 @@
-package test.cas.ibm.ubc.ca.k8s.model
+package test.cas.ibm.ubc.ca.k8s
 
 import java.util.List
 
-import cas.ibm.ubc.ca.k8s.model.NamespaceUtil
+import cas.ibm.ubc.ca.k8s.NamespaceUtil
 import io.fabric8.kubernetes.api.model.Namespace
-import test.cas.ibm.ubc.ca.k8s.model.util.KubernetesApiMock
+import test.cas.ibm.ubc.ca.k8s.util.KubernetesApiMock
 
 class TestNamespaceUtil extends GroovyTestCase {
 

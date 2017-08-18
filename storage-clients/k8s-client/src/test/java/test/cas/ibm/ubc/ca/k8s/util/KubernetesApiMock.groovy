@@ -1,4 +1,4 @@
-package test.cas.ibm.ubc.ca.k8s.model.util
+package test.cas.ibm.ubc.ca.k8s.util
 
 import java.util.Collections.UnmodifiableList
 
