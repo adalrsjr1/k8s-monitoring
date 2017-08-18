@@ -6,8 +6,12 @@ import groovy.json.JsonSlurper
 import io.fabric8.kubernetes.api.model.ContainerBuilder
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.NamespaceBuilder
+import io.fabric8.kubernetes.api.model.NamespaceList
+import io.fabric8.kubernetes.api.model.NamespaceListBuilder
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodBuilder
+import io.fabric8.kubernetes.api.model.PodList
+import io.fabric8.kubernetes.api.model.PodListBuilder
 import io.fabric8.kubernetes.api.model.PodSpecBuilder
 
 class KubernetesApiMock {
@@ -60,6 +64,14 @@ class KubernetesApiMock {
 					.withName(metaNamespace.metadata.name)
 					.endMetadata()
 				.build()
+	}
+
+	static PodList createPodList(List pods) {
+		new PodListBuilder().addAllToItems(pods).build()
+	}
+		
+	static NamespaceList createNamespaceList(List namespaces) {
+		new NamespaceListBuilder().addAllToItems(namespaces).build()
 	}
 	
 	static void main(String[] args) {

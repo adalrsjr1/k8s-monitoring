@@ -25,7 +25,7 @@ class Service {
 		Object get(DataFetchingEnvironment environment) {
 			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
 			
-			k8sCache.pods().collect([] as Set) { pod ->
+			k8sCache.getPods().collect([] as Set) { pod ->
 				Service.create(pod)
 			}
 		}

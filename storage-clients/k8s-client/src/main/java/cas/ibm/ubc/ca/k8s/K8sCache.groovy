@@ -1,96 +1,61 @@
 package cas.ibm.ubc.ca.k8s
 
 import io.fabric8.kubernetes.api.model.Namespace
+import io.fabric8.kubernetes.api.model.NamespaceList
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodList
+import io.fabric8.kubernetes.api.model.ServiceList
 
 class K8sCache {
-	private def pods
-	private def namespaces
+	private PodList pods
+	private NamespaceList namespaces
+	private ServiceList services
 
 	void refresh() {
 		throw new UnsupportedOperationException("Not implemented yet")
 	}
 	
 	Namespace namespace(String name) {
-		namespaces.withName(name).get()
+		namespaces.items.find { ns ->
+			NamespaceUtil.namespaceName(ns) == name
+		}
 	}
 	
 	List<Namespace> namespaces() {
-		namespaces.list().getItems()
+		namespaces.getItems()
 	}
 
-	List<Pod> pods() {
-		PodList podList = pods.inAnyNamespace().list()
-		
-		podList.getItems().inject([]) {l, pod ->
-			l << pod
+	List<Pod> getPods() {
+		pods.getItems()
+	}
+	
+	List<Pod> getPodsByNamespace(String namespace) {
+		pods.getItems().findAll { pod ->
+			PodUtil.podNamespace(pod) == namespace
 		}
 	}
 	
-	List<Pod> pods(String namespace) {
-		PodList podList = pods.inNamespace(namespace).list()
-		
-		podList.getItems().inject([]) {l, pod ->
-			l << pod
+	Pod getPodByNamespaceAndName(String namespace, String name) {
+		pods.getItems().find { pod ->
+			PodUtil.podNamespace(pod) == namespace && PodUtil.podName(pod) == name
 		}
 	}
 	
-	List<Pod> allServices(String namespace) {
-		PodList podList = pods.inNamespace(namespace).list()
-		
-		return podList.getItems().collect { pod -> pod }
+	List<Pod> getPodsByNamespaceAndNameRegex(String namespace, String regex) {
+		pods.getItems().findAll { pod ->
+			PodUtil.podNamespace(pod) == namespace && PodUtil.podName(pod,regex)
+		}
 	}
 	
-	/**
-	 * 
-	 * @param namespace
-	 * @param serviceName the pattern of a pod name "serviceName-UUID"
-	 * @return
-	 */
-	List<Pod> services (String namespace, String serviceName) {
-		PodList podList = pods.inNamespace(namespace).list()
-		
-		return podList.getItems().findAll { pod ->
-			pod.getMetadata().getName().contains(serviceName)
-		}
-	} 
-	
-	List<Pod> services(String name) {
-		PodList podList = pods.inAnyNamespace().list()
-		
-		podList.getItems().findAll { pod ->
+	List<Pod> getPodsByName(String name) {
+		pods.getItems().findAll { pod ->
 			PodUtil.podName(pod) == name
 		}
 	}
 	
-	Pod service(String serviceName) {
-		PodList podList = pods.inAnyNamespace().list()
-		
-		return podList.getItems().find { pod ->
-			pod.getMetadata().getName().contains(serviceName)
-		}
-	}
-
-	Pod pod(String namespace, String fullName) {
-		pods.inNamespace(namespace).withName(fullName).get()
-	}
-	
-	
-	Pod pod(String name) {
-		
-		PodList podList = pods.inAnyNamespace().list()
-
-		podList.getItems().find { pod ->
-			pod.getMetadata().getName() == name
-		}	
-	}
-	
-	List<Pod> replicas(String shortName) {
-		PodList podList = pods.inAnyNamespace().list()
-		
-		podList.getItems().findAll { pod ->
-			pod.getMetadata().getName().contains(name)
+	List<Pod> replicas(String generatedName) {
+		pods.getItems().findAll { pod ->
+			PodUtil.podGenerateName(pod) == generatedName
 		}
 	}
 	

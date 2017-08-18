@@ -24,12 +24,13 @@ class K8sClient {
 //		Config config = new ConfigBuilder().withMasterUrl("http://localhost:8888").build()
 		Config config = new ConfigBuilder().withMasterUrl("http://localhost:8001").build()
 		instance = new DefaultKubernetesClient(config)
-		
 		return instance
 	}
 	
 	static K8sCache k8sCache() {
-		return new K8sCache(pods:client().pods(), namespaces:client().namespaces())
+		return new K8sCache(pods:client().pods().list(), 
+			namespaces:client().namespaces().list(),
+			services: client().services().list())
 	}
 	
 	static void main(String[] args) {

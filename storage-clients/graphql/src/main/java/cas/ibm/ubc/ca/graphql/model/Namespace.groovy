@@ -23,7 +23,7 @@ class Namespace {
 			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
 			
 			Ns namespace = k8sCache.namespace(name)
-			List<Pod> pods = k8sCache.allServices(name)
+			List<Pod> pods = k8sCache.getPods(name)
 			
 			Set set = pods.inject([] as Set) {set, pod ->
 				set << Service.create(pod)	
@@ -42,7 +42,7 @@ class Namespace {
 			
 			List<Namespace> result = namespaces.inject([]) { list, ns ->
 				String name = NamespaceUtil.namespaceName(ns)
-				List<Pod> pods = k8sCache.allServices(name)
+				List<Pod> pods = k8sCache.getPods(name)
 				
 				Set set = pods.inject([] as Set) {set, pod ->
 					set << Service.create(pod)

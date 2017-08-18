@@ -5,15 +5,26 @@ import io.fabric8.kubernetes.api.model.Pod
 
 class PodUtil {
 
-	static String podFullName (Pod pod) {
+	static String podName (Pod pod) {
 		pod.getMetadata().getName()
 	}
 	
-	static String podName(Pod pod) {
-		String generateName = pod.getMetadata().getGenerateName() 
-		return generateName.substring(0, generateName.length()-1)
+	static String podName (Pod pod, String regex) {
+		String name = PodUtil.podName(pod) 
+		if(name ==~ /$regex/) {
+			return name
+		}
+		return ""
 	}
 	
+	static String podGenerateName(Pod pod) {
+		pod.getMetadata().getGenerateName()
+	}
+	
+	static String podNamespace(Pod pod) {
+		pod.getMetadata().getNamespace()
+	}
+		
 	static String podId (Pod pod) {
 		pod.getMetadata().getUid()
 	}
@@ -23,6 +34,6 @@ class PodUtil {
 		pod.getSpec().getContainers().inject([]) { list, p ->
 			list << p.image
 		}
-	}	
+	}
 	
 }
