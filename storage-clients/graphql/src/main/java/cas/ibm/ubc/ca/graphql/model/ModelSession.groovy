@@ -1,15 +1,15 @@
 package cas.ibm.ubc.ca.graphql.model
 
 import cas.ibm.ubc.ca.k8s.K8sClient
-import cas.ibm.ubc.ca.k8s.K8sSession
+import cas.ibm.ubc.ca.k8s.K8sCache
 
 class ModelSession {
 	private static ModelSession instance 
 	
-	K8sSession k8sSession  
+	K8sCache k8sCache  
 	
 	private ModelSession() {
-		k8sSession = K8sClient.session()
+		k8sCache = K8sClient.k8sCache()
 	}
 	
 	static ModelSession getInstance() {
@@ -20,6 +20,6 @@ class ModelSession {
 	}
 	
 	void refresh() {
-		k8sSession = k8sClient.session()
+		k8sCache = k8sClient.k8sCache()
 	}
 }

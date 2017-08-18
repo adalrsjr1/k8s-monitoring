@@ -28,8 +28,8 @@ class K8sClient {
 		return instance
 	}
 	
-	static K8sSession session() {
-		return new K8sSession(pods:client().pods(), namespaces:client().namespaces())
+	static K8sCache k8sCache() {
+		return new K8sCache(pods:client().pods(), namespaces:client().namespaces())
 	}
 	
 	static void main(String[] args) {

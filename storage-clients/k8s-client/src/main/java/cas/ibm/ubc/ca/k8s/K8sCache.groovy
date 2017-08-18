@@ -5,7 +5,7 @@ import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodList
 
-class K8sSession {
+class K8sCache {
 	private def pods
 	private def namespaces
 

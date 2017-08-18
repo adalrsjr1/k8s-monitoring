@@ -3,16 +3,16 @@ package cas.ibm.ubc.ca.graphql.model
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import cas.ibm.ubc.ca.k8s.K8sSession
+import cas.ibm.ubc.ca.k8s.K8sCache
 import cas.ibm.ubc.ca.k8s.model.PodUtil
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import groovy.transform.Canonical
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import io.fabric8.kubernetes.api.model.Pod
 
-@ToString(includeNames=true)
-@EqualsAndHashCode
+@Canonical
 class ServiceVersion {
 	private static Logger logger = LoggerFactory.getLogger(ServiceVersion.class)
 	List<String> version
@@ -29,8 +29,8 @@ class ServiceVersion {
 		Object get(DataFetchingEnvironment environment) {
 			String name = environment.source.name
 			
-			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
-			List<Pod> pods = k8sSession.services(name)
+			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
+			List<Pod> pods = k8sCache.services(name)
 			
 			return createVersions(pods)
 		}

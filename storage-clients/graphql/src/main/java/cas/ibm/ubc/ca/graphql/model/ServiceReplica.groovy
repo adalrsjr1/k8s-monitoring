@@ -1,13 +1,13 @@
 package cas.ibm.ubc.ca.graphql.model
 
-import cas.ibm.ubc.ca.k8s.K8sSession
+import cas.ibm.ubc.ca.k8s.K8sCache
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import groovy.transform.Canonical
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString(includeNames=true)
-@EqualsAndHashCode
+@Canonical
 class ServiceReplica {
 	Integer quantity
 	List<Service> replicas
@@ -16,7 +16,7 @@ class ServiceReplica {
 		Object get(DataFetchingEnvironment environment) {
 			def name = environment.arguments.name
 			println name
-//			K8sSession k8sSession = ModelSession.getInstance().getK8sSession()
+//			K8sCache k8sSession = ModelSession.getInstance().getK8sSession()
 //			
 //			k8sSession.pods("sock-shop").collect([] as Set) { pod ->
 //				Service.create(pod)
