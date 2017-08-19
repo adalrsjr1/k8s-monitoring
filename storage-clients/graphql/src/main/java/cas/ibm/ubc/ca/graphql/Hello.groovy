@@ -36,7 +36,7 @@ class XXXInterceptor implements Interceptor {
 	
    synchronized Object afterInvoke(Object obj, String name, Object[] args, Object result) {
 	   logger = LoggerFactory.getLogger(obj.class)
-	   logger.info("{}:: {}ms",name, (System.nanoTime() - time)/1000000)
+	   logger.info("{} {} ms",name, (System.nanoTime() - time)/1000000)
 	   result
    }
 
