@@ -1,0 +1,625 @@
+{
+  "kind": "ServiceList",
+  "apiVersion": "v1",
+  "metadata": {
+    "selfLink": "/api/v1/services",
+    "resourceVersion": "165533"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "kubernetes",
+        "namespace": "default",
+        "selfLink": "/api/v1/namespaces/default/services/kubernetes",
+        "uid": "62e8f2cd-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "10",
+        "creationTimestamp": "2017-07-25T21:44:07Z",
+        "labels": {
+          "component": "apiserver",
+          "provider": "kubernetes"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "https",
+            "protocol": "TCP",
+            "port": 443,
+            "targetPort": 8443
+          }
+        ],
+        "clusterIP": "10.0.0.1",
+        "type": "ClusterIP",
+        "sessionAffinity": "ClientIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "heapster",
+        "namespace": "kube-system",
+        "selfLink": "/api/v1/namespaces/kube-system/services/heapster",
+        "uid": "d833906d-731e-11e7-93ff-080027d26b4e",
+        "resourceVersion": "12529",
+        "creationTimestamp": "2017-07-27T22:56:37Z",
+        "labels": {
+          "kubernetes.io/cluster-service": "true",
+          "kubernetes.io/name": "Heapster",
+          "task": "monitoring"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 8082
+          }
+        ],
+        "selector": {
+          "k8s-app": "heapster"
+        },
+        "clusterIP": "10.0.0.85",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "kube-dns",
+        "namespace": "kube-system",
+        "selfLink": "/api/v1/namespaces/kube-system/services/kube-dns",
+        "uid": "6d1e11a1-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "88",
+        "creationTimestamp": "2017-07-25T21:44:24Z",
+        "labels": {
+          "addonmanager.kubernetes.io/mode": "Reconcile",
+          "k8s-app": "kube-dns",
+          "kubernetes.io/name": "KubeDNS"
+        },
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"k8s-app\":\"kube-dns\",\"kubernetes.io/name\":\"KubeDNS\"},\"name\":\"kube-dns\",\"namespace\":\"kube-system\"},\"spec\":{\"clusterIP\":\"10.0.0.10\",\"ports\":[{\"name\":\"dns\",\"port\":53,\"protocol\":\"UDP\"},{\"name\":\"dns-tcp\",\"port\":53,\"protocol\":\"TCP\"}],\"selector\":{\"k8s-app\":\"kube-dns\"}}}\n"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "dns",
+            "protocol": "UDP",
+            "port": 53,
+            "targetPort": 53
+          },
+          {
+            "name": "dns-tcp",
+            "protocol": "TCP",
+            "port": 53,
+            "targetPort": 53
+          }
+        ],
+        "selector": {
+          "k8s-app": "kube-dns"
+        },
+        "clusterIP": "10.0.0.10",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "kubernetes-dashboard",
+        "namespace": "kube-system",
+        "selfLink": "/api/v1/namespaces/kube-system/services/kubernetes-dashboard",
+        "uid": "6d0257fd-7182-11e7-8225-080027d26b4e",
+        "resourceVersion": "73",
+        "creationTimestamp": "2017-07-25T21:44:24Z",
+        "labels": {
+          "addonmanager.kubernetes.io/mode": "Reconcile",
+          "app": "kubernetes-dashboard",
+          "kubernetes.io/minikube-addons": "dashboard",
+          "kubernetes.io/minikube-addons-endpoint": "dashboard"
+        },
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"app\":\"kubernetes-dashboard\",\"kubernetes.io/minikube-addons\":\"dashboard\",\"kubernetes.io/minikube-addons-endpoint\":\"dashboard\"},\"name\":\"kubernetes-dashboard\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"nodePort\":30000,\"port\":80,\"targetPort\":9090}],\"selector\":{\"app\":\"kubernetes-dashboard\"},\"type\":\"NodePort\"}}\n"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 9090,
+            "nodePort": 30000
+          }
+        ],
+        "selector": {
+          "app": "kubernetes-dashboard"
+        },
+        "clusterIP": "10.0.0.45",
+        "type": "NodePort",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "carts",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/carts",
+        "uid": "65cdf778-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45821",
+        "creationTimestamp": "2017-08-01T20:31:29Z",
+        "labels": {
+          "name": "carts"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "carts"
+        },
+        "clusterIP": "10.0.0.139",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "carts-db",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/carts-db",
+        "uid": "65bc2cc4-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45809",
+        "creationTimestamp": "2017-08-01T20:31:28Z",
+        "labels": {
+          "name": "carts-db"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017
+          }
+        ],
+        "selector": {
+          "name": "carts-db"
+        },
+        "clusterIP": "10.0.0.169",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "catalogue",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/catalogue",
+        "uid": "66072ec9-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45851",
+        "creationTimestamp": "2017-08-01T20:31:29Z",
+        "labels": {
+          "name": "catalogue"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "catalogue"
+        },
+        "clusterIP": "10.0.0.46",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "catalogue-db",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/catalogue-db",
+        "uid": "65e70d15-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45835",
+        "creationTimestamp": "2017-08-01T20:31:29Z",
+        "labels": {
+          "name": "catalogue-db"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 3306,
+            "targetPort": 3306
+          }
+        ],
+        "selector": {
+          "name": "catalogue-db"
+        },
+        "clusterIP": "10.0.0.170",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "front-end",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/front-end",
+        "uid": "662978c8-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45868",
+        "creationTimestamp": "2017-08-01T20:31:29Z",
+        "labels": {
+          "name": "front-end"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 8079,
+            "nodePort": 30001
+          }
+        ],
+        "selector": {
+          "name": "front-end"
+        },
+        "clusterIP": "10.0.0.142",
+        "type": "NodePort",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "orders",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/orders",
+        "uid": "667274dd-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45910",
+        "creationTimestamp": "2017-08-01T20:31:30Z",
+        "labels": {
+          "name": "orders"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "orders"
+        },
+        "clusterIP": "10.0.0.199",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "orders-db",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/orders-db",
+        "uid": "66542987-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45894",
+        "creationTimestamp": "2017-08-01T20:31:29Z",
+        "labels": {
+          "name": "orders-db"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017
+          }
+        ],
+        "selector": {
+          "name": "orders-db"
+        },
+        "clusterIP": "10.0.0.211",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "payment",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/payment",
+        "uid": "668e8959-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45921",
+        "creationTimestamp": "2017-08-01T20:31:30Z",
+        "labels": {
+          "name": "payment"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "payment"
+        },
+        "clusterIP": "10.0.0.87",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "queue-master",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/queue-master",
+        "uid": "66b82090-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45935",
+        "creationTimestamp": "2017-08-01T20:31:30Z",
+        "labels": {
+          "name": "queue-master"
+        },
+        "annotations": {
+          "prometheus.io/path": "/prometheus"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "queue-master"
+        },
+        "clusterIP": "10.0.0.148",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "rabbitmq",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/rabbitmq",
+        "uid": "66e6f6c1-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45957",
+        "creationTimestamp": "2017-08-01T20:31:30Z",
+        "labels": {
+          "name": "rabbitmq"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 5672,
+            "targetPort": 5672
+          }
+        ],
+        "selector": {
+          "name": "rabbitmq"
+        },
+        "clusterIP": "10.0.0.116",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "shipping",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/shipping",
+        "uid": "670a3ad2-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45976",
+        "creationTimestamp": "2017-08-01T20:31:31Z",
+        "labels": {
+          "name": "shipping"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "shipping"
+        },
+        "clusterIP": "10.0.0.19",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "user",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/user",
+        "uid": "679fa9d3-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "46011",
+        "creationTimestamp": "2017-08-01T20:31:32Z",
+        "labels": {
+          "name": "user"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          }
+        ],
+        "selector": {
+          "name": "user"
+        },
+        "clusterIP": "10.0.0.119",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "user-db",
+        "namespace": "sock-shop",
+        "selfLink": "/api/v1/namespaces/sock-shop/services/user-db",
+        "uid": "674395e7-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "45996",
+        "creationTimestamp": "2017-08-01T20:31:31Z",
+        "labels": {
+          "name": "user-db"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017
+          }
+        ],
+        "selector": {
+          "name": "user-db"
+        },
+        "clusterIP": "10.0.0.192",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "zipkin",
+        "namespace": "zipkin",
+        "selfLink": "/api/v1/namespaces/zipkin/services/zipkin",
+        "uid": "681933f4-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "46043",
+        "creationTimestamp": "2017-08-01T20:31:32Z",
+        "labels": {
+          "name": "zipkin"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 9411,
+            "targetPort": 9411,
+            "nodePort": 30002
+          }
+        ],
+        "selector": {
+          "name": "zipkin"
+        },
+        "clusterIP": "10.0.0.89",
+        "type": "NodePort",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "metadata": {
+        "name": "zipkin-mysql",
+        "namespace": "zipkin",
+        "selfLink": "/api/v1/namespaces/zipkin/services/zipkin-mysql",
+        "uid": "683f4907-76f8-11e7-bac3-080027d26b4e",
+        "resourceVersion": "46069",
+        "creationTimestamp": "2017-08-01T20:31:33Z",
+        "labels": {
+          "name": "zipkin-mysql"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 3306,
+            "targetPort": 3306,
+            "nodePort": 30306
+          }
+        ],
+        "selector": {
+          "name": "zipkin-mysql"
+        },
+        "clusterIP": "10.0.0.103",
+        "type": "NodePort",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    }
+  ]
+}

@@ -4,6 +4,8 @@ import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.NamespaceList
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.PodList
+import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.ServiceBuilder
 import io.fabric8.kubernetes.api.model.ServiceList
 
 class K8sCache {
@@ -53,11 +55,41 @@ class K8sCache {
 		}
 	}
 	
-	List<Pod> replicas(String generatedName) {
+	List<Pod> replicas(String serviceName) {
 		pods.getItems().findAll { pod ->
-			PodUtil.podGenerateName(pod) == generatedName
+			PodUtil.podName(pod, ".*${serviceName}.*")
 		}
 	}
+	
+	List<Service> getServices() {
+		services.getItems()
+	}
+	
+	Service getServiceByName(String name) {
+		services.getItems().find { service ->
+			ServiceUtil.serviceName(service) == name
+		}
+	}
+	
+	Service getServiceByPod(Pod pod) {
+		Service service = getServices().find { service ->
+			PodUtil.podName(pod, ".*${ServiceUtil.serviceName(service)}.*")
+		}
+		
+		if (!service) {
+			service = new ServiceBuilder()
+			.withNewMetadata()
+				 .withName("null")
+				.withNamespace("null")
+				.and()
+				.build()
+		}
+		
+		service
+		
+	}
+	
+	
 	
 }
 	

@@ -1,25 +1,27 @@
 package test.cas.ibm.ubc.ca.k8s
 
-import java.util.List
 import cas.ibm.ubc.ca.k8s.K8sCache
 import cas.ibm.ubc.ca.k8s.NamespaceUtil
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Pod
+import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.ServiceBuilder
 import test.cas.ibm.ubc.ca.k8s.util.KubernetesApiMock
 
 class TestK8sCache extends GroovyTestCase {
 	static List pods
 	static List ns
-	
+	static List services
 	static K8sCache cache
 	
 	protected void setUp() throws Exception {
 		super.setUp()
 		pods = KubernetesApiMock.getMock("pods.json", Pod.class)
 		ns = KubernetesApiMock.getMock("namespaces.json", Namespace.class)
-		
+		services = KubernetesApiMock.getMock("services.json", Service.class)
 		cache = new K8sCache(pods:KubernetesApiMock.createPodList(pods), 
-							 namespaces:KubernetesApiMock.createNamespaceList(ns))
+							 namespaces:KubernetesApiMock.createNamespaceList(ns),
+							 services: KubernetesApiMock.createServiceList(services))
 	}
 	
 	void testNamespace() {
@@ -65,7 +67,29 @@ class TestK8sCache extends GroovyTestCase {
 	}
 	
 	void testPodsReplicas() {
-		assert cache.replicas("front-end-3297960554-").size() == 2
-		assert cache.replicas("front-end-3297960554-") == pods.subList(9, 11)
+		assert cache.replicas("front-end").size() == 2
+		assert cache.replicas("front-end") == pods.subList(9, 11)
+		
+		assert cache.replicas("front-end") == pods.subList(9, 11)
+	}
+	
+	void testGetServices() {
+		assert cache.getServices().size() > 0
+		assert cache.getServices() == services
+	}
+	
+	void testGetServicesByName() {
+		assert cache.getServiceByName("kubernetes") == services[0]
+		assert cache.getServiceByName("heapster") == services[1]
+	}
+	
+	void testGetServicesByPod() {
+		assert cache.getServiceByPod(pods[1]) == services[1]
+		assert cache.getServiceByPod(pods[0]) == new ServiceBuilder()
+			.withNewMetadata()
+				 .withName("null")
+				.withNamespace("null")
+				.and()
+				.build()
 	}
 }

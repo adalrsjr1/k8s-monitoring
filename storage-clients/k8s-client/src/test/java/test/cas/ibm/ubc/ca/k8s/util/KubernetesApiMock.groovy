@@ -1,7 +1,5 @@
 package test.cas.ibm.ubc.ca.k8s.util
 
-import java.util.Collections.UnmodifiableList
-
 import groovy.json.JsonSlurper
 import io.fabric8.kubernetes.api.model.ContainerBuilder
 import io.fabric8.kubernetes.api.model.Namespace
@@ -13,6 +11,10 @@ import io.fabric8.kubernetes.api.model.PodBuilder
 import io.fabric8.kubernetes.api.model.PodList
 import io.fabric8.kubernetes.api.model.PodListBuilder
 import io.fabric8.kubernetes.api.model.PodSpecBuilder
+import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.ServiceBuilder
+import io.fabric8.kubernetes.api.model.ServiceList
+import io.fabric8.kubernetes.api.model.ServiceListBuilder
 
 class KubernetesApiMock {
 	static List getMock(String filename, Class clazz) {
@@ -30,6 +32,9 @@ class KubernetesApiMock {
 			}
 			else if (clazz == Namespace.class) {
 				list << createNamespace(metaobject)
+			}
+			else if (clazz == Service.class) {
+				list << createService(metaobject)
 			}
 		})
 	}
@@ -65,6 +70,15 @@ class KubernetesApiMock {
 					.endMetadata()
 				.build()
 	}
+	
+	static Service createService(def metaService){
+		 new ServiceBuilder()
+		 		.withNewMetadata()
+				 	 .withName(metaService.metadata.name)
+					 .withNamespace(metaService.metadata.namespace)
+					 .and()
+					 .build()
+	}
 
 	static PodList createPodList(List pods) {
 		new PodListBuilder().addAllToItems(pods).build()
@@ -74,8 +88,12 @@ class KubernetesApiMock {
 		new NamespaceListBuilder().addAllToItems(namespaces).build()
 	}
 	
+	static ServiceList createServiceList(List services) {
+		new ServiceListBuilder().addAllToItems(services).build()
+	}
+	
 	static void main(String[] args) {
-		println KubernetesApiMock.getMock("namespaces.json", Namespace.class)
+		println KubernetesApiMock.getMock("services.json", Service.class)
 	}
 	
 }
