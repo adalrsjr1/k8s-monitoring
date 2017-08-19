@@ -3,6 +3,7 @@ package test.cas.ibm.ubc.ca.k8s
 import cas.ibm.ubc.ca.k8s.K8sCache
 import cas.ibm.ubc.ca.k8s.NamespaceUtil
 import io.fabric8.kubernetes.api.model.Namespace
+import io.fabric8.kubernetes.api.model.NamespaceBuilder
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.Service
 import io.fabric8.kubernetes.api.model.ServiceBuilder
@@ -91,5 +92,16 @@ class TestK8sCache extends GroovyTestCase {
 				.withNamespace("null")
 				.and()
 				.build()
+	}
+	
+	void testGetServicesByNamespace() {
+		Namespace ns = new NamespaceBuilder()
+				.withNewMetadata()
+					.withName("zipkin")
+					.endMetadata()
+				.build()
+		
+		assert cache.getServiceByNamespace(ns).size() == 2
+		assert cache.getServiceByNamespace(ns) == services.subList(17, 19)
 	}
 }

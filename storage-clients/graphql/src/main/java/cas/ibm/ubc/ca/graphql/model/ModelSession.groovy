@@ -20,6 +20,6 @@ class ModelSession {
 	}
 	
 	void refresh() {
-		k8sCache = k8sClient.k8sCache()
+		k8sCache.refresh()
 	}
 }

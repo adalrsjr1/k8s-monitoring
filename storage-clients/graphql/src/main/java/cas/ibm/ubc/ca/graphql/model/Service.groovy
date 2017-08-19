@@ -2,6 +2,7 @@ package cas.ibm.ubc.ca.graphql.model
 
 import cas.ibm.ubc.ca.k8s.K8sCache
 import cas.ibm.ubc.ca.k8s.PodUtil
+import cas.ibm.ubc.ca.k8s.ServiceUtil
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
 import graphql.schema.FieldDataFetcher
@@ -9,6 +10,7 @@ import groovy.transform.Canonical
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import io.fabric8.kubernetes.api.model.Pod
+import io.fabric8.kubernetes.api.model.Service as Srv
 
 @Canonical
 class Service {
@@ -17,8 +19,11 @@ class Service {
 //	ServiceVersion serviceVersion
 	
 	static Service create(Pod pod) {
-		
 			new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+	}
+	
+	static Service create(Srv service) {
+			new Service(id:ServiceUtil.serviceId(service), name:ServiceUtil.serviceName(service))
 	}
 	
 	static DataFetcher services = new DataFetcher() {
@@ -37,8 +42,7 @@ class Service {
 			
 			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
 			
-			Pod pod = k8sCache.service(name)
-			Service.create(pod)
+			Service.create(k8sCache.getServiceByName(name))
 		}
 	}
 	

@@ -89,6 +89,23 @@ class K8sCache {
 		
 	}
 	
+	List<Service> getServiceByNamespace(Namespace ns) {
+		
+		List services = getServices().findAll { service ->
+			service.getMetadata().getNamespace() == NamespaceUtil.namespaceName(ns)
+		}
+		if(services.size() == 0) {
+		services << new ServiceBuilder()
+			.withNewMetadata()
+				 .withName("null")
+				.withNamespace("null")
+				.and()
+				.build()
+		}
+		
+		services
+	}
+	
 	
 	
 }

@@ -75,6 +75,7 @@ class KubernetesApiMock {
 		 new ServiceBuilder()
 		 		.withNewMetadata()
 				 	 .withName(metaService.metadata.name)
+					 .withUid(metaService.metadata.uid)
 					 .withNamespace(metaService.metadata.namespace)
 					 .and()
 					 .build()

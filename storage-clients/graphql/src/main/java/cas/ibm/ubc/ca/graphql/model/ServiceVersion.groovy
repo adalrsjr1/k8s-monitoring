@@ -30,7 +30,7 @@ class ServiceVersion {
 			String name = environment.source.name
 			
 			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
-			List<Pod> pods = k8sCache.services(name)
+			List<Pod> pods = k8sCache.replicas(name)
 			
 			return createVersions(pods)
 		}

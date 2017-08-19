@@ -10,6 +10,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.api.model.Namespace as Ns
+import io.fabric8.kubernetes.api.model.Service as Srv
 
 @Canonical
 class Namespace {
@@ -23,9 +24,9 @@ class Namespace {
 			K8sCache k8sCache = ModelSession.getInstance().getK8sCache()
 			
 			Ns namespace = k8sCache.namespace(name)
-			List<Pod> pods = k8sCache.getPods(name)
+			List<Srv> services = k8sCache.getServiceByNamespace(namespace)
 			
-			Set set = pods.inject([] as Set) {set, pod ->
+			Set set = services.inject([] as Set) {set, pod ->
 				set << Service.create(pod)	
 			}
 			
@@ -41,14 +42,13 @@ class Namespace {
 			List<Ns> namespaces = k8sCache.namespaces()
 			
 			List<Namespace> result = namespaces.inject([]) { list, ns ->
-				String name = NamespaceUtil.namespaceName(ns)
-				List<Pod> pods = k8sCache.getPods(name)
+				List<Srv> services = k8sCache.getServiceByNamespace(ns)
 				
-				Set set = pods.inject([] as Set) {set, pod ->
+				Set set = services.inject([] as Set) {set, pod ->
 					set << Service.create(pod)
 				}
 					
-				list << new Namespace(name:name, services:set as List) 
+				list << new Namespace(name:NamespaceUtil.namespaceName(ns), services:set as List) 
 			}
 			
 			

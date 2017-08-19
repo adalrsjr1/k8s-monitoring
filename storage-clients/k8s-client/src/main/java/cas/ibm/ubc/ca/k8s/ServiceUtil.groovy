@@ -10,4 +10,8 @@ class ServiceUtil {
 	static String serviceNamespace(Service service) {
 		service.getMetadata().getNamespace()
 	}
+	
+	static String serviceId(Service service) {
+		service.getMetadata().getUid()
+	}
 }
