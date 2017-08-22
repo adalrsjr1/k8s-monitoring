@@ -29,6 +29,14 @@ class PodUtil {
 		pod.getMetadata().getUid()
 	}
 	
+	static String podIp(Pod pod) {
+		pod.getStatus().getPodIP()
+	}
+	
+	static String podHostIp(Pod pod) {
+		pod.getStatus().getHostIP()
+	}
+	
 	static  List<String> podVersion(Pod pod) {
 		// it is tested for pods with a single container
 		pod.getSpec().getContainers().inject([]) { list, p ->
