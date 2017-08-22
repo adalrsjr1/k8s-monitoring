@@ -9,12 +9,15 @@ public class ZipkinClient {
 		
 		ZipkinRequestor requestor = new ZipkinRequestor("192.168.99.100", 30002)
 		
-		println requestor.getServices()
+//		println requestor.getServices()
+//		requestor.getTraces(endTs:1503361800000).each {
+//			 it.each{
+//			 println it.hashCode()
+//			}
+//		}
 		
-		println requestor.getTraces()
+		println requestor.getDependencies(1703361800000)
 		
-		println requestor.getSpans('user')
-	
 									 
 	}
 }

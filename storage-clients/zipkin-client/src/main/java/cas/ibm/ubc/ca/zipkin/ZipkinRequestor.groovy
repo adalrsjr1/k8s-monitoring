@@ -45,7 +45,7 @@ class ZipkinRequestor {
 								 .addPathSegment(path)
 		
 		builder = parameters.inject(builder) { b, entry ->
-			b.addQueryParameter(entry.key, entry.value)
+			b.addQueryParameter(entry.key, entry.value.toString())
 		}
 		
 		builder.build()
@@ -76,8 +76,14 @@ class ZipkinRequestor {
 		new Gson().fromJson(json, type)
 	}
 	
-	Collection<Collection<Trace>> getTraces() {
-		HttpUrl url = createUrl("traces")
+	/**
+	 * Named argument function. You can find the arguments doc at
+	 * See <a href="http://zipkin.io/zipkin-api/#/default/get_traces</a>
+	 * @param args a map of arguments @see<a href="http://zipkin.io/zipkin-api/#/default/get_traces">
+	 * @return
+	 */
+	Collection<Collection<Trace>> getTraces(Map args) {
+		HttpUrl url = createUrl("traces",args)
 		Request request = createRequest(url)
 
 		Response response = httpClient.newCall(request).execute()
@@ -100,8 +106,8 @@ class ZipkinRequestor {
 		new Gson().fromJson(json, type)
 	}
 	
-	List<Trace> getDependencies(String traceId) {
-		HttpUrl url = createUrl("trace", [traceId:(traceId)])
+	List<Trace> getDependencies(Long endTs) {
+		HttpUrl url = createUrl("dependencies", [endTs:(endTs)])
 		Request request = createRequest(url)
 
 		Response response = httpClient.newCall(request).execute()
