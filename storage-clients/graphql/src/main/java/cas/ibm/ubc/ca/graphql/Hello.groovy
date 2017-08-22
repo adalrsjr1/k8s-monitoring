@@ -65,8 +65,11 @@ public class Hello {
 		proxy.interceptor = interceptor
 		proxy2.interceptor = interceptor
 		
+		
+		
 		proxy.use {
 		proxy2.use{
+//		proxy.use([proxy2], {
 		GraphQLObjectType queryType = ModelSchema.queryType; 
 		
 		GraphQLSchema schema = GraphQLSchema.newSchema()
