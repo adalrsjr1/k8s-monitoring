@@ -45,6 +45,10 @@ public class ModelSchema {
 					.type(list(serviceVersion))
 					.dataFetcher(ServiceVersion.getServiceVersion())
 					.build())
+			.field(newFieldDefinition()
+					.name("address")
+					.type(GraphQLString)
+					.build())
 			.build();
 	
 	public static GraphQLObjectType namespaceType = newObject()
