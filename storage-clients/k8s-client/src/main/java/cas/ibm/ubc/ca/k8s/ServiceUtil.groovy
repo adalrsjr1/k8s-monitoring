@@ -14,4 +14,8 @@ class ServiceUtil {
 	static String serviceId(Service service) {
 		service.getMetadata().getUid()
 	}
+	
+	static String serviceIp(Service service) {
+		service.getSpec().getClusterIP()
+	}
 }
