@@ -79,6 +79,9 @@ class KubernetesApiMock {
 	
 	static Service createService(def metaService){
 		 new ServiceBuilder()
+		 		.withNewSpec()
+				 	.withClusterIP(metaService.spec.clusterIP)
+					.endSpec()
 		 		.withNewMetadata()
 				 	 .withName(metaService.metadata.name)
 					 .withUid(metaService.metadata.uid)

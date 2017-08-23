@@ -37,5 +37,13 @@ class TestServiceUtil extends GroovyTestCase {
 		assert "62e8f2cd-7182-11e7-8225-080027d26b4e" == ServiceUtil.serviceId(services[0])
 		assert "d833906d-731e-11e7-93ff-080027d26b4e" == ServiceUtil.serviceId(services[1])
 	}
+	
+	void testServiceIp() {
+		assert services[0] != null
+		assert services[1] != null
+		
+		assert "10.0.0.1" == ServiceUtil.serviceIp(services[0])
+		assert "10.0.0.85" == ServiceUtil.serviceIp(services[1])
+	}
 
 }
