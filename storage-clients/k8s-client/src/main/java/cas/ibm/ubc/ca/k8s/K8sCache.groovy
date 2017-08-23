@@ -77,12 +77,7 @@ class K8sCache {
 		}
 		
 		if (!service) {
-			service = new ServiceBuilder()
-			.withNewMetadata()
-				 .withName("null")
-				.withNamespace("null")
-				.and()
-				.build()
+			service = ServiceUtil.nullService()
 		}
 		
 		service
@@ -95,12 +90,7 @@ class K8sCache {
 			service.getMetadata().getNamespace() == NamespaceUtil.namespaceName(ns)
 		}
 		if(services.size() == 0) {
-		services << new ServiceBuilder()
-			.withNewMetadata()
-				 .withName("null")
-				.withNamespace("null")
-				.and()
-				.build()
+			services << ServiceUtil.nullService()
 		}
 		
 		services

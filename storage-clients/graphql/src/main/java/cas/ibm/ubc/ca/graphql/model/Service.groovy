@@ -24,7 +24,7 @@ class Service {
 	}
 	
 	static Service create(Srv service) {
-			new Service(id:ServiceUtil.serviceId(service), name:ServiceUtil.serviceName(service))
+			new Service(id:ServiceUtil.serviceId(service), name:ServiceUtil.serviceName(service), address:ServiceUtil.serviceIp(service))
 	}
 	
 	static DataFetcher services = new DataFetcher() {
