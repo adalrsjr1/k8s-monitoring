@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.zipkin;
 
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -35,23 +36,32 @@ public class ZipkinClient {
 		ZipkinRequestor requestor = new ZipkinRequestor("192.168.99.100", 30002, 10, TimeUnit.SECONDS)
 		
 		def services = requestor.getServices()
-
-		ExecutorService tPool = Executors.newFixedThreadPool(5)
-		
-		services.each { serviceName ->
-			tPool.execute {
-			requestor.getTraces(serviceName:(serviceName),limit:10).each {
-			//			 it.each{
-//						  println "${it.parentId}:${it.id}:${it.name} :: ${it.annotations}"
-						  print serviceName + "-->"
-						  printTrace(it)
-			//			}
-					}
-			}
-		}
-				
-		
-		
-									 
+		println services
+//
+//		ExecutorService tPool = Executors.newFixedThreadPool(1)
+//		
+//		Map mapTraces = [:]
+//		
+//		CountDownLatch latch = new CountDownLatch(services.size())
+//		
+//		services.each { serviceName ->
+//			tPool.execute {
+////				mapTraces[serviceName] = requestor.getTraces(serviceName:(serviceName),limit:10) 
+//			requestor.getTraces(serviceName:(serviceName),limit:10).each {
+//			//			 it.each{
+////						  println "${it.parentId}:${it.id}:${it.name} :: ${it.annotations}"
+////						  print serviceName + "-->"
+////						  printTrace(it)
+//						  println it
+////						}
+//					}
+////					latch.countDown()
+//			}
+//		}
+//		
+////		latch.await()
+////		tPool.shutdown()
+////		println mapTraces
+//									 
 	}
 }

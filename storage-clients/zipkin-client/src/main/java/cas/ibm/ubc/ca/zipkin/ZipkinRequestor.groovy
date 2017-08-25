@@ -90,7 +90,7 @@ class ZipkinRequestor {
 	 * @param args a map of arguments @see<a href="http://zipkin.io/zipkin-api/#/default/get_traces">
 	 * @return
 	 */
-	Collection<Collection<Trace>> getTraces(Map args) {
+	List<List<Trace>> getTraces(Map args) {
 		HttpUrl url = createUrl("traces",args)
 		Request request = createRequest(url)
 
