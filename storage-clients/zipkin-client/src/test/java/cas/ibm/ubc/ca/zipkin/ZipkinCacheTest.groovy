@@ -36,14 +36,15 @@ class ZipkinCacheTest extends GroovyTestCase {
 		Map map = cache.mapTracesByIp(traces.values().first())
 		assert map.isEmpty() == false
 		assert map.keySet() == ["172.17.0.11", "127.0.0.1", "172.17.0.18", "172.17.0.8"] as Set
-		assert map.values().first().first().keySet() == ["traceId", "id", "timestamp", "duration"] as Set
+		assert map.values().first().first().keySet() == ["traceId", "id", "timestamp", "duration", "message"] as Set
 	}
 	
 	void testGetMessagesByIp() {
 		ZipkinCache cache = new ZipkinCache(traces)
 		assert cache.getMessagesByIp("0.0.0.0") == []
 		assert cache.getMessagesByIp("172.17.0.11").isEmpty() == false
-		println cache.getMessagesByIp("172.17.0.11")
+		
+//		println cache.operations
 	}
 
 }

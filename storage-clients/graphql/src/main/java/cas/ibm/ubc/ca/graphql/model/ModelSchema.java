@@ -1,14 +1,13 @@
 package cas.ibm.ubc.ca.graphql.model;
 
-import static graphql.Scalars.GraphQLString;
 import static graphql.Scalars.GraphQLInt;
+import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLArgument.newArgument;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLList.list;
 import static graphql.schema.GraphQLNonNull.nonNull;
 import static graphql.schema.GraphQLObjectType.newObject;
 
-import graphql.schema.FieldDataFetcher;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLTypeReference;
 
