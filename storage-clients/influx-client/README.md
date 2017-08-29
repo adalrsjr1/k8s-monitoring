@@ -32,5 +32,13 @@ database.
 
     $ mvn test
 
+### Code Style
+
+Run
+
+    $ mvn verify
+
+to check code style.
+
 [influxdb-java]: https://github.com/influxdata/influxdb-java
 [maven]: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#A_Build_Lifecycle_is_Made_Up_of_Phases
