@@ -19,8 +19,9 @@ public class Sampler {
   }
 
   public double downsample(String measurement, DownsamplerFunction function,
-                                                              String duration) {
-    Query query = new Query(buildQueryString(measurement, function, duration),
+                                        String containerName, String duration) {
+    Query query = new Query(buildQueryString(measurement, function,
+                                             containerName, duration),
                             database)
     QueryResult result = client.query(query)
 
@@ -28,10 +29,11 @@ public class Sampler {
   }
 
   private String buildQueryString(String measurement,
-                                DownsamplerFunction function, String duration) {
+          DownsamplerFunction function, String containerName, String duration) {
     """SELECT ${function}(value)
        FROM ${measurement}
-       WHERE time > now() - ${duration}"""
+       WHERE time > now() - ${duration}
+             AND container_name = '${containerName}'"""
   }
 
   private double parse(QueryResult queryResult) {
