@@ -18,11 +18,8 @@ public class Sampler {
     this.database = database
   }
 
-  public double downsample(String measurement, DownsamplerFunction function,
-                                        String containerName, String duration) {
-    Query query = new Query(buildQueryString(measurement, function,
-                                             containerName, duration),
-                            database)
+  public double downsample(Object... args) {
+    Query query = new Query(buildQueryString(*args), database)
     QueryResult result = client.query(query)
 
     parse(result)

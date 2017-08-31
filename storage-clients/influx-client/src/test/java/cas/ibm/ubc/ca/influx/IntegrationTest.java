@@ -30,6 +30,11 @@ public class IntegrationTest {
   private BatchPoints batchPoints; 
   private int pointsCount;
   private Sampler sampler;
+  private Object[] downsampleArgs;
+  private String measurementToDownsample,
+                 containerToDownsample,
+                 periodToDownsample;
+  private DownsamplerFunction functionToDownsample;
 
   @Before
   public void setClient() {
@@ -50,6 +55,14 @@ public class IntegrationTest {
     influxDB.createDatabase(DB_NAME);
   }
 
+  @Before
+  public void setDefaultDownsampleArgs() {
+    measurementToDownsample = MEASUREMENT;
+    functionToDownsample = DownsamplerFunction.MEAN;
+    containerToDownsample = COMMON_CONTAINER_NAME;
+    periodToDownsample = "1h";
+  }
+
   @After
   public void deleteDatabase() {
     influxDB.deleteDatabase(DB_NAME);
@@ -58,47 +71,33 @@ public class IntegrationTest {
   @Test
   public void lastHalfHourMean() {
     writeBatchPoints(true);
+    periodToDownsample = "30m";
 
-    double mean = sampler.downsample(MEASUREMENT,
-                                     DownsamplerFunction.MEAN,
-                                     COMMON_CONTAINER_NAME,
-                                     "30m");
-
-    assertEquals(mean(VALUES), mean, 0.1);
+    assertEquals(mean(VALUES), downsample(), 0.1);
   }
 
   @Test
   public void lastTenSecondsMean() {
     writeBatchPoints(true);
+    periodToDownsample = "10s";
 
-    double mean = sampler.downsample(MEASUREMENT,
-                                     DownsamplerFunction.MEAN,
-                                     COMMON_CONTAINER_NAME,
-                                     "10s");
-
-    assertEquals(VALUES[0], mean, 0.1);
+    assertEquals(VALUES[0], downsample(), 0.1);
   }
 
   @Test(expected = NoResultsException.class)
   public void nonExistingMeasurement() {
     writeBatchPoints(true);
+    measurementToDownsample = "non_existing_measurement";
 
-    double mean = sampler.downsample("non_existing_measurement",
-                                     DownsamplerFunction.MEAN,
-                                     COMMON_CONTAINER_NAME,
-                                     "10s");
+    downsample();
   }
 
   @Test
   public void filterByContainer() {
     writeBatchPoints(false);
+    containerToDownsample = "c0";
 
-    double mean = sampler.downsample(MEASUREMENT,
-                                     DownsamplerFunction.MEAN,
-                                     "c0",
-                                     "1h");
-
-    assertEquals(12, mean, 0.1);
+    assertEquals(12, downsample(), 0.1);
   }
 
   private void writeBatchPoints(boolean sameContainer) {
@@ -122,6 +121,13 @@ public class IntegrationTest {
                 .addField(FIELD, value)
                 .tag("container_name", containerName)
                 .build();
+  }
+
+  private double downsample() {
+   return sampler.downsample(measurementToDownsample,
+                             functionToDownsample,
+                             containerToDownsample,
+                             periodToDownsample);
   }
 
   private double mean(Integer[] values) {
