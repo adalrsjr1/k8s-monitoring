@@ -10,8 +10,6 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
 
-import org.junit.Before
-
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
