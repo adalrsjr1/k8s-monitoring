@@ -11,11 +11,16 @@ import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
 
 import okhttp3.HttpUrl
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.Response
 
 class ZipkinRequestor {
+	static final MediaType JSON \
+		= MediaType.parse('application/json; charset=utf-8')
+
 	private final OkHttpClient httpClient
 
 	final String host
@@ -32,12 +37,14 @@ class ZipkinRequestor {
 		this.port = port
 	}
 	
-	private createRequest(HttpUrl url) {
-		new Request.Builder()
-				   .url(url)
-				   .build()
+	private createRequest(HttpUrl url, body = null) {
+		def builder = new Request.Builder().url(url)
+		if(body)
+			builder.post(body)
+
+		builder.build()
 	}
-	
+
 	private HttpUrl createUrl(path) {
 		createUrl(path, [:])
 	}
@@ -47,7 +54,7 @@ class ZipkinRequestor {
 								 .scheme("http")
 								 .host(host)
 								 .port(port)
-		                         .addPathSegments("/zipkin/api/v1/")
+								 .addPathSegments('api/v1/')
 								 .addPathSegment(path)
 		
 		builder = parameters.inject(builder) { b, entry ->
@@ -123,4 +130,12 @@ class ZipkinRequestor {
 		new Gson().fromJson(json, type)
 	}
 	
+	void createSpans(List<Span> spansList) {
+		def url = createUrl('spans')
+		def json = new Gson().toJson(spansList)
+		def body = RequestBody.create(JSON, json)
+		def request = createRequest(url, body)
+
+		httpClient.newCall(request).execute()
+	}
 }
