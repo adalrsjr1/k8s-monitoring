@@ -1,7 +1,7 @@
 package cas.ibm.ubc.ca.model
 
 import java.lang.reflect.InvocationTargetException
-
+import java.util.concurrent.ExecutorService
 import org.eclipse.emf.common.notify.Adapter
 import org.eclipse.emf.common.notify.Notification
 import org.eclipse.emf.common.notify.impl.AdapterImpl
@@ -25,6 +25,26 @@ import model.Message
 import model.ModelFactory
 import model.Service
 import model.ServiceReplica
+import model.impl.ModelFactoryImpl
+import model.impl.ModelPackageImpl
+
+import org.eclipse.emf.cdo.common.model.EMFUtil
+import org.eclipse.emf.cdo.eresource.CDOResource;
+import org.eclipse.emf.cdo.net4j.CDONet4jSessionConfiguration;
+import org.eclipse.emf.cdo.net4j.CDONet4jUtil;
+import org.eclipse.emf.cdo.session.CDOSession;
+import org.eclipse.emf.cdo.transaction.CDOTransaction;
+import org.eclipse.emf.cdo.util.CommitException;
+
+import org.eclipse.net4j.FactoriesProtocolProvider;
+import org.eclipse.net4j.Net4jUtil;
+import org.eclipse.net4j.buffer.IBufferProvider;
+import org.eclipse.net4j.protocol.IProtocolProvider;
+import org.eclipse.net4j.util.concurrent.ThreadPool;
+import org.eclipse.net4j.util.lifecycle.LifecycleUtil;
+import org.eclipse.net4j.util.om.OMPlatform;
+import org.eclipse.net4j.util.om.log.PrintLogHandler;
+import org.eclipse.net4j.util.om.trace.PrintTraceHandler;
 
 // observes a single element
 class ElementObserver {
@@ -291,14 +311,91 @@ class ClusterAdapter extends ECluster {
 }
 
 class HelloWorld {
+//	static void main(String[] args) {
+//		//		ModelFactory factory = ModelFactory.INSTANCE
+//		ModelFactory factory = ModelFactoryAdapter.INSTANCE
+//
+//		Cluster cluster = factory.createCluster()
+//
+//		//		ElementObserver observer = new ElementObserver(cluster)
+//		//		TotalObserver observer = new TotalObserver(cluster)
+//
+//		Application application1 = factory.createApplication()
+//		application1.setName("Application1")
+//		cluster.applications << application1
+//
+//		Application application2 = factory.createApplication()
+//		application2.setName("Application2")
+//
+//		cluster.applications << application2
+//
+//		application2.setName("Application3")
+//
+//		Host host = factory.createHost()
+//		cluster.hosts << host
+//		host.setName("host1")
+//
+//		host.metrics["cpu"] = 100L
+//		host.metrics["cpu"] = 90L
+//
+//	}
+	
 	static void main(String[] args) {
-		//		ModelFactory factory = ModelFactory.INSTANCE
+		// Enable logging and tracing
+		OMPlatform.INSTANCE.setDebugging(true);
+		OMPlatform.INSTANCE.addLogHandler(PrintLogHandler.CONSOLE);
+		OMPlatform.INSTANCE.addTraceHandler(PrintTraceHandler.CONSOLE);
+		
+		// Prepare receiveExecutor
+		ExecutorService receiveExecutor = ThreadPool.create();
+	
+		// Prepare bufferProvider
+		IBufferProvider bufferProvider = Net4jUtil.createBufferPool();
+		LifecycleUtil.activate(bufferProvider);
+	
+		IProtocolProvider protocolProvider = new FactoriesProtocolProvider(new org.eclipse.emf.cdo.internal.net4j.protocol.CDOClientProtocolFactory());
+	
+		// Prepare selector
+		org.eclipse.net4j.internal.tcp.TCPSelector selector = new org.eclipse.net4j.internal.tcp.TCPSelector();
+		selector.activate();
+	
+		// Prepare connector
+		org.eclipse.net4j.internal.tcp.TCPClientConnector connector = new org.eclipse.net4j.internal.tcp.TCPClientConnector();
+		connector.getConfig().setBufferProvider(bufferProvider);
+		connector.getConfig().setReceiveExecutor(receiveExecutor);
+		connector.getConfig().setProtocolProvider(protocolProvider);
+		connector.getConfig().setNegotiator(null);
+		connector.setSelector(selector);
+		connector.setHost("localhost"); //$NON-NLS-1$
+		connector.setPort(2036);
+		connector.activate();
+		
+		// Create configuration
+		CDONet4jSessionConfiguration configuration = CDONet4jUtil.createNet4jSessionConfiguration();
+		configuration.setConnector(connector);
+		configuration.setRepositoryName("repo1"); //$NON-NLS-1$
+	
+		// Open session
+		CDOSession session = configuration.openNet4jSession();
+		
+		session.getPackageRegistry().putEPackage(ModelPackageImpl.eINSTANCE);
+	
+		// Open transaction
+		CDOTransaction transaction = session.openTransaction();
+	
+		// Get or create resource
+		CDOResource resource = transaction.getOrCreateResource("/myCluster"); //$NON-NLS-1$
+	
+		// Work with the resource and commit the transaction
+
 		ModelFactory factory = ModelFactoryAdapter.INSTANCE
-
-		Cluster cluster = factory.createCluster()
-
-		//		ElementObserver observer = new ElementObserver(cluster)
-		//		TotalObserver observer = new TotalObserver(cluster)
+		
+		Cluster cluster = resource.contents[0]
+		
+//		println cluster.applications
+		
+//				ElementObserver observer = new ElementObserver(cluster)
+//				TotalObserver observer = new TotalObserver(cluster)
 
 		Application application1 = factory.createApplication()
 		application1.setName("Application1")
@@ -317,6 +414,11 @@ class HelloWorld {
 
 		host.metrics["cpu"] = 100L
 		host.metrics["cpu"] = 90L
-
-	}
+	
+		transaction.commit()
+		
+		// Cleanup
+		session.close();
+		connector.deactivate();
+	  }
 }

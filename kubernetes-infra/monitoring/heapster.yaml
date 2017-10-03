@@ -26,14 +26,14 @@ spec:
         command:
         - /heapster
         - --source=kubernetes:https://kubernetes.default
-        - --sink=influxdb:http://10.66.66.25:8086
+        - --sink=influxdb:http://monitoring-influxdb.kube-system.svc:8086
       - name: eventer
         image: gcr.io/google_containers/heapster-amd64:v1.4.0
         imagePullPolicy: IfNotPresent
         command:
           - /eventer
-          - --source=kubernetes:''
-          - --sink=influxdb:http://10.66.66.25:8086
+          - --source=kubernetes:https://kubernetes.default
+          - --sink=influxdb:http://monitoring-influxdb.kube-system.svc:8086
 
 ---
 apiVersion: v1

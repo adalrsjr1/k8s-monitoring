@@ -39,6 +39,26 @@
 	</build>
 
 	<dependencies>
+		<!-- CDO -->
+		<dependency>
+			<groupId>org.eclipselabs</groupId>
+			<artifactId>cdo</artifactId>
+			<version>4.6.0.v20170210-0100</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipselabs</groupId>
+			<artifactId>net4j</artifactId>
+			<version>4.6.0.v20170210-0100</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipselabs</groupId>
+			<artifactId>net4j.h2</artifactId>
+			<version>4.6.0.v20170210-0100</version>
+			<type>pom</type>
+		</dependency>
+		<!-- CDO -->
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
@@ -82,7 +102,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>LATEST</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
