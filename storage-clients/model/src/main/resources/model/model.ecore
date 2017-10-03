@@ -6,25 +6,11 @@
       <eParameters name="service" eType="#//ServiceReplica"/>
       <eParameters name="destination" eType="#//Host"/>
     </eOperations>
-    <eOperations name="exchange">
-      <eParameters name="serviceA" eType="#//ServiceReplica"/>
-      <eParameters name="serviceB" eType="#//ServiceReplica"/>
-    </eOperations>
-    <eOperations name="provision">
-      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eParameters name="resources" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap"/>
-    </eOperations>
-    <eOperations name="remove">
-      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eOperations>
-    <eOperations name="updateResources">
-      <eParameters name="element" eType="#//ElementWithResources"/>
-      <eParameters name="resources" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="applications" upperBound="-1"
         eType="#//Application" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hosts" upperBound="-1"
         eType="#//Host" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="environment" eType="#//Environment"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Application">
     <eAnnotations source="http://www.obeo.fr/dsl/dnc/archetype">
@@ -35,7 +21,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Service" eSuperTypes="#//ElementWithResources">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="affinities" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasAffinities" upperBound="-1"
         eType="#//Affinity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -46,8 +32,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ServiceReplica" eSuperTypes="#//Service">
     <eStructuralFeatures xsi:type="ecore:EReference" name="messages" upperBound="-1"
         eType="#//Message" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" upperBound="-1"
-        eType="#//StringToLongMap" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -62,8 +46,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Host" eSuperTypes="#//ElementWithResources">
     <eStructuralFeatures xsi:type="ecore:EReference" name="services" upperBound="-1"
         eType="#//ServiceReplica"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" upperBound="-1"
-        eType="#//StringToLongMap" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringToLongMap" instanceClassName="java.util.Map$Entry">
@@ -73,5 +55,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="ElementWithResources" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceLimit" upperBound="-1"
         eType="#//StringToLongMap" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" upperBound="-1"
+        eType="#//StringToLongMap" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Environment">
+    <eLiterals name="KUBERNETES"/>
+    <eLiterals name="DOCKER_SWARM" value="1"/>
   </eClassifiers>
 </ecore:EPackage>
