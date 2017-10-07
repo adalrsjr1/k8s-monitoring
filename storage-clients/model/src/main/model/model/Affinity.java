@@ -2,8 +2,6 @@
  */
 package model;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Affinity</b></em>'.
@@ -20,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Affinity extends EObject {
+public interface Affinity {
 	/**
 	 * Returns the value of the '<em><b>With</b></em>' reference.
 	 * <!-- begin-user-doc -->

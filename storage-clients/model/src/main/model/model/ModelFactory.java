@@ -38,15 +38,6 @@ public interface ModelFactory {
 	Application createApplication();
 
 	/**
-	 * Returns a new object of class '<em>Service</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Service</em>'.
-	 * @generated
-	 */
-	Service createService();
-
-	/**
 	 * Returns a new object of class '<em>Affinity</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,13 +47,13 @@ public interface ModelFactory {
 	Affinity createAffinity();
 
 	/**
-	 * Returns a new object of class '<em>Service Replica</em>'.
+	 * Returns a new object of class '<em>Service Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Service Replica</em>'.
+	 * @return a new object of class '<em>Service Instance</em>'.
 	 * @generated
 	 */
-	ServiceReplica createServiceReplica();
+	ServiceInstance createServiceInstance();
 
 	/**
 	 * Returns a new object of class '<em>Message</em>'.

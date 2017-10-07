@@ -95,11 +95,11 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackageImpl.SERVICE_REPLICA: {
-				ServiceReplica serviceReplica = (ServiceReplica)theEObject;
-				T result = caseServiceReplica(serviceReplica);
-				if (result == null) result = caseService(serviceReplica);
-				if (result == null) result = caseElementWithResources(serviceReplica);
+			case ModelPackageImpl.SERVICE_INSTANCE: {
+				ServiceInstance serviceInstance = (ServiceInstance)theEObject;
+				T result = caseServiceInstance(serviceInstance);
+				if (result == null) result = caseService(serviceInstance);
+				if (result == null) result = caseElementWithResources(serviceInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -193,17 +193,17 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Service Replica</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Service Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Service Replica</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Service Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseServiceReplica(ServiceReplica object) {
+	public T caseServiceInstance(ServiceInstance object) {
 		return null;
 	}
 

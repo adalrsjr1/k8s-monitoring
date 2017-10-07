@@ -19,7 +19,6 @@ import java.util.List;
  *   <li>{@link model.ServiceInstance#getAddress <em>Address</em>}</li>
  * </ul>
  *
- * @see model.ModelPackage#getServiceInstance()
  * @model
  * @generated
  */
@@ -34,7 +33,6 @@ public interface ServiceInstance extends Service {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Messages</em>' containment reference list.
-	 * @see model.ModelPackage#getServiceInstance_Messages()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -50,7 +48,6 @@ public interface ServiceInstance extends Service {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Container</em>' attribute.
 	 * @see #setContainer(String)
-	 * @see model.ModelPackage#getServiceInstance_Container()
 	 * @model
 	 * @generated
 	 */
@@ -76,7 +73,6 @@ public interface ServiceInstance extends Service {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
-	 * @see model.ModelPackage#getServiceInstance_Id()
 	 * @model id="true"
 	 * @generated
 	 */
@@ -102,7 +98,6 @@ public interface ServiceInstance extends Service {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Address</em>' attribute.
 	 * @see #setAddress(String)
-	 * @see model.ModelPackage#getServiceInstance_Address()
 	 * @model
 	 * @generated
 	 */

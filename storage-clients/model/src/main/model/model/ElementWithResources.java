@@ -4,8 +4,6 @@ package model;
 
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Element With Resources</b></em>'.
@@ -22,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface ElementWithResources extends EObject {
+public interface ElementWithResources {
 	/**
 	 * Returns the value of the '<em><b>Resource Limit</b></em>' map.
 	 * The key is of type {@link java.lang.String},

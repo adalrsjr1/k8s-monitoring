@@ -4,8 +4,6 @@ package model;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Cluster</b></em>'.
@@ -23,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Cluster extends EObject {
+public interface Cluster {
 	/**
 	 * Returns the value of the '<em><b>Applications</b></em>' containment reference list.
 	 * The list contents are of type {@link model.Application}.

@@ -18,158 +18,15 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.emfjson.jackson.resource.JsonResourceFactory
 
-import cas.ibm.ubc.ca.model.factories.ModelFactoryAdapter
+import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
+import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import model.Application
 import model.Cluster
 import model.Environment
 import model.Host
 import model.Message
 import model.ModelFactory
-import model.ServiceReplica
-
-abstract class ECluster implements Cluster {
-	protected Cluster cluster
-
-	ECluster (Cluster cluster) {
-		this.cluster = cluster
-	}
-
-	@Override
-	public EClass eClass() {
-		return cluster.eClass();
-	}
-
-	@Override
-	public Resource eResource() {
-		return cluster.eResource();
-	}
-
-	@Override
-	public EObject eContainer() {
-		return cluster.eContainer();
-	}
-
-	@Override
-	public EStructuralFeature eContainingFeature() {
-		return cluster.eContainingFeature();
-	}
-
-	@Override
-	public EReference eContainmentFeature() {
-		return cluster.eContainmentFeature;
-	}
-
-	@Override
-	public EList<EObject> eContents() {
-		return cluster.eContents;
-	}
-
-	@Override
-	public TreeIterator<EObject> eAllContents() {
-		return cluster.eAllContents;
-	}
-
-	@Override
-	public boolean eIsProxy() {
-		return cluster.eIsProxy();
-	}
-
-	@Override
-	public EList<EObject> eCrossReferences() {
-		return cluster.eCrossReferences();
-	}
-
-	@Override
-	public Object eGet(EStructuralFeature feature) {
-		return cluster.eGet(feature);
-	}
-
-	@Override
-	public Object eGet(EStructuralFeature feature, boolean resolve) {
-		return cluster.eGet(feature, resolve);
-	}
-
-	@Override
-	public void eSet(EStructuralFeature feature, Object newValue) {
-		cluster.eSet(feature, newValue)
-	}
-
-	@Override
-	public boolean eIsSet(EStructuralFeature feature) {
-		return cluster.eIsSet(feature);
-	}
-
-	@Override
-	public void eUnset(EStructuralFeature feature) {
-		cluster.eUnset(feature)
-	}
-
-	@Override
-	public Object eInvoke(EOperation operation, EList<?> arguments) throws InvocationTargetException {
-		return cluster.eInvoke(operation, arguments);
-	}
-
-	@Override
-	public EList<Adapter> eAdapters() {
-		return cluster.eAdapters();
-	}
-
-	@Override
-	public boolean eDeliver() {
-		return cluster.eDeliver();
-	}
-
-	@Override
-	public void eSetDeliver(boolean deliver) {
-		cluster.eSetDeliver(deliver)
-	}
-
-	@Override
-	public void eNotify(Notification notification) {
-		cluster.eNotify(notification)
-	}
-
-	@Override
-	public List<Application> getApplications() {
-		return cluster.getApplications();
-	}
-
-	@Override
-	public List<Host> getHosts() {
-		return cluster.getHosts();
-	}
-
-	@Override
-	public Environment getEnvironment() {
-		return cluster.getEnvironment();
-	}
-
-	@Override
-	public void setEnvironment(Environment value) {
-		cluster.setEnvironment(value)
-	}
-
-	@Override
-	public abstract void move(String application, String serviceId, String destinationHost)
-
-}
-
-class ClusterAdapter extends ECluster {
-
-	public ClusterAdapter(Cluster cluster) {
-		super(cluster)
-	}
-
-	public Cluster getECluster() {
-		return cluster
-	}
-
-	@Override
-	public void move(String application, String serviceId, String destinationHost) {
-		println "moving..."
-	}
-
-}
+import model.ServiceInstance
 
 class HelloWorld {
 
@@ -214,13 +71,13 @@ class HelloWorld {
 
 		application2.setName("Application21")
 
-		ServiceReplica service1 = factory.createServiceReplica()
+		ServiceInstance service1 = factory.createServiceInstance()
 		service1.setName("service1")
 		service1.setAddress("1.1.1.1")
 		service1.setId("0123")
 		service1.setPort(80)
 
-		ServiceReplica service2 = factory.createServiceReplica()
+		ServiceInstance service2 = factory.createServiceInstance()
 		service2.setName("service2")
 		service2.setAddress("0.0.0.0")
 		service2.setId("0123")
@@ -274,7 +131,7 @@ class HelloWorld {
 			e.printStackTrace();
 		}
 		
-		cluster.move("application1", "service1", "host1")
+		ClusterAdapter.move(cluster, "application1", "service1", "host1")
 	}
 
 	// PLAIN

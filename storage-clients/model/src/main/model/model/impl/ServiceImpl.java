@@ -9,14 +9,17 @@ import model.Affinity;
 import model.Service;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,7 +36,7 @@ import org.eclipse.emf.ecore.util.EObjectEList;
  *
  * @generated
  */
-public class ServiceImpl extends ElementWithResourcesImpl implements Service {
+public abstract class ServiceImpl extends ElementWithResourcesImpl implements Service {
 	/**
 	 * The cached value of the '{@link #getHasAffinities() <em>Has Affinities</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -110,7 +113,7 @@ public class ServiceImpl extends ElementWithResourcesImpl implements Service {
 	 */
 	public List<Affinity> getHasAffinities() {
 		if (hasAffinities == null) {
-			hasAffinities = new EObjectEList<Affinity>(Affinity.class, this, ModelPackageImpl.SERVICE__HAS_AFFINITIES);
+			hasAffinities = new EObjectContainmentEList<Affinity>(Affinity.class, this, ModelPackageImpl.SERVICE__HAS_AFFINITIES);
 		}
 		return hasAffinities;
 	}
@@ -155,6 +158,20 @@ public class ServiceImpl extends ElementWithResourcesImpl implements Service {
 		port = newPort;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE__PORT, oldPort, port));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackageImpl.SERVICE__HAS_AFFINITIES:
+				return ((InternalEList<?>)getHasAffinities()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

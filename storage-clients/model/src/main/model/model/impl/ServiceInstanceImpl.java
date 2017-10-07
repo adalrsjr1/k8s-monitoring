@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import model.Message;
-import model.ModelPackage;
 import model.ServiceInstance;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -125,7 +124,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackage.Literals.SERVICE_INSTANCE;
+		return ModelPackageImpl.Literals.SERVICE_INSTANCE;
 	}
 
 	/**
@@ -135,7 +134,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 */
 	public List<Message> getMessages() {
 		if (messages == null) {
-			messages = new EObjectContainmentEList<Message>(Message.class, this, ModelPackage.SERVICE_INSTANCE__MESSAGES);
+			messages = new EObjectContainmentEList<Message>(Message.class, this, ModelPackageImpl.SERVICE_INSTANCE__MESSAGES);
 		}
 		return messages;
 	}
@@ -158,7 +157,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		String oldContainer = container;
 		container = newContainer;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE_INSTANCE__CONTAINER, oldContainer, container));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__CONTAINER, oldContainer, container));
 	}
 
 	/**
@@ -179,7 +178,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE_INSTANCE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__ID, oldId, id));
 	}
 
 	/**
@@ -200,7 +199,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		String oldAddress = address;
 		address = newAddress;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE_INSTANCE__ADDRESS, oldAddress, address));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__ADDRESS, oldAddress, address));
 	}
 
 	/**
@@ -211,7 +210,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.SERVICE_INSTANCE__MESSAGES:
+			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return ((InternalEList<?>)getMessages()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -225,13 +224,13 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.SERVICE_INSTANCE__MESSAGES:
+			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return getMessages();
-			case ModelPackage.SERVICE_INSTANCE__CONTAINER:
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
 				return getContainer();
-			case ModelPackage.SERVICE_INSTANCE__ID:
+			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				return getId();
-			case ModelPackage.SERVICE_INSTANCE__ADDRESS:
+			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return getAddress();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -246,17 +245,17 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.SERVICE_INSTANCE__MESSAGES:
+			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				getMessages().addAll((Collection<? extends Message>)newValue);
 				return;
-			case ModelPackage.SERVICE_INSTANCE__CONTAINER:
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
 				setContainer((String)newValue);
 				return;
-			case ModelPackage.SERVICE_INSTANCE__ID:
+			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				setId((String)newValue);
 				return;
-			case ModelPackage.SERVICE_INSTANCE__ADDRESS:
+			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress((String)newValue);
 				return;
 		}
@@ -271,16 +270,16 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SERVICE_INSTANCE__MESSAGES:
+			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				return;
-			case ModelPackage.SERVICE_INSTANCE__CONTAINER:
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
 				setContainer(CONTAINER_EDEFAULT);
 				return;
-			case ModelPackage.SERVICE_INSTANCE__ID:
+			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				setId(ID_EDEFAULT);
 				return;
-			case ModelPackage.SERVICE_INSTANCE__ADDRESS:
+			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress(ADDRESS_EDEFAULT);
 				return;
 		}
@@ -295,13 +294,13 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SERVICE_INSTANCE__MESSAGES:
+			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return messages != null && !messages.isEmpty();
-			case ModelPackage.SERVICE_INSTANCE__CONTAINER:
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
 				return CONTAINER_EDEFAULT == null ? container != null : !CONTAINER_EDEFAULT.equals(container);
-			case ModelPackage.SERVICE_INSTANCE__ID:
+			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-			case ModelPackage.SERVICE_INSTANCE__ADDRESS:
+			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
 		}
 		return super.eIsSet(featureID);

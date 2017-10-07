@@ -9,15 +9,18 @@ import model.Application;
 import model.Service;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -90,7 +93,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 */
 	public List<Service> getServices() {
 		if (services == null) {
-			services = new EObjectEList<Service>(Service.class, this, ModelPackageImpl.APPLICATION__SERVICES);
+			services = new EObjectContainmentEList<Service>(Service.class, this, ModelPackageImpl.APPLICATION__SERVICES);
 		}
 		return services;
 	}
@@ -114,6 +117,20 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.APPLICATION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackageImpl.APPLICATION__SERVICES:
+				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

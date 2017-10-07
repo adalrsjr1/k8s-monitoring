@@ -67,13 +67,12 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ModelPackageImpl.CLUSTER: return createCluster();
-			case ModelPackageImpl.APPLICATION: return createApplication();
-			case ModelPackageImpl.SERVICE: return createService();
-			case ModelPackageImpl.AFFINITY: return createAffinity();
-			case ModelPackageImpl.SERVICE_REPLICA: return createServiceReplica();
-			case ModelPackageImpl.MESSAGE: return createMessage();
-			case ModelPackageImpl.HOST: return createHost();
+			case ModelPackageImpl.CLUSTER: return (EObject)createCluster();
+			case ModelPackageImpl.APPLICATION: return (EObject)createApplication();
+			case ModelPackageImpl.AFFINITY: return (EObject)createAffinity();
+			case ModelPackageImpl.SERVICE_INSTANCE: return (EObject)createServiceInstance();
+			case ModelPackageImpl.MESSAGE: return (EObject)createMessage();
+			case ModelPackageImpl.HOST: return (EObject)createHost();
 			case ModelPackageImpl.STRING_TO_LONG_MAP: return (EObject)createStringToLongMap();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -135,16 +134,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Service createService() {
-		ServiceImpl service = new ServiceImpl();
-		return service;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Affinity createAffinity() {
 		AffinityImpl affinity = new AffinityImpl();
 		return affinity;
@@ -155,9 +144,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica createServiceReplica() {
-		ServiceReplicaImpl serviceReplica = new ServiceReplicaImpl();
-		return serviceReplica;
+	public ServiceInstance createServiceInstance() {
+		ServiceInstanceImpl serviceInstance = new ServiceInstanceImpl();
+		return serviceInstance;
 	}
 
 	/**

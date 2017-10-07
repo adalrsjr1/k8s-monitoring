@@ -4,8 +4,6 @@ package model;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Application</b></em>'.
@@ -22,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="http://www.obeo.fr/dsl/dnc/archetype archetype='Role'"
  * @generated
  */
-public interface Application extends EObject {
+public interface Application {
 	/**
 	 * Returns the value of the '<em><b>Services</b></em>' containment reference list.
 	 * The list contents are of type {@link model.Service}.

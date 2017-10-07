@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import model.Host;
-import model.ServiceReplica;
+import model.ServiceInstance;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -41,7 +41,7 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ServiceReplica> services;
+	protected EList<ServiceInstance> services;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -87,9 +87,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<ServiceReplica> getServices() {
+	public List<ServiceInstance> getServices() {
 		if (services == null) {
-			services = new EObjectResolvingEList<ServiceReplica>(ServiceReplica.class, this, ModelPackageImpl.HOST__SERVICES);
+			services = new EObjectResolvingEList<ServiceInstance>(ServiceInstance.class, this, ModelPackageImpl.HOST__SERVICES);
 		}
 		return services;
 	}
@@ -142,7 +142,7 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 		switch (featureID) {
 			case ModelPackageImpl.HOST__SERVICES:
 				getServices().clear();
-				getServices().addAll((Collection<? extends ServiceReplica>)newValue);
+				getServices().addAll((Collection<? extends ServiceInstance>)newValue);
 				return;
 			case ModelPackageImpl.HOST__NAME:
 				setName((String)newValue);

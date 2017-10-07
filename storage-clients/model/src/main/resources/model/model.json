@@ -1,0 +1,44 @@
+[ {
+  "eClass" : "http://gfads.cin.ufpe.br/model#//Cluster",
+  "hosts" : [ {
+    "name" : "host1",
+    "metrics" : {
+      "cpu" : 90
+    },
+    "services" : [ {
+      "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+      "$ref" : "0123"
+    }, {
+      "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+      "$ref" : "0123"
+    } ]
+  } ]
+}, {
+  "eClass" : "http://gfads.cin.ufpe.br/model#//Application",
+  "name" : "Application1"
+}, {
+  "eClass" : "http://gfads.cin.ufpe.br/model#//Application",
+  "name" : "Application21"
+}, {
+  "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+  "name" : "service1",
+  "port" : 80,
+  "id" : "0123",
+  "address" : "1.1.1.1",
+  "messages" : [ {
+    "source" : {
+      "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+      "$ref" : "0123"
+    },
+    "destination" : {
+      "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+      "$ref" : "0123"
+    }
+  } ]
+}, {
+  "eClass" : "http://gfads.cin.ufpe.br/model#//ServiceInstance",
+  "name" : "service2",
+  "port" : 80,
+  "id" : "0123",
+  "address" : "0.0.0.0"
+} ]

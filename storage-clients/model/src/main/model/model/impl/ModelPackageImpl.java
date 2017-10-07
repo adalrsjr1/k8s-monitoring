@@ -13,7 +13,7 @@ import model.Host;
 import model.Message;
 import model.ModelFactory;
 import model.Service;
-import model.ServiceReplica;
+import model.ServiceInstance;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <ul>
  *   <li>each class,</li>
  *   <li>each feature of each class,</li>
+ *   <li>each operation of each class,</li>
  *   <li>each enum,</li>
  *   <li>and each data type</li>
  * </ul>
@@ -120,6 +121,24 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int CLUSTER_FEATURE_COUNT = 3;
 
 	/**
+	 * The operation id for the '<em>Move</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CLUSTER___MOVE__STRING_STRING_STRING = 0;
+
+	/**
+	 * The number of operations of the '<em>Cluster</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CLUSTER_OPERATION_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link model.impl.ApplicationImpl <em>Application</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -157,6 +176,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int APPLICATION_FEATURE_COUNT = 2;
 
 	/**
+	 * The number of operations of the '<em>Application</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int APPLICATION_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link model.impl.ElementWithResourcesImpl <em>Element With Resources</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -192,6 +220,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int ELEMENT_WITH_RESOURCES_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Element With Resources</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link model.impl.ServiceImpl <em>Service</em>}' class.
@@ -258,6 +295,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
 
 	/**
+	 * The number of operations of the '<em>Service</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_OPERATION_COUNT = ELEMENT_WITH_RESOURCES_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link model.impl.AffinityImpl <em>Affinity</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -295,14 +341,23 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int AFFINITY_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link model.impl.ServiceReplicaImpl <em>Service Replica</em>}' class.
+	 * The number of operations of the '<em>Affinity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see model.impl.ServiceReplicaImpl
-	 * @see model.impl.ModelPackageImpl#getServiceReplica()
+	 * @generated
+	 * @ordered
+	 */
+	public static final int AFFINITY_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link model.impl.ServiceInstanceImpl <em>Service Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see model.impl.ServiceInstanceImpl
+	 * @see model.impl.ModelPackageImpl#getServiceInstance()
 	 * @generated
 	 */
-	public static final int SERVICE_REPLICA = 4;
+	public static final int SERVICE_INSTANCE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
@@ -311,7 +366,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
+	public static final int SERVICE_INSTANCE__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' map.
@@ -320,7 +375,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__METRICS = SERVICE__METRICS;
+	public static final int SERVICE_INSTANCE__METRICS = SERVICE__METRICS;
 
 	/**
 	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
@@ -329,7 +384,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__HAS_AFFINITIES = SERVICE__HAS_AFFINITIES;
+	public static final int SERVICE_INSTANCE__HAS_AFFINITIES = SERVICE__HAS_AFFINITIES;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -338,7 +393,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__NAME = SERVICE__NAME;
+	public static final int SERVICE_INSTANCE__NAME = SERVICE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -347,7 +402,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__PORT = SERVICE__PORT;
+	public static final int SERVICE_INSTANCE__PORT = SERVICE__PORT;
 
 	/**
 	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
@@ -356,7 +411,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__MESSAGES = SERVICE_FEATURE_COUNT + 0;
+	public static final int SERVICE_INSTANCE__MESSAGES = SERVICE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
@@ -365,7 +420,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__CONTAINER = SERVICE_FEATURE_COUNT + 1;
+	public static final int SERVICE_INSTANCE__CONTAINER = SERVICE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -374,7 +429,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__ID = SERVICE_FEATURE_COUNT + 2;
+	public static final int SERVICE_INSTANCE__ID = SERVICE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Address</b></em>' attribute.
@@ -383,16 +438,25 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__ADDRESS = SERVICE_FEATURE_COUNT + 3;
+	public static final int SERVICE_INSTANCE__ADDRESS = SERVICE_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the '<em>Service Replica</em>' class.
+	 * The number of structural features of the '<em>Service Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 4;
+	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of operations of the '<em>Service Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE_OPERATION_COUNT = SERVICE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
@@ -477,6 +541,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE_FEATURE_COUNT = 7;
 
 	/**
+	 * The number of operations of the '<em>Message</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MESSAGE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link model.impl.HostImpl <em>Host</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -532,6 +605,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
 
 	/**
+	 * The number of operations of the '<em>Host</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HOST_OPERATION_COUNT = ELEMENT_WITH_RESOURCES_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link model.impl.StringToLongMapImpl <em>String To Long Map</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -567,6 +649,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int STRING_TO_LONG_MAP_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>String To Long Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int STRING_TO_LONG_MAP_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link model.Environment <em>Environment</em>}' enum.
@@ -611,7 +702,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass serviceReplicaEClass = null;
+	private EClass serviceInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -762,6 +853,18 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the '{@link model.Cluster#move(java.lang.String, java.lang.String, java.lang.String) <em>Move</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Move</em>' operation.
+	 * @see model.Cluster#move(java.lang.String, java.lang.String, java.lang.String)
+	 * @generated
+	 */
+	public EOperation getCluster__Move__String_String_String() {
+		return clusterEClass.getEOperations().get(0);
+	}
+
+	/**
 	 * Returns the meta object for class '{@link model.Application <em>Application</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -889,67 +992,67 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link model.ServiceReplica <em>Service Replica</em>}'.
+	 * Returns the meta object for class '{@link model.ServiceInstance <em>Service Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Service Replica</em>'.
-	 * @see model.ServiceReplica
+	 * @return the meta object for class '<em>Service Instance</em>'.
+	 * @see model.ServiceInstance
 	 * @generated
 	 */
-	public EClass getServiceReplica() {
-		return serviceReplicaEClass;
+	public EClass getServiceInstance() {
+		return serviceInstanceEClass;
 	}
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link model.ServiceReplica#getMessages <em>Messages</em>}'.
+	 * Returns the meta object for the containment reference list '{@link model.ServiceInstance#getMessages <em>Messages</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Messages</em>'.
-	 * @see model.ServiceReplica#getMessages()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getMessages()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	public EReference getServiceReplica_Messages() {
-		return (EReference)serviceReplicaEClass.getEStructuralFeatures().get(0);
+	public EReference getServiceInstance_Messages() {
+		return (EReference)serviceInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getContainer <em>Container</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getContainer <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Container</em>'.
-	 * @see model.ServiceReplica#getContainer()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getContainer()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Container() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(1);
+	public EAttribute getServiceInstance_Container() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see model.ServiceReplica#getId()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getId()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Id() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(2);
+	public EAttribute getServiceInstance_Id() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getAddress <em>Address</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getAddress <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Address</em>'.
-	 * @see model.ServiceReplica#getAddress()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getAddress()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Address() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(3);
+	public EAttribute getServiceInstance_Address() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1217,6 +1320,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(clusterEClass, CLUSTER__APPLICATIONS);
 		createEReference(clusterEClass, CLUSTER__HOSTS);
 		createEAttribute(clusterEClass, CLUSTER__ENVIRONMENT);
+		createEOperation(clusterEClass, CLUSTER___MOVE__STRING_STRING_STRING);
 
 		applicationEClass = createEClass(APPLICATION);
 		createEReference(applicationEClass, APPLICATION__SERVICES);
@@ -1231,11 +1335,11 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(affinityEClass, AFFINITY__WITH);
 		createEAttribute(affinityEClass, AFFINITY__DEGREE);
 
-		serviceReplicaEClass = createEClass(SERVICE_REPLICA);
-		createEReference(serviceReplicaEClass, SERVICE_REPLICA__MESSAGES);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__CONTAINER);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ID);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ADDRESS);
+		serviceInstanceEClass = createEClass(SERVICE_INSTANCE);
+		createEReference(serviceInstanceEClass, SERVICE_INSTANCE__MESSAGES);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__CONTAINER);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ID);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ADDRESS);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
@@ -1291,16 +1395,16 @@ public class ModelPackageImpl extends EPackageImpl {
 
 		// Add supertypes to classes
 		serviceEClass.getESuperTypes().add(this.getElementWithResources());
-		serviceReplicaEClass.getESuperTypes().add(this.getService());
+		serviceInstanceEClass.getESuperTypes().add(this.getService());
 		hostEClass.getESuperTypes().add(this.getElementWithResources());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(clusterEClass, Cluster.class, "Cluster", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCluster_Applications(), this.getApplication(), null, "applications", null, 0, -1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCluster_Hosts(), this.getHost(), null, "hosts", null, 0, -1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCluster_Environment(), this.getEnvironment(), "environment", null, 0, 1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = addEOperation(clusterEClass, null, "move", 0, 1, IS_UNIQUE, IS_ORDERED);
+		EOperation op = initEOperation(getCluster__Move__String_String_String(), null, "move", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "application", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "serviceId", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "destinationHost", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1309,7 +1413,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getApplication_Services(), this.getService(), null, "services", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_Name(), ecorePackage.getEString(), "name", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(serviceEClass, Service.class, "Service", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(serviceEClass, Service.class, "Service", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getService_HasAffinities(), this.getAffinity(), null, "hasAffinities", null, 0, -1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getService_Name(), ecorePackage.getEString(), "name", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getService_Port(), ecorePackage.getEIntegerObject(), "port", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1318,23 +1422,23 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getAffinity_With(), this.getService(), null, "with", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAffinity_Degree(), ecorePackage.getEFloatObject(), "degree", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(serviceReplicaEClass, ServiceReplica.class, "ServiceReplica", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getServiceReplica_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Container(), ecorePackage.getEString(), "container", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(serviceInstanceEClass, ServiceInstance.class, "ServiceInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getServiceInstance_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Container(), ecorePackage.getEString(), "container", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getMessage_Source(), this.getServiceReplica(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMessage_Destination(), this.getServiceReplica(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMessage_Source(), this.getServiceInstance(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMessage_Destination(), this.getServiceInstance(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Name(), ecorePackage.getEString(), "name", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_AvgResponseTime(), ecorePackage.getELongObject(), "avgResponseTime", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_AvgSize(), ecorePackage.getELongObject(), "avgSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Timestamp(), ecorePackage.getELongObject(), "timestamp", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hostEClass, Host.class, "Host", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getHost_Services(), this.getServiceReplica(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHost_Services(), this.getServiceInstance(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_Name(), ecorePackage.getEString(), "name", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToLongMapEClass, Map.Entry.class, "StringToLongMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1380,6 +1484,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <ul>
 	 *   <li>each class,</li>
 	 *   <li>each feature of each class,</li>
+	 *   <li>each operation of each class,</li>
 	 *   <li>each enum,</li>
 	 *   <li>and each data type</li>
 	 * </ul>
@@ -1420,6 +1525,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute CLUSTER__ENVIRONMENT = eINSTANCE.getCluster_Environment();
+
+		/**
+		 * The meta object literal for the '<em><b>Move</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EOperation CLUSTER___MOVE__STRING_STRING_STRING = eINSTANCE.getCluster__Move__String_String_String();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.ApplicationImpl <em>Application</em>}' class.
@@ -1508,14 +1621,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EAttribute AFFINITY__DEGREE = eINSTANCE.getAffinity_Degree();
 
 		/**
-		 * The meta object literal for the '{@link model.impl.ServiceReplicaImpl <em>Service Replica</em>}' class.
+		 * The meta object literal for the '{@link model.impl.ServiceInstanceImpl <em>Service Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see model.impl.ServiceReplicaImpl
-		 * @see model.impl.ModelPackageImpl#getServiceReplica()
+		 * @see model.impl.ServiceInstanceImpl
+		 * @see model.impl.ModelPackageImpl#getServiceInstance()
 		 * @generated
 		 */
-		public static final EClass SERVICE_REPLICA = eINSTANCE.getServiceReplica();
+		public static final EClass SERVICE_INSTANCE = eINSTANCE.getServiceInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Messages</b></em>' containment reference list feature.
@@ -1523,7 +1636,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EReference SERVICE_REPLICA__MESSAGES = eINSTANCE.getServiceReplica_Messages();
+		public static final EReference SERVICE_INSTANCE__MESSAGES = eINSTANCE.getServiceInstance_Messages();
 
 		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.
@@ -1531,7 +1644,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute SERVICE_REPLICA__CONTAINER = eINSTANCE.getServiceReplica_Container();
+		public static final EAttribute SERVICE_INSTANCE__CONTAINER = eINSTANCE.getServiceInstance_Container();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -1539,7 +1652,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute SERVICE_REPLICA__ID = eINSTANCE.getServiceReplica_Id();
+		public static final EAttribute SERVICE_INSTANCE__ID = eINSTANCE.getServiceInstance_Id();
 
 		/**
 		 * The meta object literal for the '<em><b>Address</b></em>' attribute feature.
@@ -1547,7 +1660,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute SERVICE_REPLICA__ADDRESS = eINSTANCE.getServiceReplica_Address();
+		public static final EAttribute SERVICE_INSTANCE__ADDRESS = eINSTANCE.getServiceInstance_Address();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.

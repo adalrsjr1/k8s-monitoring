@@ -6,14 +6,18 @@ import java.util.Map;
 
 import model.ElementWithResources;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -91,6 +95,22 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 			metrics = new EcoreEMap<String,Long>(ModelPackageImpl.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS);
 		}
 		return metrics.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap()).basicRemove(otherEnd, msgs);
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Long>)getMetrics()).eMap()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

@@ -8,6 +8,7 @@ import model.Service;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -83,7 +84,7 @@ public class AffinityImpl extends MinimalEObjectImpl.Container implements Affini
 	 * @generated
 	 */
 	public Service getWith() {
-		if (with != null && with.eIsProxy()) {
+		if (with != null && ((EObject)with).eIsProxy()) {
 			InternalEObject oldWith = (InternalEObject)with;
 			with = (Service)eResolveProxy(oldWith);
 			if (with != oldWith) {

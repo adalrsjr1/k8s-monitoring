@@ -2,6 +2,8 @@
  */
 package model.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -9,16 +11,20 @@ import model.Application;
 import model.Cluster;
 import model.Environment;
 import model.Host;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,7 +108,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 */
 	public List<Application> getApplications() {
 		if (applications == null) {
-			applications = new EObjectEList<Application>(Application.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
+			applications = new EObjectContainmentEList<Application>(Application.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
 		}
 		return applications;
 	}
@@ -114,7 +120,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 */
 	public List<Host> getHosts() {
 		if (hosts == null) {
-			hosts = new EObjectEList<Host>(Host.class, this, ModelPackageImpl.CLUSTER__HOSTS);
+			hosts = new EObjectContainmentEList<Host>(Host.class, this, ModelPackageImpl.CLUSTER__HOSTS);
 		}
 		return hosts;
 	}
@@ -149,6 +155,22 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				return ((InternalEList<?>)getApplications()).basicRemove(otherEnd, msgs);
+			case ModelPackageImpl.CLUSTER__HOSTS:
+				return ((InternalEList<?>)getHosts()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -230,6 +252,21 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 				return environment != ENVIRONMENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case ModelPackageImpl.CLUSTER___MOVE__STRING_STRING_STRING:
+				move((String)arguments.get(0), (String)arguments.get(1), (String)arguments.get(2));
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**

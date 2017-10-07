@@ -10,7 +10,7 @@
       <!-- @generated model -->
       <package
             uri="http://gfads.cin.ufpe.br/model"
-            class="model.ModelPackage"
+            class="model.impl.ModelPackageImpl"
             genModel="src/main/resources/model/model.genmodel"/>
    </extension>
 

@@ -18,7 +18,7 @@ import java.util.List;
  *   <li>{@link model.Service#getPort <em>Port</em>}</li>
  * </ul>
  *
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Service extends ElementWithResources {
