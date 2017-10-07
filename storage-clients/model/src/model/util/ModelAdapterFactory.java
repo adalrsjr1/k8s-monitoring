@@ -86,8 +86,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createAffinityAdapter();
 			}
 			@Override
-			public Adapter caseServiceReplica(ServiceReplica object) {
-				return createServiceReplicaAdapter();
+			public Adapter caseServiceInstance(ServiceInstance object) {
+				return createServiceInstanceAdapter();
 			}
 			@Override
 			public Adapter caseMessage(Message object) {
@@ -182,16 +182,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link model.ServiceReplica <em>Service Replica</em>}'.
+	 * Creates a new adapter for an object of class '{@link model.ServiceInstance <em>Service Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see model.ServiceReplica
+	 * @see model.ServiceInstance
 	 * @generated
 	 */
-	public Adapter createServiceReplicaAdapter() {
+	public Adapter createServiceInstanceAdapter() {
 		return null;
 	}
 

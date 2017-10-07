@@ -62,7 +62,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.CLUSTER: return createCluster();
 			case ModelPackage.APPLICATION: return createApplication();
 			case ModelPackage.AFFINITY: return createAffinity();
-			case ModelPackage.SERVICE_REPLICA: return createServiceReplica();
+			case ModelPackage.SERVICE_INSTANCE: return createServiceInstance();
 			case ModelPackage.MESSAGE: return createMessage();
 			case ModelPackage.HOST: return createHost();
 			case ModelPackage.STRING_TO_LONG_MAP: return (EObject)createStringToLongMap();
@@ -136,9 +136,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica createServiceReplica() {
-		ServiceReplicaImpl serviceReplica = new ServiceReplicaImpl();
-		return serviceReplica;
+	public ServiceInstance createServiceInstance() {
+		ServiceInstanceImpl serviceInstance = new ServiceInstanceImpl();
+		return serviceInstance;
 	}
 
 	/**

@@ -24,7 +24,7 @@ import java.util.List;
 public interface Host extends ElementWithResources {
 	/**
 	 * Returns the value of the '<em><b>Services</b></em>' reference list.
-	 * The list contents are of type {@link model.ServiceReplica}.
+	 * The list contents are of type {@link model.ServiceInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Services</em>' reference list isn't clear,
@@ -36,7 +36,7 @@ public interface Host extends ElementWithResources {
 	 * @model
 	 * @generated
 	 */
-	List<ServiceReplica> getServices();
+	List<ServiceInstance> getServices();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

@@ -334,14 +334,14 @@ public interface ModelPackage extends EPackage {
 	int AFFINITY_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link model.impl.ServiceReplicaImpl <em>Service Replica</em>}' class.
+	 * The meta object id for the '{@link model.impl.ServiceInstanceImpl <em>Service Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see model.impl.ServiceReplicaImpl
-	 * @see model.impl.ModelPackageImpl#getServiceReplica()
+	 * @see model.impl.ServiceInstanceImpl
+	 * @see model.impl.ModelPackageImpl#getServiceInstance()
 	 * @generated
 	 */
-	int SERVICE_REPLICA = 4;
+	int SERVICE_INSTANCE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
@@ -350,7 +350,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
+	int SERVICE_INSTANCE__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' map.
@@ -359,7 +359,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__METRICS = SERVICE__METRICS;
+	int SERVICE_INSTANCE__METRICS = SERVICE__METRICS;
 
 	/**
 	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
@@ -368,7 +368,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__HAS_AFFINITIES = SERVICE__HAS_AFFINITIES;
+	int SERVICE_INSTANCE__HAS_AFFINITIES = SERVICE__HAS_AFFINITIES;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -377,7 +377,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__NAME = SERVICE__NAME;
+	int SERVICE_INSTANCE__NAME = SERVICE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -386,7 +386,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__PORT = SERVICE__PORT;
+	int SERVICE_INSTANCE__PORT = SERVICE__PORT;
 
 	/**
 	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
@@ -395,7 +395,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__MESSAGES = SERVICE_FEATURE_COUNT + 0;
+	int SERVICE_INSTANCE__MESSAGES = SERVICE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
@@ -404,7 +404,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__CONTAINER = SERVICE_FEATURE_COUNT + 1;
+	int SERVICE_INSTANCE__CONTAINER = SERVICE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -413,7 +413,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__ID = SERVICE_FEATURE_COUNT + 2;
+	int SERVICE_INSTANCE__ID = SERVICE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Address</b></em>' attribute.
@@ -422,25 +422,25 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA__ADDRESS = SERVICE_FEATURE_COUNT + 3;
+	int SERVICE_INSTANCE__ADDRESS = SERVICE_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the '<em>Service Replica</em>' class.
+	 * The number of structural features of the '<em>Service Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 4;
+	int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of operations of the '<em>Service Replica</em>' class.
+	 * The number of operations of the '<em>Service Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REPLICA_OPERATION_COUNT = SERVICE_OPERATION_COUNT + 0;
+	int SERVICE_INSTANCE_OPERATION_COUNT = SERVICE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
@@ -815,58 +815,58 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAffinity_Degree();
 
 	/**
-	 * Returns the meta object for class '{@link model.ServiceReplica <em>Service Replica</em>}'.
+	 * Returns the meta object for class '{@link model.ServiceInstance <em>Service Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Service Replica</em>'.
-	 * @see model.ServiceReplica
+	 * @return the meta object for class '<em>Service Instance</em>'.
+	 * @see model.ServiceInstance
 	 * @generated
 	 */
-	EClass getServiceReplica();
+	EClass getServiceInstance();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link model.ServiceReplica#getMessages <em>Messages</em>}'.
+	 * Returns the meta object for the containment reference list '{@link model.ServiceInstance#getMessages <em>Messages</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Messages</em>'.
-	 * @see model.ServiceReplica#getMessages()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getMessages()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	EReference getServiceReplica_Messages();
+	EReference getServiceInstance_Messages();
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getContainer <em>Container</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getContainer <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Container</em>'.
-	 * @see model.ServiceReplica#getContainer()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getContainer()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	EAttribute getServiceReplica_Container();
+	EAttribute getServiceInstance_Container();
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see model.ServiceReplica#getId()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getId()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	EAttribute getServiceReplica_Id();
+	EAttribute getServiceInstance_Id();
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getAddress <em>Address</em>}'.
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getAddress <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Address</em>'.
-	 * @see model.ServiceReplica#getAddress()
-	 * @see #getServiceReplica()
+	 * @see model.ServiceInstance#getAddress()
+	 * @see #getServiceInstance()
 	 * @generated
 	 */
-	EAttribute getServiceReplica_Address();
+	EAttribute getServiceInstance_Address();
 
 	/**
 	 * Returns the meta object for class '{@link model.Message <em>Message</em>}'.
@@ -1215,14 +1215,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute AFFINITY__DEGREE = eINSTANCE.getAffinity_Degree();
 
 		/**
-		 * The meta object literal for the '{@link model.impl.ServiceReplicaImpl <em>Service Replica</em>}' class.
+		 * The meta object literal for the '{@link model.impl.ServiceInstanceImpl <em>Service Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see model.impl.ServiceReplicaImpl
-		 * @see model.impl.ModelPackageImpl#getServiceReplica()
+		 * @see model.impl.ServiceInstanceImpl
+		 * @see model.impl.ModelPackageImpl#getServiceInstance()
 		 * @generated
 		 */
-		EClass SERVICE_REPLICA = eINSTANCE.getServiceReplica();
+		EClass SERVICE_INSTANCE = eINSTANCE.getServiceInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Messages</b></em>' containment reference list feature.
@@ -1230,7 +1230,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SERVICE_REPLICA__MESSAGES = eINSTANCE.getServiceReplica_Messages();
+		EReference SERVICE_INSTANCE__MESSAGES = eINSTANCE.getServiceInstance_Messages();
 
 		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.
@@ -1238,7 +1238,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SERVICE_REPLICA__CONTAINER = eINSTANCE.getServiceReplica_Container();
+		EAttribute SERVICE_INSTANCE__CONTAINER = eINSTANCE.getServiceInstance_Container();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -1246,7 +1246,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SERVICE_REPLICA__ID = eINSTANCE.getServiceReplica_Id();
+		EAttribute SERVICE_INSTANCE__ID = eINSTANCE.getServiceInstance_Id();
 
 		/**
 		 * The meta object literal for the '<em><b>Address</b></em>' attribute feature.
@@ -1254,7 +1254,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SERVICE_REPLICA__ADDRESS = eINSTANCE.getServiceReplica_Address();
+		EAttribute SERVICE_INSTANCE__ADDRESS = eINSTANCE.getServiceInstance_Address();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.

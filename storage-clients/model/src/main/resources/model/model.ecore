@@ -31,7 +31,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="with" eType="#//Service"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="degree" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ServiceReplica" eSuperTypes="#//Service">
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceInstance" eSuperTypes="#//Service">
     <eStructuralFeatures xsi:type="ecore:EReference" name="messages" upperBound="-1"
         eType="#//Message" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -40,17 +40,18 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Message">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ServiceReplica"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" eType="#//ServiceReplica"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ServiceInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" eType="#//ServiceInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="avgResponseTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="avgSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Host" eSuperTypes="#//ElementWithResources">
     <eStructuralFeatures xsi:type="ecore:EReference" name="services" upperBound="-1"
-        eType="#//ServiceReplica"/>
+        eType="#//ServiceInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringToLongMap" instanceClassName="java.util.Map$Entry">

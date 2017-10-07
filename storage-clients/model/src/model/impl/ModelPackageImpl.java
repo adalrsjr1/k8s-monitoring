@@ -14,8 +14,7 @@ import model.Message;
 import model.ModelFactory;
 import model.ModelPackage;
 import model.Service;
-import model.ServiceReplica;
-
+import model.ServiceInstance;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -65,7 +64,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass serviceReplicaEClass = null;
+	private EClass serviceInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -303,8 +302,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getServiceReplica() {
-		return serviceReplicaEClass;
+	public EClass getServiceInstance() {
+		return serviceInstanceEClass;
 	}
 
 	/**
@@ -312,8 +311,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getServiceReplica_Messages() {
-		return (EReference)serviceReplicaEClass.getEStructuralFeatures().get(0);
+	public EReference getServiceInstance_Messages() {
+		return (EReference)serviceInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -321,8 +320,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Container() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(1);
+	public EAttribute getServiceInstance_Container() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -330,8 +329,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Id() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(2);
+	public EAttribute getServiceInstance_Id() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -339,8 +338,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getServiceReplica_Address() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(3);
+	public EAttribute getServiceInstance_Address() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -552,11 +551,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(affinityEClass, AFFINITY__WITH);
 		createEAttribute(affinityEClass, AFFINITY__DEGREE);
 
-		serviceReplicaEClass = createEClass(SERVICE_REPLICA);
-		createEReference(serviceReplicaEClass, SERVICE_REPLICA__MESSAGES);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__CONTAINER);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ID);
-		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ADDRESS);
+		serviceInstanceEClass = createEClass(SERVICE_INSTANCE);
+		createEReference(serviceInstanceEClass, SERVICE_INSTANCE__MESSAGES);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__CONTAINER);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ID);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ADDRESS);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
@@ -612,7 +611,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Add supertypes to classes
 		serviceEClass.getESuperTypes().add(this.getElementWithResources());
-		serviceReplicaEClass.getESuperTypes().add(this.getService());
+		serviceInstanceEClass.getESuperTypes().add(this.getService());
 		hostEClass.getESuperTypes().add(this.getElementWithResources());
 
 		// Initialize classes, features, and operations; add parameters
@@ -639,23 +638,23 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getAffinity_With(), this.getService(), null, "with", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAffinity_Degree(), ecorePackage.getEFloatObject(), "degree", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(serviceReplicaEClass, ServiceReplica.class, "ServiceReplica", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getServiceReplica_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Container(), ecorePackage.getEString(), "container", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceReplica_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(serviceInstanceEClass, ServiceInstance.class, "ServiceInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getServiceInstance_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Container(), ecorePackage.getEString(), "container", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getMessage_Source(), this.getServiceReplica(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMessage_Destination(), this.getServiceReplica(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMessage_Source(), this.getServiceInstance(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMessage_Destination(), this.getServiceInstance(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Name(), ecorePackage.getEString(), "name", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_AvgResponseTime(), ecorePackage.getELongObject(), "avgResponseTime", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_AvgSize(), ecorePackage.getELongObject(), "avgSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Timestamp(), ecorePackage.getELongObject(), "timestamp", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hostEClass, Host.class, "Host", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getHost_Services(), this.getServiceReplica(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHost_Services(), this.getServiceInstance(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_Name(), ecorePackage.getEString(), "name", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToLongMapEClass, Map.Entry.class, "StringToLongMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);

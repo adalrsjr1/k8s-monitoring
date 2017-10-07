@@ -4,8 +4,7 @@ package model.impl;
 
 import model.Message;
 import model.ModelPackage;
-import model.ServiceReplica;
-
+import model.ServiceInstance;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -42,7 +41,7 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * @generated
 	 * @ordered
 	 */
-	protected ServiceReplica source;
+	protected ServiceInstance source;
 
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
@@ -52,7 +51,7 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * @generated
 	 * @ordered
 	 */
-	protected ServiceReplica destination;
+	protected ServiceInstance destination;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -178,10 +177,10 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica getSource() {
+	public ServiceInstance getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
-			source = (ServiceReplica)eResolveProxy(oldSource);
+			source = (ServiceInstance)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.MESSAGE__SOURCE, oldSource, source));
@@ -195,7 +194,7 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica basicGetSource() {
+	public ServiceInstance basicGetSource() {
 		return source;
 	}
 
@@ -204,8 +203,8 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(ServiceReplica newSource) {
-		ServiceReplica oldSource = source;
+	public void setSource(ServiceInstance newSource) {
+		ServiceInstance oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.MESSAGE__SOURCE, oldSource, source));
@@ -216,10 +215,10 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica getDestination() {
+	public ServiceInstance getDestination() {
 		if (destination != null && destination.eIsProxy()) {
 			InternalEObject oldDestination = (InternalEObject)destination;
-			destination = (ServiceReplica)eResolveProxy(oldDestination);
+			destination = (ServiceInstance)eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.MESSAGE__DESTINATION, oldDestination, destination));
@@ -233,7 +232,7 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceReplica basicGetDestination() {
+	public ServiceInstance basicGetDestination() {
 		return destination;
 	}
 
@@ -242,8 +241,8 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDestination(ServiceReplica newDestination) {
-		ServiceReplica oldDestination = destination;
+	public void setDestination(ServiceInstance newDestination) {
+		ServiceInstance oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.MESSAGE__DESTINATION, oldDestination, destination));
@@ -391,10 +390,10 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.MESSAGE__SOURCE:
-				setSource((ServiceReplica)newValue);
+				setSource((ServiceInstance)newValue);
 				return;
 			case ModelPackage.MESSAGE__DESTINATION:
-				setDestination((ServiceReplica)newValue);
+				setDestination((ServiceInstance)newValue);
 				return;
 			case ModelPackage.MESSAGE__NAME:
 				setName((String)newValue);
@@ -424,10 +423,10 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ModelPackage.MESSAGE__SOURCE:
-				setSource((ServiceReplica)null);
+				setSource((ServiceInstance)null);
 				return;
 			case ModelPackage.MESSAGE__DESTINATION:
-				setDestination((ServiceReplica)null);
+				setDestination((ServiceInstance)null);
 				return;
 			case ModelPackage.MESSAGE__NAME:
 				setName(NAME_EDEFAULT);

@@ -36,12 +36,12 @@ public interface Message extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(ServiceReplica)
+	 * @see #setSource(ServiceInstance)
 	 * @see model.ModelPackage#getMessage_Source()
 	 * @model
 	 * @generated
 	 */
-	ServiceReplica getSource();
+	ServiceInstance getSource();
 
 	/**
 	 * Sets the value of the '{@link model.Message#getSource <em>Source</em>}' reference.
@@ -51,7 +51,7 @@ public interface Message extends EObject {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(ServiceReplica value);
+	void setSource(ServiceInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Destination</b></em>' reference.
@@ -62,12 +62,12 @@ public interface Message extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination</em>' reference.
-	 * @see #setDestination(ServiceReplica)
+	 * @see #setDestination(ServiceInstance)
 	 * @see model.ModelPackage#getMessage_Destination()
 	 * @model
 	 * @generated
 	 */
-	ServiceReplica getDestination();
+	ServiceInstance getDestination();
 
 	/**
 	 * Sets the value of the '{@link model.Message#getDestination <em>Destination</em>}' reference.
@@ -77,7 +77,7 @@ public interface Message extends EObject {
 	 * @see #getDestination()
 	 * @generated
 	 */
-	void setDestination(ServiceReplica value);
+	void setDestination(ServiceInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -194,7 +194,7 @@ public interface Message extends EObject {
 	 * @return the value of the '<em>Uid</em>' attribute.
 	 * @see #setUid(String)
 	 * @see model.ModelPackage#getMessage_Uid()
-	 * @model
+	 * @model id="true"
 	 * @generated
 	 */
 	String getUid();
