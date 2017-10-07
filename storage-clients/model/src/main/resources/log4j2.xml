@@ -10,11 +10,11 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<!-- additivity attribute allows show message in ROOT logger -->
-		<Root level="TRACE">
+		<!-- additivity attribute might duplicate the messages logged -->
+		<Root level="ALL" additivity="false">
 			<AppenderRef ref="Console"/>
 		</Root>
-		<Logger name="cas.ibm.ubc.ca" level="ALL">
+		<Logger name="cas.ibm.ubc.ca" level="ALL" additivity="false">
 			<AppenderRef ref="Console"/>
 		</Logger>
 	</Loggers>

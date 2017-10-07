@@ -123,13 +123,13 @@ class HelloWorld {
 		resource.getContents().add(service1)
 		resource.getContents().add(service2)
 
-		// now save the content.
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		// now save the content.
+//		try {
+//			resource.save(Collections.EMPTY_MAP);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		ClusterAdapter.move(cluster, "application1", "service1", "host1")
 	}

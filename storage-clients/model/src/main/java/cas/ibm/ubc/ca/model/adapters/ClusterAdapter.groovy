@@ -15,7 +15,7 @@ abstract class ClusterAdapter {
 	private static final Logger LOG = LoggerFactory.getLogger(ClusterAdapter.class)
 	
 	public static void move(Cluster cluster, String application, String serviceId, String destinationHost) {
-		
+		environmentStub()	
 	}
 	
 	public static boolean environmentStub() {
