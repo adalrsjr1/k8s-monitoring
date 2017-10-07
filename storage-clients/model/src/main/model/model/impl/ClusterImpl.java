@@ -4,18 +4,18 @@ package model.impl;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import model.Application;
 import model.Cluster;
-import model.ElementWithResources;
+import model.Environment;
 import model.Host;
-import model.ServiceReplica;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectEList;
@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.EObjectEList;
  * <ul>
  *   <li>{@link model.impl.ClusterImpl#getApplications <em>Applications</em>}</li>
  *   <li>{@link model.impl.ClusterImpl#getHosts <em>Hosts</em>}</li>
+ *   <li>{@link model.impl.ClusterImpl#getEnvironment <em>Environment</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +55,26 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * @ordered
 	 */
 	protected EList<Host> hosts;
+
+	/**
+	 * The default value of the '{@link #getEnvironment() <em>Environment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnvironment()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Environment ENVIRONMENT_EDEFAULT = Environment.KUBERNETES;
+
+	/**
+	 * The cached value of the '{@link #getEnvironment() <em>Environment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnvironment()
+	 * @generated
+	 * @ordered
+	 */
+	protected Environment environment = ENVIRONMENT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,10 +124,8 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void move(ServiceReplica service, Host destination) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public Environment getEnvironment() {
+		return environment;
 	}
 
 	/**
@@ -114,10 +133,11 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void exchange(ServiceReplica serviceA, ServiceReplica serviceB) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setEnvironment(Environment newEnvironment) {
+		Environment oldEnvironment = environment;
+		environment = newEnvironment == null ? ENVIRONMENT_EDEFAULT : newEnvironment;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.CLUSTER__ENVIRONMENT, oldEnvironment, environment));
 	}
 
 	/**
@@ -125,29 +145,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void provision(String name, Map resources) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void remove(String name) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void updateResources(ElementWithResources element, Map resources) {
+	public void move(String application, String serviceId, String destinationHost) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
@@ -165,6 +163,8 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 				return getApplications();
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				return getHosts();
+			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
+				return getEnvironment();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,6 +186,9 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 				getHosts().clear();
 				getHosts().addAll((Collection<? extends Host>)newValue);
 				return;
+			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
+				setEnvironment((Environment)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -204,6 +207,9 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				getHosts().clear();
 				return;
+			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
+				setEnvironment(ENVIRONMENT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -220,8 +226,26 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 				return applications != null && !applications.isEmpty();
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				return hosts != null && !hosts.isEmpty();
+			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
+				return environment != ENVIRONMENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (environment: ");
+		result.append(environment);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ClusterImpl

@@ -4,7 +4,6 @@ package model.impl;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import model.Host;
 import model.ServiceReplica;
@@ -12,15 +11,12 @@ import model.ServiceReplica;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreEMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +27,6 @@ import org.eclipse.emf.ecore.util.EcoreEMap;
  * </p>
  * <ul>
  *   <li>{@link model.impl.HostImpl#getServices <em>Services</em>}</li>
- *   <li>{@link model.impl.HostImpl#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link model.impl.HostImpl#getName <em>Name</em>}</li>
  * </ul>
  *
@@ -47,16 +42,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * @ordered
 	 */
 	protected EList<ServiceReplica> services;
-
-	/**
-	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetrics()
-	 * @generated
-	 * @ordered
-	 */
-	protected EMap<String, Long> metrics;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -114,18 +99,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map<String, Long> getMetrics() {
-		if (metrics == null) {
-			metrics = new EcoreEMap<String,Long>(ModelPackageImpl.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, ModelPackageImpl.HOST__METRICS);
-		}
-		return metrics.map();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getName() {
 		return name;
 	}
@@ -152,9 +125,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 		switch (featureID) {
 			case ModelPackageImpl.HOST__SERVICES:
 				return getServices();
-			case ModelPackageImpl.HOST__METRICS:
-				if (coreType) return ((EMap.InternalMapView<String, Long>)getMetrics()).eMap();
-				else return getMetrics();
 			case ModelPackageImpl.HOST__NAME:
 				return getName();
 		}
@@ -174,9 +144,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				getServices().clear();
 				getServices().addAll((Collection<? extends ServiceReplica>)newValue);
 				return;
-			case ModelPackageImpl.HOST__METRICS:
-				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Long>)getMetrics()).eMap()).set(newValue);
-				return;
 			case ModelPackageImpl.HOST__NAME:
 				setName((String)newValue);
 				return;
@@ -195,9 +162,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 			case ModelPackageImpl.HOST__SERVICES:
 				getServices().clear();
 				return;
-			case ModelPackageImpl.HOST__METRICS:
-				getMetrics().clear();
-				return;
 			case ModelPackageImpl.HOST__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -215,8 +179,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 		switch (featureID) {
 			case ModelPackageImpl.HOST__SERVICES:
 				return services != null && !services.isEmpty();
-			case ModelPackageImpl.HOST__METRICS:
-				return metrics != null && !metrics.isEmpty();
 			case ModelPackageImpl.HOST__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}

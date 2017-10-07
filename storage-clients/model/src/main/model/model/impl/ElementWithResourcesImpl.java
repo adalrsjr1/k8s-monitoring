@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.EcoreEMap;
  * </p>
  * <ul>
  *   <li>{@link model.impl.ElementWithResourcesImpl#getResourceLimit <em>Resource Limit</em>}</li>
+ *   <li>{@link model.impl.ElementWithResourcesImpl#getMetrics <em>Metrics</em>}</li>
  * </ul>
  *
  * @generated
@@ -38,6 +39,16 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * @ordered
 	 */
 	protected EMap<String, Long> resourceLimit;
+
+	/**
+	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetrics()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, Long> metrics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,12 +86,27 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Map<String, Long> getMetrics() {
+		if (metrics == null) {
+			metrics = new EcoreEMap<String,Long>(ModelPackageImpl.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS);
+		}
+		return metrics.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
 				if (coreType) return ((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap();
 				else return getResourceLimit();
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
+				if (coreType) return ((EMap.InternalMapView<String, Long>)getMetrics()).eMap();
+				else return getMetrics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -95,6 +121,9 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap()).set(newValue);
+				return;
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Long>)getMetrics()).eMap()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -111,6 +140,9 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
 				getResourceLimit().clear();
 				return;
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
+				getMetrics().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -125,6 +157,8 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
 				return resourceLimit != null && !resourceLimit.isEmpty();
+			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
+				return metrics != null && !metrics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

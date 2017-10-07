@@ -9,8 +9,8 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated model -->
       <package
-            uri="http://www.example.org/model"
-            class="model.impl.ModelPackageImpl"
+            uri="http://gfads.cin.ufpe.br/model"
+            class="model.ModelPackage"
             genModel="src/main/resources/model/model.genmodel"/>
    </extension>
 

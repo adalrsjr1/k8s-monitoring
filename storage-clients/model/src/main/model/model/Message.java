@@ -16,9 +16,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link model.Message#getSource <em>Source</em>}</li>
  *   <li>{@link model.Message#getDestination <em>Destination</em>}</li>
  *   <li>{@link model.Message#getName <em>Name</em>}</li>
- *   <li>{@link model.Message#getResponseTime <em>Response Time</em>}</li>
- *   <li>{@link model.Message#getMessageSize <em>Message Size</em>}</li>
+ *   <li>{@link model.Message#getAvgResponseTime <em>Avg Response Time</em>}</li>
+ *   <li>{@link model.Message#getAvgSize <em>Avg Size</em>}</li>
  *   <li>{@link model.Message#getTimestamp <em>Timestamp</em>}</li>
+ *   <li>{@link model.Message#getUid <em>Uid</em>}</li>
  * </ul>
  *
  * @model
@@ -101,54 +102,54 @@ public interface Message extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Response Time</b></em>' attribute.
+	 * Returns the value of the '<em><b>Avg Response Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Response Time</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Avg Response Time</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Response Time</em>' attribute.
-	 * @see #setResponseTime(Long)
+	 * @return the value of the '<em>Avg Response Time</em>' attribute.
+	 * @see #setAvgResponseTime(Long)
 	 * @model
 	 * @generated
 	 */
-	Long getResponseTime();
+	Long getAvgResponseTime();
 
 	/**
-	 * Sets the value of the '{@link model.Message#getResponseTime <em>Response Time</em>}' attribute.
+	 * Sets the value of the '{@link model.Message#getAvgResponseTime <em>Avg Response Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Response Time</em>' attribute.
-	 * @see #getResponseTime()
+	 * @param value the new value of the '<em>Avg Response Time</em>' attribute.
+	 * @see #getAvgResponseTime()
 	 * @generated
 	 */
-	void setResponseTime(Long value);
+	void setAvgResponseTime(Long value);
 
 	/**
-	 * Returns the value of the '<em><b>Message Size</b></em>' attribute.
+	 * Returns the value of the '<em><b>Avg Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Message Size</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Avg Size</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Message Size</em>' attribute.
-	 * @see #setMessageSize(Long)
+	 * @return the value of the '<em>Avg Size</em>' attribute.
+	 * @see #setAvgSize(Long)
 	 * @model
 	 * @generated
 	 */
-	Long getMessageSize();
+	Long getAvgSize();
 
 	/**
-	 * Sets the value of the '{@link model.Message#getMessageSize <em>Message Size</em>}' attribute.
+	 * Sets the value of the '{@link model.Message#getAvgSize <em>Avg Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Message Size</em>' attribute.
-	 * @see #getMessageSize()
+	 * @param value the new value of the '<em>Avg Size</em>' attribute.
+	 * @see #getAvgSize()
 	 * @generated
 	 */
-	void setMessageSize(Long value);
+	void setAvgSize(Long value);
 
 	/**
 	 * Returns the value of the '<em><b>Timestamp</b></em>' attribute.
@@ -174,5 +175,30 @@ public interface Message extends EObject {
 	 * @generated
 	 */
 	void setTimestamp(Long value);
+
+	/**
+	 * Returns the value of the '<em><b>Uid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Uid</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Uid</em>' attribute.
+	 * @see #setUid(String)
+	 * @model
+	 * @generated
+	 */
+	String getUid();
+
+	/**
+	 * Sets the value of the '{@link model.Message#getUid <em>Uid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Uid</em>' attribute.
+	 * @see #getUid()
+	 * @generated
+	 */
+	void setUid(String value);
 
 } // Message

@@ -3,7 +3,6 @@
 package model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,9 +14,9 @@ import java.util.Map;
  * </p>
  * <ul>
  *   <li>{@link model.ServiceReplica#getMessages <em>Messages</em>}</li>
- *   <li>{@link model.ServiceReplica#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link model.ServiceReplica#getContainer <em>Container</em>}</li>
  *   <li>{@link model.ServiceReplica#getId <em>Id</em>}</li>
+ *   <li>{@link model.ServiceReplica#getAddress <em>Address</em>}</li>
  * </ul>
  *
  * @model
@@ -38,22 +37,6 @@ public interface ServiceReplica extends Service {
 	 * @generated
 	 */
 	List<Message> getMessages();
-
-	/**
-	 * Returns the value of the '<em><b>Metrics</b></em>' map.
-	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link java.lang.Long},
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Metrics</em>' map isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Metrics</em>' map.
-	 * @model mapType="model.StringToLongMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject&gt;"
-	 * @generated
-	 */
-	Map<String, Long> getMetrics();
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' attribute.
@@ -104,5 +87,30 @@ public interface ServiceReplica extends Service {
 	 * @generated
 	 */
 	void setId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Address</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Address</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Address</em>' attribute.
+	 * @see #setAddress(String)
+	 * @model
+	 * @generated
+	 */
+	String getAddress();
+
+	/**
+	 * Sets the value of the '{@link model.ServiceReplica#getAddress <em>Address</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Address</em>' attribute.
+	 * @see #getAddress()
+	 * @generated
+	 */
+	void setAddress(String value);
 
 } // ServiceReplica

@@ -3,7 +3,6 @@
 package model;
 
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -18,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link model.Cluster#getApplications <em>Applications</em>}</li>
  *   <li>{@link model.Cluster#getHosts <em>Hosts</em>}</li>
+ *   <li>{@link model.Cluster#getEnvironment <em>Environment</em>}</li>
  * </ul>
  *
  * @model
@@ -55,12 +55,32 @@ public interface Cluster extends EObject {
 	List<Host> getHosts();
 
 	/**
+	 * Returns the value of the '<em><b>Environment</b></em>' attribute.
+	 * The literals are from the enumeration {@link model.Environment}.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Environment</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Environment</em>' attribute.
+	 * @see model.Environment
+	 * @see #setEnvironment(Environment)
 	 * @model
 	 * @generated
 	 */
-	void move(ServiceReplica service, Host destination);
+	Environment getEnvironment();
+
+	/**
+	 * Sets the value of the '{@link model.Cluster#getEnvironment <em>Environment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Environment</em>' attribute.
+	 * @see model.Environment
+	 * @see #getEnvironment()
+	 * @generated
+	 */
+	void setEnvironment(Environment value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,30 +88,6 @@ public interface Cluster extends EObject {
 	 * @model
 	 * @generated
 	 */
-	void exchange(ServiceReplica serviceA, ServiceReplica serviceB);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void provision(String name, Map resources);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void remove(String name);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void updateResources(ElementWithResources element, Map resources);
+	void move(String application, String serviceId, String destinationHost);
 
 } // Cluster

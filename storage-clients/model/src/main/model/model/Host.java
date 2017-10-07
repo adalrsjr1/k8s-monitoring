@@ -3,7 +3,6 @@
 package model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,7 +14,6 @@ import java.util.Map;
  * </p>
  * <ul>
  *   <li>{@link model.Host#getServices <em>Services</em>}</li>
- *   <li>{@link model.Host#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link model.Host#getName <em>Name</em>}</li>
  * </ul>
  *
@@ -37,22 +35,6 @@ public interface Host extends ElementWithResources {
 	 * @generated
 	 */
 	List<ServiceReplica> getServices();
-
-	/**
-	 * Returns the value of the '<em><b>Metrics</b></em>' map.
-	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link java.lang.Long},
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Metrics</em>' map isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Metrics</em>' map.
-	 * @model mapType="model.StringToLongMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject&gt;"
-	 * @generated
-	 */
-	Map<String, Long> getMetrics();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

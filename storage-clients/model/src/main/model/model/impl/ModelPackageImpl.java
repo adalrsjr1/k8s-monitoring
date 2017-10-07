@@ -8,6 +8,7 @@ import model.Affinity;
 import model.Application;
 import model.Cluster;
 import model.ElementWithResources;
+import model.Environment;
 import model.Host;
 import model.Message;
 import model.ModelFactory;
@@ -16,6 +17,7 @@ import model.ServiceReplica;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -53,7 +55,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String eNS_URI = "http://www.example.org/model";
+	public static final String eNS_URI = "http://gfads.cin.ufpe.br/model";
 
 	/**
 	 * The package namespace name.
@@ -100,13 +102,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int CLUSTER__HOSTS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Environment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CLUSTER__ENVIRONMENT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Cluster</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CLUSTER_FEATURE_COUNT = 2;
+	public static final int CLUSTER_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link model.impl.ApplicationImpl <em>Application</em>}' class.
@@ -165,13 +176,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES__METRICS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Element With Resources</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ELEMENT_WITH_RESOURCES_FEATURE_COUNT = 1;
+	public static final int ELEMENT_WITH_RESOURCES_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link model.impl.ServiceImpl <em>Service</em>}' class.
@@ -193,13 +213,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE__RESOURCE_LIMIT = ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT;
 
 	/**
-	 * The feature id for the '<em><b>Affinities</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE__AFFINITIES = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 0;
+	public static final int SERVICE__METRICS = ELEMENT_WITH_RESOURCES__METRICS;
+
+	/**
+	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE__HAS_AFFINITIES = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -211,13 +240,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE__NAME = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Port</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE__PORT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Service</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
+	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link model.impl.AffinityImpl <em>Affinity</em>}' class.
@@ -276,13 +314,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_REPLICA__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
 
 	/**
-	 * The feature id for the '<em><b>Affinities</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__AFFINITIES = SERVICE__AFFINITIES;
+	public static final int SERVICE_REPLICA__METRICS = SERVICE__METRICS;
+
+	/**
+	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_REPLICA__HAS_AFFINITIES = SERVICE__HAS_AFFINITIES;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -294,6 +341,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_REPLICA__NAME = SERVICE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Port</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_REPLICA__PORT = SERVICE__PORT;
+
+	/**
 	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -303,22 +359,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_REPLICA__MESSAGES = SERVICE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Metrics</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE_REPLICA__METRICS = SERVICE_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__CONTAINER = SERVICE_FEATURE_COUNT + 2;
+	public static final int SERVICE_REPLICA__CONTAINER = SERVICE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -327,7 +374,16 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_REPLICA__ID = SERVICE_FEATURE_COUNT + 3;
+	public static final int SERVICE_REPLICA__ID = SERVICE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Address</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_REPLICA__ADDRESS = SERVICE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Service Replica</em>' class.
@@ -376,22 +432,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE__NAME = 2;
 
 	/**
-	 * The feature id for the '<em><b>Response Time</b></em>' attribute.
+	 * The feature id for the '<em><b>Avg Response Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE__RESPONSE_TIME = 3;
+	public static final int MESSAGE__AVG_RESPONSE_TIME = 3;
 
 	/**
-	 * The feature id for the '<em><b>Message Size</b></em>' attribute.
+	 * The feature id for the '<em><b>Avg Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE__MESSAGE_SIZE = 4;
+	public static final int MESSAGE__AVG_SIZE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Timestamp</b></em>' attribute.
@@ -403,13 +459,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE__TIMESTAMP = 5;
 
 	/**
+	 * The feature id for the '<em><b>Uid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MESSAGE__UID = 6;
+
+	/**
 	 * The number of structural features of the '<em>Message</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE_FEATURE_COUNT = 6;
+	public static final int MESSAGE_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link model.impl.HostImpl <em>Host</em>}' class.
@@ -431,6 +496,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST__RESOURCE_LIMIT = ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT;
 
 	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HOST__METRICS = ELEMENT_WITH_RESOURCES__METRICS;
+
+	/**
 	 * The feature id for the '<em><b>Services</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -440,22 +514,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST__SERVICES = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Metrics</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int HOST__METRICS = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HOST__NAME = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
+	public static final int HOST__NAME = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Host</em>' class.
@@ -464,7 +529,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link model.impl.StringToLongMapImpl <em>String To Long Map</em>}' class.
@@ -502,6 +567,16 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int STRING_TO_LONG_MAP_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link model.Environment <em>Environment</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see model.Environment
+	 * @see model.impl.ModelPackageImpl#getEnvironment()
+	 * @generated
+	 */
+	public static final int ENVIRONMENT = 9;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -565,6 +640,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	private EClass elementWithResourcesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum environmentEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -667,6 +749,19 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.Cluster#getEnvironment <em>Environment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Environment</em>'.
+	 * @see model.Cluster#getEnvironment()
+	 * @see #getCluster()
+	 * @generated
+	 */
+	public EAttribute getCluster_Environment() {
+		return (EAttribute)clusterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
 	 * Returns the meta object for class '{@link model.Application <em>Application</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -717,15 +812,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link model.Service#getAffinities <em>Affinities</em>}'.
+	 * Returns the meta object for the containment reference list '{@link model.Service#getHasAffinities <em>Has Affinities</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Affinities</em>'.
-	 * @see model.Service#getAffinities()
+	 * @return the meta object for the containment reference list '<em>Has Affinities</em>'.
+	 * @see model.Service#getHasAffinities()
 	 * @see #getService()
 	 * @generated
 	 */
-	public EReference getService_Affinities() {
+	public EReference getService_HasAffinities() {
 		return (EReference)serviceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -740,6 +835,19 @@ public class ModelPackageImpl extends EPackageImpl {
 	 */
 	public EAttribute getService_Name() {
 		return (EAttribute)serviceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.Service#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port</em>'.
+	 * @see model.Service#getPort()
+	 * @see #getService()
+	 * @generated
+	 */
+	public EAttribute getService_Port() {
+		return (EAttribute)serviceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -806,19 +914,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the map '{@link model.ServiceReplica#getMetrics <em>Metrics</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the map '<em>Metrics</em>'.
-	 * @see model.ServiceReplica#getMetrics()
-	 * @see #getServiceReplica()
-	 * @generated
-	 */
-	public EReference getServiceReplica_Metrics() {
-		return (EReference)serviceReplicaEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
 	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getContainer <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -828,7 +923,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getServiceReplica_Container() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -841,9 +936,21 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getServiceReplica_Id() {
-		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(2);
 	}
 
+	/**
+	 * Returns the meta object for the attribute '{@link model.ServiceReplica#getAddress <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Address</em>'.
+	 * @see model.ServiceReplica#getAddress()
+	 * @see #getServiceReplica()
+	 * @generated
+	 */
+	public EAttribute getServiceReplica_Address() {
+		return (EAttribute)serviceReplicaEClass.getEStructuralFeatures().get(3);
+	}
 
 	/**
 	 * Returns the meta object for class '{@link model.Message <em>Message</em>}'.
@@ -897,28 +1004,28 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.Message#getResponseTime <em>Response Time</em>}'.
+	 * Returns the meta object for the attribute '{@link model.Message#getAvgResponseTime <em>Avg Response Time</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Response Time</em>'.
-	 * @see model.Message#getResponseTime()
+	 * @return the meta object for the attribute '<em>Avg Response Time</em>'.
+	 * @see model.Message#getAvgResponseTime()
 	 * @see #getMessage()
 	 * @generated
 	 */
-	public EAttribute getMessage_ResponseTime() {
+	public EAttribute getMessage_AvgResponseTime() {
 		return (EAttribute)messageEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.Message#getMessageSize <em>Message Size</em>}'.
+	 * Returns the meta object for the attribute '{@link model.Message#getAvgSize <em>Avg Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Message Size</em>'.
-	 * @see model.Message#getMessageSize()
+	 * @return the meta object for the attribute '<em>Avg Size</em>'.
+	 * @see model.Message#getAvgSize()
 	 * @see #getMessage()
 	 * @generated
 	 */
-	public EAttribute getMessage_MessageSize() {
+	public EAttribute getMessage_AvgSize() {
 		return (EAttribute)messageEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -933,6 +1040,19 @@ public class ModelPackageImpl extends EPackageImpl {
 	 */
 	public EAttribute getMessage_Timestamp() {
 		return (EAttribute)messageEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.Message#getUid <em>Uid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Uid</em>'.
+	 * @see model.Message#getUid()
+	 * @see #getMessage()
+	 * @generated
+	 */
+	public EAttribute getMessage_Uid() {
+		return (EAttribute)messageEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -961,19 +1081,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the map '{@link model.Host#getMetrics <em>Metrics</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the map '<em>Metrics</em>'.
-	 * @see model.Host#getMetrics()
-	 * @see #getHost()
-	 * @generated
-	 */
-	public EReference getHost_Metrics() {
-		return (EReference)hostEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
 	 * Returns the meta object for the attribute '{@link model.Host#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -983,7 +1090,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getHost_Name() {
-		return (EAttribute)hostEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)hostEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1052,6 +1159,31 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the map '{@link model.ElementWithResources#getMetrics <em>Metrics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Metrics</em>'.
+	 * @see model.ElementWithResources#getMetrics()
+	 * @see #getElementWithResources()
+	 * @generated
+	 */
+	public EReference getElementWithResources_Metrics() {
+		return (EReference)elementWithResourcesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * Returns the meta object for enum '{@link model.Environment <em>Environment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Environment</em>'.
+	 * @see model.Environment
+	 * @generated
+	 */
+	public EEnum getEnvironment() {
+		return environmentEEnum;
+	}
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1084,14 +1216,16 @@ public class ModelPackageImpl extends EPackageImpl {
 		clusterEClass = createEClass(CLUSTER);
 		createEReference(clusterEClass, CLUSTER__APPLICATIONS);
 		createEReference(clusterEClass, CLUSTER__HOSTS);
+		createEAttribute(clusterEClass, CLUSTER__ENVIRONMENT);
 
 		applicationEClass = createEClass(APPLICATION);
 		createEReference(applicationEClass, APPLICATION__SERVICES);
 		createEAttribute(applicationEClass, APPLICATION__NAME);
 
 		serviceEClass = createEClass(SERVICE);
-		createEReference(serviceEClass, SERVICE__AFFINITIES);
+		createEReference(serviceEClass, SERVICE__HAS_AFFINITIES);
 		createEAttribute(serviceEClass, SERVICE__NAME);
+		createEAttribute(serviceEClass, SERVICE__PORT);
 
 		affinityEClass = createEClass(AFFINITY);
 		createEReference(affinityEClass, AFFINITY__WITH);
@@ -1099,21 +1233,21 @@ public class ModelPackageImpl extends EPackageImpl {
 
 		serviceReplicaEClass = createEClass(SERVICE_REPLICA);
 		createEReference(serviceReplicaEClass, SERVICE_REPLICA__MESSAGES);
-		createEReference(serviceReplicaEClass, SERVICE_REPLICA__METRICS);
 		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__CONTAINER);
 		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ID);
+		createEAttribute(serviceReplicaEClass, SERVICE_REPLICA__ADDRESS);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
 		createEReference(messageEClass, MESSAGE__DESTINATION);
 		createEAttribute(messageEClass, MESSAGE__NAME);
-		createEAttribute(messageEClass, MESSAGE__RESPONSE_TIME);
-		createEAttribute(messageEClass, MESSAGE__MESSAGE_SIZE);
+		createEAttribute(messageEClass, MESSAGE__AVG_RESPONSE_TIME);
+		createEAttribute(messageEClass, MESSAGE__AVG_SIZE);
 		createEAttribute(messageEClass, MESSAGE__TIMESTAMP);
+		createEAttribute(messageEClass, MESSAGE__UID);
 
 		hostEClass = createEClass(HOST);
 		createEReference(hostEClass, HOST__SERVICES);
-		createEReference(hostEClass, HOST__METRICS);
 		createEAttribute(hostEClass, HOST__NAME);
 
 		stringToLongMapEClass = createEClass(STRING_TO_LONG_MAP);
@@ -1122,6 +1256,10 @@ public class ModelPackageImpl extends EPackageImpl {
 
 		elementWithResourcesEClass = createEClass(ELEMENT_WITH_RESOURCES);
 		createEReference(elementWithResourcesEClass, ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT);
+		createEReference(elementWithResourcesEClass, ELEMENT_WITH_RESOURCES__METRICS);
+
+		// Create enums
+		environmentEEnum = createEEnum(ENVIRONMENT);
 	}
 
 	/**
@@ -1160,33 +1298,21 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEClass(clusterEClass, Cluster.class, "Cluster", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCluster_Applications(), this.getApplication(), null, "applications", null, 0, -1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCluster_Hosts(), this.getHost(), null, "hosts", null, 0, -1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCluster_Environment(), this.getEnvironment(), "environment", null, 0, 1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(clusterEClass, null, "move", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getServiceReplica(), "service", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getHost(), "destination", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(clusterEClass, null, "exchange", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getServiceReplica(), "serviceA", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getServiceReplica(), "serviceB", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(clusterEClass, null, "provision", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEMap(), "resources", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(clusterEClass, null, "remove", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(clusterEClass, null, "updateResources", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getElementWithResources(), "element", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEMap(), "resources", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "application", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "serviceId", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "destinationHost", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(applicationEClass, Application.class, "Application", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplication_Services(), this.getService(), null, "services", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_Name(), ecorePackage.getEString(), "name", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceEClass, Service.class, "Service", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getService_Affinities(), this.getAffinity(), null, "affinities", null, 0, -1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getService_HasAffinities(), this.getAffinity(), null, "hasAffinities", null, 0, -1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getService_Name(), ecorePackage.getEString(), "name", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getService_Port(), ecorePackage.getEIntegerObject(), "port", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(affinityEClass, Affinity.class, "Affinity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAffinity_With(), this.getService(), null, "with", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1194,21 +1320,21 @@ public class ModelPackageImpl extends EPackageImpl {
 
 		initEClass(serviceReplicaEClass, ServiceReplica.class, "ServiceReplica", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getServiceReplica_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getServiceReplica_Metrics(), this.getStringToLongMap(), null, "metrics", null, 0, -1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceReplica_Container(), ecorePackage.getEString(), "container", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceReplica_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceReplica_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceReplica.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMessage_Source(), this.getServiceReplica(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMessage_Destination(), this.getServiceReplica(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Name(), ecorePackage.getEString(), "name", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMessage_ResponseTime(), ecorePackage.getELongObject(), "responseTime", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMessage_MessageSize(), ecorePackage.getELongObject(), "messageSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_AvgResponseTime(), ecorePackage.getELongObject(), "avgResponseTime", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_AvgSize(), ecorePackage.getELongObject(), "avgSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Timestamp(), ecorePackage.getELongObject(), "timestamp", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hostEClass, Host.class, "Host", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHost_Services(), this.getServiceReplica(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getHost_Metrics(), this.getStringToLongMap(), null, "metrics", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_Name(), ecorePackage.getEString(), "name", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToLongMapEClass, Map.Entry.class, "StringToLongMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1217,6 +1343,12 @@ public class ModelPackageImpl extends EPackageImpl {
 
 		initEClass(elementWithResourcesEClass, ElementWithResources.class, "ElementWithResources", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElementWithResources_ResourceLimit(), this.getStringToLongMap(), null, "resourceLimit", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getElementWithResources_Metrics(), this.getStringToLongMap(), null, "metrics", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(environmentEEnum, Environment.class, "Environment");
+		addEEnumLiteral(environmentEEnum, Environment.KUBERNETES);
+		addEEnumLiteral(environmentEEnum, Environment.DOCKER_SWARM);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1282,6 +1414,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EReference CLUSTER__HOSTS = eINSTANCE.getCluster_Hosts();
 
 		/**
+		 * The meta object literal for the '<em><b>Environment</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute CLUSTER__ENVIRONMENT = eINSTANCE.getCluster_Environment();
+
+		/**
 		 * The meta object literal for the '{@link model.impl.ApplicationImpl <em>Application</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1318,12 +1458,12 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EClass SERVICE = eINSTANCE.getService();
 
 		/**
-		 * The meta object literal for the '<em><b>Affinities</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Has Affinities</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EReference SERVICE__AFFINITIES = eINSTANCE.getService_Affinities();
+		public static final EReference SERVICE__HAS_AFFINITIES = eINSTANCE.getService_HasAffinities();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1332,6 +1472,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute SERVICE__NAME = eINSTANCE.getService_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE__PORT = eINSTANCE.getService_Port();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.AffinityImpl <em>Affinity</em>}' class.
@@ -1378,14 +1526,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EReference SERVICE_REPLICA__MESSAGES = eINSTANCE.getServiceReplica_Messages();
 
 		/**
-		 * The meta object literal for the '<em><b>Metrics</b></em>' map feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EReference SERVICE_REPLICA__METRICS = eINSTANCE.getServiceReplica_Metrics();
-
-		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1400,6 +1540,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute SERVICE_REPLICA__ID = eINSTANCE.getServiceReplica_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Address</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE_REPLICA__ADDRESS = eINSTANCE.getServiceReplica_Address();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
@@ -1436,20 +1584,20 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EAttribute MESSAGE__NAME = eINSTANCE.getMessage_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Response Time</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Avg Response Time</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute MESSAGE__RESPONSE_TIME = eINSTANCE.getMessage_ResponseTime();
+		public static final EAttribute MESSAGE__AVG_RESPONSE_TIME = eINSTANCE.getMessage_AvgResponseTime();
 
 		/**
-		 * The meta object literal for the '<em><b>Message Size</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Avg Size</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute MESSAGE__MESSAGE_SIZE = eINSTANCE.getMessage_MessageSize();
+		public static final EAttribute MESSAGE__AVG_SIZE = eINSTANCE.getMessage_AvgSize();
 
 		/**
 		 * The meta object literal for the '<em><b>Timestamp</b></em>' attribute feature.
@@ -1458,6 +1606,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute MESSAGE__TIMESTAMP = eINSTANCE.getMessage_Timestamp();
+
+		/**
+		 * The meta object literal for the '<em><b>Uid</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute MESSAGE__UID = eINSTANCE.getMessage_Uid();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.HostImpl <em>Host</em>}' class.
@@ -1476,14 +1632,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference HOST__SERVICES = eINSTANCE.getHost_Services();
-
-		/**
-		 * The meta object literal for the '<em><b>Metrics</b></em>' map feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EReference HOST__METRICS = eINSTANCE.getHost_Metrics();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1536,6 +1684,24 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT = eINSTANCE.getElementWithResources_ResourceLimit();
+
+		/**
+		 * The meta object literal for the '<em><b>Metrics</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference ELEMENT_WITH_RESOURCES__METRICS = eINSTANCE.getElementWithResources_Metrics();
+
+		/**
+		 * The meta object literal for the '{@link model.Environment <em>Environment</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see model.Environment
+		 * @see model.impl.ModelPackageImpl#getEnvironment()
+		 * @generated
+		 */
+		public static final EEnum ENVIRONMENT = eINSTANCE.getEnvironment();
 
 	}
 
