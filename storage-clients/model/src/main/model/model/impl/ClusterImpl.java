@@ -151,7 +151,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void move(String application, String serviceId, String destinationHost) {
+	public void move(String application, String serviceId, String sourceHost, String destinationHost) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
@@ -262,8 +262,8 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case ModelPackageImpl.CLUSTER___MOVE__STRING_STRING_STRING:
-				move((String)arguments.get(0), (String)arguments.get(1), (String)arguments.get(2));
+			case ModelPackageImpl.CLUSTER___MOVE__STRING_STRING_STRING_STRING:
+				move((String)arguments.get(0), (String)arguments.get(1), (String)arguments.get(2), (String)arguments.get(3));
 				return null;
 		}
 		return super.eInvoke(operationID, arguments);

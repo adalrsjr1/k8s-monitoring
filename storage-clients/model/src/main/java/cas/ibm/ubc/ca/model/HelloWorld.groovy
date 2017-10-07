@@ -131,7 +131,7 @@ class HelloWorld {
 //			e.printStackTrace();
 //		}
 		
-		ClusterAdapter.move(cluster, "application1", "service1", "host1")
+		ClusterAdapter.move(cluster, "application1", "service1", "host1", "host2")
 	}
 
 	// PLAIN

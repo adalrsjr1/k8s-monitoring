@@ -86,6 +86,6 @@ public interface Cluster {
 	 * @model
 	 * @generated
 	 */
-	void move(String application, String serviceId, String destinationHost);
+	void move(String application, String serviceId, String sourceHost, String destinationHost);
 
 } // Cluster

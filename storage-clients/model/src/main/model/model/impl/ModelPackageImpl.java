@@ -127,7 +127,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CLUSTER___MOVE__STRING_STRING_STRING = 0;
+	public static final int CLUSTER___MOVE__STRING_STRING_STRING_STRING = 0;
 
 	/**
 	 * The number of operations of the '<em>Cluster</em>' class.
@@ -853,16 +853,17 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the '{@link model.Cluster#move(java.lang.String, java.lang.String, java.lang.String) <em>Move</em>}' operation.
+	 * Returns the meta object for the '{@link model.Cluster#move(java.lang.String, java.lang.String, java.lang.String, java.lang.String) <em>Move</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Move</em>' operation.
-	 * @see model.Cluster#move(java.lang.String, java.lang.String, java.lang.String)
+	 * @see model.Cluster#move(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 * @generated
 	 */
-	public EOperation getCluster__Move__String_String_String() {
+	public EOperation getCluster__Move__String_String_String_String() {
 		return clusterEClass.getEOperations().get(0);
 	}
+
 
 	/**
 	 * Returns the meta object for class '{@link model.Application <em>Application</em>}'.
@@ -1320,7 +1321,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(clusterEClass, CLUSTER__APPLICATIONS);
 		createEReference(clusterEClass, CLUSTER__HOSTS);
 		createEAttribute(clusterEClass, CLUSTER__ENVIRONMENT);
-		createEOperation(clusterEClass, CLUSTER___MOVE__STRING_STRING_STRING);
+		createEOperation(clusterEClass, CLUSTER___MOVE__STRING_STRING_STRING_STRING);
 
 		applicationEClass = createEClass(APPLICATION);
 		createEReference(applicationEClass, APPLICATION__SERVICES);
@@ -1404,9 +1405,10 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getCluster_Hosts(), this.getHost(), null, "hosts", null, 0, -1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCluster_Environment(), this.getEnvironment(), "environment", null, 0, 1, Cluster.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = initEOperation(getCluster__Move__String_String_String(), null, "move", 0, 1, IS_UNIQUE, IS_ORDERED);
+		EOperation op = initEOperation(getCluster__Move__String_String_String_String(), null, "move", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "application", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "serviceId", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "sourceHost", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "destinationHost", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(applicationEClass, Application.class, "Application", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1532,7 +1534,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EOperation CLUSTER___MOVE__STRING_STRING_STRING = eINSTANCE.getCluster__Move__String_String_String();
+		public static final EOperation CLUSTER___MOVE__STRING_STRING_STRING_STRING = eINSTANCE.getCluster__Move__String_String_String_String();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.ApplicationImpl <em>Application</em>}' class.
