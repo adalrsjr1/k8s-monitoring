@@ -1,17 +1,6 @@
 package cas.ibm.ubc.ca.model
 
-import java.lang.reflect.InvocationTargetException
-
-import org.eclipse.emf.common.notify.Adapter
-import org.eclipse.emf.common.notify.Notification
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.common.util.TreeIterator
 import org.eclipse.emf.common.util.URI as EmfURI
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EOperation
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -164,86 +153,5 @@ class HelloWorld {
 	//
 	//	}
 
-	// CDO
-	//	static void main(String[] args) {
-	//		// Enable logging and tracing
-	//		OMPlatform.INSTANCE.setDebugging(true);
-	//		OMPlatform.INSTANCE.addLogHandler(PrintLogHandler.CONSOLE);
-	//		OMPlatform.INSTANCE.addTraceHandler(PrintTraceHandler.CONSOLE);
-	//
-	//		// Prepare receiveExecutor
-	//		ExecutorService receiveExecutor = ThreadPool.create();
-	//
-	//		// Prepare bufferProvider
-	//		IBufferProvider bufferProvider = Net4jUtil.createBufferPool();
-	//		LifecycleUtil.activate(bufferProvider);
-	//
-	//		IProtocolProvider protocolProvider = new FactoriesProtocolProvider(new org.eclipse.emf.cdo.internal.net4j.protocol.CDOClientProtocolFactory());
-	//
-	//		// Prepare selector
-	//		org.eclipse.net4j.internal.tcp.TCPSelector selector = new org.eclipse.net4j.internal.tcp.TCPSelector();
-	//		selector.activate();
-	//
-	//		// Prepare connector
-	//		org.eclipse.net4j.internal.tcp.TCPClientConnector connector = new org.eclipse.net4j.internal.tcp.TCPClientConnector();
-	//		connector.getConfig().setBufferProvider(bufferProvider);
-	//		connector.getConfig().setReceiveExecutor(receiveExecutor);
-	//		connector.getConfig().setProtocolProvider(protocolProvider);
-	//		connector.getConfig().setNegotiator(null);
-	//		connector.setSelector(selector);
-	//		connector.setHost("localhost"); //$NON-NLS-1$
-	//		connector.setPort(2036);
-	//		connector.activate();
-	//
-	//		// Create configuration
-	//		CDONet4jSessionConfiguration configuration = CDONet4jUtil.createNet4jSessionConfiguration();
-	//		configuration.setConnector(connector);
-	//		configuration.setRepositoryName("repo1"); //$NON-NLS-1$
-	//
-	//		// Open session
-	//		CDOSession session = configuration.openNet4jSession();
-	//
-	//		session.getPackageRegistry().putEPackage(ModelPackageImpl.eINSTANCE);
-	//
-	//		// Open transaction
-	//		CDOTransaction transaction = session.openTransaction();
-	//
-	//		// Get or create resource
-	//		CDOResource resource = transaction.getOrCreateResource("/myCluster"); //$NON-NLS-1$
-	//
-	//		// Work with the resource and commit the transaction
-	//
-	//		ModelFactory factory = ModelFactoryAdapter.INSTANCE
-	//
-	//		Cluster cluster = resource.contents[0]
-	//
-	//		//		println cluster.applications
-	//
-	//		//				ElementObserver observer = new ElementObserver(cluster)
-	//		//				TotalObserver observer = new TotalObserver(cluster)
-	//
-	//		Application application1 = factory.createApplication()
-	//		application1.setName("Application1")
-	//		cluster.applications << application1
-	//
-	//		Application application2 = factory.createApplication()
-	//		application2.setName("Application2")
-	//
-	//		cluster.applications << application2
-	//
-	//		application2.setName("Application3")
-	//
-	//		Host host = factory.createHost()
-	//		cluster.hosts << host
-	//		host.setName("host1")
-	//
-	//		host.metrics["cpu"] = 100L
-	//		host.metrics["cpu"] = 90L
-	//
-	//		transaction.commit()
-	//
-	//		// Cleanup
-	//		session.close();
-	//		connector.deactivate();
-	//	}
+
 }

@@ -21,6 +21,7 @@ class MoveCommand implements IReificationCommand {
 		LOG.trace("[$sourceHost] $application.$serviceId -> $destinationHost")
 		Thread.sleep(1000)
 		LOG.info("environment: moving finished.")
+		throw new RuntimeException("MoveCommand.execute() not implemented yet.")
 		return false
 	}
 
