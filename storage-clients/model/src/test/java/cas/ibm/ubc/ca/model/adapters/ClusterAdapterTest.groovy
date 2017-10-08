@@ -72,9 +72,5 @@ class ClusterAdapterTest extends GroovyTestCase {
 			it.name == "host2"
 		}.getServices().size() == 1
 	}
-	
-	public void testMove() {
-		ClusterAdapter.move(cluster, "Application1", "service1", "host1", "host2")
-	} 
 
 }
