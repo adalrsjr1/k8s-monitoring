@@ -2,7 +2,7 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,24 +17,25 @@ import java.util.List;
  *   <li>{@link model.Application#getName <em>Name</em>}</li>
  * </ul>
  *
- * @model annotation="http://www.obeo.fr/dsl/dnc/archetype archetype='Role'"
+ * @model
  * @generated
  */
 public interface Application {
 	/**
-	 * Returns the value of the '<em><b>Services</b></em>' containment reference list.
-	 * The list contents are of type {@link model.Service}.
+	 * Returns the value of the '<em><b>Services</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link model.Service},
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Services</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Services</em>' map isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Services</em>' containment reference list.
-	 * @model containment="true"
+	 * @return the value of the '<em>Services</em>' map.
+	 * @model mapType="model.StringToService&lt;org.eclipse.emf.ecore.EString, model.Service&gt;"
 	 * @generated
 	 */
-	List<Service> getServices();
+	Map<String, Service> getServices();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

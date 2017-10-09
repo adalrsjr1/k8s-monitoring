@@ -2,7 +2,7 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,8 +13,8 @@ import java.util.List;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link model.Host#getServices <em>Services</em>}</li>
  *   <li>{@link model.Host#getName <em>Name</em>}</li>
+ *   <li>{@link model.Host#getServices <em>Services</em>}</li>
  * </ul>
  *
  * @model
@@ -22,19 +22,20 @@ import java.util.List;
  */
 public interface Host extends ElementWithResources {
 	/**
-	 * Returns the value of the '<em><b>Services</b></em>' reference list.
-	 * The list contents are of type {@link model.ServiceInstance}.
+	 * Returns the value of the '<em><b>Services</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link model.ServiceInstance},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Services</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Services</em>' reference list.
-	 * @model
+	 * @return the value of the '<em>Services</em>' map.
+	 * @model mapType="model.StringToServiceInstance&lt;org.eclipse.emf.ecore.EString, model.ServiceInstance&gt;"
 	 * @generated
 	 */
-	List<ServiceInstance> getServices();
+	Map<String, ServiceInstance> getServices();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

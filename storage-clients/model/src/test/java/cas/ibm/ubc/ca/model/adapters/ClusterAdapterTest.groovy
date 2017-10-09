@@ -2,15 +2,11 @@ package cas.ibm.ubc.ca.model.adapters
 
 import static org.junit.Assert.*
 
-import org.eclipse.emf.ecore.util.EcoreUtil
-
 import model.Application
 import model.Cluster
-import model.Environment
 import model.Host
 import model.ModelFactory
 import model.ServiceInstance
-import org.junit.Test
 
 class ClusterAdapterTest extends GroovyTestCase {
 
@@ -23,27 +19,28 @@ class ClusterAdapterTest extends GroovyTestCase {
 		ModelFactory factory = ModelFactoryAdapter.INSTANCE
 
 		cluster = factory.createCluster()
-
 		application = factory.createApplication()
-		application.setName("Application1")
-		cluster.applications.add(application)
-
+		application.setName("application1")
+		
 		service = factory.createServiceInstance()
 		service.setId("service1")
+		assert service != null
+		application.services["service1"] = service
+		assert application.services["service1"] != null
+		
+		cluster.applications["application1"] = application
 
-		application.getServices().add(service)
-
+		assert cluster.applications["application1"].services["service1"] != null
+		
 		host1 = factory.createHost()
 		host1.setName("host1")
-		host1.getServices().add(service)
-		cluster.getHosts().add(host1)
+		cluster.hosts["host1"] = host1
 
 		host2 = factory.createHost()
 		host2.setName("host2")
-		cluster.getHosts().add(host2)
+		cluster.hosts["host2"] = host2
 
-
-		host1.getServices().add(service)
+		cluster.hosts["host1"].services["service1"] = service
 	}
 
 	public void testModelInstance() {
@@ -53,24 +50,23 @@ class ClusterAdapterTest extends GroovyTestCase {
 		assert host2 != null
 		assert service != null
 
-		assert cluster.getApplications().size() == 1
 		assert cluster.getHosts().size() == 2
-		assert application.getServices().size() == 1
+		assert cluster.hosts == ["host1":host1, "host2":host2]
+		assert cluster.getApplications().size() == 1
+		assert cluster.applications == ["application1":application]
 
-		assert (host1.getServices().size() == 1 || host2.getServices().size() == 1) == true
+		assert cluster.applications["application1"].services.size() == 1
+		assert cluster.applications["application1"].services == ["service1":service]
+		
 	}
 
 	public void testModelUpdate() {
 
-		ClusterAdapter.updateModel(cluster, "Application1", "service1", "host1", "host2")
+		ClusterAdapter.updateModel(cluster, "application1", "service1", "host1", "host2")
 
-		assert cluster.getHosts().find {
-			it.name == "host1"
-		}.getServices().size() == 0
+		assert cluster.hosts["host1"].getServices().size() == 0
+		assert cluster.hosts["host2"].getServices().size() == 1
 
-		assert cluster.getHosts().find {
-			it.name == "host2"
-		}.getServices().size() == 1
 	}
 
 }

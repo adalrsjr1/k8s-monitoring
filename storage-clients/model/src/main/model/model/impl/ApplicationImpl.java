@@ -2,24 +2,23 @@
  */
 package model.impl;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
 import model.Application;
 import model.Service;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -38,14 +37,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ApplicationImpl extends MinimalEObjectImpl.Container implements Application {
 	/**
-	 * The cached value of the '{@link #getServices() <em>Services</em>}' containment reference list.
+	 * The cached value of the '{@link #getServices() <em>Services</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getServices()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Service> services;
+	protected EMap<String, Service> services;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -91,11 +90,11 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<Service> getServices() {
+	public Map<String, Service> getServices() {
 		if (services == null) {
-			services = new EObjectContainmentEList<Service>(Service.class, this, ModelPackageImpl.APPLICATION__SERVICES);
+			services = new EcoreEMap<String,Service>(ModelPackageImpl.Literals.STRING_TO_SERVICE, StringToServiceImpl.class, this, ModelPackageImpl.APPLICATION__SERVICES);
 		}
-		return services;
+		return services.map();
 	}
 
 	/**
@@ -128,7 +127,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Service>)getServices()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -142,7 +141,8 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				return getServices();
+				if (coreType) return ((EMap.InternalMapView<String, Service>)getServices()).eMap();
+				else return getServices();
 			case ModelPackageImpl.APPLICATION__NAME:
 				return getName();
 		}
@@ -154,13 +154,11 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				getServices().clear();
-				getServices().addAll((Collection<? extends Service>)newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Service>)getServices()).eMap()).set(newValue);
 				return;
 			case ModelPackageImpl.APPLICATION__NAME:
 				setName((String)newValue);

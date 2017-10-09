@@ -40,7 +40,7 @@ class ModelFactoryAdapter implements ModelFactory {
 		
 		return cluster
 	}
-
+	
 	@Override
 	public Application createApplication() {
 		Application application = factory.createApplication()

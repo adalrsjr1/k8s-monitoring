@@ -59,27 +59,19 @@ abstract class ClusterAdapter {
 		LOG.info("updating model...")
 		LOG.trace("[$sourceHost] $application.$serviceId -> $destinationHost")
 		
-		Application eApplication = cluster.getApplications().find {Application app ->
-			app.getName() == application
-		}
+		Application eApplication = cluster.applications[application]
 		
 		assert eApplication != null
 		
-		ServiceInstance eService = eApplication.getServices().find {ServiceInstance service ->
-			service.getId() == serviceId
-		}
+		ServiceInstance eService = eApplication.services[(serviceId)]
 		
 		assert eService != null
 		
-		Map<String, Host> hosts = cluster.getHosts().inject([:]) {result, Host host ->
-			if(host.getName() == sourceHost || host.getName() == destinationHost) {
-				result[host.getName()] = host
-			}
-			result
-		}
+		Host eSourceHost = cluster.hosts[(sourceHost)]
+		Host eDestinationHost = cluster.hosts[(destinationHost)]
 		
-		hosts[sourceHost].getServices().remove(eService)
-		hosts[destinationHost].getServices().add(eService)
+		eSourceHost.services.remove(serviceId)
+		eDestinationHost.services[(serviceId)] = eService
 		LOG.info("model updated.")
 	}
 	

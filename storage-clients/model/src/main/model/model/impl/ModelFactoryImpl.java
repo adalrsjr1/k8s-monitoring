@@ -68,12 +68,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ModelPackageImpl.CLUSTER: return (EObject)createCluster();
-			case ModelPackageImpl.APPLICATION: return (EObject)createApplication();
 			case ModelPackageImpl.AFFINITY: return (EObject)createAffinity();
 			case ModelPackageImpl.SERVICE_INSTANCE: return (EObject)createServiceInstance();
 			case ModelPackageImpl.MESSAGE: return (EObject)createMessage();
 			case ModelPackageImpl.HOST: return (EObject)createHost();
 			case ModelPackageImpl.STRING_TO_LONG_MAP: return (EObject)createStringToLongMap();
+			case ModelPackageImpl.STRING_TO_SERVICE: return (EObject)createStringToService();
+			case ModelPackageImpl.STRING_TO_HOST: return (EObject)createStringToHost();
+			case ModelPackageImpl.STRING_TO_SERVICE_INSTANCE: return (EObject)createStringToServiceInstance();
+			case ModelPackageImpl.APPLICATION: return (EObject)createApplication();
+			case ModelPackageImpl.STRING_TO_APPLICATION: return (EObject)createStringToApplication();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -124,16 +128,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Application createApplication() {
-		ApplicationImpl application = new ApplicationImpl();
-		return application;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Affinity createAffinity() {
 		AffinityImpl affinity = new AffinityImpl();
 		return affinity;
@@ -177,6 +171,56 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public Map.Entry<String, Long> createStringToLongMap() {
 		StringToLongMapImpl stringToLongMap = new StringToLongMapImpl();
 		return stringToLongMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, Service> createStringToService() {
+		StringToServiceImpl stringToService = new StringToServiceImpl();
+		return stringToService;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, Host> createStringToHost() {
+		StringToHostImpl stringToHost = new StringToHostImpl();
+		return stringToHost;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, ServiceInstance> createStringToServiceInstance() {
+		StringToServiceInstanceImpl stringToServiceInstance = new StringToServiceInstanceImpl();
+		return stringToServiceInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Application createApplication() {
+		ApplicationImpl application = new ApplicationImpl();
+		return application;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, Application> createStringToApplication() {
+		StringToApplicationImpl stringToApplication = new StringToApplicationImpl();
+		return stringToApplication;
 	}
 
 	/**

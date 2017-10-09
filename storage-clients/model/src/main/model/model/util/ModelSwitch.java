@@ -76,12 +76,6 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackageImpl.APPLICATION: {
-				Application application = (Application)theEObject;
-				T result = caseApplication(application);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ModelPackageImpl.SERVICE: {
 				Service service = (Service)theEObject;
 				T result = caseService(service);
@@ -128,6 +122,36 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackageImpl.STRING_TO_SERVICE: {
+				@SuppressWarnings("unchecked") Map.Entry<String, Service> stringToService = (Map.Entry<String, Service>)theEObject;
+				T result = caseStringToService(stringToService);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackageImpl.STRING_TO_HOST: {
+				@SuppressWarnings("unchecked") Map.Entry<String, Host> stringToHost = (Map.Entry<String, Host>)theEObject;
+				T result = caseStringToHost(stringToHost);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackageImpl.STRING_TO_SERVICE_INSTANCE: {
+				@SuppressWarnings("unchecked") Map.Entry<String, ServiceInstance> stringToServiceInstance = (Map.Entry<String, ServiceInstance>)theEObject;
+				T result = caseStringToServiceInstance(stringToServiceInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackageImpl.APPLICATION: {
+				Application application = (Application)theEObject;
+				T result = caseApplication(application);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackageImpl.STRING_TO_APPLICATION: {
+				@SuppressWarnings("unchecked") Map.Entry<String, Application> stringToApplication = (Map.Entry<String, Application>)theEObject;
+				T result = caseStringToApplication(stringToApplication);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -144,21 +168,6 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCluster(Cluster object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Application</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Application</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseApplication(Application object) {
 		return null;
 	}
 
@@ -264,6 +273,81 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseElementWithResources(ElementWithResources object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String To Service</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String To Service</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringToService(Map.Entry<String, Service> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String To Host</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String To Host</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringToHost(Map.Entry<String, Host> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String To Service Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String To Service Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringToServiceInstance(Map.Entry<String, ServiceInstance> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Application</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Application</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseApplication(Application object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String To Application</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String To Application</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringToApplication(Map.Entry<String, Application> object) {
 		return null;
 	}
 

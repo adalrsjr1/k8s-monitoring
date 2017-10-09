@@ -29,15 +29,6 @@ public interface ModelFactory {
 	Cluster createCluster();
 
 	/**
-	 * Returns a new object of class '<em>Application</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Application</em>'.
-	 * @generated
-	 */
-	Application createApplication();
-
-	/**
 	 * Returns a new object of class '<em>Affinity</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -72,5 +63,14 @@ public interface ModelFactory {
 	 * @generated
 	 */
 	Host createHost();
+
+	/**
+	 * Returns a new object of class '<em>Application</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Application</em>'.
+	 * @generated
+	 */
+	Application createApplication();
 
 } //ModelFactory

@@ -4,8 +4,7 @@ package model.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
 import model.Application;
 import model.Cluster;
@@ -16,14 +15,16 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -34,33 +35,23 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link model.impl.ClusterImpl#getApplications <em>Applications</em>}</li>
  *   <li>{@link model.impl.ClusterImpl#getHosts <em>Hosts</em>}</li>
  *   <li>{@link model.impl.ClusterImpl#getEnvironment <em>Environment</em>}</li>
+ *   <li>{@link model.impl.ClusterImpl#getApplications <em>Applications</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster {
 	/**
-	 * The cached value of the '{@link #getApplications() <em>Applications</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getApplications()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Application> applications;
-
-	/**
-	 * The cached value of the '{@link #getHosts() <em>Hosts</em>}' containment reference list.
+	 * The cached value of the '{@link #getHosts() <em>Hosts</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getHosts()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Host> hosts;
+	protected EMap<String, Host> hosts;
 
 	/**
 	 * The default value of the '{@link #getEnvironment() <em>Environment</em>}' attribute.
@@ -81,6 +72,16 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * @ordered
 	 */
 	protected Environment environment = ENVIRONMENT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getApplications() <em>Applications</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getApplications()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, Application> applications;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,23 +107,11 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<Application> getApplications() {
-		if (applications == null) {
-			applications = new EObjectContainmentEList<Application>(Application.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
-		}
-		return applications;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public List<Host> getHosts() {
+	public Map<String, Host> getHosts() {
 		if (hosts == null) {
-			hosts = new EObjectContainmentEList<Host>(Host.class, this, ModelPackageImpl.CLUSTER__HOSTS);
+			hosts = new EcoreEMap<String,Host>(ModelPackageImpl.Literals.STRING_TO_HOST, StringToHostImpl.class, this, ModelPackageImpl.CLUSTER__HOSTS);
 		}
-		return hosts;
+		return hosts.map();
 	}
 
 	/**
@@ -151,6 +140,18 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Map<String, Application> getApplications() {
+		if (applications == null) {
+			applications = new EcoreEMap<String,Application>(ModelPackageImpl.Literals.STRING_TO_APPLICATION, StringToApplicationImpl.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
+		}
+		return applications.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void move(String application, String serviceId, String sourceHost, String destinationHost) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -165,10 +166,10 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				return ((InternalEList<?>)getApplications()).basicRemove(otherEnd, msgs);
 			case ModelPackageImpl.CLUSTER__HOSTS:
-				return ((InternalEList<?>)getHosts()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Host>)getHosts()).eMap()).basicRemove(otherEnd, msgs);
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Application>)getApplications()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -181,12 +182,14 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				return getApplications();
 			case ModelPackageImpl.CLUSTER__HOSTS:
-				return getHosts();
+				if (coreType) return ((EMap.InternalMapView<String, Host>)getHosts()).eMap();
+				else return getHosts();
 			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
 				return getEnvironment();
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				if (coreType) return ((EMap.InternalMapView<String, Application>)getApplications()).eMap();
+				else return getApplications();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -196,20 +199,17 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				getApplications().clear();
-				getApplications().addAll((Collection<? extends Application>)newValue);
-				return;
 			case ModelPackageImpl.CLUSTER__HOSTS:
-				getHosts().clear();
-				getHosts().addAll((Collection<? extends Host>)newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Host>)getHosts()).eMap()).set(newValue);
 				return;
 			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
 				setEnvironment((Environment)newValue);
+				return;
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Application>)getApplications()).eMap()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,14 +223,14 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				getApplications().clear();
-				return;
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				getHosts().clear();
 				return;
 			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
 				setEnvironment(ENVIRONMENT_EDEFAULT);
+				return;
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				getApplications().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -244,12 +244,12 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				return applications != null && !applications.isEmpty();
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				return hosts != null && !hosts.isEmpty();
 			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
 				return environment != ENVIRONMENT_EDEFAULT;
+			case ModelPackageImpl.CLUSTER__APPLICATIONS:
+				return applications != null && !applications.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

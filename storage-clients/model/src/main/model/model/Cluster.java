@@ -2,7 +2,7 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,9 +13,9 @@ import java.util.List;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link model.Cluster#getApplications <em>Applications</em>}</li>
  *   <li>{@link model.Cluster#getHosts <em>Hosts</em>}</li>
  *   <li>{@link model.Cluster#getEnvironment <em>Environment</em>}</li>
+ *   <li>{@link model.Cluster#getApplications <em>Applications</em>}</li>
  * </ul>
  *
  * @model
@@ -23,34 +23,20 @@ import java.util.List;
  */
 public interface Cluster {
 	/**
-	 * Returns the value of the '<em><b>Applications</b></em>' containment reference list.
-	 * The list contents are of type {@link model.Application}.
+	 * Returns the value of the '<em><b>Hosts</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link model.Host},
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Applications</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Hosts</em>' map isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Applications</em>' containment reference list.
-	 * @model containment="true"
+	 * @return the value of the '<em>Hosts</em>' map.
+	 * @model mapType="model.StringToHost&lt;org.eclipse.emf.ecore.EString, model.Host&gt;"
 	 * @generated
 	 */
-	List<Application> getApplications();
-
-	/**
-	 * Returns the value of the '<em><b>Hosts</b></em>' containment reference list.
-	 * The list contents are of type {@link model.Host}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Hosts</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Hosts</em>' containment reference list.
-	 * @model containment="true"
-	 * @generated
-	 */
-	List<Host> getHosts();
+	Map<String, Host> getHosts();
 
 	/**
 	 * Returns the value of the '<em><b>Environment</b></em>' attribute.
@@ -79,6 +65,22 @@ public interface Cluster {
 	 * @generated
 	 */
 	void setEnvironment(Environment value);
+
+	/**
+	 * Returns the value of the '<em><b>Applications</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link model.Application},
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Applications</em>' map isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Applications</em>' map.
+	 * @model mapType="model.StringToApplication&lt;org.eclipse.emf.ecore.EString, model.Application&gt;"
+	 * @generated
+	 */
+	Map<String, Application> getApplications();
 
 	/**
 	 * <!-- begin-user-doc -->
