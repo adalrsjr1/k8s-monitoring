@@ -51,12 +51,14 @@ class HelloWorld {
 
 		Application application1 = factory.createApplication()
 		application1.setName("Application1")
-		cluster.applications << application1
+		
+		
+		cluster.getApplications()["Application1"] = application1
 
 		Application application2 = factory.createApplication()
 		application2.setName("Application2")
 
-		cluster.applications << application2
+		cluster.applications["Application2"] = application2
 
 		application2.setName("Application21")
 

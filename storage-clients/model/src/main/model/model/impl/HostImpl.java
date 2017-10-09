@@ -2,21 +2,21 @@
  */
 package model.impl;
 
-import java.util.Collection;
-import java.util.List;
-
+import java.util.Map;
 import model.Host;
 import model.ServiceInstance;
 
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,23 +26,13 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link model.impl.HostImpl#getServices <em>Services</em>}</li>
  *   <li>{@link model.impl.HostImpl#getName <em>Name</em>}</li>
+ *   <li>{@link model.impl.HostImpl#getServices <em>Services</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class HostImpl extends ElementWithResourcesImpl implements Host {
-	/**
-	 * The cached value of the '{@link #getServices() <em>Services</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getServices()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ServiceInstance> services;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -62,6 +52,16 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getServices() <em>Services</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServices()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, ServiceInstance> services;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -87,11 +87,25 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<ServiceInstance> getServices() {
+	public Map<String, ServiceInstance> getServices() {
 		if (services == null) {
-			services = new EObjectResolvingEList<ServiceInstance>(ServiceInstance.class, this, ModelPackageImpl.HOST__SERVICES);
+			services = new EcoreEMap<String,ServiceInstance>(ModelPackageImpl.Literals.STRING_TO_SERVICE_INSTANCE, StringToServiceInstanceImpl.class, this, ModelPackageImpl.HOST__SERVICES);
 		}
-		return services;
+		return services.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackageImpl.HOST__SERVICES:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -123,10 +137,11 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackageImpl.HOST__SERVICES:
-				return getServices();
 			case ModelPackageImpl.HOST__NAME:
 				return getName();
+			case ModelPackageImpl.HOST__SERVICES:
+				if (coreType) return ((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap();
+				else return getServices();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,12 +155,11 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackageImpl.HOST__SERVICES:
-				getServices().clear();
-				getServices().addAll((Collection<? extends ServiceInstance>)newValue);
-				return;
 			case ModelPackageImpl.HOST__NAME:
 				setName((String)newValue);
+				return;
+			case ModelPackageImpl.HOST__SERVICES:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -159,11 +173,11 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.HOST__SERVICES:
-				getServices().clear();
-				return;
 			case ModelPackageImpl.HOST__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case ModelPackageImpl.HOST__SERVICES:
+				getServices().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -177,10 +191,10 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.HOST__SERVICES:
-				return services != null && !services.isEmpty();
 			case ModelPackageImpl.HOST__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ModelPackageImpl.HOST__SERVICES:
+				return services != null && !services.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
