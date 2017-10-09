@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link model.impl.ServiceImpl#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.impl.ServiceImpl#getName <em>Name</em>}</li>
- *   <li>{@link model.impl.ServiceImpl#getPort <em>Port</em>}</li>
  * </ul>
  *
  * @generated
@@ -66,26 +65,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPort()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Integer PORT_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPort() <em>Port</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPort()
-	 * @generated
-	 * @ordered
-	 */
-	protected Integer port = PORT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,27 +123,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getPort() {
-		return port;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPort(Integer newPort) {
-		Integer oldPort = port;
-		port = newPort;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE__PORT, oldPort, port));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -186,8 +144,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return getHasAffinities();
 			case ModelPackageImpl.SERVICE__NAME:
 				return getName();
-			case ModelPackageImpl.SERVICE__PORT:
-				return getPort();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,9 +164,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__NAME:
 				setName((String)newValue);
 				return;
-			case ModelPackageImpl.SERVICE__PORT:
-				setPort((Integer)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -229,9 +182,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ModelPackageImpl.SERVICE__PORT:
-				setPort(PORT_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -248,8 +198,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return hasAffinities != null && !hasAffinities.isEmpty();
 			case ModelPackageImpl.SERVICE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ModelPackageImpl.SERVICE__PORT:
-				return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -266,8 +214,6 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", port: ");
-		result.append(port);
 		result.append(')');
 		return result.toString();
 	}

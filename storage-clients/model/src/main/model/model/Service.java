@@ -15,7 +15,6 @@ import java.util.List;
  * <ul>
  *   <li>{@link model.Service#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.Service#getName <em>Name</em>}</li>
- *   <li>{@link model.Service#getPort <em>Port</em>}</li>
  * </ul>
  *
  * @model abstract="true"
@@ -61,30 +60,5 @@ public interface Service extends ElementWithResources {
 	 * @generated
 	 */
 	void setName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Port</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Port</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port</em>' attribute.
-	 * @see #setPort(Integer)
-	 * @model
-	 * @generated
-	 */
-	Integer getPort();
-
-	/**
-	 * Sets the value of the '{@link model.Service#getPort <em>Port</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port</em>' attribute.
-	 * @see #getPort()
-	 * @generated
-	 */
-	void setPort(Integer value);
 
 } // Service
