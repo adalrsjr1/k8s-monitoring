@@ -5,7 +5,7 @@ package model.impl;
 import java.util.Map;
 
 import model.Application;
-import model.ServiceInstance;
+import model.Service;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -44,7 +44,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap<String, ServiceInstance> services;
+	protected EMap<String, Service> services;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -90,9 +90,9 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map<String, ServiceInstance> getServices() {
+	public Map<String, Service> getServices() {
 		if (services == null) {
-			services = new EcoreEMap<String,ServiceInstance>(ModelPackageImpl.Literals.STRING_TO_SERVICE, StringToServiceImpl.class, this, ModelPackageImpl.APPLICATION__SERVICES);
+			services = new EcoreEMap<String,Service>(ModelPackageImpl.Literals.STRING_TO_SERVICE, StringToServiceImpl.class, this, ModelPackageImpl.APPLICATION__SERVICES);
 		}
 		return services.map();
 	}
@@ -127,7 +127,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				return ((InternalEList<?>)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Service>)getServices()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -141,7 +141,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				if (coreType) return ((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, Service>)getServices()).eMap();
 				else return getServices();
 			case ModelPackageImpl.APPLICATION__NAME:
 				return getName();
@@ -158,7 +158,7 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackageImpl.APPLICATION__SERVICES:
-				((EStructuralFeature.Setting)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Service>)getServices()).eMap()).set(newValue);
 				return;
 			case ModelPackageImpl.APPLICATION__NAME:
 				setName((String)newValue);

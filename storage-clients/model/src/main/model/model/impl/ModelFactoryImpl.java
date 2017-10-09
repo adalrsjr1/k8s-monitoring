@@ -178,7 +178,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map.Entry<String, ServiceInstance> createStringToService() {
+	public Map.Entry<String, Service> createStringToService() {
 		StringToServiceImpl stringToService = new StringToServiceImpl();
 		return stringToService;
 	}

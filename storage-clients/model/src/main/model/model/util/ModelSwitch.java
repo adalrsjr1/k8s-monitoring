@@ -123,7 +123,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				return result;
 			}
 			case ModelPackageImpl.STRING_TO_SERVICE: {
-				@SuppressWarnings("unchecked") Map.Entry<String, ServiceInstance> stringToService = (Map.Entry<String, ServiceInstance>)theEObject;
+				@SuppressWarnings("unchecked") Map.Entry<String, Service> stringToService = (Map.Entry<String, Service>)theEObject;
 				T result = caseStringToService(stringToService);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -287,7 +287,7 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStringToService(Map.Entry<String, ServiceInstance> object) {
+	public T caseStringToService(Map.Entry<String, Service> object) {
 		return null;
 	}
 

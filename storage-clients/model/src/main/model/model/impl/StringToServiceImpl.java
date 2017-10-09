@@ -2,7 +2,7 @@
  */
 package model.impl;
 
-import model.ServiceInstance;
+import model.Service;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class StringToServiceImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,ServiceInstance> {
+public class StringToServiceImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,Service> {
 	/**
 	 * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -59,7 +59,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected ServiceInstance value;
+	protected Service value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,7 +106,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceInstance getTypedValue() {
+	public Service getTypedValue() {
 		return value;
 	}
 
@@ -115,8 +115,8 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTypedValue(ServiceInstance newValue, NotificationChain msgs) {
-		ServiceInstance oldValue = value;
+	public NotificationChain basicSetTypedValue(Service newValue, NotificationChain msgs) {
+		Service oldValue = value;
 		value = newValue;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_SERVICE__VALUE, oldValue, newValue);
@@ -130,7 +130,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTypedValue(ServiceInstance newValue) {
+	public void setTypedValue(Service newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;
 			if (value != null)
@@ -186,7 +186,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 				setTypedKey((String)newValue);
 				return;
 			case ModelPackageImpl.STRING_TO_SERVICE__VALUE:
-				setTypedValue((ServiceInstance)newValue);
+				setTypedValue((Service)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -204,7 +204,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 				setTypedKey(KEY_EDEFAULT);
 				return;
 			case ModelPackageImpl.STRING_TO_SERVICE__VALUE:
-				setTypedValue((ServiceInstance)null);
+				setTypedValue((Service)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -294,7 +294,7 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceInstance getValue() {
+	public Service getValue() {
 		return getTypedValue();
 	}
 
@@ -303,8 +303,8 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceInstance setValue(ServiceInstance value) {
-		ServiceInstance oldValue = getValue();
+	public Service setValue(Service value) {
+		Service oldValue = getValue();
 		setTypedValue(value);
 		return oldValue;
 	}
@@ -315,9 +315,9 @@ public class StringToServiceImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public EMap<String, ServiceInstance> getEMap() {
+	public EMap<String, Service> getEMap() {
 		EObject container = eContainer();
-		return container == null ? null : (EMap<String, ServiceInstance>)container.eGet(eContainmentFeature());
+		return container == null ? null : (EMap<String, Service>)container.eGet(eContainmentFeature());
 	}
 
 } //StringToServiceImpl

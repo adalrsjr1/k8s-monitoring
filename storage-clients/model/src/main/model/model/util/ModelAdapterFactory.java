@@ -104,7 +104,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createElementWithResourcesAdapter();
 			}
 			@Override
-			public Adapter caseStringToService(Map.Entry<String, ServiceInstance> object) {
+			public Adapter caseStringToService(Map.Entry<String, Service> object) {
 				return createStringToServiceAdapter();
 			}
 			@Override

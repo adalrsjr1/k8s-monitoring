@@ -24,7 +24,7 @@ public interface Application {
 	/**
 	 * Returns the value of the '<em><b>Services</b></em>' map.
 	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link model.ServiceInstance},
+	 * and the value is of type {@link model.Service},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Services</em>' map isn't clear,
@@ -32,10 +32,10 @@ public interface Application {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Services</em>' map.
-	 * @model mapType="model.StringToService&lt;org.eclipse.emf.ecore.EString, model.ServiceInstance&gt;"
+	 * @model mapType="model.StringToService&lt;org.eclipse.emf.ecore.EString, model.Service&gt;"
 	 * @generated
 	 */
-	Map<String, ServiceInstance> getServices();
+	Map<String, Service> getServices();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
