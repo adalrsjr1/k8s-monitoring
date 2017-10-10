@@ -1,4 +1,4 @@
-package test.cas.ibm.ubc.ca.k8s.util
+package test.cas.ibm.ubc.ca.k8s
 
 import groovy.json.JsonSlurper
 import io.fabric8.kubernetes.api.model.ContainerBuilder

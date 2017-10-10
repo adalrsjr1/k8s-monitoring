@@ -2,6 +2,8 @@ package cas.ibm.ubc.ca.k8s;
 
 import java.io.IOException;
 
+import com.google.gson.Gson;
+
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
@@ -46,6 +48,6 @@ public class Hello {
 //        }
 		
 		KubernetesInspection inspect = new KubernetesInspection("http://127.0.0.1:8001", 0);
-		inspect.services().forEach(s -> System.out.println(s));
+		System.out.println (new Gson().toJson(inspect.hosts())); 
     }
 }
