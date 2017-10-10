@@ -2,7 +2,6 @@
  */
 package model.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import model.*;
@@ -219,7 +218,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map.Entry<String, List<Application>> createStringToApplication() {
+	public Map.Entry<String, Application> createStringToApplication() {
 		StringToApplicationImpl stringToApplication = new StringToApplicationImpl();
 		return stringToApplication;
 	}

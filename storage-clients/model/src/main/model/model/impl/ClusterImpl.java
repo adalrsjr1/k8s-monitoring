@@ -3,7 +3,6 @@
 package model.impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 
 import model.Application;
@@ -80,7 +79,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap<String, List<Application>> applications;
+	protected EMap<String, Application> applications;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,9 +138,9 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map<String, List<Application>> getApplications() {
+	public Map<String, Application> getApplications() {
 		if (applications == null) {
-			applications = new EcoreEMap<String,List<Application>>(ModelPackageImpl.Literals.STRING_TO_APPLICATION, StringToApplicationImpl.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
+			applications = new EcoreEMap<String,Application>(ModelPackageImpl.Literals.STRING_TO_APPLICATION, StringToApplicationImpl.class, this, ModelPackageImpl.CLUSTER__APPLICATIONS);
 		}
 		return applications.map();
 	}
@@ -168,7 +167,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 			case ModelPackageImpl.CLUSTER__HOSTS:
 				return ((InternalEList<?>)((EMap.InternalMapView<String, Host>)getHosts()).eMap()).basicRemove(otherEnd, msgs);
 			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				return ((InternalEList<?>)((EMap.InternalMapView<String, List<Application>>)getApplications()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Application>)getApplications()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -187,7 +186,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 			case ModelPackageImpl.CLUSTER__ENVIRONMENT:
 				return getEnvironment();
 			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				if (coreType) return ((EMap.InternalMapView<String, List<Application>>)getApplications()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, Application>)getApplications()).eMap();
 				else return getApplications();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -209,7 +208,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 				setEnvironment((Environment)newValue);
 				return;
 			case ModelPackageImpl.CLUSTER__APPLICATIONS:
-				((EStructuralFeature.Setting)((EMap.InternalMapView<String, List<Application>>)getApplications()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Application>)getApplications()).eMap()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

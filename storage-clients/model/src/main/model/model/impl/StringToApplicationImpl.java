@@ -2,15 +2,12 @@
  */
 package model.impl;
 
-import java.util.Collection;
-import java.util.List;
 import model.Application;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.BasicEMap;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
@@ -19,8 +16,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class StringToApplicationImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,List<Application>> {
+public class StringToApplicationImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,Application> {
 	/**
 	 * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -58,14 +53,14 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	protected String key = KEY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference list.
+	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTypedValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Application> value;
+	protected Application value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,11 +86,42 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<Application> getTypedValue() {
-		if (value == null) {
-			value = new EObjectContainmentEList<Application>(Application.class, this, ModelPackageImpl.STRING_TO_APPLICATION__VALUE);
-		}
+	public Application getTypedValue() {
 		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTypedValue(Application newValue, NotificationChain msgs) {
+		Application oldValue = value;
+		value = newValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_APPLICATION__VALUE, oldValue, newValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTypedValue(Application newValue) {
+		if (newValue != value) {
+			NotificationChain msgs = null;
+			if (value != null)
+				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackageImpl.STRING_TO_APPLICATION__VALUE, null, msgs);
+			if (newValue != null)
+				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackageImpl.STRING_TO_APPLICATION__VALUE, null, msgs);
+			msgs = basicSetTypedValue(newValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_APPLICATION__VALUE, newValue, newValue));
 	}
 
 	/**
@@ -128,7 +154,7 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackageImpl.STRING_TO_APPLICATION__VALUE:
-				return ((InternalEList<?>)getTypedValue()).basicRemove(otherEnd, msgs);
+				return basicSetTypedValue(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -162,8 +188,7 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 				setTypedKey((String)newValue);
 				return;
 			case ModelPackageImpl.STRING_TO_APPLICATION__VALUE:
-				getTypedValue().clear();
-				getTypedValue().addAll((Collection<? extends Application>)newValue);
+				setTypedValue((Application)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,7 +206,7 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 				setTypedKey(KEY_EDEFAULT);
 				return;
 			case ModelPackageImpl.STRING_TO_APPLICATION__VALUE:
-				getTypedValue().clear();
+				setTypedValue((Application)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -198,7 +223,7 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 			case ModelPackageImpl.STRING_TO_APPLICATION__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 			case ModelPackageImpl.STRING_TO_APPLICATION__VALUE:
-				return value != null && !value.isEmpty();
+				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -271,7 +296,7 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<Application> getValue() {
+	public Application getValue() {
 		return getTypedValue();
 	}
 
@@ -280,10 +305,9 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<Application> setValue(List<Application> value) {
-		List<Application> oldValue = getValue();
-		getTypedValue().clear();
-		getTypedValue().addAll(value);
+	public Application setValue(Application value) {
+		Application oldValue = getValue();
+		setTypedValue(value);
 		return oldValue;
 	}
 
@@ -293,9 +317,9 @@ public class StringToApplicationImpl extends MinimalEObjectImpl.Container implem
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public EMap<String, List<Application>> getEMap() {
+	public EMap<String, Application> getEMap() {
 		EObject container = eContainer();
-		return container == null ? null : (EMap<String, List<Application>>)container.eGet(eContainmentFeature());
+		return container == null ? null : (EMap<String, Application>)container.eGet(eContainmentFeature());
 	}
 
 } //StringToApplicationImpl

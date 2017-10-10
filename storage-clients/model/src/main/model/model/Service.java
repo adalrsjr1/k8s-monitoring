@@ -15,6 +15,7 @@ import java.util.List;
  * <ul>
  *   <li>{@link model.Service#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.Service#getName <em>Name</em>}</li>
+ *   <li>{@link model.Service#getApplication <em>Application</em>}</li>
  * </ul>
  *
  * @model abstract="true"
@@ -60,5 +61,30 @@ public interface Service extends ElementWithResources {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Application</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Application</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Application</em>' attribute.
+	 * @see #setApplication(String)
+	 * @model
+	 * @generated
+	 */
+	String getApplication();
+
+	/**
+	 * Sets the value of the '{@link model.Service#getApplication <em>Application</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Application</em>' attribute.
+	 * @see #getApplication()
+	 * @generated
+	 */
+	void setApplication(String value);
 
 } // Service

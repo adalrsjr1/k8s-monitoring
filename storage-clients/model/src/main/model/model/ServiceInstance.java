@@ -14,7 +14,6 @@ import java.util.List;
  * </p>
  * <ul>
  *   <li>{@link model.ServiceInstance#getMessages <em>Messages</em>}</li>
- *   <li>{@link model.ServiceInstance#getContainer <em>Container</em>}</li>
  *   <li>{@link model.ServiceInstance#getId <em>Id</em>}</li>
  *   <li>{@link model.ServiceInstance#getAddress <em>Address</em>}</li>
  *   <li>{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}</li>
@@ -38,31 +37,6 @@ public interface ServiceInstance extends Service {
 	 * @generated
 	 */
 	List<Message> getMessages();
-
-	/**
-	 * Returns the value of the '<em><b>Container</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Container</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Container</em>' attribute.
-	 * @see #setContainer(String)
-	 * @model
-	 * @generated
-	 */
-	String getContainer();
-
-	/**
-	 * Sets the value of the '{@link model.ServiceInstance#getContainer <em>Container</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Container</em>' attribute.
-	 * @see #getContainer()
-	 * @generated
-	 */
-	void setContainer(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link model.impl.ServiceInstanceImpl#getMessages <em>Messages</em>}</li>
- *   <li>{@link model.impl.ServiceInstanceImpl#getContainer <em>Container</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getId <em>Id</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getAddress <em>Address</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getHostAddress <em>Host Address</em>}</li>
@@ -48,26 +47,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * @ordered
 	 */
 	protected EList<Message> messages;
-
-	/**
-	 * The default value of the '{@link #getContainer() <em>Container</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainer()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTAINER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContainer() <em>Container</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainer()
-	 * @generated
-	 * @ordered
-	 */
-	protected String container = CONTAINER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -165,27 +144,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getContainer() {
-		return container;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContainer(String newContainer) {
-		String oldContainer = container;
-		container = newContainer;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__CONTAINER, oldContainer, container));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getId() {
 		return id;
 	}
@@ -268,8 +226,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		switch (featureID) {
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return getMessages();
-			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
-				return getContainer();
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				return getId();
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
@@ -292,9 +248,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				getMessages().addAll((Collection<? extends Message>)newValue);
-				return;
-			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
-				setContainer((String)newValue);
 				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				setId((String)newValue);
@@ -320,9 +273,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				return;
-			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
-				setContainer(CONTAINER_EDEFAULT);
-				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -346,8 +296,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		switch (featureID) {
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return messages != null && !messages.isEmpty();
-			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINER:
-				return CONTAINER_EDEFAULT == null ? container != null : !CONTAINER_EDEFAULT.equals(container);
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
@@ -368,9 +316,7 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (container: ");
-		result.append(container);
-		result.append(", id: ");
+		result.append(" (id: ");
 		result.append(id);
 		result.append(", address: ");
 		result.append(address);

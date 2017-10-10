@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link model.impl.ServiceImpl#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.impl.ServiceImpl#getName <em>Name</em>}</li>
+ *   <li>{@link model.impl.ServiceImpl#getApplication <em>Application</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +66,26 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getApplication() <em>Application</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getApplication()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String APPLICATION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getApplication() <em>Application</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getApplication()
+	 * @generated
+	 * @ordered
+	 */
+	protected String application = APPLICATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +144,27 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getApplication() {
+		return application;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setApplication(String newApplication) {
+		String oldApplication = application;
+		application = newApplication;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE__APPLICATION, oldApplication, application));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -144,6 +186,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return getHasAffinities();
 			case ModelPackageImpl.SERVICE__NAME:
 				return getName();
+			case ModelPackageImpl.SERVICE__APPLICATION:
+				return getApplication();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,6 +208,9 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__NAME:
 				setName((String)newValue);
 				return;
+			case ModelPackageImpl.SERVICE__APPLICATION:
+				setApplication((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -182,6 +229,9 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case ModelPackageImpl.SERVICE__APPLICATION:
+				setApplication(APPLICATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -198,6 +248,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return hasAffinities != null && !hasAffinities.isEmpty();
 			case ModelPackageImpl.SERVICE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ModelPackageImpl.SERVICE__APPLICATION:
+				return APPLICATION_EDEFAULT == null ? application != null : !APPLICATION_EDEFAULT.equals(application);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,6 +266,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", application: ");
+		result.append(application);
 		result.append(')');
 		return result.toString();
 	}
