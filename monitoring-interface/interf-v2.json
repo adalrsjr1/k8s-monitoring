@@ -1,0 +1,60 @@
+{
+  "cluster": {
+    "applications": [],
+    "hosts": []
+  },
+  "applications": [
+    {
+      "services": []
+    }
+  ],
+  "services": [
+    {
+      "name": "",
+      "id": "",
+      "address": "",
+      "port": 0,
+      "messages": [],
+      "metrics": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ],
+      "limits": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "source": "",
+      "destination": "",
+      "avgResponseTime": 0,
+      "timestamp": 0,
+      "uid": "",
+      "name": ""
+    }
+  ],
+  "hosts": [
+    {
+      "name": "",
+      "services": [],
+      "metrics": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ],
+      "limits": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

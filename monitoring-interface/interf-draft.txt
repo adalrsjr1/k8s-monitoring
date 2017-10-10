@@ -1,0 +1,26 @@
+cluster environment:String
+  applications []:string
+  hosts []:string
+  
+Application name:String
+  services []:string
+  
+Host name:String
+  services []:string
+  metrics []: <key,value>:<String,String>
+  limits []: <key,value>:<String,String>
+  
+Service name:String id:String address:String port:String
+  messages []:string
+  metrics []: <key,value>:<String,String>
+  limits []: <key,value>:<String,String>  
+ 
+Message
+  source:String #Service.id
+  destination:String #Service.id
+  avgResponseTime:Long
+  timestame:Long
+  uid:Long
+  name:String
+  
+
