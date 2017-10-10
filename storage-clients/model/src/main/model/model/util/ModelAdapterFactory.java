@@ -2,6 +2,7 @@
  */
 package model.util;
 
+import java.util.List;
 import java.util.Map;
 
 import model.*;
@@ -120,7 +121,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createApplicationAdapter();
 			}
 			@Override
-			public Adapter caseStringToApplication(Map.Entry<String, Application> object) {
+			public Adapter caseStringToApplication(Map.Entry<String, List<Application>> object) {
 				return createStringToApplicationAdapter();
 			}
 			@Override

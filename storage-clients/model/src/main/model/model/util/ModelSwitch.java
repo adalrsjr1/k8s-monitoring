@@ -2,6 +2,7 @@
  */
 package model.util;
 
+import java.util.List;
 import java.util.Map;
 
 import model.*;
@@ -147,7 +148,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				return result;
 			}
 			case ModelPackageImpl.STRING_TO_APPLICATION: {
-				@SuppressWarnings("unchecked") Map.Entry<String, Application> stringToApplication = (Map.Entry<String, Application>)theEObject;
+				@SuppressWarnings("unchecked") Map.Entry<String, List<Application>> stringToApplication = (Map.Entry<String, List<Application>>)theEObject;
 				T result = caseStringToApplication(stringToApplication);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -347,7 +348,7 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStringToApplication(Map.Entry<String, Application> object) {
+	public T caseStringToApplication(Map.Entry<String, List<Application>> object) {
 		return null;
 	}
 

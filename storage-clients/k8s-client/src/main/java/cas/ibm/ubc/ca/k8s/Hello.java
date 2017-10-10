@@ -48,6 +48,6 @@ public class Hello {
 //        }
 		
 		KubernetesInspection inspect = new KubernetesInspection("http://127.0.0.1:8001", 0);
-		System.out.println (new Gson().toJson(inspect.services())); 
+		System.out.println (new Gson().toJson(inspect.hosts())); 
     }
 }

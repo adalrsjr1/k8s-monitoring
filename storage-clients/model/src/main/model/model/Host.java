@@ -2,6 +2,7 @@
  */
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Map;
  * <ul>
  *   <li>{@link model.Host#getName <em>Name</em>}</li>
  *   <li>{@link model.Host#getServices <em>Services</em>}</li>
+ *   <li>{@link model.Host#getHostAddress <em>Host Address</em>}</li>
  * </ul>
  *
  * @model
@@ -36,6 +38,21 @@ public interface Host extends ElementWithResources {
 	 * @generated
 	 */
 	Map<String, ServiceInstance> getServices();
+
+	/**
+	 * Returns the value of the '<em><b>Host Address</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Host Address</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Host Address</em>' attribute list.
+	 * @model
+	 * @generated
+	 */
+	List<String> getHostAddress();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

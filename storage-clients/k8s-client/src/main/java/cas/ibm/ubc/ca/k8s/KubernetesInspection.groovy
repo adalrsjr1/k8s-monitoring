@@ -11,6 +11,7 @@ import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Namespace
 import io.kubernetes.client.models.V1NamespaceList
 import io.kubernetes.client.models.V1Node
+import io.kubernetes.client.models.V1NodeAddress
 import io.kubernetes.client.models.V1NodeList
 import io.kubernetes.client.models.V1Pod
 import io.kubernetes.client.models.V1PodList
@@ -62,6 +63,10 @@ class KubernetesInspection implements InspectionInterface {
 				limits: item.status.capacity,
 				metrics: [:],
 				services: [],
+				hostAddress: item.status.addresses.inject([]) { List r, V1NodeAddress a ->
+					r << a.address
+					r					
+				}
 			]
 
 			result << host
@@ -99,6 +104,7 @@ class KubernetesInspection implements InspectionInterface {
 				messages: [],
 				application: item.metadata.namespace,
 				address: item.status.podIP,
+				hostAddress: item.status.hostIP,
 				labels: item.metadata.labels
 			]
 

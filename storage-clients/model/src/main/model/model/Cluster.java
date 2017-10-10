@@ -2,6 +2,7 @@
  */
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,7 +70,7 @@ public interface Cluster {
 	/**
 	 * Returns the value of the '<em><b>Applications</b></em>' map.
 	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link model.Application},
+	 * and the value is of type list of {@link model.Application},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Applications</em>' map isn't clear,
@@ -80,7 +81,7 @@ public interface Cluster {
 	 * @model mapType="model.StringToApplication&lt;org.eclipse.emf.ecore.EString, model.Application&gt;"
 	 * @generated
 	 */
-	Map<String, Application> getApplications();
+	Map<String, List<Application>> getApplications();
 
 	/**
 	 * <!-- begin-user-doc -->

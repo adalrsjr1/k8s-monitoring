@@ -17,6 +17,7 @@ import java.util.List;
  *   <li>{@link model.ServiceInstance#getContainer <em>Container</em>}</li>
  *   <li>{@link model.ServiceInstance#getId <em>Id</em>}</li>
  *   <li>{@link model.ServiceInstance#getAddress <em>Address</em>}</li>
+ *   <li>{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}</li>
  * </ul>
  *
  * @model
@@ -112,5 +113,30 @@ public interface ServiceInstance extends Service {
 	 * @generated
 	 */
 	void setAddress(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Host Address</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Host Address</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Host Address</em>' attribute.
+	 * @see #setHostAddress(String)
+	 * @model
+	 * @generated
+	 */
+	String getHostAddress();
+
+	/**
+	 * Sets the value of the '{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Host Address</em>' attribute.
+	 * @see #getHostAddress()
+	 * @generated
+	 */
+	void setHostAddress(String value);
 
 } // ServiceInstance

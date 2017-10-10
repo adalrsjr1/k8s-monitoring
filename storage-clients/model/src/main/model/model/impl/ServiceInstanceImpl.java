@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ServiceInstanceImpl#getContainer <em>Container</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getId <em>Id</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getAddress <em>Address</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getHostAddress <em>Host Address</em>}</li>
  * </ul>
  *
  * @generated
@@ -107,6 +108,26 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * @ordered
 	 */
 	protected String address = ADDRESS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHostAddress() <em>Host Address</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHostAddress()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String HOST_ADDRESS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getHostAddress() <em>Host Address</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHostAddress()
+	 * @generated
+	 * @ordered
+	 */
+	protected String hostAddress = HOST_ADDRESS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +228,27 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getHostAddress() {
+		return hostAddress;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHostAddress(String newHostAddress) {
+		String oldHostAddress = hostAddress;
+		hostAddress = newHostAddress;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS, oldHostAddress, hostAddress));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -232,6 +274,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return getId();
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return getAddress();
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
+				return getHostAddress();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -258,6 +302,9 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress((String)newValue);
 				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
+				setHostAddress((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -282,6 +329,9 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress(ADDRESS_EDEFAULT);
 				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
+				setHostAddress(HOST_ADDRESS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -302,6 +352,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
+				return HOST_ADDRESS_EDEFAULT == null ? hostAddress != null : !HOST_ADDRESS_EDEFAULT.equals(hostAddress);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -322,6 +374,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		result.append(id);
 		result.append(", address: ");
 		result.append(address);
+		result.append(", hostAddress: ");
+		result.append(hostAddress);
 		result.append(')');
 		return result.toString();
 	}
