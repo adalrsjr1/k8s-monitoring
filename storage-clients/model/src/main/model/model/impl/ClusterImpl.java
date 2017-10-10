@@ -3,7 +3,6 @@
 package model.impl;
 
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.Map;
 
 import model.Application;
@@ -23,7 +22,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -199,6 +197,7 @@ public class ClusterImpl extends MinimalEObjectImpl.Container implements Cluster
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

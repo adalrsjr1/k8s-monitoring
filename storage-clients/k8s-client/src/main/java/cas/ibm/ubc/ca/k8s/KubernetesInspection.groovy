@@ -98,6 +98,7 @@ class KubernetesInspection implements InspectionInterface {
 				metrics: [:],
 				messages: [],
 				application: item.metadata.namespace,
+				address: item.status.podIP,
 				labels: item.metadata.labels
 			]
 

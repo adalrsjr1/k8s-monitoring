@@ -1591,6 +1591,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		return stringToApplicationEClass;
 	}
 
+
 	/**
 	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1604,6 +1605,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EReference)stringToApplicationEClass.getEStructuralFeatures().get(0);
 	}
 
+
 	/**
 	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1616,6 +1618,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	public EAttribute getStringToApplication_Key() {
 		return (EAttribute)stringToApplicationEClass.getEStructuralFeatures().get(1);
 	}
+
 
 	/**
 	 * Returns the meta object for enum '{@link model.Environment <em>Environment</em>}'.
