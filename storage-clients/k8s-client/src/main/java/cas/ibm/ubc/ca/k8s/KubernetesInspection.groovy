@@ -149,5 +149,10 @@ class KubernetesInspection implements InspectionInterface {
 		}
 
 	}
+	
+	@Override
+	public String cluster() {
+		return "KUBERNETES"
+	}
 
 }

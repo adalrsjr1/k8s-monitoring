@@ -4,4 +4,5 @@ interface InspectionInterface {
 	List hosts()
 	List services()
 	List applications()
+	String cluster()
 }
