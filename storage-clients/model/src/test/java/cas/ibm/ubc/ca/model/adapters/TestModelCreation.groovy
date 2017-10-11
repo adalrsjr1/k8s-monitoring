@@ -104,8 +104,6 @@ class TestModelCreation extends GroovyTestCase {
 			
 			service.containers.addAll(s.containers)
 			
-			println service.containers
-			
 			resource.getContents().add(service)
 			
 			if(cluster.applications.containsKey(service.application)) {
