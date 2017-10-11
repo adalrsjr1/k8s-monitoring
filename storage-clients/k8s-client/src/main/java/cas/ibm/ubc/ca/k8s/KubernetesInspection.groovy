@@ -106,7 +106,7 @@ class KubernetesInspection implements InspectionInterface {
 				address: item.status.podIP,
 				hostAddress: item.status.hostIP,
 				labels: item.metadata.labels,
-				containers: item.spec.containers.collect([]) { it.name }
+				containers: item.spec.containers.collect{ it.name }
 			]
 
 			result << replica
