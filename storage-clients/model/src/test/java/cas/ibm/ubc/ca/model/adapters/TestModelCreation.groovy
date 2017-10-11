@@ -17,6 +17,7 @@ import model.Environment
 import model.Host
 import model.ModelFactory
 import model.Service
+import model.ServiceInstance
 
 class TestModelCreation extends GroovyTestCase {
 
@@ -92,7 +93,7 @@ class TestModelCreation extends GroovyTestCase {
 		}
 		
 		assert cluster.hosts.collect { it.value.name } == hosts.collect { it.name }
-		
+
 		services.each { s ->
 			Service service = factory.createServiceInstance()
 			service.name = s.name
@@ -100,6 +101,10 @@ class TestModelCreation extends GroovyTestCase {
 			service.address = s.address
 			service.hostAddress = s.hostAddress
 			service.application = s.application
+			
+			service.containers.addAll(s.containers)
+			
+			println service.containers
 			
 			resource.getContents().add(service)
 			

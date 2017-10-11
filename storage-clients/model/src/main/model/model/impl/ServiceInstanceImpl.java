@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ServiceInstanceImpl#getId <em>Id</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getAddress <em>Address</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getHostAddress <em>Host Address</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getContainers <em>Containers</em>}</li>
  * </ul>
  *
  * @generated
@@ -107,6 +109,16 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * @ordered
 	 */
 	protected String hostAddress = HOST_ADDRESS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getContainers() <em>Containers</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> containers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +219,18 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<String> getContainers() {
+		if (containers == null) {
+			containers = new EDataTypeUniqueEList<String>(String.class, this, ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS);
+		}
+		return containers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -232,6 +256,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return getAddress();
 			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
 				return getHostAddress();
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
+				return getContainers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -258,6 +284,10 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
 				setHostAddress((String)newValue);
 				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
+				getContainers().clear();
+				getContainers().addAll((Collection<? extends String>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -282,6 +312,9 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
 				setHostAddress(HOST_ADDRESS_EDEFAULT);
 				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
+				getContainers().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -302,6 +335,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
 			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
 				return HOST_ADDRESS_EDEFAULT == null ? hostAddress != null : !HOST_ADDRESS_EDEFAULT.equals(hostAddress);
+			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
+				return containers != null && !containers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -322,6 +357,8 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		result.append(address);
 		result.append(", hostAddress: ");
 		result.append(hostAddress);
+		result.append(", containers: ");
+		result.append(containers);
 		result.append(')');
 		return result.toString();
 	}

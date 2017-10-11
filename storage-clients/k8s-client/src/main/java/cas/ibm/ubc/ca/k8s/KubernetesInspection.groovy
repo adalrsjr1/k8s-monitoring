@@ -82,7 +82,7 @@ class KubernetesInspection implements InspectionInterface {
 				name: item.metadata.name,
 				application: item.metadata.namespace,
 				selector: item.spec.selector,
-				ports: item.spec.ports.inject([]) {r,p -> r << p.port}
+				ports: item.spec.ports.inject([]) {r,p -> r << p.port},
 			]
 			result << service
 			result
@@ -105,7 +105,8 @@ class KubernetesInspection implements InspectionInterface {
 				application: item.metadata.namespace,
 				address: item.status.podIP,
 				hostAddress: item.status.hostIP,
-				labels: item.metadata.labels
+				labels: item.metadata.labels,
+				containers: item.spec.containers.collect([]) { it.name }
 			]
 
 			result << replica

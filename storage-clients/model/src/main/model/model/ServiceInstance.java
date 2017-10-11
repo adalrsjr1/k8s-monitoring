@@ -17,6 +17,7 @@ import java.util.List;
  *   <li>{@link model.ServiceInstance#getId <em>Id</em>}</li>
  *   <li>{@link model.ServiceInstance#getAddress <em>Address</em>}</li>
  *   <li>{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}</li>
+ *   <li>{@link model.ServiceInstance#getContainers <em>Containers</em>}</li>
  * </ul>
  *
  * @model
@@ -112,5 +113,20 @@ public interface ServiceInstance extends Service {
 	 * @generated
 	 */
 	void setHostAddress(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Containers</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Containers</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Containers</em>' attribute list.
+	 * @model
+	 * @generated
+	 */
+	List<String> getContainers();
 
 } // ServiceInstance

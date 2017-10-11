@@ -395,13 +395,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_INSTANCE__HOST_ADDRESS = SERVICE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Containers</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Service Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 4;
+	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Service Instance</em>' class.
@@ -1241,6 +1250,20 @@ public class ModelPackageImpl extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the attribute list '{@link model.ServiceInstance#getContainers <em>Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Containers</em>'.
+	 * @see model.ServiceInstance#getContainers()
+	 * @see #getServiceInstance()
+	 * @generated
+	 */
+	public EAttribute getServiceInstance_Containers() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link model.Message <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1737,6 +1760,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ID);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ADDRESS);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__HOST_ADDRESS);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__CONTAINERS);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
@@ -1842,6 +1866,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEAttribute(getServiceInstance_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_Containers(), ecorePackage.getEString(), "containers", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMessage_Source(), this.getServiceInstance(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2051,6 +2076,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute SERVICE_INSTANCE__HOST_ADDRESS = eINSTANCE.getServiceInstance_HostAddress();
+
+		/**
+		 * The meta object literal for the '<em><b>Containers</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE_INSTANCE__CONTAINERS = eINSTANCE.getServiceInstance_Containers();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
