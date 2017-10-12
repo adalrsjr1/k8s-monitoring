@@ -52,25 +52,25 @@ class ModelController implements ClusterInspectionInterface, MetricsInspectionIn
 	@Override
 	@RequestMapping(value = "/metrics", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public List metrics() {
-		
+		return metricsInspection.metrics()
 	}
 	
 	@Override
 	@RequestMapping(value = "/metrics/{container}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public List metrics(@PathVariable  String container) {
-		
+		return metricsInspection.metrics(container)
 	}
 	
 	@Override
 	@RequestMapping(value = "/cluster", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public List messages() {
-		
+		return messagesInspection.messages()
 	}
 
 	@Override
 	@RequestMapping(value = "/cluster/{serviceInstance}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public List messages(@PathVariable String serviceInstance) {
-		
+		return messagesInspection.messages(serviceInstance)
 	}
 	
 }
