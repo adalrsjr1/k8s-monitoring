@@ -26,6 +26,11 @@
 
 	<dependencies>
 		<!-- LOCAL -->
+        <dependency>
+            <groupId>cas.ibm.ubc.ca.interfaces</groupId>
+            <artifactId>interfaces</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 		<dependency>
 			<groupId>cas.ibm.ubc.ca.k8s</groupId>
 			<artifactId>k8s-client</artifactId>

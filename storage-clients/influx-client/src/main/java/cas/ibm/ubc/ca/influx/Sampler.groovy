@@ -1,6 +1,7 @@
 package cas.ibm.ubc.ca.influx
 
 import cas.ibm.ubc.ca.influx.exception.NoResultsException
+import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
 
 import java.util.List
 
@@ -9,7 +10,7 @@ import org.influxdb.InfluxDB
 import org.influxdb.dto.Query
 import org.influxdb.dto.QueryResult
 
-public class Sampler {
+public class Sampler implements MetricsInspectionInterface {
   private InfluxDB client
   private String database
 

@@ -1,10 +1,6 @@
 package cas.ibm.ubc.ca.k8s
 
-import java.util.Collections.EmptyMap
-
-import com.google.common.collect.Maps
-
-import cas.ibm.ubc.ca.k8s.interfaces.ClusterInspectionInterface
+import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
 import io.kubernetes.client.apis.CoreV1Api

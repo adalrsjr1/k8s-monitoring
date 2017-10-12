@@ -38,6 +38,13 @@
 	</build>
 
 	<dependencies>
+		<!-- LOCAL -->
+		<dependency>
+			<groupId>cas.ibm.ubc.ca.interfaces</groupId>
+			<artifactId>interfaces</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- LOCAL -->
 		<!-- K8S -->
 		<dependency>
 			<groupId>io.fabric8</groupId>
