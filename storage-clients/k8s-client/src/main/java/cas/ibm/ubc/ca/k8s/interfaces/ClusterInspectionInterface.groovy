@@ -1,6 +1,6 @@
 package cas.ibm.ubc.ca.k8s.interfaces
 
-interface InspectionInterface {
+interface ClusterInspectionInterface {
 	List hosts()
 	List services()
 	List applications()

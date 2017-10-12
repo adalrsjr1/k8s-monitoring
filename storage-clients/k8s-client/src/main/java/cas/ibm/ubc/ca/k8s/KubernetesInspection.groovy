@@ -4,7 +4,7 @@ import java.util.Collections.EmptyMap
 
 import com.google.common.collect.Maps
 
-import cas.ibm.ubc.ca.k8s.interfaces.InspectionInterface
+import cas.ibm.ubc.ca.k8s.interfaces.ClusterInspectionInterface
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
 import io.kubernetes.client.apis.CoreV1Api
@@ -20,7 +20,7 @@ import io.kubernetes.client.models.V1ServiceList
 import io.kubernetes.client.util.Config
 
 // https://github.com/kubernetes-client/java/blob/master/kubernetes/README.md
-class KubernetesInspection implements InspectionInterface {
+class KubernetesInspection implements ClusterInspectionInterface {
 
 	final String url
 	final int timeout
