@@ -1,62 +1,14 @@
 package cas.ibm.ubc.ca.model
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static org.junit.Assert.*
 
-import org.codehaus.groovy.runtime.metaclass.NewMetaMethod
-import org.junit.ClassRule
-import org.junit.Rule
-import org.junit.Test
-import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration
-import com.github.tomakehurst.wiremock.junit.WireMockClassRule
-import com.github.tomakehurst.wiremock.junit.WireMockRule
-
-import cas.ibm.ubc.ca.model.manager.MonitoringClient
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-
-
-import groovy.util.GroovyTestCase
-import okhttp3.OkHttpClient
-
-class TestMonitoringClient extends GroovyTestCase {
-
-	String jsonApplications
-	String jsonHosts
-	String jsonServices
-	
-	String jsonEnvironment = "KUBERNETES"
-	
-	WireMockServer monitoringMock = new WireMockServer(options().port(8888));
-	
-	MonitoringClient testClient
-	
-	//http://wiremock.org/docs/stubbing/
-	public void setUp() {
-		jsonApplications = loadJson("applications.json").text
-		jsonHosts = loadJson("hosts.json").text
-		jsonServices = loadJson("services.json").text
-		monitoringMock.start()
-		testClient = new MonitoringClient(new OkHttpClient(), "http://localhost:8888")
-	}
-	
-	public void tearDown() {
-		monitoringMock.stop()
-	}
-	
-	private File loadJson(String path) {
-		ClassLoader cl = this.class.getClassLoader()
-		new File(cl.getResource(path).getFile())
-		
-	}
+class TestMonitoringClient extends TestMonitoringBase {
 	
 	public void testApplications() {
 		monitoringMock.stubFor(get("/model/applications")
 						.willReturn(okJson(jsonApplications)))
-		
+			
 		assert testClient.applications() == ["default", "kube-public", "kube-system", "sock-shop", "zipkin"]
 	}
 	
