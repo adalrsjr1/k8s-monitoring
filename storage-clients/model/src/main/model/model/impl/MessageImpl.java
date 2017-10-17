@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link model.impl.MessageImpl#getAvgSize <em>Avg Size</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getTimestamp <em>Timestamp</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getUid <em>Uid</em>}</li>
+ *   <li>{@link model.impl.MessageImpl#getMessageSize <em>Message Size</em>}</li>
  * </ul>
  *
  * @generated
@@ -153,6 +154,26 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * @ordered
 	 */
 	protected String uid = UID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMessageSize() <em>Message Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long MESSAGE_SIZE_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getMessageSize() <em>Message Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long messageSize = MESSAGE_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -359,6 +380,27 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Long getMessageSize() {
+		return messageSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMessageSize(Long newMessageSize) {
+		Long oldMessageSize = messageSize;
+		messageSize = newMessageSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.MESSAGE__MESSAGE_SIZE, oldMessageSize, messageSize));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -378,6 +420,8 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 				return getTimestamp();
 			case ModelPackageImpl.MESSAGE__UID:
 				return getUid();
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				return getMessageSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -410,6 +454,9 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 				return;
 			case ModelPackageImpl.MESSAGE__UID:
 				setUid((String)newValue);
+				return;
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				setMessageSize((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -444,6 +491,9 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 			case ModelPackageImpl.MESSAGE__UID:
 				setUid(UID_EDEFAULT);
 				return;
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				setMessageSize(MESSAGE_SIZE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -470,6 +520,8 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 				return TIMESTAMP_EDEFAULT == null ? timestamp != null : !TIMESTAMP_EDEFAULT.equals(timestamp);
 			case ModelPackageImpl.MESSAGE__UID:
 				return UID_EDEFAULT == null ? uid != null : !UID_EDEFAULT.equals(uid);
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				return MESSAGE_SIZE_EDEFAULT == null ? messageSize != null : !MESSAGE_SIZE_EDEFAULT.equals(messageSize);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -494,6 +546,8 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 		result.append(timestamp);
 		result.append(", uid: ");
 		result.append(uid);
+		result.append(", messageSize: ");
+		result.append(messageSize);
 		result.append(')');
 		return result.toString();
 	}
