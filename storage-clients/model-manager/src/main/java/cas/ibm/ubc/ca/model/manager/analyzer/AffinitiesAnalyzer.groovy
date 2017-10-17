@@ -1,45 +1,24 @@
 package cas.ibm.ubc.ca.model.manager.analyzer
 
+import org.eclipse.emf.ecore.util.EcoreUtil
+
+import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import model.Affinity
+import model.Application
 import model.Cluster
 import model.Message
 import model.Service
 import model.ServiceInstance
-import model.impl.ModelPackageImpl
-
-import org.eclipse.emf.common.notify.Adapter
-import org.eclipse.emf.common.notify.Notification
-import org.eclipse.emf.common.notify.Notifier
-import org.eclipse.emf.common.notify.impl.AdapterImpl
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EcorePackage
-import org.eclipse.emf.ecore.util.EcoreUtil
-
-import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
-import cas.ibm.ubc.ca.model.manager.ModelHandler
 
 class AffinitiesAnalyzer {
 
-	ModelHandler modelHandler
+	AffinitiesAnalyzer() {}
 	
-	AffinitiesAnalyzer(ModelHandler modelHandler) {
-		this.modelHandler = modelHandler
-	}
-	
-	private Map getAllApplications(Cluster cluster) {
-		Map<String, Float> map = [:]
-		
-		return cluster.applications.values().inject(map) { result, app ->
-			result[app.name] = app.getWeight()
-			result
-		}
-	}
-	
-	public Map messagesCache(Cluster cluster) {
+	private Map messagesCache(Cluster cluster) {
 		Map map = [:] 
 		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
-
+		
 		while(iterator.hasNext()) {
 			def obj = iterator.next()
 			if(obj instanceof Message) {
@@ -82,7 +61,6 @@ class AffinitiesAnalyzer {
 		
 		return normalize(messages, totalMessages) * weight +
 		normalize(data, totalData) * (1.0f - weight)
-		
 	}
 	
 	public void calculate(Cluster cluster) {
@@ -91,9 +69,19 @@ class AffinitiesAnalyzer {
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		
 		cache.each { k, v ->
+			ServiceInstance src = v[2]
+			ServiceInstance dst = v[3]
+			
+			Application application = cluster.applications[src.getApplication()]
+			def value = affinity(v[0], application.totalMessages,
+				v[1], application.totalData, application.weight)
+			
+
 			Affinity aff = factory.createAffinity()
-			def value = affinity()
 			aff.setDegree(value)
+			aff.setWith(dst)
+			
+			src.hasAffinities << aff
 		}
 	}	
 	
