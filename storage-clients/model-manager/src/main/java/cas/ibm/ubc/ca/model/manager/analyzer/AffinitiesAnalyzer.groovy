@@ -19,6 +19,8 @@ class AffinitiesAnalyzer {
 		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		
+		
+		
 		while(iterator.hasNext()) {
 			def obj = iterator.next()
 			if(obj instanceof Message) {

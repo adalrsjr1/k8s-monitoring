@@ -72,7 +72,7 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 	}
 	
 	public void testCache() {
-		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer(null)
+		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer()
 		assert analyzer != null
 		
 		
@@ -94,16 +94,8 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 		
 	}
 	
-	public void testGetAppApplications() {
-		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer(null)
-		
-		Map applications = analyzer.getAllApplications(cluster)
-		
-		assert applications == ["app1":0.5f]
-	}
-	
 	public void testNormalize() {
-		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer(null)
+		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer()
 		
 		assert analyzer.normalize(1,10) == 0.1f
 		assert analyzer.normalize(1,100) == 0.01f
@@ -112,25 +104,29 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 	}
 	
 	public void testAffinity() {
-		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer(null)
+		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer()
 		
 		assert analyzer.affinity(1,10,1,10, 0.5) == 0.1f
 		
 	}
 	
 	public void testCalculate() {
-		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer(null)
+		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer()
 		
 		analyzer.calculate(cluster)
 		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		
+		int count = 0
 		while(iterator.hasNext()) {
 			def obj = iterator.next()
 			if(obj instanceof Affinity) {
 				assert obj.degree == 0.2f
+				count++
 			}
 		}
+		
+		assert count == 5
 	}
 
 }
