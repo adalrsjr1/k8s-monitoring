@@ -31,6 +31,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link model.impl.ApplicationImpl#getServices <em>Services</em>}</li>
  *   <li>{@link model.impl.ApplicationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link model.impl.ApplicationImpl#getTotalMessages <em>Total Messages</em>}</li>
+ *   <li>{@link model.impl.ApplicationImpl#getTotalData <em>Total Data</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +67,46 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTotalMessages() <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalMessages()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long TOTAL_MESSAGES_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getTotalMessages() <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalMessages()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long totalMessages = TOTAL_MESSAGES_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTotalData() <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalData()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long TOTAL_DATA_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getTotalData() <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalData()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long totalData = TOTAL_DATA_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +165,48 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Long getTotalMessages() {
+		return totalMessages;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTotalMessages(Long newTotalMessages) {
+		Long oldTotalMessages = totalMessages;
+		totalMessages = newTotalMessages;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.APPLICATION__TOTAL_MESSAGES, oldTotalMessages, totalMessages));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Long getTotalData() {
+		return totalData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTotalData(Long newTotalData) {
+		Long oldTotalData = totalData;
+		totalData = newTotalData;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.APPLICATION__TOTAL_DATA, oldTotalData, totalData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -145,6 +229,10 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				else return getServices();
 			case ModelPackageImpl.APPLICATION__NAME:
 				return getName();
+			case ModelPackageImpl.APPLICATION__TOTAL_MESSAGES:
+				return getTotalMessages();
+			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
+				return getTotalData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -162,6 +250,12 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				return;
 			case ModelPackageImpl.APPLICATION__NAME:
 				setName((String)newValue);
+				return;
+			case ModelPackageImpl.APPLICATION__TOTAL_MESSAGES:
+				setTotalMessages((Long)newValue);
+				return;
+			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
+				setTotalData((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,6 +275,12 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 			case ModelPackageImpl.APPLICATION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case ModelPackageImpl.APPLICATION__TOTAL_MESSAGES:
+				setTotalMessages(TOTAL_MESSAGES_EDEFAULT);
+				return;
+			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
+				setTotalData(TOTAL_DATA_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -197,6 +297,10 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				return services != null && !services.isEmpty();
 			case ModelPackageImpl.APPLICATION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ModelPackageImpl.APPLICATION__TOTAL_MESSAGES:
+				return TOTAL_MESSAGES_EDEFAULT == null ? totalMessages != null : !TOTAL_MESSAGES_EDEFAULT.equals(totalMessages);
+			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
+				return TOTAL_DATA_EDEFAULT == null ? totalData != null : !TOTAL_DATA_EDEFAULT.equals(totalData);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -213,6 +317,10 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", totalMessages: ");
+		result.append(totalMessages);
+		result.append(", totalData: ");
+		result.append(totalData);
 		result.append(')');
 		return result.toString();
 	}

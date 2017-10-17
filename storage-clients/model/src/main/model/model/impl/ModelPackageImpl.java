@@ -404,13 +404,31 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Total Messages</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__TOTAL_MESSAGES = SERVICE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Total Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__TOTAL_DATA = SERVICE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Service Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 5;
+	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Service Instance</em>' class.
@@ -495,13 +513,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE__UID = 6;
 
 	/**
+	 * The feature id for the '<em><b>Message Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MESSAGE__MESSAGE_SIZE = 7;
+
+	/**
 	 * The number of structural features of the '<em>Message</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE_FEATURE_COUNT = 7;
+	public static final int MESSAGE_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Message</em>' class.
@@ -798,13 +825,31 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int APPLICATION__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Total Messages</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int APPLICATION__TOTAL_MESSAGES = 2;
+
+	/**
+	 * The feature id for the '<em><b>Total Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int APPLICATION__TOTAL_DATA = 3;
+
+	/**
 	 * The number of structural features of the '<em>Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int APPLICATION_FEATURE_COUNT = 2;
+	public static final int APPLICATION_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Application</em>' class.
@@ -1264,6 +1309,34 @@ public class ModelPackageImpl extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getTotalMessages <em>Total Messages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Total Messages</em>'.
+	 * @see model.ServiceInstance#getTotalMessages()
+	 * @see #getServiceInstance()
+	 * @generated
+	 */
+	public EAttribute getServiceInstance_TotalMessages() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(5);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getTotalData <em>Total Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Total Data</em>'.
+	 * @see model.ServiceInstance#getTotalData()
+	 * @see #getServiceInstance()
+	 * @generated
+	 */
+	public EAttribute getServiceInstance_TotalData() {
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(6);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link model.Message <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1365,6 +1438,20 @@ public class ModelPackageImpl extends EPackageImpl {
 	public EAttribute getMessage_Uid() {
 		return (EAttribute)messageEClass.getEStructuralFeatures().get(6);
 	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.Message#getMessageSize <em>Message Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message Size</em>'.
+	 * @see model.Message#getMessageSize()
+	 * @see #getMessage()
+	 * @generated
+	 */
+	public EAttribute getMessage_MessageSize() {
+		return (EAttribute)messageEClass.getEStructuralFeatures().get(7);
+	}
+
 
 	/**
 	 * Returns the meta object for class '{@link model.Host <em>Host</em>}'.
@@ -1656,6 +1743,34 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.Application#getTotalMessages <em>Total Messages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Total Messages</em>'.
+	 * @see model.Application#getTotalMessages()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	public EAttribute getApplication_TotalMessages() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(2);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.Application#getTotalData <em>Total Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Total Data</em>'.
+	 * @see model.Application#getTotalData()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	public EAttribute getApplication_TotalData() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(3);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Application</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1761,6 +1876,8 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ADDRESS);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__HOST_ADDRESS);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__CONTAINERS);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__TOTAL_MESSAGES);
+		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__TOTAL_DATA);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
@@ -1770,6 +1887,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEAttribute(messageEClass, MESSAGE__AVG_SIZE);
 		createEAttribute(messageEClass, MESSAGE__TIMESTAMP);
 		createEAttribute(messageEClass, MESSAGE__UID);
+		createEAttribute(messageEClass, MESSAGE__MESSAGE_SIZE);
 
 		hostEClass = createEClass(HOST);
 		createEAttribute(hostEClass, HOST__NAME);
@@ -1799,6 +1917,8 @@ public class ModelPackageImpl extends EPackageImpl {
 		applicationEClass = createEClass(APPLICATION);
 		createEReference(applicationEClass, APPLICATION__SERVICES);
 		createEAttribute(applicationEClass, APPLICATION__NAME);
+		createEAttribute(applicationEClass, APPLICATION__TOTAL_MESSAGES);
+		createEAttribute(applicationEClass, APPLICATION__TOTAL_DATA);
 
 		stringToApplicationEClass = createEClass(STRING_TO_APPLICATION);
 		createEAttribute(stringToApplicationEClass, STRING_TO_APPLICATION__KEY);
@@ -1867,6 +1987,8 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEAttribute(getServiceInstance_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_Containers(), ecorePackage.getEString(), "containers", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_TotalMessages(), ecorePackage.getELongObject(), "totalMessages", "0", 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceInstance_TotalData(), ecorePackage.getELongObject(), "totalData", "0", 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMessage_Source(), this.getServiceInstance(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1876,6 +1998,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEAttribute(getMessage_AvgSize(), ecorePackage.getELongObject(), "avgSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Timestamp(), ecorePackage.getELongObject(), "timestamp", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMessage_MessageSize(), ecorePackage.getELongObject(), "messageSize", "0", 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hostEClass, Host.class, "Host", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHost_Name(), ecorePackage.getEString(), "name", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1905,6 +2028,8 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEClass(applicationEClass, Application.class, "Application", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplication_Services(), this.getStringToService(), null, "services", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_Name(), ecorePackage.getEString(), "name", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplication_TotalMessages(), ecorePackage.getELongObject(), "totalMessages", "0", 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplication_TotalData(), ecorePackage.getELongObject(), "totalData", "0", 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToApplicationEClass, Map.Entry.class, "StringToApplication", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToApplication_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2086,6 +2211,22 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EAttribute SERVICE_INSTANCE__CONTAINERS = eINSTANCE.getServiceInstance_Containers();
 
 		/**
+		 * The meta object literal for the '<em><b>Total Messages</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE_INSTANCE__TOTAL_MESSAGES = eINSTANCE.getServiceInstance_TotalMessages();
+
+		/**
+		 * The meta object literal for the '<em><b>Total Data</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE_INSTANCE__TOTAL_DATA = eINSTANCE.getServiceInstance_TotalData();
+
+		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2150,6 +2291,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute MESSAGE__UID = eINSTANCE.getMessage_Uid();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute MESSAGE__MESSAGE_SIZE = eINSTANCE.getMessage_MessageSize();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.HostImpl <em>Host</em>}' class.
@@ -2340,6 +2489,22 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute APPLICATION__NAME = eINSTANCE.getApplication_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Total Messages</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute APPLICATION__TOTAL_MESSAGES = eINSTANCE.getApplication_TotalMessages();
+
+		/**
+		 * The meta object literal for the '<em><b>Total Data</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute APPLICATION__TOTAL_DATA = eINSTANCE.getApplication_TotalData();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.StringToApplicationImpl <em>String To Application</em>}' class.
