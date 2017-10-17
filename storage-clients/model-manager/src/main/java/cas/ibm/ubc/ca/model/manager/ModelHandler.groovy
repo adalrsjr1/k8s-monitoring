@@ -26,7 +26,7 @@ class ModelHandler {
 	private String modelStoragePath = "src/main/resources/"
 	private Resource resource
 	
-	Cluster cluster
+	public Cluster cluster
 
 	ModelHandler(String modelStoragePath) {
 		this.modelStoragePath = modelStoragePath
