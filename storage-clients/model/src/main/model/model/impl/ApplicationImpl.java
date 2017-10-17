@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ApplicationImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.ApplicationImpl#getTotalMessages <em>Total Messages</em>}</li>
  *   <li>{@link model.impl.ApplicationImpl#getTotalData <em>Total Data</em>}</li>
+ *   <li>{@link model.impl.ApplicationImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @generated
@@ -107,6 +108,26 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * @ordered
 	 */
 	protected Long totalData = TOTAL_DATA_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Float WEIGHT_EDEFAULT = new Float(0.0F);
+
+	/**
+	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected Float weight = WEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +228,27 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Float getWeight() {
+		return weight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWeight(Float newWeight) {
+		Float oldWeight = weight;
+		weight = newWeight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.APPLICATION__WEIGHT, oldWeight, weight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -233,6 +275,8 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				return getTotalMessages();
 			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
 				return getTotalData();
+			case ModelPackageImpl.APPLICATION__WEIGHT:
+				return getWeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -256,6 +300,9 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				return;
 			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
 				setTotalData((Long)newValue);
+				return;
+			case ModelPackageImpl.APPLICATION__WEIGHT:
+				setWeight((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -281,6 +328,9 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
 				setTotalData(TOTAL_DATA_EDEFAULT);
 				return;
+			case ModelPackageImpl.APPLICATION__WEIGHT:
+				setWeight(WEIGHT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -301,6 +351,8 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 				return TOTAL_MESSAGES_EDEFAULT == null ? totalMessages != null : !TOTAL_MESSAGES_EDEFAULT.equals(totalMessages);
 			case ModelPackageImpl.APPLICATION__TOTAL_DATA:
 				return TOTAL_DATA_EDEFAULT == null ? totalData != null : !TOTAL_DATA_EDEFAULT.equals(totalData);
+			case ModelPackageImpl.APPLICATION__WEIGHT:
+				return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -321,6 +373,8 @@ public class ApplicationImpl extends MinimalEObjectImpl.Container implements App
 		result.append(totalMessages);
 		result.append(", totalData: ");
 		result.append(totalData);
+		result.append(", weight: ");
+		result.append(weight);
 		result.append(')');
 		return result.toString();
 	}
