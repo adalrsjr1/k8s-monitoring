@@ -23,7 +23,7 @@ class TestModelCreation extends GroovyTestCase {
 
 	List services
 	List hosts
-	List applications
+	Map applications
 	String environment = "KUBERNETES"
 	
 	void setUp() {
@@ -39,7 +39,7 @@ class TestModelCreation extends GroovyTestCase {
 		hosts = gson.fromJson(jsonReader, List.class)
 		
 		jsonReader = new JsonReader(new FileReader(new File(cl.getResource("applications.json").getFile())))
-		applications = gson.fromJson(jsonReader, List.class)
+		applications = gson.fromJson(jsonReader, Map.class)
 	}
 	
 	ResourceSet getXmiResourceSet() {
@@ -67,17 +67,24 @@ class TestModelCreation extends GroovyTestCase {
 		
 		resource.getContents().add(cluster)
 		
-		applications.each { item ->
+		applications.each { k,v ->
 			Application app = factory.createApplication()
-			app.name = item
+			app.name = k
+			app.weight = v
 			
 			// always first to add to resource 
 			resource.getContents().add(app)
-			cluster.applications[(item)] = app
+			cluster.applications[(k)] = app
 			
 		}
 		
-		assert cluster.applications.collect { it.value.name } == applications
+		Map result = cluster.applications.inject([:]) { result, app ->
+			result[app.key] = app.value.weight
+			result
+		}
+
+		Map expected = ["default":1.0f,"kube-public":1.0f,"kube-system":0.5f,"sock-shop":0.33333f,"zipkin":0.635f]
+		assert result == expected
 		
 		hosts.each { item ->
 			Host host = factory.createHost()

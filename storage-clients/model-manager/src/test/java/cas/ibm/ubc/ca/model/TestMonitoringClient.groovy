@@ -8,8 +8,9 @@ class TestMonitoringClient extends TestMonitoringBase {
 	public void testApplications() {
 		monitoringMock.stubFor(get("/model/applications")
 						.willReturn(okJson(jsonApplications)))
-			
-		assert testClient.applications() == ["default", "kube-public", "kube-system", "sock-shop", "zipkin"]
+		
+		assert testClient.applications() == ["default":1.0,"kube-public":1.0,"kube-system":0.5,"sock-shop":0.33333,"zipkin":0.635]
+
 	}
 	
 	public void testHosts() {

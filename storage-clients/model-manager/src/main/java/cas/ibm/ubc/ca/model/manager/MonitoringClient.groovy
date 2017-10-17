@@ -38,64 +38,55 @@ class MonitoringClient implements ClusterInspectionInterface,
 		return httpClient.newCall(request).execute()
 	}
 	
-	private def request(String params) {
+	private def request(String params, Type type) {
 		String path = url + params
 		Response response = innerRequest(path)
 		
 		String json = response.body().string()
 		
-		
-		
-		def result
-		try {
-			Type listType = new TypeToken<List>(){}.getType();
-			result = jsonParser.fromJson(json, listType)
-		}
-		catch(Exception) {
-			result = jsonParser.fromJson(json, String.class)
-		}
+		def result = jsonParser.fromJson(json, type)
 		
 		return result
 	}
 	
 	@Override
 	public List metrics() {
-		request("/metrics")
+		request("/metrics", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
 	public List metrics(String container) {
-		request("/metrics/${container}")
+		request("/metrics/${container}", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
 	public List messages() {
-		request("/messages")
+		request("/messages", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
 	public List messages(String serviceInstance) {
-		request("/messages/${serviceInstance}")
+		request("/messages/${serviceInstance}", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
 	public List hosts() {
-		request("/hosts")
+		request("/hosts", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
 	public List services() {
-		request("/services")
+		request("/services", new TypeToken<List>(){}.getType())
 	}
 
 	@Override
-	public List applications() {
-		request("/applications")
+	public Map<String, Float> applications() {
+		request("/applications", new TypeToken<Map>(){}.getType())
 	}
 
 	@Override
 	public String cluster() {
-		request("/cluster")
+		request("/cluster", new TypeToken<String>(){}.getType())
 	}
 
 }
