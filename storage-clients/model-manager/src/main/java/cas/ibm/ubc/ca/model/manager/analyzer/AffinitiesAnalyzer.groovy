@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.model.manager.analyzer
 
+import model.Affinity
 import model.Cluster
 import model.Message
 import model.Service
@@ -14,6 +15,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 
+import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.ModelHandler
 
 class AffinitiesAnalyzer {
@@ -23,39 +25,12 @@ class AffinitiesAnalyzer {
 	AffinitiesAnalyzer(ModelHandler modelHandler) {
 		this.modelHandler = modelHandler
 	}
-
-	private Double normalize(Long total, Long number) {
-		return (Double) total / number
-	}
-	
-	private List getAllServices(Cluster cluster) {
-		List<ServiceInstance> services = []
-		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
-		
-		while(iterator.hasNext()) {
-			def object = iterator.next()
-			if(object instanceof ServiceInstance) {
-				services << object
-			}
-		}
-		
-		return services
-	}
-	
-	private List getAllServicePerApplication(Cluster cluster) {
-		Map map = [:]
-		
-		return cluster.applications.inject(map) { result, app ->
-			result[app.name] = app.services.values()
-			result
-		}
-	}
 	
 	private Map getAllApplications(Cluster cluster) {
 		Map<String, Float> map = [:]
 		
-		return cluster.applications.inject(map) { result, app ->
-			result[app.name] = app.weight
+		return cluster.applications.values().inject(map) { result, app ->
+			result[app.name] = app.getWeight()
 			result
 		}
 	}
@@ -68,27 +43,57 @@ class AffinitiesAnalyzer {
 		while(iterator.hasNext()) {
 			def obj = iterator.next()
 			if(obj instanceof Message) {
-				String key = "${obj.source.name}:${obj.destination.name}"
-				if(!map.containsKey(key)) {
-					map[key] = new ArrayList([0,0])
+				Service src = obj.getSource()
+				Service dst = obj.getDestination()
+				
+				String key = "${src.name}:${dst.name}"
+				String keyReverse = "${dst.name}:${src.name}"
+				
+				if(!map.containsKey(key) && !map.containsKey(keyReverse)) {
+					map[key] = [0,0, null, null] as ArrayList
+				}
+				else {
+					if(map.containsKey(keyReverse)) {
+						key = keyReverse
+						def aux = src
+						src = dst
+						dst = aux
+					}
 				}
 				
-				// result[source:destination] = [#messages, #data]
-						
+				// result[source:destination] = [#messages, #data, src, dst]
+				// graph unidirected		
 				map[key][0] += 1
 				map[key][1] += obj.messageSize
+				map[key][2] = src
+				map[key][3] = dst
 			}
 			
 		}		
 		return map
 	}
 	
-	void calculate(Cluster cluster) {
-		Map applications = getAllApplications(cluster)
-		Map services = getAllServices(cluster)
+	private Float normalize(Long number, Long total) {
+		return (Double) number / total
+	}
+	
+	private Float affinity(Long messages, Long totalMessages, 
+		Long data, Long totalData, Float weight) {
 		
-		services.each {String app, List svcs ->
-			
+		return normalize(messages, totalMessages) * weight +
+		normalize(data, totalData) * (1.0f - weight)
+		
+	}
+	
+	public void calculate(Cluster cluster) {
+		Map cache = messagesCache(cluster)
+		
+		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		
+		cache.each { k, v ->
+			Affinity aff = factory.createAffinity()
+			def value = affinity()
+			aff.setDegree(value)
 		}
 	}	
 	

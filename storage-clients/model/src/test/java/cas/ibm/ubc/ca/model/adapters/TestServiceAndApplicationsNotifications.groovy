@@ -79,7 +79,8 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		
 		Application application = factory.createApplication()
-		
+		application.setName("app")
+			
 		ServiceInstance service = factory.createServiceInstance()
 		
 		assert service != null
@@ -114,6 +115,7 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		
 		
 		application.services ["service1"] = service
+		assert service.getApplication() == "app"
 		assert application.totalData == 9L
 		assert application.totalMessages == 4L
 	}
@@ -122,6 +124,7 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		
 		Application application = factory.createApplication()
+		application.setName("app")
 		
 		ServiceInstance service = factory.createServiceInstance()
 		
@@ -132,6 +135,7 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		assert service.totalMessages == 0L
 		
 		application.services ["service2"] = service
+		assert service.getApplication() == "app"
 		
 		Message m = factory.createMessage()
 		m.messageSize = 3L

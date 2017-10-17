@@ -79,6 +79,7 @@ class ModelFactoryAdapter implements ModelFactory {
 				&& newValue instanceof StringToServiceImpl) {
 				
 				ServiceInstance service = newValue.value
+				service.setApplication(notifier.getName())
 				
 				notifier.totalMessages += service.totalMessages
 				notifier.totalData += newValue.value.totalData
