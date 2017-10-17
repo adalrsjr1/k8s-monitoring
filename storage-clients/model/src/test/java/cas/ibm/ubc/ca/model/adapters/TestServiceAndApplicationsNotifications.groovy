@@ -2,10 +2,8 @@ package cas.ibm.ubc.ca.model.adapters
 
 import static org.junit.Assert.*
 
-import org.junit.Test
 import model.Application
 import model.Message
-import model.Service
 import model.ServiceInstance
 
 class TestServiceAndApplicationsNotifications extends GroovyTestCase {
@@ -76,8 +74,8 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		
 		assert service.totalMessages == 4L
 	}
-
-	void testApplicationNotification() {
+	
+	void testApplicationNotificationFirstCreateThenAdd() {
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		
 		Application application = factory.createApplication()
@@ -98,23 +96,34 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		m = factory.createMessage()
 		m.messageSize = 1L
 		service.messages << m
+		assert service.totalMessages == 2L
 		assert service.totalData == 4L
 		
 		m = factory.createMessage()
 		m.messageSize = 5L
 		service.messages << m
+		assert service.totalMessages == 3L
 		assert service.totalData == 9L
 		
 		m = factory.createMessage()
 		m.messageSize = 0L
 		service.messages << m
+		assert service.totalMessages == 4L
 		assert service.totalData == 9L
 		
-		assert service.totalMessages == 4L
+		
 		
 		application.services ["service1"] = service
 		assert application.totalData == 9L
 		assert application.totalMessages == 4L
+	}
+	
+	void testApplicationNotificationFirstAddThenCreate() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		
+		Application application = factory.createApplication()
+		
+		ServiceInstance service = factory.createServiceInstance()
 		
 		service = factory.createServiceInstance()
 		
@@ -124,7 +133,7 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		
 		application.services ["service2"] = service
 		
-		m = factory.createMessage()
+		Message m = factory.createMessage()
 		m.messageSize = 3L
 		service.messages << m
 		
@@ -134,23 +143,47 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		m = factory.createMessage()
 		m.messageSize = 1L
 		service.messages << m
+		assert service.totalMessages == 2L
 		assert service.totalData == 4L
 		
 		m = factory.createMessage()
 		m.messageSize = 5L
 		service.messages << m
+		assert service.totalMessages == 3L
 		assert service.totalData == 9L
 		
 		m = factory.createMessage()
 		m.messageSize = 0L
 		service.messages << m
+		assert service.totalMessages == 4L
 		assert service.totalData == 9L
 		
-		assert service.totalMessages == 4L
+		assert application.totalMessages == 4L
+		assert application.totalData == 9L
 		
-		assert application.totalData == 18L
-		assert application.totalMessages == 8L
 		
+	}
+	
+	void testFullApplication() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		Application application = factory.createApplication()
+		ServiceInstance service = factory.createServiceInstance()
+		service.totalData = 10L
+		service.totalMessages = 4L
+		
+		application.services["s1"] = service
+		
+		assert application.totalMessages == 4L
+		assert application.totalData == 10L
+		
+		service = factory.createServiceInstance()
+		service.totalData = 3L
+		service.totalMessages = 5L
+		
+		application.services["s2"] = service
+		
+		assert application.totalMessages == 9L
+		assert application.totalData == 13L
 	}
 	
 }
