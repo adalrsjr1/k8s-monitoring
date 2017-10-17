@@ -126,10 +126,6 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_PPqF4Z8vEeeTJIkGYe-yBQ" fontColor="2697711" fontName="Ubuntu" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_PPqF4p8vEeeTJIkGYe-yBQ"/>
             </children>
-            <children xmi:type="notation:Node" xmi:id="_UXeUQJ8vEeeTJIkGYe-yBQ" type="3010" element="_UXDdgJ8vEeeTJIkGYe-yBQ">
-              <styles xmi:type="notation:FontStyle" xmi:id="_UXeUQZ8vEeeTJIkGYe-yBQ" fontColor="2697711" fontName="Ubuntu" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_UXeUQp8vEeeTJIkGYe-yBQ"/>
-            </children>
             <children xmi:type="notation:Node" xmi:id="_YNlqMJ8vEeeTJIkGYe-yBQ" type="3010" element="_YNC3oJ8vEeeTJIkGYe-yBQ">
               <styles xmi:type="notation:FontStyle" xmi:id="_YNlqMZ8vEeeTJIkGYe-yBQ" fontColor="2697711" fontName="Ubuntu" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_YNlqMp8vEeeTJIkGYe-yBQ"/>
@@ -734,14 +730,6 @@
         <target xmi:type="ecore:EAttribute" href="model.ecore#//Message/avgResponseTime"/>
         <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//Message/avgResponseTime"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_TMFfMJ8vEeeTJIkGYe-yBQ" labelAlignment="LEFT">
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
-      </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_UXDdgJ8vEeeTJIkGYe-yBQ" name="avgSize : ELongObject" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="model.ecore#//Message/avgSize"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//Message/avgSize"/>
-        <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_WZCjYJ8vEeeTJIkGYe-yBQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>

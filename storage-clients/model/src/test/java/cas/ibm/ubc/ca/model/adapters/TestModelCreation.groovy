@@ -15,6 +15,7 @@ import model.Application
 import model.Cluster
 import model.Environment
 import model.Host
+import model.Message
 import model.ModelFactory
 import model.Service
 import model.ServiceInstance
@@ -132,6 +133,48 @@ class TestModelCreation extends GroovyTestCase {
 		}
 		
 		resource.save(Collections.EMPTY_MAP)
+	}
+	
+	void testRandomGeneration() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.INSTANCE
+		Cluster cluster = factory.createCluster()
+
+		Application app = factory.createApplication()
+		
+		cluster.applications["app1"] = app
+
+		int c = 5
+		
+		for(i in (1..c)) {
+			ServiceInstance s = factory.createServiceInstance()
+			String svc = "svc${i}"
+			s.name = svc
+			
+			println ">>> $svc"
+			
+			cluster.applications["app1"].services[svc] = s
+		}
+		assert cluster.applications["app1"].services.size() == c 
+		
+		Map svcs = cluster.applications["app1"].services
+				
+		for(j in (1..(c*2))) {
+			Message m = factory.createMessage()
+			
+			String src = "svc${(j%c)+1}"
+			String dst = "svc${((j+1)%c)+1}"
+			
+			m.setSource(svcs[src])
+			m.setDestination(svcs[dst])
+			
+			println "::: $src --> $dst"
+			m.setMessageSize(1)
+
+			svcs[src].messages << m
+		}
+
+		assert app.totalMessages == c*2
+		assert app.totalData == c*2
 	}
 
 }

@@ -486,22 +486,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE__AVG_RESPONSE_TIME = 3;
 
 	/**
-	 * The feature id for the '<em><b>Avg Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int MESSAGE__AVG_SIZE = 4;
-
-	/**
 	 * The feature id for the '<em><b>Timestamp</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE__TIMESTAMP = 5;
+	public static final int MESSAGE__TIMESTAMP = 4;
 
 	/**
 	 * The feature id for the '<em><b>Uid</b></em>' attribute.
@@ -510,7 +501,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE__UID = 6;
+	public static final int MESSAGE__UID = 5;
 
 	/**
 	 * The feature id for the '<em><b>Message Size</b></em>' attribute.
@@ -519,7 +510,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE__MESSAGE_SIZE = 7;
+	public static final int MESSAGE__MESSAGE_SIZE = 6;
 
 	/**
 	 * The number of structural features of the '<em>Message</em>' class.
@@ -528,7 +519,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE_FEATURE_COUNT = 8;
+	public static final int MESSAGE_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Message</em>' class.
@@ -1410,19 +1401,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.Message#getAvgSize <em>Avg Size</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Avg Size</em>'.
-	 * @see model.Message#getAvgSize()
-	 * @see #getMessage()
-	 * @generated
-	 */
-	public EAttribute getMessage_AvgSize() {
-		return (EAttribute)messageEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
 	 * Returns the meta object for the attribute '{@link model.Message#getTimestamp <em>Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1432,7 +1410,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getMessage_Timestamp() {
-		return (EAttribute)messageEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)messageEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1445,7 +1423,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getMessage_Uid() {
-		return (EAttribute)messageEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)messageEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1458,7 +1436,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getMessage_MessageSize() {
-		return (EAttribute)messageEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)messageEClass.getEStructuralFeatures().get(6);
 	}
 
 
@@ -1907,7 +1885,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(messageEClass, MESSAGE__DESTINATION);
 		createEAttribute(messageEClass, MESSAGE__NAME);
 		createEAttribute(messageEClass, MESSAGE__AVG_RESPONSE_TIME);
-		createEAttribute(messageEClass, MESSAGE__AVG_SIZE);
 		createEAttribute(messageEClass, MESSAGE__TIMESTAMP);
 		createEAttribute(messageEClass, MESSAGE__UID);
 		createEAttribute(messageEClass, MESSAGE__MESSAGE_SIZE);
@@ -2019,7 +1996,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getMessage_Destination(), this.getServiceInstance(), null, "destination", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Name(), ecorePackage.getEString(), "name", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_AvgResponseTime(), ecorePackage.getELongObject(), "avgResponseTime", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMessage_AvgSize(), ecorePackage.getELongObject(), "avgSize", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Timestamp(), ecorePackage.getELongObject(), "timestamp", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_Uid(), ecorePackage.getEString(), "uid", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMessage_MessageSize(), ecorePackage.getELongObject(), "messageSize", "0", 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2292,14 +2268,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute MESSAGE__AVG_RESPONSE_TIME = eINSTANCE.getMessage_AvgResponseTime();
-
-		/**
-		 * The meta object literal for the '<em><b>Avg Size</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute MESSAGE__AVG_SIZE = eINSTANCE.getMessage_AvgSize();
 
 		/**
 		 * The meta object literal for the '<em><b>Timestamp</b></em>' attribute feature.
