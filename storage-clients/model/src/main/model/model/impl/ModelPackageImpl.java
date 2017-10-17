@@ -843,13 +843,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int APPLICATION__TOTAL_DATA = 3;
 
 	/**
+	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int APPLICATION__WEIGHT = 4;
+
+	/**
 	 * The number of structural features of the '<em>Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int APPLICATION_FEATURE_COUNT = 4;
+	public static final int APPLICATION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Application</em>' class.
@@ -1771,6 +1780,20 @@ public class ModelPackageImpl extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.Application#getWeight <em>Weight</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Weight</em>'.
+	 * @see model.Application#getWeight()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	public EAttribute getApplication_Weight() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(4);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Application</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1919,6 +1942,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEAttribute(applicationEClass, APPLICATION__NAME);
 		createEAttribute(applicationEClass, APPLICATION__TOTAL_MESSAGES);
 		createEAttribute(applicationEClass, APPLICATION__TOTAL_DATA);
+		createEAttribute(applicationEClass, APPLICATION__WEIGHT);
 
 		stringToApplicationEClass = createEClass(STRING_TO_APPLICATION);
 		createEAttribute(stringToApplicationEClass, STRING_TO_APPLICATION__KEY);
@@ -2030,6 +2054,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEAttribute(getApplication_Name(), ecorePackage.getEString(), "name", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_TotalMessages(), ecorePackage.getELongObject(), "totalMessages", "0", 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_TotalData(), ecorePackage.getELongObject(), "totalData", "0", 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplication_Weight(), ecorePackage.getEFloatObject(), "weight", "0.0", 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToApplicationEClass, Map.Entry.class, "StringToApplication", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToApplication_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2505,6 +2530,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute APPLICATION__TOTAL_DATA = eINSTANCE.getApplication_TotalData();
+
+		/**
+		 * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute APPLICATION__WEIGHT = eINSTANCE.getApplication_Weight();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.StringToApplicationImpl <em>String To Application</em>}' class.
