@@ -40,6 +40,10 @@ class ModelHandler {
 		resource = createResource(modelStoragePath, resourceSet)
 	}
 	
+	public Cluster getCluster() {
+		cluster
+	}
+	
 	private ResourceSet getXmiResourceSet() {
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -50,22 +54,22 @@ class ModelHandler {
 		return resSet
 	}
 	
-	private Resource createResource() {
+	private Resource createResource(String url, ResourceSet resourceSet) {
 		String filename = System.currentTimeMillis().toString()
 		EmfURI emfURI = EmfURI.createURI(url + filename + ".xmi")
 		Resource resource = resourceSet.createResource(emfURI)
 		return resource
 	}
 	
-	private void createMessages(List messages) {
+	private void createMessages(Cluster cluster, List messages) {
 		LOG.warn("Messages can't be created yet. Implement this!")
 	}
 	
-	private void createMetrics(List metrics) {
+	private void createMetrics(Cluster cluster, List metrics) {
 		LOG.warn("Messages can't be created yet. Implement this!")
 	}
 	
-	private void createServices(List services) {
+	private void createServices(Cluster cluster, List services) {
 		services.each { s ->
 			Service service = factory.createServiceInstance()
 			service.name = s.name
@@ -91,19 +95,20 @@ class ModelHandler {
 		}
 	}
 	
-	private void createApplications(List applications) {
-		applications.each { item ->
+	private void createApplications(Cluster cluster, Map applications) {
+		applications.each { k, v ->
 			Application app = factory.createApplication()
-			app.name = item
+			app.name = k
+			app.weight = v
 			
 			if(resource) {
 				resource.getContents().add(app)
 			}
-			cluster.applications[(item)] = app			
+			cluster.applications[(k)] = app			
 		}
 	}
 	
-	private void createHosts(List hosts) {
+	private void createHosts(Cluster cluster, List hosts) {
 		hosts.each { item ->
 			Host host = factory.createHost()
 			host.name = item.name
@@ -140,12 +145,12 @@ class ModelHandler {
 		}
 		createResource()
 		
-		createCluster(environment)
-		createApplications(applications)
-		createHosts(hosts)
-		createServices(services)
-		createMetrics(metrics)
-		createMessages(messages)
+		cluster = createCluster(environment)
+		createApplications(cluster, applications)
+		createHosts(cluster, hosts)
+		createServices(cluster, services)
+		createMetrics(cluster, metrics)
+		createMessages(cluster, messages)
 		
 		return cluster
 	}
@@ -174,7 +179,7 @@ class ModelHandler {
 				watcher.stop()
 				return
 			}
-			LOG.info ("The model can't be saved. There was any resource created.")
+			LOG.info ("The model can't be saved. The resource wasn't created.")
 		}
 		catch(IOException e) {
 			LOG.info ("The model wasn't save.")

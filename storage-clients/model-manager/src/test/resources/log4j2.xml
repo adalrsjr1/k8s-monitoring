@@ -14,7 +14,7 @@
 		<Root level="OFF" additivity="false">
 			<AppenderRef ref="Console"/>
 		</Root>
-		<Logger name="cas.ibm.ubc.ca" level="OFF" additivity="false">
+		<Logger name="cas.ibm.ubc.ca" level="ALL" additivity="false">
 			<AppenderRef ref="Console"/>
 		</Logger>
 	</Loggers>

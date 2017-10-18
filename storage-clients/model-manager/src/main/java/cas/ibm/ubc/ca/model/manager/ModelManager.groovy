@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
+import groovy.transform.Synchronized
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -23,8 +24,8 @@ class ModelManager {
 	private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
 	private static final Logger LOG = LoggerFactory.getLogger(ModelManager.class)
 	
-	private static final ExecutorService threads = Executors.newSingleThreadExecutor(
-		new ThreadFactoryBuilder().setNameFormat("model-manager"))
+	private final ExecutorService threads = Executors.newCachedThreadPool(
+		new ThreadFactoryBuilder().setNameFormat("model-manager-%d").build())
 	
 	private final Long monitoringInterval
 	private final String monitoringUrl
@@ -58,16 +59,21 @@ class ModelManager {
 			monitoringClient.messages())
 	}
 	
+	@Synchronized
 	public Cluster updateModel() {
 		Cluster cluster
 		try {
-			lock.writeLock()
+//			lock.writeLock()
 			modelHandler.saveModel()
 			cluster = createModel()
 			analyzer.calculate(cluster)
 		}
+		catch(Exception e) {
+			LOG.error "It cannot possible to create/update the model"
+			throw new RuntimeException(e)
+		}
 		finally {
-			lock.writeLock().unlock()
+//			lock.writeLock().unlock()
 			return cluster
 		}
 	}
@@ -79,7 +85,7 @@ class ModelManager {
 	
 	public void start() {
 		
-		threads.execute {
+//		threads.execute {
 			Stopwatch watcher = Stopwatch.createStarted()
 			while(!stopped) {
 				watcher.reset()
@@ -96,7 +102,7 @@ class ModelManager {
 				LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 				
 				Thread.sleep(this.monitoringInterval)
-			}
+//			}
 		}
 	}
 	
