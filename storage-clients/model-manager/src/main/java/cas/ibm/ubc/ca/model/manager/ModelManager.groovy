@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
+import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
+
 import com.google.common.util.concurrent.ThreadFactoryBuilder
 import okhttp3.OkHttpClient
 
@@ -21,6 +23,8 @@ class ModelManager {
 	private final MonitoringClient monitoringClient
 	private final ModelHandler modelHandler
 	
+	private final AffinitiesAnalyzer analyzer
+	
 	private Long modelUpdateInterval
 	private Boolean stopped = false
 	
@@ -31,7 +35,8 @@ class ModelManager {
 		this.modelUpdateInterval = modelUpdateInterval 
 		
 		monitoringClient = new MonitoringClient(new OkHttpClient(), monitoringURL)
-		modelHandler = new ModelHandler(modelStoragePath)	Cluster 
+		modelHandler = new ModelHandler(modelStoragePath)	
+		analyzer = new AffinitiesAnalyzer()	 
 	}
 	
 	public Cluster createModel() {
@@ -50,6 +55,7 @@ class ModelManager {
 			lock.writeLock()
 			modelHandler.saveModel()
 			cluster = createModel()
+			analyzer.calculate(cluster)
 		}
 		finally {
 			lock.writeLock().unlock()
