@@ -4,9 +4,14 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
+
+import java.util.concurrent.TimeUnit
+import javax.naming.OperationNotSupportedException
 import org.eclipse.emf.common.util.URI as EmfURI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
+import com.google.common.base.Stopwatch
 
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
@@ -23,7 +28,7 @@ class ModelHandler {
 	private final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 	private final ResourceSet resourceSet
 	
-	private String modelStoragePath = "src/main/resources/"
+	private String modelStoragePath
 	private Resource resource
 	
 	public Cluster cluster
@@ -126,7 +131,7 @@ class ModelHandler {
 	}
 	
 	@Synchronized	
-	Cluster updateModel(String environment, List hosts, List applications,
+	public Cluster updateModel(String environment, List hosts, List applications,
 		List services, List metrics, List messages) {
 	
 		if(resource) {
@@ -145,36 +150,28 @@ class ModelHandler {
 		return cluster
 	}
 	
-	List getMessages(String application) {
-		// messages
-	}
-	
-	List getAllMessages() {
-		// all messages
-	}
-	
 	List getAffinities(String service) {
 		// affinities
+		throw new OperationNotSupportedException()
 	}
 	
 	List getAllAffinities() {
 		// all affinities
+		throw new OperationNotSupportedException()
 	}
 	
-	void setAffinities(List affinities) {
-		// affinities
-	}
-
 	private void destroyResource() {
 		resourceSet.getResources().remove(resource)
 	}
 	
-	void saveModel() {
+	public void saveModel() {
 		try {
 			if(resource) {
+				Stopwatch watcher = Stopwatch.createStarted()
 				LOG.info ("Saving model...")
 				resource.save(Collections.EMPTY_MAP)
-				LOG.info ("The model was save.")
+				LOG.info ("The model was save [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms.")
+				watcher.stop()
 				return
 			}
 			LOG.info ("The model can't be saved. There was any resource created.")
