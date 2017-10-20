@@ -1,5 +1,8 @@
 package cas.ibm.ubc.ca.model.manager.analyzer
 
+import org.eclipse.emf.common.util.ECollections
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
@@ -12,7 +15,7 @@ import model.ServiceInstance
 
 class AffinitiesAnalyzer {
 
-	AffinitiesAnalyzer() {}
+	public AffinitiesAnalyzer() {}
 	
 	private Map messagesCache(Cluster cluster) {
 		Map map = [:] 
@@ -62,11 +65,13 @@ class AffinitiesAnalyzer {
 		return normalize(messages, totalMessages) * weight +
 		normalize(data, totalData) * (1.0f - weight)
 	}
-	
+
 	public void calculate(Cluster cluster) {
 		Map cache = messagesCache(cluster)
 		
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		
+		Set services = [] as Set
 		
 		cache.each { k, v ->
 			ServiceInstance src = v[2]
@@ -78,11 +83,26 @@ class AffinitiesAnalyzer {
 			
 
 			Affinity aff = factory.createAffinity()
+						
 			aff.setDegree(value)
 			aff.setWith(dst)
 			
+			
 			src.hasAffinities << aff
+			services << v[2]
 		}
+		
+		def comparator = new Comparator() {
+			@Override
+			public int compare(def o1, def o2) {
+				return Float.compare( o2.getDegree(), o1.getDegree() )
+			}
+		}
+		
+		services.each { Service svc ->
+			ECollections.sort(svc.getHasAffinities(), comparator)
+		}
+		
 	}	
 	
 }

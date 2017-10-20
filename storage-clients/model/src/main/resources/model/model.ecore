@@ -15,14 +15,15 @@
         eType="#//StringToApplication" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Service" abstract="true" eSuperTypes="#//ElementWithResources">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hasAffinities" upperBound="-1"
-        eType="#//Affinity" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasAffinities" ordered="false"
+        upperBound="-1" eType="#//Affinity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="application" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Affinity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="with" eType="#//Service"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="degree" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="degree" ordered="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceInstance" eSuperTypes="#//Service">
     <eStructuralFeatures xsi:type="ecore:EReference" name="messages" upperBound="-1"
