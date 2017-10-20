@@ -36,7 +36,7 @@ class ModelHandler implements ReificationInterface {
 	
 	public Cluster cluster
 
-	ModelHandler(String modelStoragePath) {
+	public ModelHandler(String modelStoragePath) {
 		this.modelStoragePath = modelStoragePath
 		
 		resourceSet = getXmiResourceSet()
@@ -78,7 +78,6 @@ class ModelHandler implements ReificationInterface {
 			service.name = s.name
 			service.id = s.uid
 			service.address = s.address
-			service.hostAddress = s.hostAddress
 			service.application = s.application
 			
 			service.containers.addAll(s.containers)
@@ -158,16 +157,6 @@ class ModelHandler implements ReificationInterface {
 		return cluster
 	}
 	
-	List getAffinities(String service) {
-		// affinities
-		throw new OperationNotSupportedException()
-	}
-	
-	List getAllAffinities() {
-		// all affinities
-		throw new OperationNotSupportedException()
-	}
-	
 	private void destroyResource() {
 		resourceSet.getResources().remove(resource)
 	}
@@ -193,11 +182,14 @@ class ModelHandler implements ReificationInterface {
 
 	@Override
 	public boolean move(List<Moviment> adaptationScript) {
-		return false;
+		adaptationScript.each {
+			move(it)
+		}
 	}
 
 	@Override
 	public boolean move(Moviment moviment) {
+		LOG.trace ("moving [{}] ...", moviment.toString())
 		return false;
 	}
 	

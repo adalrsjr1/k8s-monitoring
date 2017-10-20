@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
+import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
 import groovy.transform.Synchronized
 
 import org.slf4j.Logger
@@ -35,6 +36,7 @@ class ModelManager {
 	private final ModelHandler modelHandler
 	
 	private final AffinitiesAnalyzer analyzer
+	private final AdaptationPlanner planner
 	
 	private Boolean stopped = false
 	
@@ -45,8 +47,10 @@ class ModelManager {
 		
 		monitoringClient = new MonitoringClient(new OkHttpClient(), 
 			this.monitoringUrl)
-		modelHandler = new ModelHandler(this.monitoringUrl)	
-		analyzer = new AffinitiesAnalyzer()	 
+		modelHandler = new ModelHandler(this.monitoringUrl)
+			
+		analyzer = new AffinitiesAnalyzer()
+		planner = new AdaptationPlanner(modelHandler)	 
 	}
 	
 	public Cluster createModel() {
