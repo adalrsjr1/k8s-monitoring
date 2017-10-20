@@ -22,7 +22,7 @@ class AdaptationPlanner {
 	private List<Moviment> adaptationScript = []
 	
 	public AdaptationPlanner(ReificationInterface modelHandler) {
-//		this.modelHandler = modelHandler 	
+		this.modelHandler = modelHandler 	
 	}
 	
 	/**

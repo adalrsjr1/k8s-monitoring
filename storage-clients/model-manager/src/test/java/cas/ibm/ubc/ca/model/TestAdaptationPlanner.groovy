@@ -4,8 +4,13 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
+import cas.ibm.ubc.ca.interfaces.Moviment
+import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
+import cas.ibm.ubc.ca.model.manager.ModelHandler
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import groovy.mock.interceptor.MockFor
+import groovy.mock.interceptor.StubFor
 import model.Affinity
 import model.Host
 import model.ServiceInstance
@@ -223,11 +228,10 @@ class TestAdaptationPlanner extends GroovyTestCase {
 		affinity.setWith(svc2)
 		svc1.hasAffinities << affinity
 
-		
 		def proxy = ProxyMetaClass.getInstance(AdaptationPlanner)
 		def interceptor = new AdaptationPlannerInterceptorCompareMetricsLessThen1()
 		proxy.interceptor = interceptor
-		
+
 		proxy.use {
 			AdaptationPlanner planner = new AdaptationPlanner(null)
 			
@@ -238,8 +242,6 @@ class TestAdaptationPlanner extends GroovyTestCase {
 			assert svc1.host == host1
 			assert svc2.host == host1
 		}
-				
-		
 	}
 	
 }
