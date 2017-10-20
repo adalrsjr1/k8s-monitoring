@@ -107,7 +107,6 @@ class TestModelCreation extends GroovyTestCase {
 			service.name = s.name
 			service.id = s.uid
 			service.address = s.address
-			service.hostAddress = s.hostAddress
 			service.application = s.application
 			
 			service.containers.addAll(s.containers)
@@ -119,17 +118,6 @@ class TestModelCreation extends GroovyTestCase {
 			}
 			
 			assert cluster.applications[s.application].services[service.id] != null
-			
-			
-			
-			cluster.hosts.values().find { h ->
-				h.hostAddress.contains(service.hostAddress)				
-			}.services[service.id] = service
-			
-			assert cluster.hosts.values().find { h ->
-				h.hostAddress.contains(service.hostAddress)				
-			}.services[service.id] != null
-			
 		}
 		
 		resource.save(Collections.EMPTY_MAP)
@@ -175,6 +163,31 @@ class TestModelCreation extends GroovyTestCase {
 
 		assert app.totalMessages == c*2
 		assert app.totalData == c*2
+	}
+	
+	void testAutomaticallySetHostToService() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.INSTANCE
+		
+		Host host1 = factory.createHost()
+		Host host2 = factory.createHost()
+		
+		ServiceInstance svc1 = factory.createServiceInstance()
+		ServiceInstance svc2 = factory.createServiceInstance()
+		
+		host1.services["svc1"] = svc1
+		assert svc1.host == host1
+		host2.services["svc2"] = svc2
+		assert svc2.host == host2
+		
+		host1.services["svc2"] = host2.services.remove("svc2")
+		assert svc2.host == host1
+		host2.services["svc1"] = host1.services.remove("svc1")
+		assert svc1.host == host2
+		
+		assert host1.services.keySet().contains("svc2") == true
+		assert host1.services.keySet().contains("svc1") == false
+		assert host2.services.keySet().contains("svc2") == false
+		assert host2.services.keySet().contains("svc1") == true
 	}
 
 }

@@ -24,6 +24,7 @@ import model.impl.ClusterImpl
 import model.impl.MessageImpl
 import model.impl.ServiceImpl
 import model.impl.StringToServiceImpl
+import model.impl.StringToServiceInstanceImpl
 
 // abstracts the ModelFactory to automatically add the adapters
 // to the EObjects instances
@@ -60,6 +61,29 @@ class ModelFactoryAdapter implements ModelFactory {
 				Service service = notifier.eContainer()
 				service.totalData += newValue
 			} 
+		}
+	}
+	
+	private EContentAdapter hostAdapter = new EContentAdapter() {
+		public void notifyChanged(Notification notification) {
+			super.notifyChanged(notification)
+			
+			def newValue = notification.getNewValue()
+			def oldValue = notification.getOldValue()
+
+			Notifier notifier = notification.getNotifier()
+			
+			// this code doesn't handle messages removed from the model
+			// updating application by adding a new service
+			
+			if(notification.getEventType() == Notification.ADD
+				&& notifier instanceof Host
+				&& newValue instanceof StringToServiceInstanceImpl) {
+			
+				ServiceInstance service = newValue.value
+				service.setHost(notifier)
+				
+			}
 		}
 	}
 	
@@ -151,6 +175,7 @@ class ModelFactoryAdapter implements ModelFactory {
 	public Host createHost() {
 		Host host = factory.createHost()
 		host.eAdapters().add(adapter)
+		host.eAdapters().add(hostAdapter)
 		return host
 	}
 

@@ -5,17 +5,22 @@ package model.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import model.Host;
 import model.ServiceInstance;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -100,6 +105,27 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.HOST__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Map<String, ServiceInstance> getServices() {
 		if (services == null) {
 			services = new EcoreEMap<String,ServiceInstance>(ModelPackageImpl.Literals.STRING_TO_SERVICE_INSTANCE, StringToServiceInstanceImpl.class, this, ModelPackageImpl.HOST__SERVICES);
@@ -131,27 +157,6 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				return ((InternalEList<?>)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.HOST__NAME, oldName, name));
 	}
 
 	/**

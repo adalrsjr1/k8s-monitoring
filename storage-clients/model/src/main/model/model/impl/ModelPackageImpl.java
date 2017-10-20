@@ -386,22 +386,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_INSTANCE__ADDRESS = SERVICE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Host Address</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE_INSTANCE__HOST_ADDRESS = SERVICE_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Containers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 4;
+	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Total Messages</b></em>' attribute.
@@ -410,7 +401,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__TOTAL_MESSAGES = SERVICE_FEATURE_COUNT + 5;
+	public static final int SERVICE_INSTANCE__TOTAL_MESSAGES = SERVICE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Total Data</b></em>' attribute.
@@ -419,7 +410,16 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__TOTAL_DATA = SERVICE_FEATURE_COUNT + 6;
+	public static final int SERVICE_INSTANCE__TOTAL_DATA = SERVICE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Host</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__HOST = SERVICE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Service Instance</em>' class.
@@ -1190,7 +1190,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EAttribute)serviceEClass.getEStructuralFeatures().get(2);
 	}
 
-
 	/**
 	 * Returns the meta object for class '{@link model.Affinity <em>Affinity</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1281,20 +1280,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Host Address</em>'.
-	 * @see model.ServiceInstance#getHostAddress()
-	 * @see #getServiceInstance()
-	 * @generated
-	 */
-	public EAttribute getServiceInstance_HostAddress() {
-		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-
-	/**
 	 * Returns the meta object for the attribute list '{@link model.ServiceInstance#getContainers <em>Containers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1304,9 +1289,8 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getServiceInstance_Containers() {
-		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(3);
 	}
-
 
 	/**
 	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getTotalMessages <em>Total Messages</em>}'.
@@ -1318,9 +1302,8 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getServiceInstance_TotalMessages() {
-		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(4);
 	}
-
 
 	/**
 	 * Returns the meta object for the attribute '{@link model.ServiceInstance#getTotalData <em>Total Data</em>}'.
@@ -1332,9 +1315,21 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getServiceInstance_TotalData() {
-		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)serviceInstanceEClass.getEStructuralFeatures().get(5);
 	}
 
+	/**
+	 * Returns the meta object for the reference '{@link model.ServiceInstance#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Host</em>'.
+	 * @see model.ServiceInstance#getHost()
+	 * @see #getServiceInstance()
+	 * @generated
+	 */
+	public EReference getServiceInstance_Host() {
+		return (EReference)serviceInstanceEClass.getEStructuralFeatures().get(6);
+	}
 
 	/**
 	 * Returns the meta object for class '{@link model.Message <em>Message</em>}'.
@@ -1439,7 +1434,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EAttribute)messageEClass.getEStructuralFeatures().get(6);
 	}
 
-
 	/**
 	 * Returns the meta object for class '{@link model.Host <em>Host</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1450,6 +1444,19 @@ public class ModelPackageImpl extends EPackageImpl {
 	 */
 	public EClass getHost() {
 		return hostEClass;
+	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link model.Host#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see model.Host#getName()
+	 * @see #getHost()
+	 * @generated
+	 */
+	public EAttribute getHost_Name() {
+		return (EAttribute)hostEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1476,20 +1483,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	 */
 	public EAttribute getHost_HostAddress() {
 		return (EAttribute)hostEClass.getEStructuralFeatures().get(2);
-	}
-
-
-	/**
-	 * Returns the meta object for the attribute '{@link model.Host#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see model.Host#getName()
-	 * @see #getHost()
-	 * @generated
-	 */
-	public EAttribute getHost_Name() {
-		return (EAttribute)hostEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1742,7 +1735,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(2);
 	}
 
-
 	/**
 	 * Returns the meta object for the attribute '{@link model.Application#getTotalData <em>Total Data</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1756,7 +1748,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(3);
 	}
 
-
 	/**
 	 * Returns the meta object for the attribute '{@link model.Application#getWeight <em>Weight</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1769,7 +1760,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	public EAttribute getApplication_Weight() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(4);
 	}
-
 
 	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Application</em>}'.
@@ -1785,21 +1775,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		return stringToApplicationEClass;
 	}
 
-
-	/**
-	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see java.util.Map.Entry
-	 * @see #getStringToApplication()
-	 * @generated
-	 */
-	public EReference getStringToApplication_Value() {
-		return (EReference)stringToApplicationEClass.getEStructuralFeatures().get(1);
-	}
-
-
 	/**
 	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1813,6 +1788,18 @@ public class ModelPackageImpl extends EPackageImpl {
 		return (EAttribute)stringToApplicationEClass.getEStructuralFeatures().get(0);
 	}
 
+	/**
+	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStringToApplication()
+	 * @generated
+	 */
+	public EReference getStringToApplication_Value() {
+		return (EReference)stringToApplicationEClass.getEStructuralFeatures().get(1);
+	}
 
 	/**
 	 * Returns the meta object for enum '{@link model.Environment <em>Environment</em>}'.
@@ -1875,10 +1862,10 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(serviceInstanceEClass, SERVICE_INSTANCE__MESSAGES);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ID);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__ADDRESS);
-		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__HOST_ADDRESS);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__CONTAINERS);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__TOTAL_MESSAGES);
 		createEAttribute(serviceInstanceEClass, SERVICE_INSTANCE__TOTAL_DATA);
+		createEReference(serviceInstanceEClass, SERVICE_INSTANCE__HOST);
 
 		messageEClass = createEClass(MESSAGE);
 		createEReference(messageEClass, MESSAGE__SOURCE);
@@ -1986,10 +1973,10 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getServiceInstance_Messages(), this.getMessage(), null, "messages", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_Id(), ecorePackage.getEString(), "id", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_Address(), ecorePackage.getEString(), "address", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getServiceInstance_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_Containers(), ecorePackage.getEString(), "containers", null, 0, -1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_TotalMessages(), ecorePackage.getELongObject(), "totalMessages", "0", 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceInstance_TotalData(), ecorePackage.getELongObject(), "totalData", "0", 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceInstance_Host(), this.getHost(), null, "host", null, 0, 1, ServiceInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMessage_Source(), this.getServiceInstance(), null, "source", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2196,14 +2183,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EAttribute SERVICE_INSTANCE__ADDRESS = eINSTANCE.getServiceInstance_Address();
 
 		/**
-		 * The meta object literal for the '<em><b>Host Address</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute SERVICE_INSTANCE__HOST_ADDRESS = eINSTANCE.getServiceInstance_HostAddress();
-
-		/**
 		 * The meta object literal for the '<em><b>Containers</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2226,6 +2205,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute SERVICE_INSTANCE__TOTAL_DATA = eINSTANCE.getServiceInstance_TotalData();
+
+		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference SERVICE_INSTANCE__HOST = eINSTANCE.getServiceInstance_Host();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.MessageImpl <em>Message</em>}' class.
@@ -2304,6 +2291,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EClass HOST = eINSTANCE.getHost();
 
 		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute HOST__NAME = eINSTANCE.getHost_Name();
+
+		/**
 		 * The meta object literal for the '<em><b>Services</b></em>' map feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2318,14 +2313,6 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute HOST__HOST_ADDRESS = eINSTANCE.getHost_HostAddress();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute HOST__NAME = eINSTANCE.getHost_Name();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.StringToLongMapImpl <em>String To Long Map</em>}' class.
@@ -2518,20 +2505,20 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EClass STRING_TO_APPLICATION = eINSTANCE.getStringToApplication();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EReference STRING_TO_APPLICATION__VALUE = eINSTANCE.getStringToApplication_Value();
-
-		/**
 		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		public static final EAttribute STRING_TO_APPLICATION__KEY = eINSTANCE.getStringToApplication_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference STRING_TO_APPLICATION__VALUE = eINSTANCE.getStringToApplication_Value();
 
 		/**
 		 * The meta object literal for the '{@link model.Environment <em>Environment</em>}' enum.

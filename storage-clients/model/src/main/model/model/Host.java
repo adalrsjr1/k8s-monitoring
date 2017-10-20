@@ -24,37 +24,6 @@ import java.util.Map;
  */
 public interface Host extends ElementWithResources {
 	/**
-	 * Returns the value of the '<em><b>Services</b></em>' map.
-	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link model.ServiceInstance},
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Services</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Services</em>' map.
-	 * @model mapType="model.StringToServiceInstance&lt;org.eclipse.emf.ecore.EString, model.ServiceInstance&gt;"
-	 * @generated
-	 */
-	Map<String, ServiceInstance> getServices();
-
-	/**
-	 * Returns the value of the '<em><b>Host Address</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Host Address</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Host Address</em>' attribute list.
-	 * @model
-	 * @generated
-	 */
-	List<String> getHostAddress();
-
-	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -78,5 +47,36 @@ public interface Host extends ElementWithResources {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Services</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link model.ServiceInstance},
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Services</em>' map isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Services</em>' map.
+	 * @model mapType="model.StringToServiceInstance&lt;org.eclipse.emf.ecore.EString, model.ServiceInstance&gt;"
+	 * @generated
+	 */
+	Map<String, ServiceInstance> getServices();
+
+	/**
+	 * Returns the value of the '<em><b>Host Address</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Host Address</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Host Address</em>' attribute list.
+	 * @model
+	 * @generated
+	 */
+	List<String> getHostAddress();
 
 } // Host
