@@ -1,5 +1,7 @@
 package cas.ibm.ubc.ca.model.manager.planner
 
+import javax.naming.OperationNotSupportedException
+
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -20,7 +22,7 @@ class AdaptationPlanner {
 	private List<Moviment> adaptationScript = []
 	
 	public AdaptationPlanner(ReificationInterface modelHandler) {
-		this.modelHandler = modelHandler 	
+//		this.modelHandler = modelHandler 	
 	}
 	
 	/**
@@ -33,7 +35,8 @@ class AdaptationPlanner {
 	 * @return
 	 */
 	private Integer compareMetrics(def metric1, def metric2) {
-		LOG.warn("Metrics Comparison is not implemented yet!")
+		LOG.warn("Metrics Comparison is not implemented yet!") 
+		throw new UnsupportedOperationException("Metrics Comparison is not implemented yet!")
 		return 0
 	}
 	
@@ -46,11 +49,14 @@ class AdaptationPlanner {
 	 */
 	private Boolean fitsOnHost(def metric1, def metric2, def host) {
 		LOG.warn("Metrics Comparison is not implemented yet!")
-		return true
+		def result = sumMetrics(metric1, metric2)
+		throw new UnsupportedOperationException("Metrics Comparison is not implemented yet!")
+		return false
 	}
 	
 	private Integer sumMetrics(def metric1, def metric2) {
 		LOG.warn("Metrics Sum is not implemented yet!")
+		throw new UnsupportedOperationException("Metrics Sum is not implemented yet!")
 		return 0
 	}
 	
@@ -96,14 +102,13 @@ class AdaptationPlanner {
 		ServiceInstance svc1 = getAffinityServiceSrc(affinity)
 		ServiceInstance svc2 = affinity.getWith()
 
-		Integer metricsSummation = sumMetrics(svc1.metrics, svc2.metrics)
-		
-		Integer metricsComparison = compareMetrics(svc1.getHost(), compareMetrics)
+		Integer metricsComparison = compareMetrics(svc1.getHost(), svc2.getHost())
 		
 		Boolean result = false
 		
 		Host src, dst
 		if(metricsComparison <= 0 && fitsOnHost(svc1, svc2, svc1.getHost())) {
+			LOG.debug("Moving {} to {}...", svc2.name, svc1.host.name)
 			src = svc2.host
 			dst = svc1.host
 			result = moveService(svc2, dst)
@@ -112,6 +117,7 @@ class AdaptationPlanner {
 			}
 		}
 		else if(metricsComparison > 0 && fitsOnHost(svc1, svc2, svc2.getHost())) {
+			LOG.debug("Moving {} to {}...", svc1.name, svc2.host.name)
 			src = svc1.host
 			dst = svc2.host
 			result = moveService(svc1, svc2.getHost())
@@ -120,14 +126,18 @@ class AdaptationPlanner {
 			}
 		}
 		else {
+			LOG.info("affinity {}-[{}]->{} cannot be applied yet!",
+				getAffinityServiceSrc(affinity).name, affinity.degree, affinity.with.name)
 			// service cannot be moved from some reason
 			affinitiesWaiting << affinity
+			result = false
 		}
 		return result
 	}
 	
 	private void waitingAffinitiesHandler(List affinities) {
 		LOG.warn("Metrics Comparison is not implemented yet!")
+		throw new UnsupportedOperationException("Metrics Comparison is not implemented yet!")
 	}
 	
 	void calculate(Cluster cluster) {
