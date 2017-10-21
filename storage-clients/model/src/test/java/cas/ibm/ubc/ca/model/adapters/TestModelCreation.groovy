@@ -189,5 +189,42 @@ class TestModelCreation extends GroovyTestCase {
 		assert host2.services.keySet().contains("svc2") == false
 		assert host2.services.keySet().contains("svc1") == true
 	}
+	
+	void testManyHostsServices() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.INSTANCE
+
+		Cluster cluster = factory.createCluster()
+				
+		Host host1 = factory.createHost()
+		host1.name = "host1"
+		host1.hostAddress << "ip1"
+		Host host2 = factory.createHost()
+		host2.name = "host2"
+		host2.hostAddress << "ip2"
+		
+		cluster.hosts["host1"] = host1
+		cluster.hosts["host2"] = host2
+		
+		ServiceInstance svc1 = factory.createServiceInstance()
+		svc1.name = "svc1"
+		assert svc1.name == "svc1"
+		ServiceInstance svc2 = factory.createServiceInstance()
+		svc2.name = "svc2"
+		assert svc2.name == "svc2"
+		
+		cluster.hosts.values().find { h ->
+			h.hostAddress.contains("ip1")
+		}.services[(svc1.name)] = svc1
+		
+		cluster.hosts.values().find { h ->
+			h.hostAddress.contains("ip2")
+		}.services[(svc2.name)] = svc2
+		
+		
+		assert svc1.host == host1
+		assert host1.services["svc1"] == svc1
+		assert svc2.host == host2
+		assert host2.services["svc2"] == svc2
+	}
 
 }

@@ -91,9 +91,8 @@ class ModelHandler implements ReificationInterface {
 			}
 			
 			cluster.hosts.values().find { h ->
-				h.hostAddress.contains(service.hostAddress)
+				h.hostAddress.contains(s.hostAddress)
 			}.services[service.id] = service
-			
 		}
 	}
 	
