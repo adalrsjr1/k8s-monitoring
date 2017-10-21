@@ -1,14 +1,12 @@
 package cas.ibm.ubc.ca.model.manager
 
+import java.util.concurrent.TimeUnit
+
+import org.eclipse.emf.common.util.URI as EmfURI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-
-import java.util.List
-import java.util.concurrent.TimeUnit
-import javax.naming.OperationNotSupportedException
-import org.eclipse.emf.common.util.URI as EmfURI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -16,7 +14,6 @@ import com.google.common.base.Stopwatch
 
 import cas.ibm.ubc.ca.interfaces.Moviment
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
-import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import groovy.transform.Synchronized
 import model.Application

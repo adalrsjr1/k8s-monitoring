@@ -1,10 +1,9 @@
 package cas.ibm.ubc.ca.model.manager.planner
 
-import javax.naming.OperationNotSupportedException
-
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
 import cas.ibm.ubc.ca.interfaces.Moviment
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import model.Affinity

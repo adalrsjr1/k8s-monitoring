@@ -1,8 +1,6 @@
 package cas.ibm.ubc.ca.model.manager.analyzer
 
 import org.eclipse.emf.common.util.ECollections
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter

@@ -5,21 +5,18 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
-import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
-import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
-import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
-import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
-import groovy.transform.Synchronized
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
 import com.google.common.util.concurrent.ThreadFactoryBuilder
-import okhttp3.OkHttpClient
 
+import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
+import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
+import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import groovy.transform.Synchronized
 import model.Cluster
-import model.Environment
+import okhttp3.OkHttpClient
 
 class ModelManager {
 	private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
@@ -63,11 +60,10 @@ class ModelManager {
 			monitoringClient.messages())
 	}
 	
-	@Synchronized
 	public Cluster updateModel() {
 		Cluster cluster
 		try {
-//			lock.writeLock()
+			lock.writeLock()
 			modelHandler.saveModel()
 			cluster = createModel()
 			analyzer.calculate(cluster)
@@ -77,7 +73,7 @@ class ModelManager {
 			throw new RuntimeException(e)
 		}
 		finally {
-//			lock.writeLock().unlock()
+			lock.writeLock().unlock()
 			return cluster
 		}
 	}
@@ -89,7 +85,7 @@ class ModelManager {
 	
 	public void start() {
 		
-//		threads.execute {
+		threads.execute {
 			Stopwatch watcher = Stopwatch.createStarted()
 			while(!stopped) {
 				watcher.reset()
@@ -106,7 +102,7 @@ class ModelManager {
 				LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 				
 				Thread.sleep(this.monitoringInterval)
-//			}
+			}
 		}
 	}
 	
