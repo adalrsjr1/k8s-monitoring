@@ -1,17 +1,14 @@
 package cas.ibm.ubc.ca.influx
 
-import cas.ibm.ubc.ca.influx.exception.NoResultsException
-import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
-import cas.ibm.ubc.ca.interfaces.messages.MetricMessage
-import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
-
-import java.util.List
-import java.util.Map
-
 import static org.influxdb.dto.QueryResult.Series
+
 import org.influxdb.InfluxDB
 import org.influxdb.dto.Query
 import org.influxdb.dto.QueryResult
+
+import cas.ibm.ubc.ca.influx.exception.NoResultsException
+import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 
 public class Sampler implements MetricsInspectionInterface {
 	private InfluxDB client
