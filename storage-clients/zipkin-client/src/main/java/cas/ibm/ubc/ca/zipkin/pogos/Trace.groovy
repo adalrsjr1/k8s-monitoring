@@ -11,7 +11,8 @@ import groovy.transform.ToString
  *  # http://www.jsonschema2pojo.org/
  *  # http://zipkin.io/zipkin-api/#/default/
  */
-@ToString(includeNames=true)
+//@Canonical
+//@ToString(includeNames=true)
 class Trace {
 
 	@SerializedName("traceId")

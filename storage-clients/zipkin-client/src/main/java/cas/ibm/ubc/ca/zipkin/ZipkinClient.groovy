@@ -6,12 +6,38 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
+import cas.ibm.ubc.ca.zipkin.pogos.Message
 import cas.ibm.ubc.ca.zipkin.pogos.Trace
 
 public class ZipkinClient {
 	//http://www.vogella.com/tutorials/JavaLibrary-OkHttp/article.html
 	// http://zipkin.io/zipkin-api/#/paths/
 
+	private ZipkinRequestor requestor;
+
+	public ZipkinClient(host, port) {
+		requestor = new ZipkinRequestor(host, port, 10,	TimeUnit.SECONDS)
+	}
+
+	public getMessages(serviceName, period) {
+		//def tracesList = requestor.getTraces(serviceName: serviceName,
+		//									 limit: 1000)
+		def tracesList = requestor.getTraces(limit: 1000)
+		def messages = []
+
+		tracesList.each { trace ->
+			trace.each { span ->
+				def message = new Message()
+				message.correlationId = span.traceId
+				message.timestamp = span.timestamp
+				message.totalTime = span.duration
+
+				messages << message
+			}
+		}
+
+		messages
+	}
 
 	public static getServiceName(List annotations) {
 		annotations.inject([]) { result, a ->
