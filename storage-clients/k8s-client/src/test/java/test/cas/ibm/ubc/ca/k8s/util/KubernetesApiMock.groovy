@@ -11,10 +11,12 @@ import io.fabric8.kubernetes.api.model.PodBuilder
 import io.fabric8.kubernetes.api.model.PodList
 import io.fabric8.kubernetes.api.model.PodListBuilder
 import io.fabric8.kubernetes.api.model.PodSpecBuilder
+import io.fabric8.kubernetes.api.model.PodStatusBuilder
 import io.fabric8.kubernetes.api.model.Service
 import io.fabric8.kubernetes.api.model.ServiceBuilder
 import io.fabric8.kubernetes.api.model.ServiceList
 import io.fabric8.kubernetes.api.model.ServiceListBuilder
+import io.fabric8.kubernetes.api.model.StatusBuilder
 
 class KubernetesApiMock {
 	static List getMock(String filename, Class clazz) {
@@ -53,6 +55,10 @@ class KubernetesApiMock {
 									})
 							.build()			
 					)
+			.withStatus(new PodStatusBuilder()
+				              .withHostIP(metaPod.status.hostIP)
+							  .withPodIP(metaPod.status.podIP)
+				              .build())
 			.withNewMetadata()
 				.withName(metaPod.metadata.name)
 				.withNamespace(metaPod.metadata.namespace)
@@ -73,6 +79,9 @@ class KubernetesApiMock {
 	
 	static Service createService(def metaService){
 		 new ServiceBuilder()
+		 		.withNewSpec()
+				 	.withClusterIP(metaService.spec.clusterIP)
+					.endSpec()
 		 		.withNewMetadata()
 				 	 .withName(metaService.metadata.name)
 					 .withUid(metaService.metadata.uid)

@@ -28,7 +28,7 @@ class Span {
 	String id;
 	@SerializedName("timestamp")
 	@Expose
-	Integer timestamp;
+	Long timestamp;
 	@SerializedName("duration")
 	@Expose
 	Integer duration;
@@ -41,5 +41,4 @@ class Span {
 	@SerializedName("binaryAnnotations")
 	@Expose
 	List<BinaryAnnotation> binaryAnnotations = null;
-
 }

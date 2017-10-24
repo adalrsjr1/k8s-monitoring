@@ -84,7 +84,7 @@ public class Hello {
 //		Map<String, Object > result1 = graphQL.execute("{services {name},service(name:\"catalogue-db\"){name}}").getData();
 //		Map<String, Object > result3 = graphQL.execute("{service(name:\"catalogue-db\"){name}}").getData();
 //		Map<String, Object > result4 = graphQL.execute("{namespace(name:\"sock-shop\") {name, services{name} }}").getData();
-		Map<String, Object > result5 = graphQL.execute("{namespaces {name, services{name} }}").getData();
+		Map<String, Object > result5 = graphQL.execute("{namespaces {name, services{name,address} }}").getData();
 //		Map<String, Object > result6 = graphQL.execute("{service(name:\"front-end\"){name, serviceVersions{ n_replicas, version, replicas{id}}}}").getData();
 		
 		System.out.println(result5);
