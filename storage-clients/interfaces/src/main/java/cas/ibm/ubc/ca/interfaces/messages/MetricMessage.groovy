@@ -4,8 +4,8 @@ import groovy.transform.Canonical
 
 @Canonical
 class MetricMessage {
-	Double value
-	String id
+	public final Double value
+	public final String id
 }
 
 class MetricContainerMessage extends MetricMessage{
