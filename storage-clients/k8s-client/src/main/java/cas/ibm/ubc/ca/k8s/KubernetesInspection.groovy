@@ -1,5 +1,7 @@
 package cas.ibm.ubc.ca.k8s
 
+import java.util.Map
+
 import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
@@ -143,7 +145,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 	}
 
 	@Override
-	public List applications() {
+	public Map<String, Float> applications() {
 
 		V1NamespaceList list = api.listNamespace(null, null, null, null, null, null, null, null, null)
 
