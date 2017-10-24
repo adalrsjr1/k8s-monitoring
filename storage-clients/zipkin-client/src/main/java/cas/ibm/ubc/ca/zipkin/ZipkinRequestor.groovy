@@ -1,37 +1,50 @@
 package cas.ibm.ubc.ca.zipkin
 
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
+import cas.ibm.ubc.ca.zipkin.pogos.Dependency
 import cas.ibm.ubc.ca.zipkin.pogos.Span
 import cas.ibm.ubc.ca.zipkin.pogos.Trace
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-
-import org.junit.Before
+import java.util.concurrent.TimeUnit
 
 import okhttp3.HttpUrl
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.Response
 
 class ZipkinRequestor {
-	private static final OkHttpClient httpClient = new OkHttpClient()
+	static final MediaType JSON \
+		= MediaType.parse('application/json; charset=utf-8')
+
+	private final OkHttpClient httpClient
 
 	final String host
 	final int port
 
-	ZipkinRequestor(String host, int port) {
+	ZipkinRequestor(String host, int port, int timeout, TimeUnit timeUnit) {
+		
+		httpClient = new OkHttpClient.Builder()
+					             .readTimeout(timeout, timeUnit)
+								 .writeTimeout(timeout, timeUnit)
+								 .build()
+		
 		this.host = host
 		this.port = port
 	}
 	
-	private createRequest(HttpUrl url) {
-		new Request.Builder()
-				   .url(url)
-				   .build()
+	private createRequest(HttpUrl url, body = null) {
+		def builder = new Request.Builder().url(url)
+		if(body)
+			builder.post(body)
+
+		builder.build()
 	}
-	
+
 	private HttpUrl createUrl(path) {
 		createUrl(path, [:])
 	}
@@ -41,7 +54,7 @@ class ZipkinRequestor {
 								 .scheme("http")
 								 .host(host)
 								 .port(port)
-		                         .addPathSegments("/zipkin/api/v1/")
+								 .addPathSegments('api/v1/')
 								 .addPathSegment(path)
 		
 		builder = parameters.inject(builder) { b, entry ->
@@ -82,7 +95,7 @@ class ZipkinRequestor {
 	 * @param args a map of arguments @see<a href="http://zipkin.io/zipkin-api/#/default/get_traces">
 	 * @return
 	 */
-	Collection<Collection<Trace>> getTraces(Map args) {
+	List<List<Trace>> getTraces(Map args) {
 		HttpUrl url = createUrl("traces",args)
 		Request request = createRequest(url)
 
@@ -113,9 +126,16 @@ class ZipkinRequestor {
 		Response response = httpClient.newCall(request).execute()
 		
 		String json = response.body().string()
-		
-		Type type = new TypeToken<List<String>>() {}.getType()
+		Type type = new TypeToken<List<Dependency>>() {}.getType()
 		new Gson().fromJson(json, type)
 	}
 	
+	void createSpans(List<Span> spansList) {
+		def url = createUrl('spans')
+		def json = new Gson().toJson(spansList)
+		def body = RequestBody.create(JSON, json)
+		def request = createRequest(url, body)
+
+		httpClient.newCall(request).execute()
+	}
 }
