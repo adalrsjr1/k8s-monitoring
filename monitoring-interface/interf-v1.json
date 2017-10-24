@@ -1,0 +1,54 @@
+{
+  "applications": [
+    {
+      "services": [
+        {
+          "name": "",
+          "id": "",
+          "address": "",
+          "port": 0,
+          "messages": [
+            {
+              "source": "",
+              "destination": "",
+              "avgResponseTime": 0,
+              "timestamp": 0,
+              "uid": "",
+              "name": ""
+            }
+          ],
+          "metrics": [
+            {
+              "key": "",
+              "value": ""
+            }
+          ],
+          "limits": [
+            {
+              "key": "",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hosts": [
+    {
+      "name": "",
+      "services": [],
+      "metrics": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ],
+      "limits": [
+        {
+          "key": "",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,8 @@ package cas.ibm.ubc.ca.influx;
 
 import cas.ibm.ubc.ca.influx.exception.NoResultsException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.influxdb.InfluxDB;
@@ -16,134 +18,158 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class IntegrationTest {
-  private final String INFLUX_HOST = "http://localhost:8086"; 
-  private final String INFLUX_USER = "root";
-  private final String INFLUX_PASS = "root";
-  private final String DB_NAME = "integration_test";
-  private final String RETENTION_POLICY = "autogen";
-  private final String FIELD = "value";
-  private final String MEASUREMENT = "cpu";
-  private final Integer[] VALUES = { 12, 12, 4 };
-  private final String COMMON_CONTAINER_NAME = "c1";
+	private final String INFLUX_HOST = "http://10.66.66.32:30356"; 
+	private final String INFLUX_USER = "root";
+	private final String INFLUX_PASS = "root";
+	private final String DB_NAME = "integration_test";
+	private final String RETENTION_POLICY = "autogen";
+	private final String FIELD = "value";
+	private final String MEASUREMENT = "cpu";
+	private final Integer[] VALUES = { 12, 12, 4 };
+	private final String COMMON_CONTAINER_NAME = "c1";
 
-  private InfluxDB influxDB;
-  private BatchPoints batchPoints; 
-  private int pointsCount;
-  private Sampler sampler;
-  private Object[] downsampleArgs;
-  private String measurementToDownsample,
-                 containerToDownsample,
-                 periodToDownsample;
-  private DownsamplerFunction functionToDownsample;
+	private InfluxDB influxDB;
+	private BatchPoints batchPoints; 
+	private int pointsCount;
+	private Sampler sampler;
+	private Object[] downsampleArgs;
+	private String measurementToDownsample,
+	tagToDownsample,
+	idToDownsample,
+	periodToDownsample;
+	private DownsamplerFunction functionToDownsample;
 
-  @Before
-  public void setClient() {
-    influxDB = InfluxDBFactory.connect(INFLUX_HOST, INFLUX_USER, INFLUX_PASS);
-    sampler = new Sampler(influxDB, DB_NAME);
-  }
+	@Before
+	public void setClient() {
+		influxDB = InfluxDBFactory.connect(INFLUX_HOST, INFLUX_USER, INFLUX_PASS);
+		sampler = new Sampler(influxDB, DB_NAME);
+	}
 
-  @Before
-  public void setBatchPoints() {
-    batchPoints = BatchPoints.database(DB_NAME)
-                             .retentionPolicy(RETENTION_POLICY)
-                             .consistency(ConsistencyLevel.ALL)
-                             .build();
-  }
+	@Before
+	public void setBatchPoints() {
+		batchPoints = BatchPoints.database(DB_NAME)
+				.retentionPolicy(RETENTION_POLICY)
+				.consistency(ConsistencyLevel.ALL)
+				.build();
+	}
 
-  @Before
-  public void setupDatabase() {
-    influxDB.createDatabase(DB_NAME);
-  }
+	@Before
+	public void setupDatabase() {
+		influxDB.createDatabase(DB_NAME);
+	}
 
-  @Before
-  public void setDefaultDownsampleArgs() {
-    measurementToDownsample = MEASUREMENT;
-    functionToDownsample = DownsamplerFunction.MEAN;
-    containerToDownsample = COMMON_CONTAINER_NAME;
-    periodToDownsample = "1h";
-  }
+	@Before
+	public void setDefaultDownsampleArgs() {
+		measurementToDownsample = MEASUREMENT;
+		functionToDownsample = DownsamplerFunction.MEAN;
+		tagToDownsample = "containerName";
+		idToDownsample = COMMON_CONTAINER_NAME;
+		periodToDownsample = "1h";
+	}
 
-  @After
-  public void deleteDatabase() {
-    influxDB.deleteDatabase(DB_NAME);
-  }
+	@After
+	public void deleteDatabase() {
+		influxDB.deleteDatabase(DB_NAME);
+	}
 
-  @Test
-  public void lastHalfHourMean() {
-    writeBatchPoints(true);
-    periodToDownsample = "30m";
+	@Test
+	public void lastHalfHourMean() {
+		writeBatchPoints(true);
+		periodToDownsample = "30m";
 
-    assertEquals(mean(VALUES), downsample(), 0.1);
-  }
+		assertEquals(mean(VALUES), downsample(), 0.1);
+	}
 
-  @Test
-  public void lastTenSecondsMean() {
-    writeBatchPoints(true);
-    periodToDownsample = "10s";
+	@Test
+	public void lastHalfHourMeanGrouped() {
+		writeBatchPoints(false);
+		periodToDownsample = "30m";
 
-    assertEquals(VALUES[0], downsample(), 0.1);
-  }
+		Map<String, Double> m = new HashMap<>();
+		m.put("c0",12.0);
+		m.put("c1",12.0);
+		m.put("c2",4.0);
+		
+		assertEquals(m, downsampleMap());
+	}
 
-  @Test(expected = NoResultsException.class)
-  public void nonExistingMeasurement() {
-    writeBatchPoints(true);
-    measurementToDownsample = "non_existing_measurement";
+	@Test
+	public void lastTenSecondsMean() {
+		writeBatchPoints(true);
+		periodToDownsample = "10s";
 
-    downsample();
-  }
+		assertEquals(VALUES[0], downsample(), 0.1);
+	}
 
-  @Test
-  public void filterByContainer() {
-    writeBatchPoints(false);
-    containerToDownsample = "c0";
+	@Test(expected = NoResultsException.class)	
+	public void nonExistingMeasurement() {
+		writeBatchPoints(true);
+		measurementToDownsample = "non_existing_measurement";
 
-    assertEquals(12, downsample(), 0.1);
-  }
+		downsample();
+	}
 
-  private void writeBatchPoints(boolean sameContainer) {
-    String containerName = COMMON_CONTAINER_NAME;
-    for(int i = 0; i < VALUES.length; i++) {
-      if(!sameContainer)
-        containerName = "c" + i;
+	@Test
+	public void filterByContainer() {
+		writeBatchPoints(false);
+		idToDownsample = "c0";
 
-      batchPoints.point(buildPoint(VALUES[i], containerName));
-    }
+		assertEquals(12, downsample(), 0.1);
+	}
 
-    influxDB.write(batchPoints);
-  }
+	private void writeBatchPoints(boolean sameContainer) {
+		String containerName = COMMON_CONTAINER_NAME;
+		for(int i = 0; i < VALUES.length; i++) {
+			if(!sameContainer)
+				containerName = "c" + i;
 
-  private Point buildPoint(int value, String containerName) {
-    long time = System.currentTimeMillis() - pointsCount * secondsToMillis(10);
-    pointsCount++;
+			batchPoints.point(buildPoint(VALUES[i], containerName));
+		}
 
-    return Point.measurement(MEASUREMENT)
-                .time(time, TimeUnit.MILLISECONDS)
-                .addField(FIELD, value)
-                .tag("container_name", containerName)
-                .build();
-  }
+		influxDB.write(batchPoints);
+	}
 
-  private double downsample() {
-   return sampler.downsample(measurementToDownsample,
-                             functionToDownsample,
-                             containerToDownsample,
-                             periodToDownsample);
-  }
+	private Point buildPoint(int value, String containerName) {
+		long time = System.currentTimeMillis() - pointsCount * secondsToMillis(10);
+		pointsCount++;
 
-  private double mean(Integer[] values) {
-    return (double) sum(values) / values.length;
-  }
+		return Point.measurement(MEASUREMENT)
+				.time(time, TimeUnit.MILLISECONDS)
+				.addField(FIELD, value)
+				.tag("containerName", containerName)
+				.build();
+	}
 
-  private int sum(Integer[] values) {
-    int sum = 0;
-    for(int val : values) {
-      sum += val;
-    }
+	private double downsample() {
+		return sampler.downsample(measurementToDownsample,
+				functionToDownsample,
+				tagToDownsample,
+				idToDownsample,
+				periodToDownsample);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Map<String, Double> downsampleMap() {
+		return sampler.downsampleMap(measurementToDownsample,
+				functionToDownsample,
+				tagToDownsample,
+				periodToDownsample);
+	}
 
-    return sum;
-  }
+	private double mean(Integer[] values) {
+		return (double) sum(values) / values.length;
+	}
 
-  private long secondsToMillis(int seconds) {
-    return seconds * 1000;
-  }
+	private int sum(Integer[] values) {
+		int sum = 0;
+		for(int val : values) {
+			sum += val;
+		}
+
+		return sum;
+	}
+
+	private long secondsToMillis(int seconds) {
+		return seconds * 1000;
+	}
 }
