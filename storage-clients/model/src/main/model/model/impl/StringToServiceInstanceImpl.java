@@ -5,6 +5,7 @@ package model.impl;
 import model.ServiceInstance;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 

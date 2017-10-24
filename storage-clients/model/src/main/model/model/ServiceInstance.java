@@ -16,8 +16,10 @@ import java.util.List;
  *   <li>{@link model.ServiceInstance#getMessages <em>Messages</em>}</li>
  *   <li>{@link model.ServiceInstance#getId <em>Id</em>}</li>
  *   <li>{@link model.ServiceInstance#getAddress <em>Address</em>}</li>
- *   <li>{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}</li>
  *   <li>{@link model.ServiceInstance#getContainers <em>Containers</em>}</li>
+ *   <li>{@link model.ServiceInstance#getTotalMessages <em>Total Messages</em>}</li>
+ *   <li>{@link model.ServiceInstance#getTotalData <em>Total Data</em>}</li>
+ *   <li>{@link model.ServiceInstance#getHost <em>Host</em>}</li>
  * </ul>
  *
  * @model
@@ -90,31 +92,6 @@ public interface ServiceInstance extends Service {
 	void setAddress(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Host Address</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Host Address</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Host Address</em>' attribute.
-	 * @see #setHostAddress(String)
-	 * @model
-	 * @generated
-	 */
-	String getHostAddress();
-
-	/**
-	 * Sets the value of the '{@link model.ServiceInstance#getHostAddress <em>Host Address</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Host Address</em>' attribute.
-	 * @see #getHostAddress()
-	 * @generated
-	 */
-	void setHostAddress(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Containers</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
@@ -128,5 +105,82 @@ public interface ServiceInstance extends Service {
 	 * @generated
 	 */
 	List<String> getContainers();
+
+	/**
+	 * Returns the value of the '<em><b>Total Messages</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Total Messages</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Total Messages</em>' attribute.
+	 * @see #setTotalMessages(Long)
+	 * @model default="0"
+	 * @generated
+	 */
+	Long getTotalMessages();
+
+	/**
+	 * Sets the value of the '{@link model.ServiceInstance#getTotalMessages <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Total Messages</em>' attribute.
+	 * @see #getTotalMessages()
+	 * @generated
+	 */
+	void setTotalMessages(Long value);
+
+	/**
+	 * Returns the value of the '<em><b>Total Data</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Total Data</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Total Data</em>' attribute.
+	 * @see #setTotalData(Long)
+	 * @model default="0"
+	 * @generated
+	 */
+	Long getTotalData();
+
+	/**
+	 * Sets the value of the '{@link model.ServiceInstance#getTotalData <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Total Data</em>' attribute.
+	 * @see #getTotalData()
+	 * @generated
+	 */
+	void setTotalData(Long value);
+
+	/**
+	 * Returns the value of the '<em><b>Host</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Host</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Host</em>' reference.
+	 * @see #setHost(Host)
+	 * @model
+	 * @generated
+	 */
+	Host getHost();
+
+	/**
+	 * Sets the value of the '{@link model.ServiceInstance#getHost <em>Host</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Host</em>' reference.
+	 * @see #getHost()
+	 * @generated
+	 */
+	void setHost(Host value);
 
 } // ServiceInstance

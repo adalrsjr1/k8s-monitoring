@@ -55,7 +55,7 @@ public interface Affinity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Degree</em>' attribute.
 	 * @see #setDegree(Float)
-	 * @model
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Float getDegree();

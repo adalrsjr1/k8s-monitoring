@@ -15,6 +15,9 @@ import java.util.Map;
  * <ul>
  *   <li>{@link model.Application#getServices <em>Services</em>}</li>
  *   <li>{@link model.Application#getName <em>Name</em>}</li>
+ *   <li>{@link model.Application#getTotalMessages <em>Total Messages</em>}</li>
+ *   <li>{@link model.Application#getTotalData <em>Total Data</em>}</li>
+ *   <li>{@link model.Application#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @model
@@ -61,5 +64,83 @@ public interface Application {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Total Messages</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Total Messages</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Total Messages</em>' attribute.
+	 * @see #setTotalMessages(Long)
+	 * @model default="0"
+	 * @generated
+	 */
+	Long getTotalMessages();
+
+	/**
+	 * Sets the value of the '{@link model.Application#getTotalMessages <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Total Messages</em>' attribute.
+	 * @see #getTotalMessages()
+	 * @generated
+	 */
+	void setTotalMessages(Long value);
+
+	/**
+	 * Returns the value of the '<em><b>Total Data</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Total Data</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Total Data</em>' attribute.
+	 * @see #setTotalData(Long)
+	 * @model default="0"
+	 * @generated
+	 */
+	Long getTotalData();
+
+	/**
+	 * Sets the value of the '{@link model.Application#getTotalData <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Total Data</em>' attribute.
+	 * @see #getTotalData()
+	 * @generated
+	 */
+	void setTotalData(Long value);
+
+	/**
+	 * Returns the value of the '<em><b>Weight</b></em>' attribute.
+	 * The default value is <code>"0.0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Weight</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Weight</em>' attribute.
+	 * @see #setWeight(Float)
+	 * @model default="0.0"
+	 * @generated
+	 */
+	Float getWeight();
+
+	/**
+	 * Sets the value of the '{@link model.Application#getWeight <em>Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Weight</em>' attribute.
+	 * @see #getWeight()
+	 * @generated
+	 */
+	void setWeight(Float value);
 
 } // Application

@@ -16,9 +16,9 @@ package model;
  *   <li>{@link model.Message#getDestination <em>Destination</em>}</li>
  *   <li>{@link model.Message#getName <em>Name</em>}</li>
  *   <li>{@link model.Message#getAvgResponseTime <em>Avg Response Time</em>}</li>
- *   <li>{@link model.Message#getAvgSize <em>Avg Size</em>}</li>
  *   <li>{@link model.Message#getTimestamp <em>Timestamp</em>}</li>
  *   <li>{@link model.Message#getUid <em>Uid</em>}</li>
+ *   <li>{@link model.Message#getMessageSize <em>Message Size</em>}</li>
  * </ul>
  *
  * @model
@@ -126,31 +126,6 @@ public interface Message {
 	void setAvgResponseTime(Long value);
 
 	/**
-	 * Returns the value of the '<em><b>Avg Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Avg Size</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Avg Size</em>' attribute.
-	 * @see #setAvgSize(Long)
-	 * @model
-	 * @generated
-	 */
-	Long getAvgSize();
-
-	/**
-	 * Sets the value of the '{@link model.Message#getAvgSize <em>Avg Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Avg Size</em>' attribute.
-	 * @see #getAvgSize()
-	 * @generated
-	 */
-	void setAvgSize(Long value);
-
-	/**
 	 * Returns the value of the '<em><b>Timestamp</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -199,5 +174,31 @@ public interface Message {
 	 * @generated
 	 */
 	void setUid(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Message Size</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Message Size</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Message Size</em>' attribute.
+	 * @see #setMessageSize(Long)
+	 * @model default="0"
+	 * @generated
+	 */
+	Long getMessageSize();
+
+	/**
+	 * Sets the value of the '{@link model.Message#getMessageSize <em>Message Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Message Size</em>' attribute.
+	 * @see #getMessageSize()
+	 * @generated
+	 */
+	void setMessageSize(Long value);
 
 } // Message

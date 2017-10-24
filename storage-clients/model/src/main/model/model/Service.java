@@ -32,7 +32,7 @@ public interface Service extends ElementWithResources {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Affinities</em>' containment reference list.
-	 * @model containment="true"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	List<Affinity> getHasAffinities();

@@ -39,7 +39,7 @@ class ModelController implements ClusterInspectionInterface, MetricsInspectionIn
 
 	@Override
 	@RequestMapping(value = "/applications", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
-	public List applications() {
+	public Map<String, Float> applications() {
 		return clusterInspection.applications()
 	}
 

@@ -5,6 +5,7 @@ package model.impl;
 import java.util.Collection;
 import java.util.List;
 
+import model.Host;
 import model.Message;
 import model.ServiceInstance;
 
@@ -14,6 +15,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,8 +35,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ServiceInstanceImpl#getMessages <em>Messages</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getId <em>Id</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getAddress <em>Address</em>}</li>
- *   <li>{@link model.impl.ServiceInstanceImpl#getHostAddress <em>Host Address</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getContainers <em>Containers</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getTotalMessages <em>Total Messages</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getTotalData <em>Total Data</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getHost <em>Host</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,26 +95,6 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	protected String address = ADDRESS_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getHostAddress() <em>Host Address</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHostAddress()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String HOST_ADDRESS_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getHostAddress() <em>Host Address</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHostAddress()
-	 * @generated
-	 * @ordered
-	 */
-	protected String hostAddress = HOST_ADDRESS_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getContainers() <em>Containers</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,6 +103,56 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * @ordered
 	 */
 	protected EList<String> containers;
+
+	/**
+	 * The default value of the '{@link #getTotalMessages() <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalMessages()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long TOTAL_MESSAGES_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getTotalMessages() <em>Total Messages</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalMessages()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long totalMessages = TOTAL_MESSAGES_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTotalData() <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalData()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long TOTAL_DATA_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getTotalData() <em>Total Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTotalData()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long totalData = TOTAL_DATA_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getHost() <em>Host</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHost()
+	 * @generated
+	 * @ordered
+	 */
+	protected Host host;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -198,32 +232,91 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getHostAddress() {
-		return hostAddress;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setHostAddress(String newHostAddress) {
-		String oldHostAddress = hostAddress;
-		hostAddress = newHostAddress;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS, oldHostAddress, hostAddress));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public List<String> getContainers() {
 		if (containers == null) {
 			containers = new EDataTypeUniqueEList<String>(String.class, this, ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS);
 		}
 		return containers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Long getTotalMessages() {
+		return totalMessages;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTotalMessages(Long newTotalMessages) {
+		Long oldTotalMessages = totalMessages;
+		totalMessages = newTotalMessages;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__TOTAL_MESSAGES, oldTotalMessages, totalMessages));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Long getTotalData() {
+		return totalData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTotalData(Long newTotalData) {
+		Long oldTotalData = totalData;
+		totalData = newTotalData;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__TOTAL_DATA, oldTotalData, totalData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Host getHost() {
+		if (host != null && ((EObject)host).eIsProxy()) {
+			InternalEObject oldHost = (InternalEObject)host;
+			host = (Host)eResolveProxy(oldHost);
+			if (host != oldHost) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackageImpl.SERVICE_INSTANCE__HOST, oldHost, host));
+			}
+		}
+		return host;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Host basicGetHost() {
+		return host;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHost(Host newHost) {
+		Host oldHost = host;
+		host = newHost;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE_INSTANCE__HOST, oldHost, host));
 	}
 
 	/**
@@ -254,10 +347,15 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return getId();
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return getAddress();
-			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
-				return getHostAddress();
 			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
 				return getContainers();
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_MESSAGES:
+				return getTotalMessages();
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_DATA:
+				return getTotalData();
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST:
+				if (resolve) return getHost();
+				return basicGetHost();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -281,12 +379,18 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress((String)newValue);
 				return;
-			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
-				setHostAddress((String)newValue);
-				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
 				getContainers().clear();
 				getContainers().addAll((Collection<? extends String>)newValue);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_MESSAGES:
+				setTotalMessages((Long)newValue);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_DATA:
+				setTotalData((Long)newValue);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST:
+				setHost((Host)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -309,11 +413,17 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				setAddress(ADDRESS_EDEFAULT);
 				return;
-			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
-				setHostAddress(HOST_ADDRESS_EDEFAULT);
-				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
 				getContainers().clear();
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_MESSAGES:
+				setTotalMessages(TOTAL_MESSAGES_EDEFAULT);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_DATA:
+				setTotalData(TOTAL_DATA_EDEFAULT);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST:
+				setHost((Host)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -333,10 +443,14 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ModelPackageImpl.SERVICE_INSTANCE__ADDRESS:
 				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
-			case ModelPackageImpl.SERVICE_INSTANCE__HOST_ADDRESS:
-				return HOST_ADDRESS_EDEFAULT == null ? hostAddress != null : !HOST_ADDRESS_EDEFAULT.equals(hostAddress);
 			case ModelPackageImpl.SERVICE_INSTANCE__CONTAINERS:
 				return containers != null && !containers.isEmpty();
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_MESSAGES:
+				return TOTAL_MESSAGES_EDEFAULT == null ? totalMessages != null : !TOTAL_MESSAGES_EDEFAULT.equals(totalMessages);
+			case ModelPackageImpl.SERVICE_INSTANCE__TOTAL_DATA:
+				return TOTAL_DATA_EDEFAULT == null ? totalData != null : !TOTAL_DATA_EDEFAULT.equals(totalData);
+			case ModelPackageImpl.SERVICE_INSTANCE__HOST:
+				return host != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -355,10 +469,12 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 		result.append(id);
 		result.append(", address: ");
 		result.append(address);
-		result.append(", hostAddress: ");
-		result.append(hostAddress);
 		result.append(", containers: ");
 		result.append(containers);
+		result.append(", totalMessages: ");
+		result.append(totalMessages);
+		result.append(", totalData: ");
+		result.append(totalData);
 		result.append(')');
 		return result.toString();
 	}

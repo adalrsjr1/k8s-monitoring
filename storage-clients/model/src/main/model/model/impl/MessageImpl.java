@@ -26,9 +26,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link model.impl.MessageImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getAvgResponseTime <em>Avg Response Time</em>}</li>
- *   <li>{@link model.impl.MessageImpl#getAvgSize <em>Avg Size</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getTimestamp <em>Timestamp</em>}</li>
  *   <li>{@link model.impl.MessageImpl#getUid <em>Uid</em>}</li>
+ *   <li>{@link model.impl.MessageImpl#getMessageSize <em>Message Size</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,26 +95,6 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	protected Long avgResponseTime = AVG_RESPONSE_TIME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getAvgSize() <em>Avg Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAvgSize()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Long AVG_SIZE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAvgSize() <em>Avg Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAvgSize()
-	 * @generated
-	 * @ordered
-	 */
-	protected Long avgSize = AVG_SIZE_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getTimestamp() <em>Timestamp</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -153,6 +133,26 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * @ordered
 	 */
 	protected String uid = UID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMessageSize() <em>Message Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long MESSAGE_SIZE_EDEFAULT = new Long(0L);
+
+	/**
+	 * The cached value of the '{@link #getMessageSize() <em>Message Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long messageSize = MESSAGE_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -296,27 +296,6 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long getAvgSize() {
-		return avgSize;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAvgSize(Long newAvgSize) {
-		Long oldAvgSize = avgSize;
-		avgSize = newAvgSize;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.MESSAGE__AVG_SIZE, oldAvgSize, avgSize));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Long getTimestamp() {
 		return timestamp;
 	}
@@ -359,6 +338,27 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Long getMessageSize() {
+		return messageSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMessageSize(Long newMessageSize) {
+		Long oldMessageSize = messageSize;
+		messageSize = newMessageSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.MESSAGE__MESSAGE_SIZE, oldMessageSize, messageSize));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -372,12 +372,12 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 				return getName();
 			case ModelPackageImpl.MESSAGE__AVG_RESPONSE_TIME:
 				return getAvgResponseTime();
-			case ModelPackageImpl.MESSAGE__AVG_SIZE:
-				return getAvgSize();
 			case ModelPackageImpl.MESSAGE__TIMESTAMP:
 				return getTimestamp();
 			case ModelPackageImpl.MESSAGE__UID:
 				return getUid();
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				return getMessageSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -402,14 +402,14 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 			case ModelPackageImpl.MESSAGE__AVG_RESPONSE_TIME:
 				setAvgResponseTime((Long)newValue);
 				return;
-			case ModelPackageImpl.MESSAGE__AVG_SIZE:
-				setAvgSize((Long)newValue);
-				return;
 			case ModelPackageImpl.MESSAGE__TIMESTAMP:
 				setTimestamp((Long)newValue);
 				return;
 			case ModelPackageImpl.MESSAGE__UID:
 				setUid((String)newValue);
+				return;
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				setMessageSize((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -435,14 +435,14 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 			case ModelPackageImpl.MESSAGE__AVG_RESPONSE_TIME:
 				setAvgResponseTime(AVG_RESPONSE_TIME_EDEFAULT);
 				return;
-			case ModelPackageImpl.MESSAGE__AVG_SIZE:
-				setAvgSize(AVG_SIZE_EDEFAULT);
-				return;
 			case ModelPackageImpl.MESSAGE__TIMESTAMP:
 				setTimestamp(TIMESTAMP_EDEFAULT);
 				return;
 			case ModelPackageImpl.MESSAGE__UID:
 				setUid(UID_EDEFAULT);
+				return;
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				setMessageSize(MESSAGE_SIZE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -464,12 +464,12 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackageImpl.MESSAGE__AVG_RESPONSE_TIME:
 				return AVG_RESPONSE_TIME_EDEFAULT == null ? avgResponseTime != null : !AVG_RESPONSE_TIME_EDEFAULT.equals(avgResponseTime);
-			case ModelPackageImpl.MESSAGE__AVG_SIZE:
-				return AVG_SIZE_EDEFAULT == null ? avgSize != null : !AVG_SIZE_EDEFAULT.equals(avgSize);
 			case ModelPackageImpl.MESSAGE__TIMESTAMP:
 				return TIMESTAMP_EDEFAULT == null ? timestamp != null : !TIMESTAMP_EDEFAULT.equals(timestamp);
 			case ModelPackageImpl.MESSAGE__UID:
 				return UID_EDEFAULT == null ? uid != null : !UID_EDEFAULT.equals(uid);
+			case ModelPackageImpl.MESSAGE__MESSAGE_SIZE:
+				return MESSAGE_SIZE_EDEFAULT == null ? messageSize != null : !MESSAGE_SIZE_EDEFAULT.equals(messageSize);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -488,12 +488,12 @@ public class MessageImpl extends MinimalEObjectImpl.Container implements Message
 		result.append(name);
 		result.append(", avgResponseTime: ");
 		result.append(avgResponseTime);
-		result.append(", avgSize: ");
-		result.append(avgSize);
 		result.append(", timestamp: ");
 		result.append(timestamp);
 		result.append(", uid: ");
 		result.append(uid);
+		result.append(", messageSize: ");
+		result.append(messageSize);
 		result.append(')');
 		return result.toString();
 	}
