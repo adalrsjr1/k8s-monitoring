@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
 
-import cas.ibm.ubc.ca.interfaces.Moviment
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
+import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import groovy.transform.Synchronized
 import model.Application

@@ -1,4 +1,4 @@
-package cas.ibm.ubc.ca.interfaces;
+package cas.ibm.ubc.ca.interfaces.messages;
 
 public class Moviment {
 	public final String application;

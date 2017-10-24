@@ -2,8 +2,8 @@ package cas.ibm.ubc.ca.model.manager
 
 import javax.naming.OperationNotSupportedException
 
-import cas.ibm.ubc.ca.interfaces.Moviment
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
+import cas.ibm.ubc.ca.interfaces.messages.Moviment
 
 class ExecutorClient implements ReificationInterface {
 

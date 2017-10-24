@@ -4,8 +4,8 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-import cas.ibm.ubc.ca.interfaces.Moviment
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
+import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.ModelHandler
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
