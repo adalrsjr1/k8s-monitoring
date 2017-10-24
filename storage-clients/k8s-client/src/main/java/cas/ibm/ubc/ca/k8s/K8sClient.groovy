@@ -42,11 +42,11 @@ class K8sClient {
 //			}
 //		}
 		
-		println K8sClient.client().pods().inAnyNamespace().list().getItems()
+//		println K8sClient.client().pods().inAnyNamespace().list().getItems()
 		
 		Pod pod = K8sClient.client().pods().inNamespace("sock-shop").withName("catalogue-db-1956862931-w5c5c").get()
 		
-//		println pod
+		println pod
 		
 		Namespace nsDefault = K8sClient.client().namespaces().withName("sock-shop").get()
 //		println nsDefault

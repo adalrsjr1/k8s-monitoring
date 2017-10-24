@@ -1,12 +1,14 @@
 package cas.ibm.ubc.ca.zipkin
 
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
+import cas.ibm.ubc.ca.zipkin.pogos.Dependency
 import cas.ibm.ubc.ca.zipkin.pogos.Span
 import cas.ibm.ubc.ca.zipkin.pogos.Trace
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+import java.util.concurrent.TimeUnit
 
 import org.junit.Before
 
@@ -16,12 +18,18 @@ import okhttp3.Request
 import okhttp3.Response
 
 class ZipkinRequestor {
-	private static final OkHttpClient httpClient = new OkHttpClient()
+	private final OkHttpClient httpClient
 
 	final String host
 	final int port
 
-	ZipkinRequestor(String host, int port) {
+	ZipkinRequestor(String host, int port, int timeout, TimeUnit timeUnit) {
+		
+		httpClient = new OkHttpClient.Builder()
+					             .readTimeout(timeout, timeUnit)
+								 .writeTimeout(timeout, timeUnit)
+								 .build()
+		
 		this.host = host
 		this.port = port
 	}
@@ -82,7 +90,7 @@ class ZipkinRequestor {
 	 * @param args a map of arguments @see<a href="http://zipkin.io/zipkin-api/#/default/get_traces">
 	 * @return
 	 */
-	Collection<Collection<Trace>> getTraces(Map args) {
+	List<List<Trace>> getTraces(Map args) {
 		HttpUrl url = createUrl("traces",args)
 		Request request = createRequest(url)
 
@@ -113,8 +121,7 @@ class ZipkinRequestor {
 		Response response = httpClient.newCall(request).execute()
 		
 		String json = response.body().string()
-		
-		Type type = new TypeToken<List<String>>() {}.getType()
+		Type type = new TypeToken<List<Dependency>>() {}.getType()
 		new Gson().fromJson(json, type)
 	}
 	

@@ -47,6 +47,16 @@ class TestPodUtil extends GroovyTestCase {
 		assert "741f5806-7327-11e7-93ff-080027d26b4e" == PodUtil.podId(pods[0])
 	}
 	
+	public void testPodUtilPodIp() {
+		assert pods[0] != null
+		assert "172.17.0.6" == PodUtil.podIp(pods[0])
+	}
+	
+	public void testPodUtilHostIp() {
+		assert pods[0] != null
+		assert "192.168.99.100" == PodUtil.podHostIp(pods[0])
+	}
+	
 	public void testPodUtilPodNamespace() {
 		assert pods[0] != null
 		

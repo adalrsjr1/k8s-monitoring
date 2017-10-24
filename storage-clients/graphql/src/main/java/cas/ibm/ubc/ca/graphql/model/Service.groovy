@@ -16,14 +16,15 @@ import io.fabric8.kubernetes.api.model.Service as Srv
 class Service {
 	String id
 	String name
+	String address
 //	ServiceVersion serviceVersion
 	
 	static Service create(Pod pod) {
-			new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod))
+			new Service(id:PodUtil.podId(pod), name:PodUtil.podName(pod), address:PodUtil.podIp(pod))
 	}
 	
 	static Service create(Srv service) {
-			new Service(id:ServiceUtil.serviceId(service), name:ServiceUtil.serviceName(service))
+			new Service(id:ServiceUtil.serviceId(service), name:ServiceUtil.serviceName(service), address:ServiceUtil.serviceIp(service))
 	}
 	
 	static DataFetcher services = new DataFetcher() {

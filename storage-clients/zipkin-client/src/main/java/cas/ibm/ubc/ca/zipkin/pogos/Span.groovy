@@ -10,7 +10,6 @@ import groovy.transform.ToString
  *  # http://www.jsonschema2pojo.org/
  *  # http://zipkin.io/zipkin-api/#/default/
  */
-@Canonical
 @ToString(includeNames=true)
 class Span {
 
@@ -28,7 +27,7 @@ class Span {
 	String id;
 	@SerializedName("timestamp")
 	@Expose
-	Integer timestamp;
+	Long timestamp;
 	@SerializedName("duration")
 	@Expose
 	Integer duration;
@@ -41,5 +40,4 @@ class Span {
 	@SerializedName("binaryAnnotations")
 	@Expose
 	List<BinaryAnnotation> binaryAnnotations = null;
-
 }
