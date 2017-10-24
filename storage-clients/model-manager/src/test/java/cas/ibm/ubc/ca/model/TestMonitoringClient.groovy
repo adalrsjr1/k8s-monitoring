@@ -3,6 +3,8 @@ package cas.ibm.ubc.ca.model
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static org.junit.Assert.*
 
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
+
 class TestMonitoringClient extends TestMonitoringBase {
 	
 	public void testApplications() {
@@ -33,7 +35,6 @@ class TestMonitoringClient extends TestMonitoringBase {
 	public void testCluster() {
 		monitoringMock.stubFor(get("/model/cluster")
 			.willReturn(okJson("KUBERNETES")))
-		
 		assert testClient.cluster() == "KUBERNETES"
 		
 		monitoringMock.stubFor(get("/model/cluster")
@@ -43,6 +44,7 @@ class TestMonitoringClient extends TestMonitoringBase {
 	}
 	
 	public void testMetrics() {
+		testClient.metricService("abc", TimeInterval.create(15,16))
 		assert false
 	}
 	

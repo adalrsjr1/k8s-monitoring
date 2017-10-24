@@ -40,22 +40,22 @@ class ModelController implements ClusterInspectionInterface, MetricsInspectionIn
 		return null;
 	}
 	@Override
-	@RequestMapping(value = "/metrics/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
+	@RequestMapping(value = "/metrics/service/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public Map<String, Double> metricsService(String measurement, TimeInterval timeInterval) {
 		return null;
 	}
 	@Override
-	@RequestMapping(value = "/metrics/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
+	@RequestMapping(value = "/metrics/host/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval) {
 		return null;
 	}
 	@Override
-	@RequestMapping(value = "/metrics/{service}/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
+	@RequestMapping(value = "/metrics/service/{service}/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public Double metricService(String id, String measurement, TimeInterval timeInterval) {
 		return null;
 	}
 	@Override
-	@RequestMapping(value = "/metrics/{host}/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
+	@RequestMapping(value = "/metrics/host/{host}/{measurement}/{timeInterval}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
 		return null;
 	}

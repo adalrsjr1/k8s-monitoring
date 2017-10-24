@@ -25,7 +25,7 @@ class TestMonitoringBase extends GroovyTestCase {
 		jsonHosts = loadJson("hosts.json").text
 		jsonServices = loadJson("services.json").text
 		monitoringMock.start()
-		testClient = new MonitoringClient(new OkHttpClient(), "http://localhost:8888")
+		testClient = new MonitoringClient(new OkHttpClient(), "localhost", 8888)
 	}
 	
 	public void tearDown() {
