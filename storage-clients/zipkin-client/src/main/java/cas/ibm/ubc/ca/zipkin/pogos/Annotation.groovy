@@ -24,4 +24,7 @@ class Annotation {
 	@Expose
 	String value;
 
+	String serviceName() {
+		endpoint?.serviceName
+	}
 }

@@ -18,10 +18,10 @@ class IntegrationTest extends GroovyTestCase {
 	void setUp() {
 		clientSpan = clientSpan()
 		serverSpan = serverSpan()
-		requestor().createSpans([clientSpan, serverSpan])
+		requestor().createSpans([clientSpan, serverSpan, anotherClientSpan()])
 
 		client = new ZipkinClient(HOST, PORT)
-		fetchedMessages = client.getMessages('users', '1h')
+		fetchedMessages = client.getMessages('orders', '1h')
 	}
 
 	void testReturnsNonEmptyMessages() {
@@ -45,6 +45,10 @@ class IntegrationTest extends GroovyTestCase {
 		assertEquals(serverSpanSrEndpoint['serviceName'], message.targetName)
 	}
 
+	void testOnlyReturnsMessagesSentFromSpecifiedService() {
+		assertEquals(1, fetchedMessages.size)
+	}
+
 	private requestor() {
 		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
 	}
@@ -59,7 +63,12 @@ class IntegrationTest extends GroovyTestCase {
 			annotations: [
 				[
 					timestamp: System.currentTimeMillis() * 1000,
-					value: 'cs'
+					value: 'cs',
+					endpoint: [
+						serviceName: "orders",
+						ipv4: "10.0.0.3",
+						port: 80
+					]
 				]
 			]
 		]
@@ -77,6 +86,27 @@ class IntegrationTest extends GroovyTestCase {
 				[
 					timestamp: System.currentTimeMillis() * 1000,
 					value: 'sr',
+					endpoint: [
+						serviceName: "user",
+						ipv4: "10.0.0.4",
+						port: 80
+					]
+				]
+			]
+		]
+	}
+
+	private anotherClientSpan() {
+		[
+			traceId: '804712224c4ed401',
+			id: '1167542df84f066b',
+			name: 'users: get /codes',
+			timestamp: System.currentTimeMillis() * 1000,
+			duration: 35000,
+			annotations: [
+				[
+					timestamp: System.currentTimeMillis() * 1000,
+					value: 'cs',
 					endpoint: [
 						serviceName: "user",
 						ipv4: "10.0.0.4",
