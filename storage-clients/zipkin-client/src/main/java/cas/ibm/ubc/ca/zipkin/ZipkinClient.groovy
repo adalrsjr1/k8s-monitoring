@@ -32,6 +32,15 @@ public class ZipkinClient {
 				message.timestamp = span.timestamp
 				message.totalTime = span.duration
 
+				def childSpan = trace.find { it.parentId == span.id }
+				if(childSpan) {
+					def endpoint = childSpan.annotations.find {
+						it.value == 'sr'
+					}['endpoint']
+					message.targetIp = endpoint['ipv4']
+					message.targetName = endpoint['serviceName']
+				}
+
 				messages << message
 			}
 		}
