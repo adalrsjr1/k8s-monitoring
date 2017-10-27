@@ -27,6 +27,12 @@ public class ZipkinClient {
 
 		tracesList.each { trace ->
 			trace.each { span ->
+				def clientSendAnnotation = span.annotations.find {
+					it.value == 'cs'
+				}
+				if(clientSendAnnotation?.serviceName() != serviceName)
+					return
+
 				def message = new Message()
 				message.correlationId = span.traceId
 				message.timestamp = span.timestamp
