@@ -33,4 +33,8 @@ provided through
     $ docker run -d -p 9411:9411 openzipkin/zipkin # or
     $ bin/start-zipkin-docker # which runs docker command above
 
+Clean slate on every run
+
+	$ bin/start-zipkin-docker && sleep 13 && mvn test -Dtest=IntegrationTest
+
 [maven]: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#A_Build_Lifecycle_is_Made_Up_of_Phases

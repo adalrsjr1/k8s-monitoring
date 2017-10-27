@@ -4,6 +4,6 @@ class Message {
 	String correlationId
 	Long timestamp
 	Long totalTime
-	String destinyIp
-	String destinyName
+	String targetIp
+	String targetName
 }

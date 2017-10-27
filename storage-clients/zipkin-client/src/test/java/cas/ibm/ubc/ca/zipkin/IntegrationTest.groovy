@@ -3,6 +3,7 @@ package cas.ibm.ubc.ca.zipkin
 import cas.ibm.ubc.ca.zipkin.pogos.Message
 
 import java.util.List
+import java.util.Map
 import java.util.concurrent.TimeUnit
 
 class IntegrationTest extends GroovyTestCase {
@@ -10,10 +11,14 @@ class IntegrationTest extends GroovyTestCase {
 	private final PORT = 9411
 
 	private ZipkinClient client
+	private Map clientSpan
+	private Map serverSpan
 	private List fetchedMessages
 
 	void setUp() {
-		requestor().createSpans(spansList())
+		clientSpan = clientSpan()
+		serverSpan = serverSpan()
+		requestor().createSpans([clientSpan, serverSpan])
 
 		client = new ZipkinClient(HOST, PORT)
 		fetchedMessages = client.getMessages('users', '1h')
@@ -30,35 +35,55 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	void testReturnsProperMessageAttributes() {
+		def serverSpanSrEndpoint = serverSpan['annotations'].get(0)['endpoint']
 		def message = fetchedMessages.get(0)
 
-		assertEquals('804712224c4ed401', message.correlationId)
-		assertEquals(1508854219415000, message.timestamp)
-		assertEquals(3500, message.totalTime)
+		assertEquals(clientSpan['traceId'], message.correlationId)
+		assertEquals(clientSpan['timestamp'], message.timestamp)
+		assertEquals(clientSpan['duration'], message.totalTime)
+		assertEquals(serverSpanSrEndpoint['ipv4'], message.targetIp)
+		assertEquals(serverSpanSrEndpoint['serviceName'], message.targetName)
 	}
 
 	private requestor() {
 		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
 	}
 
-	private spansList() {
-		[[
+	private clientSpan() {
+		[
 			traceId: '804712224c4ed401',
-			id: '804712224c4ed401',
-			name: 'unknown',
-			timestamp: 1508854219415000,
-			duration: 3500,
+			id: '92cc834a81da72f6',
+			name: 'orders: get /users',
+			timestamp: System.currentTimeMillis() * 1000,
+			duration: 35000,
 			annotations: [
 				[
-					timestamp: 1508854219415000,
-					endpoint: [
-						serviceName: 'users',
-						ipv4: '0.0.0.0',
-						port: '1234'
-					],
+					timestamp: System.currentTimeMillis() * 1000,
 					value: 'cs'
 				]
 			]
-		]]
+		]
+	}
+
+	private serverSpan() {
+		[
+			traceId: '804712224c4ed401',
+			id: '0de9781fc4681a8b',
+			name: 'users: get /users',
+			parentId: '92cc834a81da72f6',
+			timestamp: System.currentTimeMillis() * 1000,
+			duration: 1450,
+			annotations: [
+				[
+					timestamp: System.currentTimeMillis() * 1000,
+					value: 'sr',
+					endpoint: [
+						serviceName: "user",
+						ipv4: "10.0.0.4",
+						port: 80
+					]
+				]
+			]
+		]
 	}
 }
