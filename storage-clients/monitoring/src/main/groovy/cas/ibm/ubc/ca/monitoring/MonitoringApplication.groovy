@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 
 import cas.ibm.ubc.ca.influx.MetricsInspectionInterfaceFactory
 import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
+import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.interfaces.MessagesInspectionInterface
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
@@ -15,8 +16,7 @@ import cas.ibm.ubc.ca.k8s.ClusterInspectionInterfaceFactory
 import cas.ibm.ubc.ca.zipkin.MessagesInspectionInterfaceFactory
 
 
-class MonitoringApplication implements ClusterInspectionInterface,
-MessagesInspectionInterface, MetricsInspectionInterface {
+class MonitoringApplication implements InspectionInterface {
 	private static Logger LOG = LoggerFactory.getLogger(MonitoringApplication.class)
 
 	private ClusterInspectionInterface clusterMonitor

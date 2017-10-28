@@ -29,7 +29,7 @@ class ModelManager {
 	private final String monitoringUrl
 	private final String modelStorageUrl
 	
-	private final MonitoringClient monitoringClient
+	private final InspectionInterface monitoringClient
 	private final ModelHandler modelHandler
 	
 	private final AffinitiesAnalyzer analyzer
