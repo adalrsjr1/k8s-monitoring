@@ -44,7 +44,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 
 		client.setConnectTimeout(timeout);
 
-		return new CoreV1Api();
+		return new CoreV1Api(client);
 	}
 
 	@Override
