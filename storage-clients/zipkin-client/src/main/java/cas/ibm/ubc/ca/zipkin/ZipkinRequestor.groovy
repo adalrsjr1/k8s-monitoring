@@ -1,7 +1,5 @@
 package cas.ibm.ubc.ca.zipkin
 
-import cas.ibm.ubc.ca.interfaces.MessagesInspectionInterface
-import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
 import cas.ibm.ubc.ca.zipkin.pogos.Dependency
 import cas.ibm.ubc.ca.zipkin.pogos.Span
@@ -10,7 +8,6 @@ import cas.ibm.ubc.ca.zipkin.pogos.Trace
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-import java.util.List
 import java.util.concurrent.TimeUnit
 
 import okhttp3.HttpUrl
@@ -20,7 +17,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
 
-class ZipkinRequestor implements MessagesInspectionInterface {
+class ZipkinRequestor {
 	static final MediaType JSON = MediaType.parse('application/json; charset=utf-8')
 
 	private final OkHttpClient httpClient
@@ -139,15 +136,5 @@ class ZipkinRequestor implements MessagesInspectionInterface {
 		def request = createRequest(url, body)
 
 		httpClient.newCall(request).execute()
-	}
-
-	@Override
-	public List messages(TimeInterval timeInterval) {
-		return null;
-	}
-
-	@Override
-	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		return null;
 	}
 }

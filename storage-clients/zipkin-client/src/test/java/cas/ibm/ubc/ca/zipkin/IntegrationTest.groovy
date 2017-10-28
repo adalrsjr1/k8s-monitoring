@@ -20,8 +20,8 @@ class IntegrationTest extends GroovyTestCase {
 		serverSpan = serverSpan()
 		requestor().createSpans([clientSpan, serverSpan, anotherClientSpan()])
 
-		client = new ZipkinClient(HOST, PORT)
-		fetchedMessages = client.getMessages('orders', '1h')
+		client = MessagesInspectionInterfaceFactory.create(HOST, PORT)
+		fetchedMessages = client.messages('orders', null)
 	}
 
 	void testReturnsNonEmptyMessages() {
@@ -50,8 +50,7 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	private requestor() {
-		MessagesInspectionInterfaceFactory.create(HOST, PORT, 10, TimeUnit.SECONDS)
-		//new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
+		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
 	}
 
 	private clientSpan() {
