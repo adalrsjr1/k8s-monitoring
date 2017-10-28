@@ -1,6 +1,7 @@
 package cas.ibm.ubc.ca.influx;
 
-import cas.ibm.ubc.ca.influx.exception.NoResultsException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +12,12 @@ import org.influxdb.InfluxDB.ConsistencyLevel;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
-
-import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import cas.ibm.ubc.ca.influx.exception.NoResultsException;
+import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface;
 
 public class IntegrationTest {
 	private final String INFLUX_HOST = "http://localhost:8086"; 
@@ -42,7 +44,10 @@ public class IntegrationTest {
 	@Before
 	public void setClient() {
 		influxDB = InfluxDBFactory.connect(INFLUX_HOST, INFLUX_USER, INFLUX_PASS);
-		sampler = new Sampler(influxDB, DB_NAME);
+		
+		MetricsInspectionInterface inspection = MetricsInspectionInterfaceFactory.create(INFLUX_HOST, INFLUX_USER, INFLUX_PASS, DB_NAME);
+		assertNotNull(inspection);		
+		sampler = (Sampler)inspection;
 	}
 
 	@Before
