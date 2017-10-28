@@ -1,1 +1,3 @@
 # https://blog.travis-ci.com/2017-10-26-running-kubernetes-on-travis-ci-with-minikube
+# https://docs.travis-ci.com/user/docker/
+# https://docs.travis-ci.com/user/common-build-problems/#Troubleshooting-Locally-in-a-Docker-Image
