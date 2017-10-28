@@ -6,8 +6,10 @@ import org.influxdb.InfluxDBFactory
 
 class MetricsInspectionInterfaceFactory {
 
-	public static MetricsInspectionInterface create(host, user, pass, database) {
-		InfluxDB influxDB = InfluxDBFactory.connect(host, user, pass)
+	public static MetricsInspectionInterface create(host, port, user, password, database) {
+		String url = "http://${host}:${port}"
+		
+		InfluxDB influxDB = InfluxDBFactory.connect(url, user, password)
 		return new Sampler(influxDB, database);
 	}
 	

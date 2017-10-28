@@ -20,7 +20,8 @@ import cas.ibm.ubc.ca.influx.exception.NoResultsException;
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface;
 
 public class IntegrationTest {
-	private final String INFLUX_HOST = "http://localhost:8086"; 
+	private final String INFLUX_HOST = "localhost";
+	private final String INFLUX_PORT = "8086";
 	private final String INFLUX_USER = "root";
 	private final String INFLUX_PASS = "root";
 	private final String DB_NAME = "integration_test";
@@ -43,9 +44,9 @@ public class IntegrationTest {
 
 	@Before
 	public void setClient() {
-		influxDB = InfluxDBFactory.connect(INFLUX_HOST, INFLUX_USER, INFLUX_PASS);
+		influxDB = InfluxDBFactory.connect("http://"+INFLUX_HOST + ":" + INFLUX_PORT, INFLUX_USER, INFLUX_PASS);
 		
-		MetricsInspectionInterface inspection = MetricsInspectionInterfaceFactory.create(INFLUX_HOST, INFLUX_USER, INFLUX_PASS, DB_NAME);
+		MetricsInspectionInterface inspection = MetricsInspectionInterfaceFactory.create(INFLUX_HOST, INFLUX_PORT, INFLUX_USER, INFLUX_PASS, DB_NAME);
 		assertNotNull(inspection);		
 		sampler = (Sampler)inspection;
 	}

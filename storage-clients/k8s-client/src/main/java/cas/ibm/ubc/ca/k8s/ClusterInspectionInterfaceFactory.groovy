@@ -4,8 +4,8 @@ import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
 
 class ClusterInspectionInterfaceFactory {
 
-	static ClusterInspectionInterface create(String url, int timeout) {
-		KubernetesInspection kubernetesClient = new KubernetesInspection(url, timeout)
+	static ClusterInspectionInterface create(url, timeout) {
+		KubernetesInspection kubernetesClient = new KubernetesInspection(url, Integer.parseInt(timeout))
 		return kubernetesClient
 	}
 	
