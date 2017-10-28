@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class IntegrationTest {
-	private final String INFLUX_HOST = "http://10.66.66.32:30356"; 
+	private final String INFLUX_HOST = "http://localhost:8086"; 
 	private final String INFLUX_USER = "root";
 	private final String INFLUX_PASS = "root";
 	private final String DB_NAME = "integration_test";

@@ -50,7 +50,10 @@ public class Sampler implements MetricsInspectionInterface {
 	}
 	
 	private double parse(QueryResult queryResult) {
-		getSeries(queryResult)
+		 getSeries(queryResult).get(0)
+	                           .getValues()
+	                           .get(0)
+	                           .get(1)
 	}
 	
 	private Map<String, Double> parseList(QueryResult queryResult) {
