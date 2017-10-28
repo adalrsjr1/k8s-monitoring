@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
 import com.google.common.util.concurrent.ThreadFactoryBuilder
-
+import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import cas.ibm.ubc.ca.monitoring.MonitoringApplication
 import groovy.transform.Synchronized
 import model.Cluster
 import okhttp3.OkHttpClient
@@ -29,7 +30,7 @@ class ModelManager {
 	private final String monitoringUrl
 	private final String modelStorageUrl
 	
-	private final InspectionInterface monitoringClient
+	private final InspectionInterface monitoring
 	private final ModelHandler modelHandler
 	
 	private final AffinitiesAnalyzer analyzer
@@ -42,8 +43,8 @@ class ModelManager {
 		this.monitoringUrl = config.MONITORING_URL
 		this.modelStorageUrl = config.MODEL_STORAGE_URL
 		
-		monitoringClient = new MonitoringClient(new OkHttpClient(), 
-			this.monitoringUrl)
+		monitoring = new MonitoringApplication()
+		
 		modelHandler = new ModelHandler(this.monitoringUrl)
 			
 		analyzer = new AffinitiesAnalyzer()
@@ -52,12 +53,12 @@ class ModelManager {
 	
 	public Cluster createModel() {
 		return modelHandler.updateModel(
-			monitoringClient.cluster(), 
-			monitoringClient.hosts(), 
-			monitoringClient.applications(), 
-			monitoringClient.services(), 
-			monitoringClient.metrics(), 
-			monitoringClient.messages())
+			monitoring.cluster(), 
+			monitoring.hosts(), 
+			monitoring.applications(), 
+			monitoring.services(), 
+			monitoring.metrics(), 
+			monitoring.messages())
 	}
 	
 	public Cluster updateModel() {
