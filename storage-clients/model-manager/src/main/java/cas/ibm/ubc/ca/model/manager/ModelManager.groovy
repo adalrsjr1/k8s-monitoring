@@ -39,9 +39,8 @@ class ModelManager {
 	private Boolean stopped = false
 	
 	public ModelManager(ModelManagerConfig config) {
-		this.monitoringInterval = config.MONITORING_INTERVAL 
-		this.monitoringUrl = config.MONITORING_URL
-		this.modelStorageUrl = config.MODEL_STORAGE_URL
+		this.monitoringInterval = config.get("modelmanager.monitoring.interval")
+		this.modelStorageUrl = config.get("modelmanager.model.storage")
 		
 		monitoring = new MonitoringApplication()
 		
