@@ -21,8 +21,7 @@ import okhttp3.RequestBody
 import okhttp3.Response
 
 class ZipkinRequestor implements MessagesInspectionInterface {
-	static final MediaType JSON \
-		= MediaType.parse('application/json; charset=utf-8')
+	static final MediaType JSON = MediaType.parse('application/json; charset=utf-8')
 
 	private final OkHttpClient httpClient
 
