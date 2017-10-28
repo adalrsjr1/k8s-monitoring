@@ -50,7 +50,8 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	private requestor() {
-		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
+		MessagesInspectionInterfaceFactory.create(HOST, PORT, 10, TimeUnit.SECONDS)
+		//new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
 	}
 
 	private clientSpan() {

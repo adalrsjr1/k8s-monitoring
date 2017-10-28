@@ -1,0 +1,11 @@
+version: "3"
+services:
+  influxdb:
+    image: influxdb:1.3-alpine
+    ports:
+      - "8086:8086"
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411" 
+
