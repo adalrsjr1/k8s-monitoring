@@ -55,7 +55,7 @@ MessagesInspectionInterface, MetricsInspectionInterface {
 		Properties properties = new Properties()
 		
 		try {
-			inputStream = cl.getResourceAsStream("application.properties")
+			inputStream = cl.getResourceAsStream("monitoring.properties")
 			properties.load(inputStream)
 		}
 		catch(IOException e) {
