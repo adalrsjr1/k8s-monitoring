@@ -1,15 +1,20 @@
 package cas.ibm.ubc.ca.zipkin;
 
+import java.util.List
+
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
+import cas.ibm.ubc.ca.interfaces.MessagesInspectionInterface
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
+
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
 import cas.ibm.ubc.ca.zipkin.pogos.Message
 import cas.ibm.ubc.ca.zipkin.pogos.Trace
 
-public class ZipkinClient {
+public class ZipkinClient implements MessagesInspectionInterface {
 	//http://www.vogella.com/tutorials/JavaLibrary-OkHttp/article.html
 	// http://zipkin.io/zipkin-api/#/paths/
 
@@ -19,7 +24,13 @@ public class ZipkinClient {
 		requestor = new ZipkinRequestor(host, port, 10,	TimeUnit.SECONDS)
 	}
 
-	public getMessages(serviceName, period) {
+	@Override
+	public List messages(TimeInterval timeInterval) {
+		return null;
+	}
+
+	@Override
+	public List messages(String serviceInstance, TimeInterval timeInterval) {
 		//def tracesList = requestor.getTraces(serviceName: serviceName,
 		//									 limit: 1000)
 		def tracesList = requestor.getTraces(limit: 1000)
@@ -30,7 +41,7 @@ public class ZipkinClient {
 				def clientSendAnnotation = span.annotations.find {
 					it.value == 'cs'
 				}
-				if(clientSendAnnotation?.serviceName() != serviceName)
+				if(clientSendAnnotation?.serviceName() != serviceInstance)
 					return
 
 				def message = new Message()

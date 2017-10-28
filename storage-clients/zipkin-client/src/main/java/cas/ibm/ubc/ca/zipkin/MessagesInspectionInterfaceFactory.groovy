@@ -6,12 +6,10 @@ import java.util.concurrent.TimeUnit
 class MessagesInspectionInterfaceFactory {
 	public static MessagesInspectionInterface create(host, String port,
 											String timeout, TimeUnit timeUnit) {
-		new ZipkinRequestor(host, Integer.parseInt(port),
-			Integer.parseInt(timeout), timeUnit)
+		new ZipkinClient(host, Integer.parseInt(port))
 	}
 
-	public static MessagesInspectionInterface create(host, int port,
-											int timeout, TimeUnit timeUnit) {
-		new ZipkinRequestor(host, port, timeout, timeUnit)
+	public static MessagesInspectionInterface create(host, int port) {
+		new ZipkinClient(host, port)
 	}
 }
