@@ -35,7 +35,6 @@ class TestMonitoringBase extends GroovyTestCase {
 	private File loadJson(String path) {
 		ClassLoader cl = this.class.getClassLoader()
 		new File(cl.getResource(path).getFile())
-		
 	}
 	
 	void testBase() {

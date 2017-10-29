@@ -34,17 +34,17 @@ public class Sampler implements MetricsInspectionInterface {
 	}
 	
 	private String buildQueryMap(String measurement,
-			DownsamplerFunction function, String tag, String duration) {
+			DownsamplerFunction function, String tag, def duration) {
 		"""SELECT ${function}(value)
-       FROM ${measurement}
+       FROM "${measurement}"
        WHERE time > now() - ${duration}
              GROUP BY ${tag}"""
 	}
 
 	private String buildQuery(String measurement,
-			DownsamplerFunction function, String tag, String id, String duration) {
+			DownsamplerFunction function, String tag, String id, def duration) {
 		"""SELECT ${function}(value)
-       FROM ${measurement}
+       FROM "${measurement}"
        WHERE time > now() - ${duration}
              AND ${tag} = '${id}'"""
 	}
@@ -123,25 +123,25 @@ public class Sampler implements MetricsInspectionInterface {
 	@Override
 	public Map<String, Double> metricsService(String measurement, TimeInterval timeInterval) {
 		downsampleMap(measurement, DownsamplerFunction.MEAN,
-			"pod_name", timeInterval.getIntervalInMillis())
+			"pod_name", "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
 	public Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval) {
 		downsampleMap(measurement, DownsamplerFunction.MEAN,
-			"nodename", timeInterval.getIntervalInMillis())
+			"nodename", "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
 	public Double metricService(String id, String measurement, TimeInterval timeInterval) {
 		downsample(measurement, DownsamplerFunction.MEAN,
-			"pod_name", id, timeInterval.getIntervalInMillis())
+			"pod_name", id, "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
 	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
 		downsample(measurement, DownsamplerFunction.MEAN,
-			"pod_name", id, timeInterval.getIntervalInMillis())
+			"nodename", id, "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	

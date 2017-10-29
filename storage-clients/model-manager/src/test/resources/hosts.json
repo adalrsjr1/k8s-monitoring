@@ -1,1 +1,21 @@
-[{"name":"gfads1","limits":{"cpu":"4","memory":"12302692Ki","pods":"110"},"metrics":{},"services":[],"hostAddress":["10.66.66.22","gfads1"]},{"name":"gfads2","limits":{"cpu":"4","memory":"12302692Ki","pods":"110"},"metrics":{},"services":[],"hostAddress":["10.66.66.32","gfads2"]}]
+[{
+    "name": "gfads1",
+    "limits": {
+        "cpu": "4",
+        "memory": "12302692Ki",
+        "pods": "110"
+    },
+    "metrics": {},
+    "services": [],
+    "hostAddress": ["10.66.66.22", "gfads1"]
+}, {
+    "name": "gfads2",
+    "limits": {
+        "cpu": "4",
+        "memory": "12302692Ki",
+        "pods": "110"
+    },
+    "metrics": {},
+    "services": [],
+    "hostAddress": ["10.66.66.32", "gfads2"]
+}]
