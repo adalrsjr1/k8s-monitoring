@@ -6,7 +6,6 @@ import cas.ibm.ubc.ca.zipkin.pogos.Message
 
 import java.time.Instant
 
-import java.util.List
 import java.util.Map
 import java.util.concurrent.TimeUnit
 
@@ -17,7 +16,6 @@ class IntegrationTest extends GroovyTestCase {
 	private ZipkinClient client
 	private Map clientSpan
 	private Map serverSpan
-	private List fetchedMessages
 
 	void setUp() {
 		clientSpan = clientSpan()
@@ -25,23 +23,21 @@ class IntegrationTest extends GroovyTestCase {
 		requestor().createSpans(spansList())
 
 		client = MessagesInspectionInterfaceFactory.create(HOST, PORT)
-		def timeInterval = TimeInterval.last(60, TimeUnit.SECONDS)
-		fetchedMessages = client.messages('orders', timeInterval)
 	}
 
 	void testReturnsNonEmptyMessages() {
-		assertFalse(fetchedMessages.isEmpty())
+		assertFalse(fetchMessages('orders').isEmpty())
 	}
 
 	void testReturnsProperlyTypedMessages() {
-		def message = fetchedMessages.get(0)
+		def message = fetchMessages('orders').get(0)
 
 		assert message instanceof Message
 	}
 
 	void testReturnsProperMessageAttributes() {
 		def serverSpanSrEndpoint = serverSpan['annotations'].get(0)['endpoint']
-		def message = fetchedMessages.get(0)
+		def message = fetchMessages('orders').get(0)
 
 		assertEquals(clientSpan['traceId'], message.correlationId)
 		assertEquals(clientSpan['timestamp'], message.timestamp)
@@ -51,7 +47,20 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
-		assertEquals(1, fetchedMessages.size)
+		assertEquals(1, fetchMessages('orders').size)
+	}
+
+	void testReturnsAllMessagesSentFromAnyServiceWithinGivenInterval() {
+		assertEquals(2, fetchMessages().size)
+	}
+
+	private fetchMessages(serviceInstance = null) {
+		def timeInterval = TimeInterval.last(60, TimeUnit.SECONDS)
+
+		if(serviceInstance != null)
+			client.messages(serviceInstance, timeInterval)
+		else
+			client.messages(timeInterval)
 	}
 
 	private requestor() {

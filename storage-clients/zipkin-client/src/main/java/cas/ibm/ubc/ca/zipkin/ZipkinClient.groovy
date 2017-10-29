@@ -26,7 +26,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 
 	@Override
 	public List messages(TimeInterval timeInterval) {
-		return null;
+		messages(null, timeInterval)
 	}
 
 	@Override
@@ -43,7 +43,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				def clientSendAnnotation = span.annotations.find {
 					it.value == 'cs'
 				}
-				if(clientSendAnnotation?.serviceName() != serviceInstance)
+				if(!clientSendAnnotation || serviceInstance && \
+					clientSendAnnotation?.serviceName() != serviceInstance)
 					return
 
 				def message = new Message()
