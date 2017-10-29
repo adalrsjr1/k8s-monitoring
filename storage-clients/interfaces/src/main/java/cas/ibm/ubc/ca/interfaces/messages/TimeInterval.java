@@ -19,7 +19,10 @@ public class TimeInterval {
 	
 	public static TimeInterval last(Long interval, TimeUnit timeUnit) {
 		Long endTime = TimeUnit.MILLISECONDS.convert(interval, timeUnit);
-		return TimeInterval.create(Instant.now().toEpochMilli(), Instant.now().toEpochMilli() - endTime);
+		long now = Instant.now().toEpochMilli();
+		long begin = now - endTime;
+
+		return TimeInterval.create(begin, now);
 	}
 	
 	public Long getBegin() {
@@ -31,6 +34,6 @@ public class TimeInterval {
 	}
 	
 	public Long getIntervalInMillis() {
-		return begin - end;
+		return end - begin;
 	}
 }
