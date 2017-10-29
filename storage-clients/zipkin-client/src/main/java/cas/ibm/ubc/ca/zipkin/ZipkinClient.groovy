@@ -31,9 +31,11 @@ public class ZipkinClient implements MessagesInspectionInterface {
 
 	@Override
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		//def tracesList = requestor.getTraces(serviceName: serviceName,
-		//									 limit: 1000)
-		def tracesList = requestor.getTraces(limit: 1000)
+		def params = [
+			endTs: timeInterval.getEnd(),
+			lookback: timeInterval.getIntervalInMillis()
+		]
+		def tracesList = requestor.getTraces(params)
 		def messages = []
 
 		tracesList.each { trace ->
