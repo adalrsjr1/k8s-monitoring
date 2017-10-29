@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
 import com.google.common.util.concurrent.ThreadFactoryBuilder
+
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
 import cas.ibm.ubc.ca.monitoring.MonitoringApplication
-import groovy.transform.Synchronized
 import model.Cluster
-import okhttp3.OkHttpClient
 
 class ModelManager {
 	private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
@@ -29,6 +29,7 @@ class ModelManager {
 	private final Long monitoringInterval
 	private final String monitoringUrl
 	private final String modelStorageUrl
+	private final TimeUnit timeUnit
 	
 	private final InspectionInterface monitoring
 	private final ModelHandler modelHandler
@@ -41,9 +42,9 @@ class ModelManager {
 	public ModelManager(ModelManagerConfig config) {
 		this.monitoringInterval = config.get("modelmanager.monitoring.interval")
 		this.modelStorageUrl = config.get("modelmanager.model.storage")
+		this.timeUnit = TimeUnit.valueOf(config.get("modelmanager.monitoring.timeunit").toUpperCase())
 		
 		monitoring = new MonitoringApplication()
-		
 		modelHandler = new ModelHandler(this.monitoringUrl)
 			
 		analyzer = new AffinitiesAnalyzer()
@@ -56,8 +57,12 @@ class ModelManager {
 			monitoring.hosts(), 
 			monitoring.applications(), 
 			monitoring.services(), 
-			monitoring.metrics(), 
-			monitoring.messages())
+			monitoring.messages(),
+			[monitoring.metricsHost("cpu/utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+			monitoring.metricsHost("memory/utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+			monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
+			monitoring.metricsService("memory/usage", TimeInterval.last(monitoringInterval, timeUnit)),
+			])
 	}
 	
 	public Cluster updateModel() {

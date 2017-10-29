@@ -96,8 +96,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createHostAdapter();
 			}
 			@Override
-			public Adapter caseStringToLongMap(Map.Entry<String, Long> object) {
-				return createStringToLongMapAdapter();
+			public Adapter caseStringToDoubleMap(Map.Entry<String, Double> object) {
+				return createStringToDoubleMapAdapter();
 			}
 			@Override
 			public Adapter caseElementWithResources(ElementWithResources object) {
@@ -228,7 +228,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To Long Map</em>}'.
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To Double Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -237,7 +237,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @see java.util.Map.Entry
 	 * @generated
 	 */
-	public Adapter createStringToLongMapAdapter() {
+	public Adapter createStringToDoubleMapAdapter() {
 		return null;
 	}
 

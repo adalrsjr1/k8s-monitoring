@@ -24,7 +24,7 @@ public interface ElementWithResources {
 	/**
 	 * Returns the value of the '<em><b>Resource Limit</b></em>' map.
 	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link java.lang.Long},
+	 * and the value is of type {@link java.lang.Double},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Resource Limit</em>' map isn't clear,
@@ -32,15 +32,15 @@ public interface ElementWithResources {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Resource Limit</em>' map.
-	 * @model mapType="model.StringToLongMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject&gt;"
+	 * @model mapType="model.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
-	Map<String, Long> getResourceLimit();
+	Map<String, Double> getResourceLimit();
 
 	/**
 	 * Returns the value of the '<em><b>Metrics</b></em>' map.
 	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link java.lang.Long},
+	 * and the value is of type {@link java.lang.Double},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Metrics</em>' map isn't clear,
@@ -48,9 +48,9 @@ public interface ElementWithResources {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Metrics</em>' map.
-	 * @model mapType="model.StringToLongMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject&gt;"
+	 * @model mapType="model.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
-	Map<String, Long> getMetrics();
+	Map<String, Double> getMetrics();
 
 } // ElementWithResources

@@ -15,19 +15,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>String To Long Map</b></em>'.
+ * An implementation of the model object '<em><b>String To Double Map</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link model.impl.StringToLongMapImpl#getTypedKey <em>Key</em>}</li>
- *   <li>{@link model.impl.StringToLongMapImpl#getTypedValue <em>Value</em>}</li>
+ *   <li>{@link model.impl.StringToDoubleMapImpl#getTypedKey <em>Key</em>}</li>
+ *   <li>{@link model.impl.StringToDoubleMapImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,Long> {
+public class StringToDoubleMapImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String,Double> {
 	/**
 	 * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -56,7 +56,7 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Long VALUE_EDEFAULT = null;
+	protected static final Double VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
@@ -66,14 +66,14 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected Long value = VALUE_EDEFAULT;
+	protected Double value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StringToLongMapImpl() {
+	protected StringToDoubleMapImpl() {
 		super();
 	}
 
@@ -84,7 +84,7 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackageImpl.Literals.STRING_TO_LONG_MAP;
+		return ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 		String oldKey = key;
 		key = newKey;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_LONG_MAP__KEY, oldKey, key));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_DOUBLE_MAP__KEY, oldKey, key));
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long getTypedValue() {
+	public Double getTypedValue() {
 		return value;
 	}
 
@@ -122,11 +122,11 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTypedValue(Long newValue) {
-		Long oldValue = value;
+	public void setTypedValue(Double newValue) {
+		Double oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_LONG_MAP__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.STRING_TO_DOUBLE_MAP__VALUE, oldValue, value));
 	}
 
 	/**
@@ -137,9 +137,9 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackageImpl.STRING_TO_LONG_MAP__KEY:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__KEY:
 				return getTypedKey();
-			case ModelPackageImpl.STRING_TO_LONG_MAP__VALUE:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__VALUE:
 				return getTypedValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -153,11 +153,11 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackageImpl.STRING_TO_LONG_MAP__KEY:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__KEY:
 				setTypedKey((String)newValue);
 				return;
-			case ModelPackageImpl.STRING_TO_LONG_MAP__VALUE:
-				setTypedValue((Long)newValue);
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__VALUE:
+				setTypedValue((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,10 +171,10 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.STRING_TO_LONG_MAP__KEY:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__KEY:
 				setTypedKey(KEY_EDEFAULT);
 				return;
-			case ModelPackageImpl.STRING_TO_LONG_MAP__VALUE:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__VALUE:
 				setTypedValue(VALUE_EDEFAULT);
 				return;
 		}
@@ -189,9 +189,9 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackageImpl.STRING_TO_LONG_MAP__KEY:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
-			case ModelPackageImpl.STRING_TO_LONG_MAP__VALUE:
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
@@ -267,7 +267,7 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long getValue() {
+	public Double getValue() {
 		return getTypedValue();
 	}
 
@@ -276,8 +276,8 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long setValue(Long value) {
-		Long oldValue = getValue();
+	public Double setValue(Double value) {
+		Double oldValue = getValue();
 		setTypedValue(value);
 		return oldValue;
 	}
@@ -288,9 +288,9 @@ public class StringToLongMapImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public EMap<String, Long> getEMap() {
+	public EMap<String, Double> getEMap() {
 		EObject container = eContainer();
-		return container == null ? null : (EMap<String, Long>)container.eGet(eContainmentFeature());
+		return container == null ? null : (EMap<String, Double>)container.eGet(eContainmentFeature());
 	}
 
-} //StringToLongMapImpl
+} //StringToDoubleMapImpl

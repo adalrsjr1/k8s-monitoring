@@ -604,14 +604,14 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST_OPERATION_COUNT = ELEMENT_WITH_RESOURCES_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link model.impl.StringToLongMapImpl <em>String To Long Map</em>}' class.
+	 * The meta object id for the '{@link model.impl.StringToDoubleMapImpl <em>String To Double Map</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see model.impl.StringToLongMapImpl
-	 * @see model.impl.ModelPackageImpl#getStringToLongMap()
+	 * @see model.impl.StringToDoubleMapImpl
+	 * @see model.impl.ModelPackageImpl#getStringToDoubleMap()
 	 * @generated
 	 */
-	public static final int STRING_TO_LONG_MAP = 6;
+	public static final int STRING_TO_DOUBLE_MAP = 6;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -620,7 +620,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STRING_TO_LONG_MAP__KEY = 0;
+	public static final int STRING_TO_DOUBLE_MAP__KEY = 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -629,25 +629,25 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STRING_TO_LONG_MAP__VALUE = 1;
+	public static final int STRING_TO_DOUBLE_MAP__VALUE = 1;
 
 	/**
-	 * The number of structural features of the '<em>String To Long Map</em>' class.
+	 * The number of structural features of the '<em>String To Double Map</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STRING_TO_LONG_MAP_FEATURE_COUNT = 2;
+	public static final int STRING_TO_DOUBLE_MAP_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>String To Long Map</em>' class.
+	 * The number of operations of the '<em>String To Double Map</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STRING_TO_LONG_MAP_OPERATION_COUNT = 0;
+	public static final int STRING_TO_DOUBLE_MAP_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link model.impl.StringToServiceImpl <em>String To Service</em>}' class.
@@ -963,7 +963,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stringToLongMapEClass = null;
+	private EClass stringToDoubleMapEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1486,17 +1486,17 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Long Map</em>}'.
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Double Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>String To Long Map</em>'.
+	 * @return the meta object for class '<em>String To Double Map</em>'.
 	 * @see java.util.Map.Entry
 	 * @model keyDataType="org.eclipse.emf.ecore.EString"
-	 *        valueDataType="org.eclipse.emf.ecore.ELongObject"
+	 *        valueDataType="org.eclipse.emf.ecore.EDoubleObject"
 	 * @generated
 	 */
-	public EClass getStringToLongMap() {
-		return stringToLongMapEClass;
+	public EClass getStringToDoubleMap() {
+		return stringToDoubleMapEClass;
 	}
 
 	/**
@@ -1505,11 +1505,11 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Key</em>'.
 	 * @see java.util.Map.Entry
-	 * @see #getStringToLongMap()
+	 * @see #getStringToDoubleMap()
 	 * @generated
 	 */
-	public EAttribute getStringToLongMap_Key() {
-		return (EAttribute)stringToLongMapEClass.getEStructuralFeatures().get(0);
+	public EAttribute getStringToDoubleMap_Key() {
+		return (EAttribute)stringToDoubleMapEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1518,11 +1518,11 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
 	 * @see java.util.Map.Entry
-	 * @see #getStringToLongMap()
+	 * @see #getStringToDoubleMap()
 	 * @generated
 	 */
-	public EAttribute getStringToLongMap_Value() {
-		return (EAttribute)stringToLongMapEClass.getEStructuralFeatures().get(1);
+	public EAttribute getStringToDoubleMap_Value() {
+		return (EAttribute)stringToDoubleMapEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1881,9 +1881,9 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(hostEClass, HOST__SERVICES);
 		createEAttribute(hostEClass, HOST__HOST_ADDRESS);
 
-		stringToLongMapEClass = createEClass(STRING_TO_LONG_MAP);
-		createEAttribute(stringToLongMapEClass, STRING_TO_LONG_MAP__KEY);
-		createEAttribute(stringToLongMapEClass, STRING_TO_LONG_MAP__VALUE);
+		stringToDoubleMapEClass = createEClass(STRING_TO_DOUBLE_MAP);
+		createEAttribute(stringToDoubleMapEClass, STRING_TO_DOUBLE_MAP__KEY);
+		createEAttribute(stringToDoubleMapEClass, STRING_TO_DOUBLE_MAP__VALUE);
 
 		elementWithResourcesEClass = createEClass(ELEMENT_WITH_RESOURCES);
 		createEReference(elementWithResourcesEClass, ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT);
@@ -1992,13 +1992,13 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getHost_Services(), this.getStringToServiceInstance(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(stringToLongMapEClass, Map.Entry.class, "StringToLongMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStringToLongMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStringToLongMap_Value(), ecorePackage.getELongObject(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(stringToDoubleMapEClass, Map.Entry.class, "StringToDoubleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringToDoubleMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStringToDoubleMap_Value(), ecorePackage.getEDoubleObject(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementWithResourcesEClass, ElementWithResources.class, "ElementWithResources", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElementWithResources_ResourceLimit(), this.getStringToLongMap(), null, "resourceLimit", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElementWithResources_Metrics(), this.getStringToLongMap(), null, "metrics", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getElementWithResources_ResourceLimit(), this.getStringToDoubleMap(), null, "resourceLimit", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getElementWithResources_Metrics(), this.getStringToDoubleMap(), null, "metrics", null, 0, -1, ElementWithResources.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToServiceEClass, Map.Entry.class, "StringToService", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToService_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2315,14 +2315,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		public static final EAttribute HOST__HOST_ADDRESS = eINSTANCE.getHost_HostAddress();
 
 		/**
-		 * The meta object literal for the '{@link model.impl.StringToLongMapImpl <em>String To Long Map</em>}' class.
+		 * The meta object literal for the '{@link model.impl.StringToDoubleMapImpl <em>String To Double Map</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see model.impl.StringToLongMapImpl
-		 * @see model.impl.ModelPackageImpl#getStringToLongMap()
+		 * @see model.impl.StringToDoubleMapImpl
+		 * @see model.impl.ModelPackageImpl#getStringToDoubleMap()
 		 * @generated
 		 */
-		public static final EClass STRING_TO_LONG_MAP = eINSTANCE.getStringToLongMap();
+		public static final EClass STRING_TO_DOUBLE_MAP = eINSTANCE.getStringToDoubleMap();
 
 		/**
 		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
@@ -2330,7 +2330,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute STRING_TO_LONG_MAP__KEY = eINSTANCE.getStringToLongMap_Key();
+		public static final EAttribute STRING_TO_DOUBLE_MAP__KEY = eINSTANCE.getStringToDoubleMap_Key();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -2338,7 +2338,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute STRING_TO_LONG_MAP__VALUE = eINSTANCE.getStringToLongMap_Value();
+		public static final EAttribute STRING_TO_DOUBLE_MAP__VALUE = eINSTANCE.getStringToDoubleMap_Value();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.ElementWithResourcesImpl <em>Element With Resources</em>}' class.

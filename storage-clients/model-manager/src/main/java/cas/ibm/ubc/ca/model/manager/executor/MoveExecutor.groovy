@@ -1,9 +1,9 @@
-package cas.ibm.ubc.ca.model.manager
+package cas.ibm.ubc.ca.model.manager.executor
 
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
 
-class ExecutorClient implements ReificationInterface {
+class MoveExecutor implements ReificationInterface {
 
 	@Override
 	public boolean move(Moviment moviment) {

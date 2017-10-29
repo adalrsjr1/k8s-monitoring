@@ -107,4 +107,5 @@ class MonitoringApplication implements InspectionInterface {
 	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricHost(id, measurement, timeInterval);
 	}
+	
 }

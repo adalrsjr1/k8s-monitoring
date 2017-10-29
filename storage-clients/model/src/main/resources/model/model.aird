@@ -878,9 +878,9 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_7Hu1sJ8rEeeTJIkGYe-yBQ" name="StringToLongMap" tooltipText="" incomingEdges="_6-_zoJ8vEeeTJIkGYe-yBQ _oWQkEKiJEeeG3KLAoBCo5Q" width="12" height="10">
-      <target xmi:type="ecore:EClass" href="model.ecore#//StringToLongMap"/>
-      <semanticElements xmi:type="ecore:EClass" href="model.ecore#//StringToLongMap"/>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_7Hu1sJ8rEeeTJIkGYe-yBQ" name="StringToDoubleMap" tooltipText="" incomingEdges="_6-_zoJ8vEeeTJIkGYe-yBQ _oWQkEKiJEeeG3KLAoBCo5Q" width="12" height="10">
+      <target xmi:type="ecore:EClass" href="model.ecore#//StringToDoubleMap"/>
+      <semanticElements xmi:type="ecore:EClass" href="model.ecore#//StringToDoubleMap"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
@@ -889,16 +889,16 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_HEoFgJ8sEeeTJIkGYe-yBQ" name="key : EString" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="model.ecore#//StringToLongMap/key"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//StringToLongMap/key"/>
+        <target xmi:type="ecore:EAttribute" href="model.ecore#//StringToDoubleMap/key"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//StringToDoubleMap/key"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_K4v3YJ8sEeeTJIkGYe-yBQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_T8RtYJ8sEeeTJIkGYe-yBQ" name="value : ELongObject" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="model.ecore#//StringToLongMap/value"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//StringToLongMap/value"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_T8RtYJ8sEeeTJIkGYe-yBQ" name="value : EDoubleObject" tooltipText="">
+        <target xmi:type="ecore:EAttribute" href="model.ecore#//StringToDoubleMap/value"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="model.ecore#//StringToDoubleMap/value"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_V65WMJ8sEeeTJIkGYe-yBQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
         </ownedStyle>

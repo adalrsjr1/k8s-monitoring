@@ -1,56 +1,40 @@
 package cas.ibm.ubc.ca.model
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*
-
+import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.model.manager.ModelHandler
+import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
+import model.Application
 import model.Cluster
+import model.ServiceInstance
 
-class TestModelHandler extends TestMonitoringBase {
-
+class TestModelHandler extends GroovyTestCase {
+	static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+	
+	InspectionInterface monitor
 	ModelHandler handler
 	
 	public void setUp() {
 		super.setUp()
 		
-		monitoringMock.stubFor(get("/model/cluster")
-			.willReturn(okJson("KUBERNETES")))
-
-		monitoringMock.stubFor(get("/model/services")
-			.willReturn(okJson(jsonServices)))
-		
-		monitoringMock.stubFor(get("/model/hosts")
-			.willReturn(okJson(jsonHosts)))
-		
-		monitoringMock.stubFor(get("/model/applications")
-			.willReturn(okJson(jsonApplications)))
-		
+		monitor = new MonitoringMock()
 		handler = new ModelHandler("src/test/resource/")
 	}
 	
-	void testCreateAndSave() {
-		String env = testClient.cluster()
+	void testCreateMetrics() {
+		Cluster cluster = factory.createCluster()
+		ServiceInstance service = factory.createServiceInstance()
+		service.name = "svc"
+		service.id = "svc"
+		Application app = factory.createApplication()
+		app.name = "app"
 		
-		Cluster cluster = handler.createCluster(env)
-		assert cluster != null
+		cluster.applications["app"] = app
+		app.services["svc"] = service
+		handler.createMetrics(cluster, "test", ["svc":3.1415])
 		
-		Map apps = testClient.applications()
-		List applications = handler.createApplications(cluster, apps)
-//		assert apps != null
-//		assert apps.empty != false
-		
-		List hh = testClient.hosts()
-		List hosts = handler.createHosts(cluster, hh)
-//		assert hosts != null
-//		assert hosts.empty != false
-		
-		List ss = testClient.services()
-		List services = handler.createServices(cluster, ss)
-//		assert services != null
-//		assert services.empty != false
-		
-		handler.saveModel()
-		
-		 
+		assert 3.1415 == cluster.applications["app"].services["svc"].metrics["test"]
 	}
+	
+	
 
 }

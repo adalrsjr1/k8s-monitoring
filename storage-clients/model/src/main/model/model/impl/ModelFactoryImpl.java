@@ -72,7 +72,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackageImpl.SERVICE_INSTANCE: return (EObject)createServiceInstance();
 			case ModelPackageImpl.MESSAGE: return (EObject)createMessage();
 			case ModelPackageImpl.HOST: return (EObject)createHost();
-			case ModelPackageImpl.STRING_TO_LONG_MAP: return (EObject)createStringToLongMap();
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP: return (EObject)createStringToDoubleMap();
 			case ModelPackageImpl.STRING_TO_SERVICE: return (EObject)createStringToService();
 			case ModelPackageImpl.STRING_TO_HOST: return (EObject)createStringToHost();
 			case ModelPackageImpl.STRING_TO_SERVICE_INSTANCE: return (EObject)createStringToServiceInstance();
@@ -168,9 +168,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map.Entry<String, Long> createStringToLongMap() {
-		StringToLongMapImpl stringToLongMap = new StringToLongMapImpl();
-		return stringToLongMap;
+	public Map.Entry<String, Double> createStringToDoubleMap() {
+		StringToDoubleMapImpl stringToDoubleMap = new StringToDoubleMapImpl();
+		return stringToDoubleMap;
 	}
 
 	/**

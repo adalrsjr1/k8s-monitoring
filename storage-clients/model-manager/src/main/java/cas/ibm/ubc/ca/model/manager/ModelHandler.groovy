@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.URI as EmfURI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -21,11 +22,13 @@ import model.Cluster
 import model.Environment
 import model.Host
 import model.Service
+import model.ServiceInstance
 
 class ModelHandler implements ReificationInterface {
 	private static Logger LOG = LoggerFactory.getLogger(ModelHandler.class)
-	
-	private final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+	private static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+	private static Long version = 1
+		
 	private final ResourceSet resourceSet
 	
 	private String modelStoragePath
@@ -33,11 +36,12 @@ class ModelHandler implements ReificationInterface {
 	
 	public Cluster cluster
 
+	
 	public ModelHandler(String modelStoragePath) {
 		this.modelStoragePath = modelStoragePath
 		
 		resourceSet = getXmiResourceSet()
-		resource = createResource(modelStoragePath, resourceSet)
+		resource = createResource(modelStoragePath, "${version++}", resourceSet)
 	}
 	
 	public Cluster getCluster() {
@@ -54,9 +58,9 @@ class ModelHandler implements ReificationInterface {
 		return resSet
 	}
 	
-	private Resource createResource(String url, ResourceSet resourceSet) {
+	private Resource createResource(String url, String version, ResourceSet resourceSet) {
 		String filename = System.currentTimeMillis().toString()
-		EmfURI emfURI = EmfURI.createURI(url + filename + ".xmi")
+		EmfURI emfURI = EmfURI.createURI(url + filename + "_" + version + ".xmi")
 		Resource resource = resourceSet.createResource(emfURI)
 		return resource
 	}
@@ -65,8 +69,14 @@ class ModelHandler implements ReificationInterface {
 		LOG.warn("Messages can't be created yet. Implement this!")
 	}
 	
-	private void createMetrics(Cluster cluster, List metrics) {
-		LOG.warn("Messages can't be created yet. Implement this!")
+	private void createMetrics(Cluster cluster, String key, Map<String, Double> metrics) {
+		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
+		for(def eObject in iterator) {
+			if(eObject instanceof ServiceInstance) {
+				ServiceInstance service = eObject
+				service.metrics[key] = (Double)metrics[service.id]
+			}
+		}
 	}
 	
 	private void createServices(Cluster cluster, List services) {
@@ -134,21 +144,24 @@ class ModelHandler implements ReificationInterface {
 	}
 	
 	@Synchronized	
-	public Cluster updateModel(String environment, List hosts, List applications,
-		List services, List metrics, List messages) {
+	public Cluster updateModel(String version, String environment, List hosts, List applications,
+		List services, List messages, List metrics) {
 	
 		if(resource) {
 			saveModel()
 			destroyResource()
 		}
-		createResource()
+		createResource(modelStoragePath, version, resourceSet)
 		
 		cluster = createCluster(environment)
 		createApplications(cluster, applications)
 		createHosts(cluster, hosts)
 		createServices(cluster, services)
-		createMetrics(cluster, metrics)
 		createMessages(cluster, messages)
+		
+		metrics.each { m ->
+			createMetrics(cluster, m)
+		}
 		
 		return cluster
 	}

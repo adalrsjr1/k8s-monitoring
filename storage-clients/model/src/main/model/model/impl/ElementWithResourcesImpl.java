@@ -42,7 +42,7 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap<String, Long> resourceLimit;
+	protected EMap<String, Double> resourceLimit;
 
 	/**
 	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' map.
@@ -52,7 +52,7 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap<String, Long> metrics;
+	protected EMap<String, Double> metrics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -78,9 +78,9 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map<String, Long> getResourceLimit() {
+	public Map<String, Double> getResourceLimit() {
 		if (resourceLimit == null) {
-			resourceLimit = new EcoreEMap<String,Long>(ModelPackageImpl.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT);
+			resourceLimit = new EcoreEMap<String,Double>(ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT);
 		}
 		return resourceLimit.map();
 	}
@@ -90,9 +90,9 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map<String, Long> getMetrics() {
+	public Map<String, Double> getMetrics() {
 		if (metrics == null) {
-			metrics = new EcoreEMap<String,Long>(ModelPackageImpl.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS);
+			metrics = new EcoreEMap<String,Double>(ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS);
 		}
 		return metrics.map();
 	}
@@ -106,9 +106,9 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
-				return ((InternalEList<?>)((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap()).basicRemove(otherEnd, msgs);
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
-				return ((InternalEList<?>)((EMap.InternalMapView<String, Long>)getMetrics()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getMetrics()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -122,10 +122,10 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
-				if (coreType) return ((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap();
 				else return getResourceLimit();
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
-				if (coreType) return ((EMap.InternalMapView<String, Long>)getMetrics()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, Double>)getMetrics()).eMap();
 				else return getMetrics();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -140,10 +140,10 @@ public abstract class ElementWithResourcesImpl extends MinimalEObjectImpl.Contai
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT:
-				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Long>)getResourceLimit()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap()).set(newValue);
 				return;
 			case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS:
-				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Long>)getMetrics()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getMetrics()).eMap()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

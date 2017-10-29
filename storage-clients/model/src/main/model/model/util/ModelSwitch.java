@@ -110,9 +110,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackageImpl.STRING_TO_LONG_MAP: {
-				@SuppressWarnings("unchecked") Map.Entry<String, Long> stringToLongMap = (Map.Entry<String, Long>)theEObject;
-				T result = caseStringToLongMap(stringToLongMap);
+			case ModelPackageImpl.STRING_TO_DOUBLE_MAP: {
+				@SuppressWarnings("unchecked") Map.Entry<String, Double> stringToDoubleMap = (Map.Entry<String, Double>)theEObject;
+				T result = caseStringToDoubleMap(stringToDoubleMap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -247,17 +247,17 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>String To Long Map</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>String To Double Map</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>String To Long Map</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>String To Double Map</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStringToLongMap(Map.Entry<String, Long> object) {
+	public T caseStringToDoubleMap(Map.Entry<String, Double> object) {
 		return null;
 	}
 

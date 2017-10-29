@@ -57,15 +57,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostAddress" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StringToLongMap" instanceClassName="java.util.Map$Entry">
+  <eClassifiers xsi:type="ecore:EClass" name="StringToDoubleMap" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementWithResources" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceLimit" upperBound="-1"
-        eType="#//StringToLongMap" containment="true"/>
+        eType="#//StringToDoubleMap" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" upperBound="-1"
-        eType="#//StringToLongMap" containment="true"/>
+        eType="#//StringToDoubleMap" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Environment">
     <eLiterals name="KUBERNETES"/>
