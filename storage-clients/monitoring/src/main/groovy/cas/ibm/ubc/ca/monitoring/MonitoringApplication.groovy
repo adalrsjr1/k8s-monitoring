@@ -23,11 +23,15 @@ class MonitoringApplication implements InspectionInterface {
 	private MessagesInspectionInterface messagesMonitor
 	private MetricsInspectionInterface metricsMonitor
 
+	private final clusterEnvironment
+	
 	private Properties properties
 
 	public MonitoringApplication() {
 		properties = loadProperties()
 
+		clusterEnvironment = properties["cluster.environment"]
+		
 		clusterMonitor = ClusterInspectionInterfaceFactory.create(
 			properties["cluster.inspection.host"] + ":" + properties["cluster.inspection.port"], 
 			properties["cluster.inspection.timeout"])
@@ -106,6 +110,10 @@ class MonitoringApplication implements InspectionInterface {
 
 	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricHost(id, measurement, timeInterval);
+	}
+
+	public String environment() {
+		return clusterEnvironment;
 	}
 	
 }

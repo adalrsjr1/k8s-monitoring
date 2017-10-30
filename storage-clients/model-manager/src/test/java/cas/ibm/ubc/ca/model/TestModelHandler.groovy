@@ -1,8 +1,10 @@
 package cas.ibm.ubc.ca.model
 
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
+import cas.ibm.ubc.ca.interfaces.messages.*
 import cas.ibm.ubc.ca.model.manager.ModelHandler
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
+import java.util.concurrent.TimeUnit
 import model.Application
 import model.Cluster
 import model.ServiceInstance
@@ -35,6 +37,18 @@ class TestModelHandler extends GroovyTestCase {
 		assert 3.1415 == cluster.applications["app"].services["svc"].metrics["test"]
 	}
 	
-	
+	void testFillModel10Messages() {
+//		Cluster cluster = factory.createCluster()
+//		handler.fillModel(cluster, 
+//			monitor.environment(), 
+//			monitor.hosts(), 
+//			monitor.applications(), 
+//			monitor.services(), 
+//			monitor.messages(TimeInterval.last(10, TimeUnit.MILLISECONDS)), 
+//			[
+//				monitor.metricsHost(measurement, timeInterval),
+//				monitor.metricsService(measurement, timeInterval),
+//				])
+	}
 
 }

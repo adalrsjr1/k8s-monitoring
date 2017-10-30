@@ -143,6 +143,14 @@ class ModelHandler implements ReificationInterface {
 		return cluster
 	}
 	
+	private void fillModel(Cluster cluster, String environment, List hosts, List applications,
+		List services, List messages, List metrics) {
+		createApplications(cluster, applications)
+		createHosts(cluster, hosts)
+		createServices(cluster, services)
+		createMessages(cluster, messages)
+	}
+	
 	@Synchronized	
 	public Cluster updateModel(String version, String environment, List hosts, List applications,
 		List services, List messages, List metrics) {
@@ -154,10 +162,8 @@ class ModelHandler implements ReificationInterface {
 		createResource(modelStoragePath, version, resourceSet)
 		
 		cluster = createCluster(environment)
-		createApplications(cluster, applications)
-		createHosts(cluster, hosts)
-		createServices(cluster, services)
-		createMessages(cluster, messages)
+		fillModel(cluster, environment, hosts, applications, 
+			services, messages, metrics)
 		
 		metrics.each { m ->
 			createMetrics(cluster, m)

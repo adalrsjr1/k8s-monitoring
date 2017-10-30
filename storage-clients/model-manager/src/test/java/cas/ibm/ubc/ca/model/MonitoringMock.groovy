@@ -70,14 +70,16 @@ class MonitoringMock implements InspectionInterface {
 			targetName = services[Math.abs(r.nextInt() % services.size())]
 		}
 		
-		Message m = new Message(
+		def m = new Message(
 			["correlationId": Math.abs(r.nextLong()),
 			 "timestamp": System.currentTimeMillis(),
-			 "targetIp": "",
-			 "sourceIp": "",
+			 "totalTime": Math.abs(r.nextLong()),
+			 "totalSize": Math.abs(r.nextLong()),
+			 "targetIp": "0.0.0.0",
+			 "sourceIp": "0.0.0.0",
 			 "sourceName": sourceName,
 			 "targetName": targetName]	
-			)
+			) 
 		return m
 	}
 	
@@ -122,5 +124,10 @@ class MonitoringMock implements InspectionInterface {
 	@Override
 	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
 		return extractMetrics("hosts", measurement, timeInterval)[id]
+	}
+
+	@Override
+	public String environment() {
+		return "KUBERNETES";
 	}
 }

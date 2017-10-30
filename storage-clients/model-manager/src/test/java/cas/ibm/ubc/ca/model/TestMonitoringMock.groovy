@@ -89,4 +89,8 @@ class TestMonitoringMock extends GroovyTestCase {
 	public void test100Messages() {
 		assert 100 == monitor.messages(TimeInterval.last(100, TimeUnit.MILLISECONDS)).size()
 	}
+	
+	public void testMessage() {
+		println monitor.messages(TimeInterval.last(1, TimeUnit.MILLISECONDS))[0]["sourceName"]
+	}
 }

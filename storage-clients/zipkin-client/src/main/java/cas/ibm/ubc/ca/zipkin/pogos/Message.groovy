@@ -7,6 +7,7 @@ class Message {
 	String correlationId
 	Long timestamp
 	Long totalTime
+	Long totalSize
 	String targetIp
 	String targetName
 	String sourceIp 

@@ -56,6 +56,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				message.timestamp = span.timestamp
 				message.totalTime = span.duration
 
+				// missing: message.totalSize
+				
 				def childSpan = trace.find { it.parentId == span.id }
 				if(childSpan) {
 					def endpoint = childSpan.annotations.find {
@@ -63,6 +65,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 					}['endpoint']
 					message.targetIp = endpoint['ipv4']
 					message.targetName = endpoint['serviceName']
+					// missing: message.sourceIp
+					// missing: message.sourceName
 				}
 
 				messages << message
