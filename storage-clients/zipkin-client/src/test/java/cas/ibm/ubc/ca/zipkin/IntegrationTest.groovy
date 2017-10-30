@@ -1,8 +1,11 @@
 package cas.ibm.ubc.ca.zipkin
 
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
+
 import cas.ibm.ubc.ca.zipkin.pogos.Message
 
-import java.util.List
+import java.time.Instant
+
 import java.util.Map
 import java.util.concurrent.TimeUnit
 
@@ -13,30 +16,28 @@ class IntegrationTest extends GroovyTestCase {
 	private ZipkinClient client
 	private Map clientSpan
 	private Map serverSpan
-	private List fetchedMessages
 
 	void setUp() {
 		clientSpan = clientSpan()
 		serverSpan = serverSpan()
-		requestor().createSpans([clientSpan, serverSpan, anotherClientSpan()])
+		requestor().createSpans(spansList())
 
 		client = MessagesInspectionInterfaceFactory.create(HOST, PORT)
-		fetchedMessages = client.messages('orders', null)
 	}
 
 	void testReturnsNonEmptyMessages() {
-		assertFalse(fetchedMessages.isEmpty())
+		assertFalse(fetchMessages('orders').isEmpty())
 	}
 
 	void testReturnsProperlyTypedMessages() {
-		def message = fetchedMessages.get(0)
+		def message = fetchMessages('orders').get(0)
 
 		assert message instanceof Message
 	}
 
 	void testReturnsProperMessageAttributes() {
 		def serverSpanSrEndpoint = serverSpan['annotations'].get(0)['endpoint']
-		def message = fetchedMessages.get(0)
+		def message = fetchMessages('orders').get(0)
 
 		assertEquals(clientSpan['traceId'], message.correlationId)
 		assertEquals(clientSpan['timestamp'], message.timestamp)
@@ -45,12 +46,34 @@ class IntegrationTest extends GroovyTestCase {
 		assertEquals(serverSpanSrEndpoint['serviceName'], message.targetName)
 	}
 
-	void testOnlyReturnsMessagesSentFromSpecifiedService() {
-		assertEquals(1, fetchedMessages.size)
+	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
+		assertEquals(1, fetchMessages('orders').size)
+	}
+
+	void testReturnsAllMessagesSentFromAnyServiceWithinGivenInterval() {
+		assertEquals(2, fetchMessages().size)
+	}
+
+	private fetchMessages(serviceInstance = null) {
+		def timeInterval = TimeInterval.last(60, TimeUnit.SECONDS)
+
+		if(serviceInstance != null)
+			client.messages(serviceInstance, timeInterval)
+		else
+			client.messages(timeInterval)
 	}
 
 	private requestor() {
 		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
+	}
+
+	private spansList() {
+		[
+			clientSpan,
+			serverSpan,
+			anotherClientSpan(),
+			olderClientSpan()
+		]
 	}
 
 	private clientSpan() {
@@ -110,6 +133,31 @@ class IntegrationTest extends GroovyTestCase {
 					endpoint: [
 						serviceName: "user",
 						ipv4: "10.0.0.4",
+						port: 80
+					]
+				]
+			]
+		]
+	}
+
+	private olderClientSpan() {
+		def fiveHoursAgo = Instant.now()
+								  .minusSeconds(18000)
+								  .toEpochMilli() * 1000
+
+		[
+			traceId: '595f042cde9be1ee',
+			id: '75b7ea54c19fb18a',
+			name: 'orders: get /users',
+			timestamp: fiveHoursAgo,
+			duration: 100,
+			annotations: [
+				[
+					timestamp: fiveHoursAgo,
+					value: 'cs',
+					endpoint: [
+						serviceName: "orders",
+						ipv4: "10.0.0.3",
 						port: 80
 					]
 				]

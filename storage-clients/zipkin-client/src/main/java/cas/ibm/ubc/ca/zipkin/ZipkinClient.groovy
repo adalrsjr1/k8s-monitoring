@@ -26,14 +26,16 @@ public class ZipkinClient implements MessagesInspectionInterface {
 
 	@Override
 	public List messages(TimeInterval timeInterval) {
-		return null;
+		messages(null, timeInterval)
 	}
 
 	@Override
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		//def tracesList = requestor.getTraces(serviceName: serviceName,
-		//									 limit: 1000)
-		def tracesList = requestor.getTraces(limit: 1000)
+		def params = [
+			endTs: timeInterval.getEnd(),
+			lookback: timeInterval.getIntervalInMillis()
+		]
+		def tracesList = requestor.getTraces(params)
 		def messages = []
 
 		tracesList.each { trace ->
@@ -41,7 +43,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				def clientSendAnnotation = span.annotations.find {
 					it.value == 'cs'
 				}
-				if(clientSendAnnotation?.serviceName() != serviceInstance)
+				if(!clientSendAnnotation || serviceInstance && \
+					clientSendAnnotation?.serviceName() != serviceInstance)
 					return
 
 				def message = new Message()

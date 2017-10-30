@@ -6,19 +6,19 @@ class TestTimeInterval extends GroovyTestCase {
 
 	void testTimeInterval() {
 		TimeInterval t = TimeInterval.last(10L, TimeUnit.MILLISECONDS)
-		assert (t.getEnd() - t.getBegin()) == -10L
+		assert (t.getEnd() - t.getBegin()) == 10L
 		
 		t = TimeInterval.last(1L, TimeUnit.SECONDS)
-		assert (t.getEnd() - t.getBegin()) == -1000L
+		assert (t.getEnd() - t.getBegin()) == 1000L
 		
 		t = TimeInterval.last(1L, TimeUnit.HOURS)
-		assert (t.getEnd() - t.getBegin()) == -1000L * 60 * 60
+		assert (t.getEnd() - t.getBegin()) == 1000L * 60 * 60
 		
 		t = TimeInterval.last(1L, TimeUnit.DAYS)
-		assert (t.getEnd() - t.getBegin()) == -1000L * 60 * 60 * 24
+		assert (t.getEnd() - t.getBegin()) == 1000L * 60 * 60 * 24
 		
 		t = TimeInterval.last(2L, TimeUnit.DAYS)
-		assert (t.getEnd() - t.getBegin()) == -2000L * 60 * 60 * 24
+		assert (t.getEnd() - t.getBegin()) == 2000L * 60 * 60 * 24
 	}
 	
 	void testTimeIntervalDiff() {
