@@ -20,8 +20,12 @@ public class ZipkinClient implements MessagesInspectionInterface {
 
 	private ZipkinRequestor requestor;
 
+	public ZipkinClient(host, port, timeout, TimeUnit timeunit) {
+		requestor = new ZipkinRequestor(host, port, timeout, timeunit)
+	}
+	
 	public ZipkinClient(host, port) {
-		requestor = new ZipkinRequestor(host, port, 10,	TimeUnit.SECONDS)
+		this(host, port, 10, TimeUnit.SECONDS)
 	}
 
 	@Override
@@ -88,35 +92,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 	
 	public static void main(String[] args) throws Exception {
 		
-		ZipkinRequestor requestor = new ZipkinRequestor("192.168.99.100", 30002, 10, TimeUnit.SECONDS)
-		
-		def services = requestor.getServices()
-		println services
-//
-//		ExecutorService tPool = Executors.newFixedThreadPool(1)
-//		
-//		Map mapTraces = [:]
-//		
-//		CountDownLatch latch = new CountDownLatch(services.size())
-//		
-//		services.each { serviceName ->
-//			tPool.execute {
-////				mapTraces[serviceName] = requestor.getTraces(serviceName:(serviceName),limit:10) 
-//			requestor.getTraces(serviceName:(serviceName),limit:10).each {
-//			//			 it.each{
-////						  println "${it.parentId}:${it.id}:${it.name} :: ${it.annotations}"
-////						  print serviceName + "-->"
-////						  printTrace(it)
-//						  println it
-////						}
-//					}
-////					latch.countDown()
-//			}
-//		}
-//		
-////		latch.await()
-////		tPool.shutdown()
-////		println mapTraces
-//									 
+		ZipkinClient client = new ZipkinClient("10.66.66.32", 30002, 10000, TimeUnit.SECONDS)
+		println client.messages(TimeInterval.last(2, TimeUnit.DAYS))				 
 	}
 }

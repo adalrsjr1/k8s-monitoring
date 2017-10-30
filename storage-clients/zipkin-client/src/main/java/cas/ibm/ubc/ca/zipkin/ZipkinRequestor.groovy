@@ -25,7 +25,7 @@ class ZipkinRequestor {
 	final String host
 	final int port
 
-	ZipkinRequestor(String host, int port, int timeout, TimeUnit timeUnit) {
+	public ZipkinRequestor(String host, int port, int timeout, TimeUnit timeUnit) {
 		
 		httpClient = new OkHttpClient.Builder()
 					             .readTimeout(timeout, timeUnit)

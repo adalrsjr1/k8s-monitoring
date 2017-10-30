@@ -18,6 +18,8 @@ public class Hello {
 		// Use the CoreV1Api to get the pods and set their labels
 	}
 	
+	https://github.com/kubernetes-client/java/blob/master/kubernetes/docs/CoreV1Api.md#patchNamespacedPod
+	
 	public static void main(String[] args) throws ApiException {
 		ApiClient client = Config.fromUrl("");
 		Configuration.setDefaultApiClient(client);

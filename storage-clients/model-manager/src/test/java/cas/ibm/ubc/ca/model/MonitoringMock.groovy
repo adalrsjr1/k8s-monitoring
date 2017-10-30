@@ -6,6 +6,9 @@ import java.util.Map
 
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
+import cas.ibm.ubc.ca.zipkin.pogos.Message
+import groovy.transform.Memoized
+
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -15,6 +18,7 @@ class MonitoringMock implements InspectionInterface {
 	private String jsonHosts
 	private String jsonServices
 	private String jsonMetrics
+	private Map jsonMessages
 
 	public MonitoringMock() {
 		jsonApplications = loadJson("applications.json").text
@@ -29,7 +33,6 @@ class MonitoringMock implements InspectionInterface {
 	}
 
 	private def parseJson(Type type, String json) {
-		println json
 		new Gson().fromJson(json, type);
 	}
 
@@ -56,14 +59,40 @@ class MonitoringMock implements InspectionInterface {
 		"KUBERNETES"
 	}
 
-	@Override
+	private final static Random r = new Random(31*17)
+	private Message randomMessage(List services, String source) {
+		
+		String sourceName = source
+		String targetName
+		
+		while(sourceName == targetName) {
+			sourceName = services[Math.abs(r.nextInt() % services.size())]
+			targetName = services[Math.abs(r.nextInt() % services.size())]
+		}
+		
+		Message m = new Message(
+			["correlationId": Math.abs(r.nextLong()),
+			 "timestamp": System.currentTimeMillis(),
+			 "targetIp": "",
+			 "sourceIp": "",
+			 "sourceName": sourceName,
+			 "targetName": targetName]	
+			)
+		return m
+	}
+	
+	@Memoized
 	public List messages(TimeInterval timeInterval) {
-		[]
+		messages(null, timeInterval)
 	}
 
-	@Override
+	@Memoized
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		[]
+		def services = services().findAll{ it.application == "sock-shop" }
+								 .collect([]) { it.name} 
+		return (1..timeInterval.getIntervalInMillis()).collect([]) {
+			randomMessage(services, serviceInstance)
+		}
 	}
 
 	private Map extractMetrics(String context, String measurement, TimeInterval timeInterval) {

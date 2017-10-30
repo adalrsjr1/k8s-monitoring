@@ -1,6 +1,8 @@
 package cas.ibm.ubc.ca.model
 
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
+import java.util.concurrent.TimeUnit
 
 class TestMonitoringMock extends GroovyTestCase {
 
@@ -80,4 +82,11 @@ class TestMonitoringMock extends GroovyTestCase {
 		
 	}
 	
+	public void test10Messages() {
+		assert 10 == monitor.messages(TimeInterval.last(10, TimeUnit.MILLISECONDS)).size()
+	}
+	
+	public void test100Messages() {
+		assert 100 == monitor.messages(TimeInterval.last(100, TimeUnit.MILLISECONDS)).size()
+	}
 }
