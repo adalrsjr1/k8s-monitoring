@@ -70,24 +70,23 @@ class ModelHandler implements ReificationInterface {
 	}
 
 	private void createMessages(Cluster cluster, Map services, List messages) {
-		int n = 8
-		def tPool = Executors.newFixedThreadPool(n)
+		int threads = 1// Runtime.getRuntime().availableProcessors()*2+1;
+		def tPool = Executors.newFixedThreadPool(threads)
 
-		def t = Math.floorDiv(messages.size(), n+1)
-		def total = messages.size()
-		def k = 0;
+		def tasks = messages.size()
+		int chunckSize = (tasks + threads - 1 ) / threads
 
-		CountDownLatch latch = new CountDownLatch(t)
+		CountDownLatch latch = new CountDownLatch(threads)
 		final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
 
-		for(int i = 0; i < n+2; i++) {
+		for(int i = 0; i < threads; i++) {
+			int start = i * chunckSize
+			int end = Math.min(start + chunckSize, tasks)
 			tPool.execute({
-				int aux = k
-				for(int j = aux; j < aux + t && j < total; j++) {
+				for(int j = start; j < end; j++) {
 					def m = messages[j]
 
 					Message msg = factory.createMessage()
-
 					ServiceInstance s = services[m["sourceName"]]
 
 					synchronized (s) {
@@ -106,14 +105,12 @@ class ModelHandler implements ReificationInterface {
 				}
 				latch.countDown()
 			})
-			k = k + t
 
 		}
-
-		if(latch.getCount() <= 0) {
-			tPool.shutdown()
-		}
-
+		
+		latch.await()
+		
+		tPool.shutdown()
 	}
 
 	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
@@ -215,11 +212,18 @@ class ModelHandler implements ReificationInterface {
 
 	private void fillModel(Cluster cluster, String environment, List hosts, Map applications,
 			List services, List messages, List metricsKeys, List metrics) {
+
+		Stopwatch watch = Stopwatch.createStarted()
+
 		createApplications(cluster, applications)
 		createHosts(cluster, hosts)
 		Map modelServices = createServices(cluster, services)
-		createMessages(cluster, modelServices, messages)
 		createMetrics(cluster, metricsKeys, metrics)
+		
+		createMessages(cluster, modelServices, messages)
+		
+
+		LOG.info("Model created with {} messages in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
 	}
 
 	@Synchronized

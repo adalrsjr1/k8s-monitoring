@@ -109,6 +109,23 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
+	void testFillModelMessages1000() {
+		Cluster cluster = factory.createCluster()
+
+		handler.fillModel(cluster,
+			monitor.environment(),
+			monitor.hosts(),
+			monitor.applications(),
+			monitor.services(),
+			monitor.messages(TimeInterval.last(1000, TimeUnit.MILLISECONDS)),
+			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+				])
+	}
+	
 	void testFillModelMessages10000() {
 		Cluster cluster = factory.createCluster()
 		
@@ -142,58 +159,42 @@ class TestModelHandler extends GroovyTestCase {
 				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
 				])
 	}
-	
-	void testFillModelMessages1000() {
-		Cluster cluster = factory.createCluster()
-		
-		handler.fillModel(cluster,
-			monitor.environment(),
-			monitor.hosts(),
-			monitor.applications(),
-			monitor.services(),
-			monitor.messages(TimeInterval.last(1000, TimeUnit.MILLISECONDS)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				])
-	}
-	
-	void testFillModelMessages1000000() {
-		Cluster cluster = factory.createCluster()
-		
-		handler.fillModel(cluster,
-			monitor.environment(),
-			monitor.hosts(),
-			monitor.applications(),
-			monitor.services(),
-			monitor.messages(TimeInterval.last(1000000, TimeUnit.MILLISECONDS)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				])
-	}
-	
-	void testFillModelMessages10000000() {
-		Cluster cluster = factory.createCluster()
-		
-		handler.fillModel(cluster,
-			monitor.environment(),
-			monitor.hosts(),
-			monitor.applications(),
-			monitor.services(),
-			monitor.messages(TimeInterval.last(10000000, TimeUnit.MILLISECONDS)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				])
-	}
-	
+//	
+//	
+//	void testFillModelMessages1000000() {
+//		Cluster cluster = factory.createCluster()
+//		
+//		handler.fillModel(cluster,
+//			monitor.environment(),
+//			monitor.hosts(),
+//			monitor.applications(),
+//			monitor.services(),
+//			monitor.messages(TimeInterval.last(1000000, TimeUnit.MILLISECONDS)),
+//			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+//			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				])
+//	}
+//	
+//	void testFillModelMessages10000000() {
+//		Cluster cluster = factory.createCluster()
+//		
+//		handler.fillModel(cluster,
+//			monitor.environment(),
+//			monitor.hosts(),
+//			monitor.applications(),
+//			monitor.services(),
+//			monitor.messages(TimeInterval.last(10000000, TimeUnit.MILLISECONDS)),
+//			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+//			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				])
+//	}
+//	
 //	void testFillModelMessages100000000() {
 //		Cluster cluster = factory.createCluster()
 //		

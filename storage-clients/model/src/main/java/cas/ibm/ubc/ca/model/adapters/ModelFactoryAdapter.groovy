@@ -82,10 +82,11 @@ class ModelFactoryAdapter implements ModelFactory {
 			if(notification.getEventType() == Notification.ADD
 			&& notifier instanceof Host
 			&& newValue instanceof StringToServiceInstanceImpl) {
-
+				
 				ServiceInstance service = newValue.value
-				service.setHost(notifier)
-
+				synchronized(service) {
+					service.setHost(notifier)
+				}
 			}
 		}
 	}
@@ -125,10 +126,14 @@ class ModelFactoryAdapter implements ModelFactory {
 
 				synchronized(application) {
 					if(notification.getFeature().getName() == "totalMessages") {
-						application.totalMessages += (newValue - oldValue)
+						synchronized(application) {
+							application.totalMessages += (newValue - oldValue)
+						}
 					}
 					else if(notification.getFeature().getName() == "totalData") {
-						application.totalData += (newValue - oldValue)
+						synchronized(application) {
+							application.totalData += (newValue - oldValue)
+						}
 					}
 				}
 			}

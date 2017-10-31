@@ -2,8 +2,11 @@ package cas.ibm.ubc.ca.model.manager.analyzer
 
 import org.eclipse.emf.common.util.ECollections
 import org.eclipse.emf.ecore.util.EcoreUtil
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
+import com.google.common.base.Stopwatch
+import java.util.concurrent.TimeUnit
 import model.Affinity
 import model.Application
 import model.Cluster
@@ -12,7 +15,8 @@ import model.Service
 import model.ServiceInstance
 
 class AffinitiesAnalyzer {
-
+	
+	private static Logger LOG = LoggerFactory.getLogger(AffinitiesAnalyzer.class)
 	public AffinitiesAnalyzer() {}
 	
 	private Map messagesCache(Cluster cluster) {
@@ -20,9 +24,13 @@ class AffinitiesAnalyzer {
 		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		
+		int count = 0
+		
 		while(iterator.hasNext()) {
 			def obj = iterator.next()
 			if(obj instanceof Message) {
+				count++
+				
 				Service src = obj.getSource()
 				Service dst = obj.getDestination()
 				
@@ -49,7 +57,7 @@ class AffinitiesAnalyzer {
 				map[key][3] = dst
 			}
 			
-		}		
+		}	
 		return map
 	}
 	
@@ -65,6 +73,7 @@ class AffinitiesAnalyzer {
 	}
 
 	public void calculate(Cluster cluster) {
+		Stopwatch watch = Stopwatch.createStarted()
 		Map cache = messagesCache(cluster)
 		
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
@@ -76,8 +85,10 @@ class AffinitiesAnalyzer {
 			ServiceInstance dst = v[3]
 			
 			Application application = cluster.applications[src.getApplication()]
-			def value = affinity(v[0], application.totalMessages,
-				v[1], application.totalData, application.weight)
+			int nMsg = v[0]
+			int msgSize = v[1]
+			def value = affinity(nMsg, application.totalMessages,
+				msgSize, application.totalData, application.weight)
 			
 
 			Affinity aff = factory.createAffinity()
@@ -87,7 +98,7 @@ class AffinitiesAnalyzer {
 			
 			
 			src.hasAffinities << aff
-			services << v[2]
+			services << src
 		}
 		
 		def comparator = new Comparator() {
@@ -101,6 +112,8 @@ class AffinitiesAnalyzer {
 			ECollections.sort(svc.getHasAffinities(), comparator)
 		}
 		
+		LOG.info("Affinities calculated in {} ms", watch.elapsed(TimeUnit.MILLISECONDS))
+		watch.stop()
 	}	
 	
 }

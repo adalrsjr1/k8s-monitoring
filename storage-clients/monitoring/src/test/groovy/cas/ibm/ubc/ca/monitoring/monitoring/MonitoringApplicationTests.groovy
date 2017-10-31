@@ -1,6 +1,8 @@
 package cas.ibm.ubc.ca.monitoring.monitoring
 
+import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.monitoring.MonitoringApplication
+import java.util.concurrent.TimeUnit
 
 class MonitoringApplicationTests extends GroovyTestCase {
 

@@ -3,7 +3,7 @@ package cas.ibm.ubc.ca.model
 import java.lang.reflect.Type
 import java.util.List
 import java.util.Map
-
+import java.util.concurrent.TimeUnit
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.zipkin.pogos.Message
@@ -11,6 +11,7 @@ import groovy.transform.Memoized
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonWriter
 
 class MonitoringMock implements InspectionInterface {
 
@@ -61,39 +62,43 @@ class MonitoringMock implements InspectionInterface {
 
 	private final static Random r = new Random(31*17)
 	private Message randomMessage(List services, String source) {
-		
+
 		String sourceName = source
 		String targetName
 
-		
-				
 		int t = services.size()
+
+		targetName = services[Math.abs(r.nextInt() % t)]
 		
+		if(!sourceName)
+			sourceName = services[Math.abs(r.nextInt() % t)]
+			
 		while(sourceName == targetName) {
 			sourceName = services[Math.abs(r.nextInt() % t)]
 			targetName = services[Math.abs(r.nextInt() % t)]
 		}
-		
+
 		def m = new Message(
-			["correlationId": Math.abs(r.nextLong()),
-			 "timestamp": System.currentTimeMillis(),
-			 "totalTime": Math.abs(r.nextLong()%100),
-			 "totalSize": Math.abs(r.nextLong()%10),
-			 "targetIp": "0.0.0.0",
-			 "sourceIp": "0.0.0.0",
-			 "sourceName": sourceName,
-			 "targetName": targetName]	
-			) 
+				["correlationId": Math.abs(r.nextLong()),
+					"timestamp": System.currentTimeMillis(),
+					"totalTime": Math.abs(r.nextLong()%100),
+					"totalSize": Math.abs(r.nextLong()%10),
+					"targetIp": "0.0.0.0",
+					"sourceIp": "0.0.0.0",
+					"sourceName": sourceName,
+					"targetName": targetName]
+				)
 		return m
 	}
-	
+
 	public List messages(TimeInterval timeInterval) {
 		messages(null, timeInterval)
 	}
 
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
 		def services = services().findAll{ it.application == "sock-shop" }
-								 .collect([]) { it.uid} 
+		.collect([]) { it.uid}
+
 		return (1..timeInterval.getIntervalInMillis()).collect([]) {
 			randomMessage(services, serviceInstance)
 		}
