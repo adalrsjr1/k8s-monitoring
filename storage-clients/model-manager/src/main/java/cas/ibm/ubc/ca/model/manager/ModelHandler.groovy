@@ -1,7 +1,9 @@
 package cas.ibm.ubc.ca.model.manager
 
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-
+import java.util.concurrent.locks.ReentrantReadWriteLock
 import org.eclipse.emf.common.util.URI as EmfURI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -21,8 +23,8 @@ import model.Application
 import model.Cluster
 import model.ElementWithResources
 import model.Environment
-import model.Message
 import model.Host
+import model.Message
 import model.Service
 import model.ServiceInstance
 
@@ -30,26 +32,26 @@ class ModelHandler implements ReificationInterface {
 	private static Logger LOG = LoggerFactory.getLogger(ModelHandler.class)
 	private static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 	private static Long version = 1
-		
+
 	private final ResourceSet resourceSet
-	
+
 	private String modelStoragePath
 	private Resource resource
-	
+
 	public Cluster cluster
 
-	
+
 	public ModelHandler(String modelStoragePath) {
 		this.modelStoragePath = modelStoragePath
-		
+
 		resourceSet = getXmiResourceSet()
 		resource = createResource(modelStoragePath, "${version++}", resourceSet)
 	}
-	
+
 	public Cluster getCluster() {
 		cluster
 	}
-	
+
 	private ResourceSet getXmiResourceSet() {
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -59,56 +61,90 @@ class ModelHandler implements ReificationInterface {
 		ResourceSet resSet = new ResourceSetImpl();
 		return resSet
 	}
-	
+
 	private Resource createResource(String url, String version, ResourceSet resourceSet) {
 		String filename = System.currentTimeMillis().toString()
 		EmfURI emfURI = EmfURI.createURI(url + filename + "_" + version + ".xmi")
 		Resource resource = resourceSet.createResource(emfURI)
 		return resource
 	}
-	
+
 	private void createMessages(Cluster cluster, Map services, List messages) {
-		messages.each { m ->
-			Message msg = factory.createMessage()
-			msg.avgResponseTime = m["totalTime"]
-			msg.source = services[m["sourceName"]]
-			msg.destination = services[m["targetName"]]
-			msg.messageSize = m["totalSize"]
-			msg.name = ""
-			msg.timestamp = m["timestamp"]
-			msg.uid = m["correlationId"]
+		int n = 8
+		def tPool = Executors.newFixedThreadPool(n)
+
+		def t = Math.floorDiv(messages.size(), n+1)
+		def total = messages.size()
+		def k = 0;
+
+		CountDownLatch latch = new CountDownLatch(t)
+		final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
+
+		for(int i = 0; i < n+2; i++) {
+			tPool.execute({
+				int aux = k
+				for(int j = aux; j < aux + t && j < total; j++) {
+					def m = messages[j]
+
+					Message msg = factory.createMessage()
+
+					ServiceInstance s = services[m["sourceName"]]
+
+					synchronized (s) {
+						s.messages << msg
+						msg.source = s
+					}
+
+					msg.avgResponseTime = m["totalTime"]
+
+					msg.destination = services[m["targetName"]]
+					msg.messageSize = m["totalSize"]
+					msg.name = ""
+					msg.timestamp = m["timestamp"]
+					msg.uid = m["correlationId"]
+
+				}
+				latch.countDown()
+			})
+			k = k + t
+
 		}
+
+		if(latch.getCount() <= 0) {
+			tPool.shutdown()
+		}
+
 	}
-	
+
 	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
-		
+
 		Iterator keyIt = keys.iterator()
 		Iterator metricsIt = metrics.iterator()
-		
+
 		while(keyIt.hasNext() && metricsIt.hasNext()) {
 			def key = keyIt.next()
 			def metric = metricsIt.next()
 			element.metrics[key] = (Double) metric[id]
 		}
-		
+
 	}
-	
+
 	private void createMetrics(Cluster cluster, List<String> keys, List<Map<String, Double>> metrics) {
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		for(def eObject in iterator) {
 			if(eObject instanceof ServiceInstance) {
 				ServiceInstance service = eObject
-				
+
 				createMetric(service, service.id, keys, metrics)
 			}
 			else if(eObject instanceof Host) {
 				Host host = eObject
-				
+
 				createMetric(host, host.name, keys, metrics)
 			}
 		}
 	}
-	
+
 	private Map createServices(Cluster cluster, List services) {
 		Map modelServices = [:]
 		services.each { s ->
@@ -117,39 +153,39 @@ class ModelHandler implements ReificationInterface {
 			service.id = s.uid
 			service.address = s.address
 			service.application = s.application
-			
+
 			service.containers.addAll(s.containers)
-			
+
 			if(resource) {
 				resource.getContents().add(service)
 			}
-			
+
 			if(cluster.applications.containsKey(service.application)) {
 				cluster.applications[s.application].services[service.id] = service
 			}
-			
+
 			cluster.hosts.values().find { h ->
 				h.hostAddress.contains(s.hostAddress)
 			}.services[service.id] = service
-			
+
 			modelServices[service.id] = service
 		}
 		return modelServices
 	}
-	
+
 	private void createApplications(Cluster cluster, Map applications) {
 		applications.each { k, v ->
 			Application app = factory.createApplication()
 			app.name = k
 			app.weight = v
-			
+
 			if(resource) {
 				resource.getContents().add(app)
 			}
-			cluster.applications[(k)] = app			
+			cluster.applications[(k)] = app
 		}
 	}
-	
+
 	private void createHosts(Cluster cluster, List hosts) {
 		hosts.each { item ->
 			Host host = factory.createHost()
@@ -157,62 +193,56 @@ class ModelHandler implements ReificationInterface {
 			item.hostAddress.each {
 				host.hostAddress << it
 			}
-			
+
 			if(resource) {
 				resource.getContents().add(host)
 			}
-			
+
 			cluster.hosts[item.name] = host
 		}
 	}
-	
+
 	private Cluster createCluster(String environment) {
 		Cluster cluster = factory.createCluster()
 		cluster.environment = Environment.getByName(environment)
-		
+
 		if(resource) {
 			resource.getContents().add(cluster)
 		}
-		
+
 		return cluster
 	}
-	
+
 	private void fillModel(Cluster cluster, String environment, List hosts, Map applications,
-		List services, List messages, List metricsKeys, List metrics) {
+			List services, List messages, List metricsKeys, List metrics) {
 		createApplications(cluster, applications)
 		createHosts(cluster, hosts)
 		Map modelServices = createServices(cluster, services)
 		createMessages(cluster, modelServices, messages)
 		createMetrics(cluster, metricsKeys, metrics)
 	}
-	
-	
-	
-	@Synchronized	
+
+	@Synchronized
 	public Cluster updateModel(String version, String environment, List hosts, List applications,
-		List services, List messages, List metrics) {
-	
+			List services, List messages, List metricsKeys, List metrics) {
+
 		if(resource) {
 			saveModel()
 			destroyResource()
 		}
 		createResource(modelStoragePath, version, resourceSet)
-		
+
 		cluster = createCluster(environment)
-		fillModel(cluster, environment, hosts, applications, 
-			services, messages, metrics)
-		
-		metrics.each { m ->
-			createMetrics(cluster, m)
-		}
-		
+		fillModel(cluster, environment, hosts, applications,
+				services, messages, metricsKeys, metrics)
+
 		return cluster
 	}
-	
+
 	private void destroyResource() {
 		resourceSet.getResources().remove(resource)
 	}
-	
+
 	public void saveModel() {
 		try {
 			if(resource) {
@@ -244,5 +274,5 @@ class ModelHandler implements ReificationInterface {
 		LOG.trace ("moving [{}] ...", moviment.toString())
 		return false;
 	}
-	
+
 }

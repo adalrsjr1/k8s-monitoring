@@ -64,17 +64,21 @@ class MonitoringMock implements InspectionInterface {
 		
 		String sourceName = source
 		String targetName
+
+		
+				
+		int t = services.size()
 		
 		while(sourceName == targetName) {
-			sourceName = services[Math.abs(r.nextInt() % services.size())]
-			targetName = services[Math.abs(r.nextInt() % services.size())]
+			sourceName = services[Math.abs(r.nextInt() % t)]
+			targetName = services[Math.abs(r.nextInt() % t)]
 		}
 		
 		def m = new Message(
 			["correlationId": Math.abs(r.nextLong()),
 			 "timestamp": System.currentTimeMillis(),
-			 "totalTime": Math.abs(r.nextLong()),
-			 "totalSize": Math.abs(r.nextLong()),
+			 "totalTime": Math.abs(r.nextLong()%100),
+			 "totalSize": Math.abs(r.nextLong()%10),
 			 "targetIp": "0.0.0.0",
 			 "sourceIp": "0.0.0.0",
 			 "sourceName": sourceName,

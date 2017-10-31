@@ -190,4 +190,67 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		assert application.totalData == 13L
 	}
 	
+	private ServiceInstance createService(application, name, factory) {
+		ServiceInstance s = factory.createServiceInstance()
+		
+		s.name = name
+		s.id = name
+		
+		application.services[s.id] = s
+		
+		return s
+	}
+	
+	private model.Message createMessage(ServiceInstance s1, ServiceInstance s2, f) {
+		model.Message m = f.createMessage()
+		
+		m.source = s1
+		m.destination = s2
+		s1.messages << m
+		
+		m.messageSize = 1L
+		
+		return m
+	}
+	
+	void testRandom() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		
+		Application application = factory.createApplication()
+		
+		def user = createService(application, "user-db-65585649f9-nfwv9", factory)
+		def payment = createService(application, "payment-748bb4dbdb-r6tz8", factory)
+		def front = createService(application, "front-end-6ffc4ccbb9-tfxhb", factory)
+		def carts = createService(application, "carts-db-787f4b7896-9xtwl", factory)
+		def shipping = createService(application, "shipping-76cfc6d787-6s9bd", factory)
+		def orders = createService(application, "orders-9c66f8db6-6kscv", factory)
+		def queue = createService(application, "queue-master-599cfcc7-mqgf8", factory)
+		def catalogue = createService(application, "catalogue-6c69b85d67-rslg6", factory)
+		
+		/*user-db-65585649f9-nfwv9 --> carts-db-787f4b7896-9xtwl
+		payment-748bb4dbdb-r6tz8 --> carts-db-787f4b7896-9xtwl
+		front-end-6ffc4ccbb9-tfxhb --> queue-master-599cfcc7-mqgf8
+		carts-db-787f4b7896-9xtwl --> catalogue-6c69b85d67-rslg6
+		shipping-76cfc6d787-6s9bd --> user-767d6bb97f-bptj2
+		carts-db-787f4b7896-9xtwl --> user-767d6bb97f-bptj2
+		user-db-65585649f9-nfwv9 --> user-767d6bb97f-bptj2
+		front-end-6ffc4ccbb9-tfxhb --> orders-9c66f8db6-6kscv
+		orders-9c66f8db6-6kscv --> catalogue-6c69b85d67-rslg6
+		carts-75958c9dc6-b6478 --> user-db-65585649f9-nfwv9*/
+		
+		createMessage(user, carts, factory)
+		createMessage(payment, carts, factory)
+		createMessage(front, queue, factory)
+		createMessage(carts, catalogue, factory)
+		createMessage(shipping, user, factory)
+		createMessage(carts, user, factory)
+		createMessage(user, user, factory)
+		createMessage(front, orders, factory)
+		createMessage(orders, catalogue, factory)
+		createMessage(carts, user, factory)
+		
+		assert application.totalData == 10L
+		assert application.totalMessages == 10L
+	}
+	
 }

@@ -30,10 +30,10 @@ import model.impl.StringToServiceInstanceImpl
 // to the EObjects instances
 class ModelFactoryAdapter implements ModelFactory {
 	private static final Logger LOG = LoggerFactory.getLogger(AdapterImpl.class)
-	
+
 	private static final ModelFactory factory = ModelFactory.INSTANCE
 	static final ModelFactory INSTANCE = new ModelFactoryAdapter()
-	
+
 	// http://www.vogella.com/tutorials/EclipseEMFNotification/article.html
 	private EContentAdapter serviceAdapter = new EContentAdapter() {
 		public void notifyChanged(Notification notification) {
@@ -43,87 +43,98 @@ class ModelFactoryAdapter implements ModelFactory {
 			def oldValue = notification.getOldValue()
 
 			Notifier notifier = notification.getNotifier()
-			
+
 			// this code doesn't handle messages removed from the model
-			
+
 			// updating service by adding a new message
-			if(notification.getEventType() == Notification.ADD 
-				&& notifier instanceof ServiceInstance
-				&& newValue instanceof Message) {
-				notifier.totalMessages += 1L
-				notifier.totalData += newValue.messageSize
-				
+			if(notification.getEventType() == Notification.ADD
+			&& notifier instanceof ServiceInstance
+			&& newValue instanceof Message) {
+				synchronized(notifier) {
+					notifier.totalMessages += 1L
+					notifier.totalData += newValue.messageSize
+				}
 			}
 			// updating service by setting the message values (reference)
-			else if(notification.getEventType() == Notification.SET 
-				&& notifier instanceof Message
-				&& notification.getFeature().getName() == "messageSize") {
-				Service service = notifier.eContainer()
-				service.totalData += newValue
-			} 
+			else if(notification.getEventType() == Notification.SET
+			&& notifier instanceof Message
+			&& notification.getFeature().getName() == "messageSize") {
+				synchronized(notifier) {
+					Service service = notifier.eContainer()
+					service.totalData += newValue
+				}
+			}
 		}
 	}
-	
+
 	private EContentAdapter hostAdapter = new EContentAdapter() {
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification)
-			
+
 			def newValue = notification.getNewValue()
 			def oldValue = notification.getOldValue()
 
 			Notifier notifier = notification.getNotifier()
-			
+
 			// this code doesn't handle messages removed from the model
 			// updating application by adding a new service
-			
+
 			if(notification.getEventType() == Notification.ADD
-				&& notifier instanceof Host
-				&& newValue instanceof StringToServiceInstanceImpl) {
-			
+			&& notifier instanceof Host
+			&& newValue instanceof StringToServiceInstanceImpl) {
+
 				ServiceInstance service = newValue.value
 				service.setHost(notifier)
-				
+
 			}
 		}
 	}
-	
+
 	private EContentAdapter applicationAdapter = new EContentAdapter() {
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification)
-			
+
 			def newValue = notification.getNewValue()
 			def oldValue = notification.getOldValue()
 
 			Notifier notifier = notification.getNotifier()
-			
+
 			// this code doesn't handle messages removed from the model
 			// updating application by adding a new service
 			if(notification.getEventType() == Notification.ADD
-				&& notifier instanceof Application
-				&& newValue instanceof StringToServiceImpl) {
-				
+			&& notifier instanceof Application
+			&& newValue instanceof StringToServiceImpl) {
+
+
+
 				ServiceInstance service = newValue.value
-				service.setApplication(notifier.getName())
-				
-				notifier.totalMessages += service.totalMessages
-				notifier.totalData += newValue.value.totalData
+				synchronized(service) {
+					service.setApplication(notifier.getName())
+				}
+
+				synchronized(notifier) {
+					notifier.totalMessages += service.totalMessages
+					notifier.totalData += newValue.value.totalData
+				}
 			}
 			// updating application by setting the service values (reference)
 			else if(notification.getEventType() == Notification.SET
-				&& notifier instanceof Service) {
-				
+			&& notifier instanceof Service) {
+
 				Application application = notifier.eContainer().eContainer()
-				
-				if(notification.getFeature().getName() == "totalMessages") {
-					application.totalMessages += (newValue - oldValue)
-				}
-				else if(notification.getFeature().getName() == "totalData") {
-					application.totalData += (newValue - oldValue)
+
+				synchronized(application) {
+					if(notification.getFeature().getName() == "totalMessages") {
+						application.totalMessages += (newValue - oldValue)
+					}
+					else if(notification.getFeature().getName() == "totalData") {
+						application.totalData += (newValue - oldValue)
+					}
 				}
 			}
 		}
 	}
-	
+
 	private Adapter adapter = new AdapterImpl() {
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification)
@@ -139,7 +150,7 @@ class ModelFactoryAdapter implements ModelFactory {
 		cluster.eAdapters().add(adapter)
 		return cluster
 	}
-	
+
 	@Override
 	public Application createApplication() {
 		Application application = factory.createApplication()

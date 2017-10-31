@@ -56,36 +56,6 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 		createMessage(factory, svcs, "svc2", "svc3", 2L)
 		createMessage(factory, svcs, "svc3", "svc4", 1L)
 						
-//		for(j in (1..(c*2))) {
-//			
-//			Message m = factory.createMessage()
-//			
-//			String src = "svc${(j%c)+1}"
-//			String dst = "svc${((j+1)%c)+1}"
-//			
-//			m.setSource(svcs[src])
-//			m.setDestination(svcs[dst])
-//			
-//			//m.setMessageSize(((j%c)+1) + (((j+1)%c)+1))
-//			m.setMessageSize(r.nextLong() % 10)
-//			svcs[src].messages << m
-//		}
-//		
-//		for(j in (1..(c*2))) {
-//			Message m = factory.createMessage()
-//			
-//			String dst = "svc${(j%c)+1}"
-//			String src = "svc${((j+1)%c)+1}"
-//			
-//			m.setSource(svcs[src])
-//			m.setDestination(svcs[dst])
-//			
-//			//m.setMessageSize(((j%c)+1) + (((j+1)%c)+1))
-//			m.setMessageSize(r.nextLong() % 10)
-//			svcs[src].messages << m
-//		}
-		
-				
 	}
 	
 	private Message createMessage(def factory, def svcs, String src, String dst, Long size) {
@@ -124,16 +94,6 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 		assert cache["svc1:svc5"] == [2,10,svcs["svc1"],svcs["svc5"]]
 		assert cache["svc2:svc3"] == [1,2,svcs["svc2"],svcs["svc3"]]
 		assert cache["svc3:svc4"] == [1,1,svcs["svc3"],svcs["svc4"]]
-		
-		
-//		cache.each { k, v ->
-//			assert v.contains(null) == false
-//			assert v[0] == 4
-//			def idx = k.split(/:|svc/)
-////			assert v[1] == 4*(Integer.parseInt(idx[1]) + Integer.parseInt(idx[3]))
-//			assert v[2].getName() == k.split(":")[0]
-//			assert v[3].getName()== k.split(":")[1]
-//		} 
 		
 	}
 	

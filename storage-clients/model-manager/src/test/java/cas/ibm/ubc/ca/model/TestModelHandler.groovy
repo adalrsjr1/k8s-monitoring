@@ -1,21 +1,32 @@
 package cas.ibm.ubc.ca.model
 
+import java.util.concurrent.TimeUnit
+
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.junit.FixMethodOrder
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.Timeout
+import org.junit.runners.MethodSorters;
+
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.*
-import cas.ibm.ubc.ca.model.manager.ModelHandler
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
-import java.util.concurrent.TimeUnit
+import cas.ibm.ubc.ca.model.manager.ModelHandler
 import model.Application
 import model.Cluster
 import model.ServiceInstance
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.junit.Test
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class TestModelHandler extends GroovyTestCase {
 	static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 	
 	InspectionInterface monitor
 	ModelHandler handler
+	
+	@Rule
+	public Timeout globalTimeout = new Timeout(1000)
 	
 	public void setUp() {
 		super.setUp()
@@ -64,8 +75,7 @@ class TestModelHandler extends GroovyTestCase {
 		assert 3.1415 == cluster.applications["app"].services["svc"].metrics["test"]
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel10Messages() {
+	void testFillModelMessages10() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster, 
@@ -82,8 +92,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel100Messages() {
+	void testFillModelMessages100() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -100,8 +109,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel10000Messages() {
+	void testFillModelMessages10000() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -118,8 +126,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel100000Messages() {
+	void testFillModelMessages100000() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -136,8 +143,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel1000Messages() {
+	void testFillModelMessages1000() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -154,8 +160,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel1000000Messages() {
+	void testFillModelMessages1000000() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -172,8 +177,7 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel10000000Messages() {
+	void testFillModelMessages10000000() {
 		Cluster cluster = factory.createCluster()
 		
 		handler.fillModel(cluster,
@@ -190,40 +194,38 @@ class TestModelHandler extends GroovyTestCase {
 				])
 	}
 	
-	@Test(timeout = 60000L)
-	void testFillModel100000000Messages() {
-		Cluster cluster = factory.createCluster()
-		
-		handler.fillModel(cluster,
-			monitor.environment(),
-			monitor.hosts(),
-			monitor.applications(),
-			monitor.services(),
-			monitor.messages(TimeInterval.last(100000000, TimeUnit.MILLISECONDS)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				])
-	}
-	
-	@Test(timeout = 60000L)
-	void testFillModel1000000000Messages() {
-		Cluster cluster = factory.createCluster()
-		
-		handler.fillModel(cluster,
-			monitor.environment(),
-			monitor.hosts(),
-			monitor.applications(),
-			monitor.services(),
-			monitor.messages(TimeInterval.last(1000000000, TimeUnit.MILLISECONDS)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-				])
-	}
+//	void testFillModelMessages100000000() {
+//		Cluster cluster = factory.createCluster()
+//		
+//		handler.fillModel(cluster,
+//			monitor.environment(),
+//			monitor.hosts(),
+//			monitor.applications(),
+//			monitor.services(),
+//			monitor.messages(TimeInterval.last(100000000, TimeUnit.MILLISECONDS)),
+//			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+//			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				])
+//	}
+//	
+//	void testFillModelMessages1000000000() {
+//		Cluster cluster = factory.createCluster()
+//		
+//		handler.fillModel(cluster,
+//			monitor.environment(),
+//			monitor.hosts(),
+//			monitor.applications(),
+//			monitor.services(),
+//			monitor.messages(TimeInterval.last(1000000000, TimeUnit.MILLISECONDS)),
+//			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+//			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+//				])
+//	}
 
 }
