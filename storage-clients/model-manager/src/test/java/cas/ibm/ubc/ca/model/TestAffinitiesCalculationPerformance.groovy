@@ -62,13 +62,13 @@ class TestAffinitiesCalculationPerformance extends GroovyTestCase{
 		innerTest(10000)
 	}
 	
-//	void testCalculateAffinityMessages100000() {
-//		innerTest(100000)
-//	}
-//	
-//	void testCalculateAffinityMessages1000000() {
-//		innerTest(1000000)
-//	}
+	void testCalculateAffinityMessages100000() {
+		innerTest(100000)
+	}
+	
+	void testCalculateAffinityMessages1000000() {
+		innerTest(1000000)
+	}
 //	
 //	void testCalculateAffinityMessages10000000() {
 //		innerTest(1000000)

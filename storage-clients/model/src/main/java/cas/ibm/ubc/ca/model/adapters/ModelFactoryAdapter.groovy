@@ -183,7 +183,7 @@ class ModelFactoryAdapter implements ModelFactory {
 	@Override
 	public Message createMessage() {
 		Message message = factory.createMessage()
-		message.eAdapters().add(adapter)
+//		message.eAdapters().add(adapter)
 		return message
 	}
 

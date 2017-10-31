@@ -22,7 +22,7 @@ import model.ServiceInstance
 class TestModelHandler extends GroovyTestCase {
 	static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 	
-	InspectionInterface monitor
+	static final InspectionInterface monitor = new MonitoringMock()
 	ModelHandler handler
 	
 	@Rule
@@ -31,7 +31,6 @@ class TestModelHandler extends GroovyTestCase {
 	public void setUp() {
 		super.setUp()
 		
-		monitor = new MonitoringMock()
 		handler = new ModelHandler("src/test/resource/")
 	}
 	
@@ -159,25 +158,25 @@ class TestModelHandler extends GroovyTestCase {
 				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
 				])
 	}
-//	
-//	
-//	void testFillModelMessages1000000() {
-//		Cluster cluster = factory.createCluster()
-//		
-//		handler.fillModel(cluster,
-//			monitor.environment(),
-//			monitor.hosts(),
-//			monitor.applications(),
-//			monitor.services(),
-//			monitor.messages(TimeInterval.last(1000000, TimeUnit.MILLISECONDS)),
-//			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-//			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-//				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
-//				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-//				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
-//				])
-//	}
-//	
+	
+	
+	void testFillModelMessages1000000() {
+		Cluster cluster = factory.createCluster()
+		
+		handler.fillModel(cluster,
+			monitor.environment(),
+			monitor.hosts(),
+			monitor.applications(),
+			monitor.services(),
+			monitor.messages(TimeInterval.last(1000000, TimeUnit.MILLISECONDS)),
+			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+			[monitor.metricsHost("cpu/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsHost("memory/node_utilization", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsService("cpu/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+				monitor.metricsService("memory/usage", TimeInterval.last(10, TimeUnit.MINUTES)),
+				])
+	}
+	
 //	void testFillModelMessages10000000() {
 //		Cluster cluster = factory.createCluster()
 //		

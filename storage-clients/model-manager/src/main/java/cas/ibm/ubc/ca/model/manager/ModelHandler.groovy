@@ -69,23 +69,28 @@ class ModelHandler implements ReificationInterface {
 		return resource
 	}
 
+	static int threads = Runtime.getRuntime().availableProcessors();
+	static def tPool = Executors.newFixedThreadPool(threads)
 	private void createMessages(Cluster cluster, Map services, List messages) {
-		int threads = Runtime.getRuntime().availableProcessors()*2+1;
-		def tPool = Executors.newFixedThreadPool(threads)
+		
 
 		def tasks = messages.size()
 		int chunckSize = (tasks + threads - 1 ) / threads
 
 		CountDownLatch latch = new CountDownLatch(threads)
-		final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
 
 		for(int i = 0; i < threads; i++) {
 			int start = i * chunckSize
 			int end = Math.min(start + chunckSize, tasks)
 			tPool.execute({
 				for(int j = start; j < end; j++) {
-					def m = messages[j]
-
+					def m
+					synchronized(messages) {
+						// DO NOT ACCESS BY INDEX 
+						// IT IS A LINKED LIST O(n) TO ACCESS ANY ELEMENT
+						m = messages.remove(0)
+					}
+					
 					Message msg = factory.createMessage()
 					ServiceInstance s = services[m["sourceName"]]
 
@@ -110,7 +115,7 @@ class ModelHandler implements ReificationInterface {
 		
 		latch.await()
 		
-		tPool.shutdown()
+//		tPool.shutdown()
 	}
 
 	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {

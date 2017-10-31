@@ -19,13 +19,15 @@ class MonitoringMock implements InspectionInterface {
 	private String jsonHosts
 	private String jsonServices
 	private String jsonMetrics
-	private Map jsonMessages
+//	private Map jsonMessages
+	private String jsonMessages
 
 	public MonitoringMock() {
 		jsonApplications = loadJson("applications.json").text
 		jsonHosts = loadJson("hosts.json").text
 		jsonServices = loadJson("services.json").text
 		jsonMetrics = loadJson("metrics.json").text
+//		jsonMessages = loadJson("messages_100000000.json").text
 	}
 
 	private File loadJson(String path) {
@@ -94,15 +96,31 @@ class MonitoringMock implements InspectionInterface {
 	public List messages(TimeInterval timeInterval) {
 		messages(null, timeInterval)
 	}
-
+	
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		def services = services().findAll{ it.application == "sock-shop" }
-		.collect([]) { it.uid}
-
-		return (1..timeInterval.getIntervalInMillis()).collect([]) {
-			randomMessage(services, serviceInstance)
+		InputStream inputStream = new FileInputStream("/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/test/resources/messages_100000000.json")
+		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+		
+		List l = new LinkedList()
+		Gson gson = new Gson()
+		Type type = new TypeToken<Message>(){}.getType();
+		for(int i = 0; i < timeInterval.getIntervalInMillis(); i++) {
+			l << gson.fromJson(br.readLine(), type)
 		}
+		
+		br.close()
+		inputStream.close()
+		return l
 	}
+
+//	public List messages(String serviceInstance, TimeInterval timeInterval) {
+//		def services = services().findAll{ it.application == "sock-shop" }
+//		.collect([]) { it.uid}
+//
+//		return (1..timeInterval.getIntervalInMillis()).collect([]) {
+//			randomMessage(services, serviceInstance)
+//		}
+//	}
 
 	private Map extractMetrics(String context, String measurement, TimeInterval timeInterval) {
 		Type type = new TypeToken<Map>(){}.getType();
