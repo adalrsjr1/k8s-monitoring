@@ -42,4 +42,8 @@ class Trace {
 	@SerializedName("binaryAnnotations")
 	@Expose
     List<BinaryAnnotation> binaryAnnotations = null;	
+
+	Endpoint getServerEndpoint() {
+		annotations?.find { it.value == 'sr' }?.endpoint
+	}
 }

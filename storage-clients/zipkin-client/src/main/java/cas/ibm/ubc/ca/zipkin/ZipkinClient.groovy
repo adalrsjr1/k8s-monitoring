@@ -11,6 +11,7 @@ import cas.ibm.ubc.ca.interfaces.MessagesInspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 
 import cas.ibm.ubc.ca.zipkin.pogos.Annotation
+import cas.ibm.ubc.ca.zipkin.pogos.Endpoint
 import cas.ibm.ubc.ca.zipkin.pogos.Message
 import cas.ibm.ubc.ca.zipkin.pogos.Trace
 
@@ -59,15 +60,10 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				message.sourceName = clientSendAnnotation.endpoint.serviceName
 
 				// missing: message.totalSize
-				
-				def childSpan = trace.find { it.parentId == span.id }
-				if(childSpan) {
-					def endpoint = childSpan.annotations.find {
-						it.value == 'sr'
-					}.endpoint
-					message.targetIp = endpoint.ipv4
-					message.targetName = endpoint.serviceName
-				}
+
+				def serverEndpoint = findServerEndpoint(span, trace)
+				message.targetIp = serverEndpoint.ipv4
+				message.targetName = serverEndpoint.serviceName
 
 				messages << message
 			}
@@ -98,5 +94,13 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		
 		ZipkinClient client = new ZipkinClient("10.66.66.32", 30002, 10000, TimeUnit.SECONDS)
 		println client.messages(TimeInterval.last(2, TimeUnit.DAYS))				 
+	}
+
+	private Endpoint findServerEndpoint(span, trace) {
+		def childSpan = trace.find { it.parentId == span.id }
+		def spanServerEndpoint = span.getServerEndpoint()
+		def childSpanServerEndpoint = childSpan?.getServerEndpoint()
+
+		spanServerEndpoint ?: childSpanServerEndpoint
 	}
 }

@@ -50,11 +50,11 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
-		assertEquals(1, fetchMessages('orders').size)
+		assertEquals(2, fetchMessages('orders').size)
 	}
 
 	void testReturnsAllMessagesSentFromAnyServiceWithinGivenInterval() {
-		assertEquals(2, fetchMessages().size)
+		assertEquals(3, fetchMessages().size)
 	}
 
 	private fetchMessages(serviceInstance = null) {
@@ -75,7 +75,9 @@ class IntegrationTest extends GroovyTestCase {
 			clientSpan,
 			serverSpan,
 			anotherClientSpan(),
-			olderClientSpan()
+			olderClientSpan(),
+			multipleHostsClientSpan(),
+			multipleHostsClientSpanChild()
 		]
 	}
 
@@ -138,6 +140,15 @@ class IntegrationTest extends GroovyTestCase {
 						ipv4: "10.0.0.4",
 						port: 80
 					]
+				],
+				[
+					timestamp: System.currentTimeMillis() * 1000,
+					value: 'sr',
+					endpoint: [
+						serviceName: 'codes',
+						ipv4: '10.0.0.6',
+						port: 80
+					]
 				]
 			]
 		]
@@ -165,6 +176,47 @@ class IntegrationTest extends GroovyTestCase {
 					]
 				]
 			]
+		]
+	}
+
+	private multipleHostsClientSpan() {
+		[
+			traceId: '1e42f3f728c316fd',
+			id: '9ac2c468d01d5bed',
+			name: 'orders: get /carts',
+			timestamp: (System.currentTimeMillis() - 2000) * 1000,
+			duration: 35000,
+			annotations: [
+				[
+					timestamp: (System.currentTimeMillis() - 2000) * 1000,
+					value: 'cs',
+					endpoint: [
+						serviceName: 'orders',
+						ipv4: '10.0.0.3',
+						port: 80
+					]
+				],
+				[
+					timestamp: (System.currentTimeMillis() - 2000) * 1000,
+					value: 'sr',
+					endpoint: [
+						serviceName: 'carts',
+						ipv4: '10.0.0.5',
+						port: 80
+					]
+				]
+			]
+		]
+	}
+
+	private multipleHostsClientSpanChild() {
+		[
+			traceId: '1e42f3f728c316fd',
+			id: '390d0dd10700f32d',
+			name: 'carts: get /anything',
+			parentId: '9ac2c468d01d5bed',
+			timestamp: System.currentTimeMillis() * 1000,
+			duration: 2792
 		]
 	}
 }
