@@ -64,9 +64,9 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				if(childSpan) {
 					def endpoint = childSpan.annotations.find {
 						it.value == 'sr'
-					}['endpoint']
-					message.targetIp = endpoint['ipv4']
-					message.targetName = endpoint['serviceName']
+					}.endpoint
+					message.targetIp = endpoint.ipv4
+					message.targetName = endpoint.serviceName
 				}
 
 				messages << message

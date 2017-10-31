@@ -36,17 +36,17 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	void testReturnsProperMessageAttributes() {
-		def serverSpanSrEndpoint = serverSpan['annotations'].get(0)['endpoint']
+		def serverSpanSrEndpoint = serverSpan.annotations.get(0).endpoint
 		def clientSpanCsEndpoint = clientSpan.annotations.get(0).endpoint
 		def message = fetchMessages('orders').get(0)
 
-		assertEquals(clientSpan['traceId'], message.correlationId)
-		assertEquals(clientSpan['timestamp'], message.timestamp)
-		assertEquals(clientSpan['duration'], message.totalTime)
+		assertEquals(clientSpan.traceId, message.correlationId)
+		assertEquals(clientSpan.timestamp, message.timestamp)
+		assertEquals(clientSpan.duration, message.totalTime)
 		assertEquals(clientSpanCsEndpoint.ipv4, message.sourceIp)
 		assertEquals(clientSpanCsEndpoint.serviceName, message.sourceName)
-		assertEquals(serverSpanSrEndpoint['ipv4'], message.targetIp)
-		assertEquals(serverSpanSrEndpoint['serviceName'], message.targetName)
+		assertEquals(serverSpanSrEndpoint.ipv4, message.targetIp)
+		assertEquals(serverSpanSrEndpoint.serviceName, message.targetName)
 	}
 
 	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
