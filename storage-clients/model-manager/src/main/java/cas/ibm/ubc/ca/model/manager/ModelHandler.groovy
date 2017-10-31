@@ -19,7 +19,9 @@ import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import groovy.transform.Synchronized
 import model.Application
 import model.Cluster
+import model.ElementWithResources
 import model.Environment
+import model.Message
 import model.Host
 import model.Service
 import model.ServiceInstance
@@ -65,21 +67,50 @@ class ModelHandler implements ReificationInterface {
 		return resource
 	}
 	
-	private void createMessages(Cluster cluster, List messages) {
-		LOG.warn("Messages can't be created yet. Implement this!")
+	private void createMessages(Cluster cluster, Map services, List messages) {
+		messages.each { m ->
+			Message msg = factory.createMessage()
+			msg.avgResponseTime = m["totalTime"]
+			msg.source = services[m["sourceName"]]
+			msg.destination = services[m["targetName"]]
+			msg.messageSize = m["totalSize"]
+			msg.name = ""
+			msg.timestamp = m["timestamp"]
+			msg.uid = m["correlationId"]
+		}
 	}
 	
-	private void createMetrics(Cluster cluster, String key, Map<String, Double> metrics) {
+	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
+		
+		Iterator keyIt = keys.iterator()
+		Iterator metricsIt = metrics.iterator()
+		
+		while(keyIt.hasNext() && metricsIt.hasNext()) {
+			def key = keyIt.next()
+			def metric = metricsIt.next()
+			element.metrics[key] = (Double) metric[id]
+		}
+		
+	}
+	
+	private void createMetrics(Cluster cluster, List<String> keys, List<Map<String, Double>> metrics) {
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		for(def eObject in iterator) {
 			if(eObject instanceof ServiceInstance) {
 				ServiceInstance service = eObject
-				service.metrics[key] = (Double)metrics[service.id]
+				
+				createMetric(service, service.id, keys, metrics)
+			}
+			else if(eObject instanceof Host) {
+				Host host = eObject
+				
+				createMetric(host, host.name, keys, metrics)
 			}
 		}
 	}
 	
-	private void createServices(Cluster cluster, List services) {
+	private Map createServices(Cluster cluster, List services) {
+		Map modelServices = [:]
 		services.each { s ->
 			Service service = factory.createServiceInstance()
 			service.name = s.name
@@ -100,7 +131,10 @@ class ModelHandler implements ReificationInterface {
 			cluster.hosts.values().find { h ->
 				h.hostAddress.contains(s.hostAddress)
 			}.services[service.id] = service
+			
+			modelServices[service.id] = service
 		}
+		return modelServices
 	}
 	
 	private void createApplications(Cluster cluster, Map applications) {
@@ -143,13 +177,16 @@ class ModelHandler implements ReificationInterface {
 		return cluster
 	}
 	
-	private void fillModel(Cluster cluster, String environment, List hosts, List applications,
-		List services, List messages, List metrics) {
+	private void fillModel(Cluster cluster, String environment, List hosts, Map applications,
+		List services, List messages, List metricsKeys, List metrics) {
 		createApplications(cluster, applications)
 		createHosts(cluster, hosts)
-		createServices(cluster, services)
-		createMessages(cluster, messages)
+		Map modelServices = createServices(cluster, services)
+		createMessages(cluster, modelServices, messages)
+		createMetrics(cluster, metricsKeys, metrics)
 	}
+	
+	
 	
 	@Synchronized	
 	public Cluster updateModel(String version, String environment, List hosts, List applications,

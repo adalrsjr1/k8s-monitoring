@@ -1,11 +1,11 @@
 {
     "hosts": {
         "cpu": {
-            "capacity": {
+            "node_capacity": {
                 "gfads1": 4000.0,
                 "gfads2": 4000.0
             },
-            "utilization": {
+            "node_utilization": {
                 "gfads1": 0.05633083327983816,
                 "gfads2": 0.03909625011185805
             }

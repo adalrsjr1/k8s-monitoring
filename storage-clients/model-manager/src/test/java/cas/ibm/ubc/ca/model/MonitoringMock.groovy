@@ -44,7 +44,7 @@ class MonitoringMock implements InspectionInterface {
 
 	@Override
 	public List services() {
-		Type type = new TypeToken<List>(){}.getType();
+		Type type = new TypeToken<List<Map>>(){}.getType();
 		return parseJson(type, jsonServices)
 	}
 
@@ -83,15 +83,13 @@ class MonitoringMock implements InspectionInterface {
 		return m
 	}
 	
-	@Memoized
 	public List messages(TimeInterval timeInterval) {
 		messages(null, timeInterval)
 	}
 
-	@Memoized
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
 		def services = services().findAll{ it.application == "sock-shop" }
-								 .collect([]) { it.name} 
+								 .collect([]) { it.uid} 
 		return (1..timeInterval.getIntervalInMillis()).collect([]) {
 			randomMessage(services, serviceInstance)
 		}

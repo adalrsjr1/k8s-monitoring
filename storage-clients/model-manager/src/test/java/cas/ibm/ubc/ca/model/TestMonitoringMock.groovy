@@ -68,9 +68,35 @@ class TestMonitoringMock extends GroovyTestCase {
                 "zipkin-mysql-79944fc86d-kllkz": 4.926771119593125E11] == monitor.metricsService("cpu/usage", null)
 	}
 	
+	/* // measurements
+	 * cpu/limit
+	 * cpu/node_allocatable
+	 * cpu/node_capacity
+	 * cpu/node_reservation
+	 * cpu/node_utilization
+	 * cpu/request
+	 * cpu/usage
+	 * cpu/usage_rate
+	 * memory/cache
+	 * memory/limit
+	 * memory/node_allocatable
+	 * memory/node_capacity
+	 * memory/node_reservation
+	 * memory/node_utilization
+	 * memory/request
+	 * memory/usage
+	 */
+	
+	/* //tags
+	 * container_name
+	 * nodename
+	 * pod_name
+	 * namespace_name
+	 */
+	
 	public void testMetricsHosts() {
 		assert ["gfads1": 4000.0,
-                "gfads2": 4000.0] == monitor.metricsHost("cpu/capacity", null)
+                "gfads2": 4000.0] == monitor.metricsHost("cpu/node_capacity", null)
 	}
 	
 	public void testMetricsService() {
@@ -79,7 +105,10 @@ class TestMonitoringMock extends GroovyTestCase {
 	
 	public void testMetricsHost() {
 		assert 1.2597956608E10 == monitor.metricHost("gfads2","memory/node_capacity", null)
-		
+	}
+	
+	public void testMetricsHostCPU() {
+		assert 4000.0 == monitor.metricHost("gfads2","cpu/node_capacity", null)
 	}
 	
 	public void test10Messages() {
