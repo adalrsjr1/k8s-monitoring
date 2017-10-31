@@ -70,7 +70,7 @@ class ModelHandler implements ReificationInterface {
 	}
 
 	private void createMessages(Cluster cluster, Map services, List messages) {
-		int threads = 1// Runtime.getRuntime().availableProcessors()*2+1;
+		int threads = Runtime.getRuntime().availableProcessors()*2+1;
 		def tPool = Executors.newFixedThreadPool(threads)
 
 		def tasks = messages.size()

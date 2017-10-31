@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 
 import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
+import groovy.transform.Memoized
 import model.Affinity
 import model.Cluster
 import model.Host
@@ -26,17 +27,30 @@ class AdaptationPlanner {
 	
 	/**
 	 * Calculte if metric1 is greater of less than metric2
-	 * If metric1 > metric2 then return -1
-	 * If metric < metric2 then return +1
+	 * If metric1 > metric2 then return > 0
+	 * If metric1 < metric2 then return < 0
 	 * If metric == metric2 then return 0
 	 * @param metric1
 	 * @param metric2
 	 * @return
 	 */
-	private Integer compareMetrics(def metric1, def metric2) {
-		LOG.warn("Metrics Comparison is not implemented yet!") 
-		throw new UnsupportedOperationException("Metrics Comparison is not implemented yet!")
-		return 0
+	private Double compareMetrics(Map metric1, Map metric2) {
+		return magnitude(metric1.values() as List) - magnitude(metric2.values() as List)
+	}
+	
+	@Memoized
+	/**
+	 * Vector norm L2
+	 * @param l
+	 * @return
+	 */
+	private Double magnitude(List l) {
+		int sum = 0
+		sum = l.inject(sum) { r, i ->
+			r += i*i
+			return r
+		}
+		return Math.sqrt(sum)
 	}
 	
 	/**
@@ -46,17 +60,26 @@ class AdaptationPlanner {
 	 * @param host
 	 * @return
 	 */
-	private Boolean fitsOnHost(def metric1, def metric2, def host) {
-		LOG.warn("Metrics Comparison is not implemented yet!")
+	private Boolean fitsOnHost(Map metric1, Map metric2, Map host) {
 		def result = sumMetrics(metric1, metric2)
-		throw new UnsupportedOperationException("Metrics Comparison is not implemented yet!")
-		return false
+		return compareMetrics(result, host)
 	}
 	
-	private Integer sumMetrics(def metric1, def metric2) {
-		LOG.warn("Metrics Sum is not implemented yet!")
-		throw new UnsupportedOperationException("Metrics Sum is not implemented yet!")
-		return 0
+	private Map sumMetrics(Map metric1, Map metric2) {
+		Map result = [:]
+		
+		Set keys = [] as Set
+		keys.addAll(metric1.keySet())
+		keys.addAll(metric2.keySet())
+		
+		return keys.inject(result) { r, i ->
+			def v1 = metric1.getOrDefault(i, 0)
+			def v2 = metric2.getOrDefault(i, 0)
+			
+			r[i] = v1 + v2
+			return r
+		}
+				
 	}
 	
 	private ServiceInstance getAffinityServiceSrc(Affinity affinity) {
@@ -101,12 +124,14 @@ class AdaptationPlanner {
 		ServiceInstance svc1 = getAffinityServiceSrc(affinity)
 		ServiceInstance svc2 = affinity.getWith()
 
-		Integer metricsComparison = compareMetrics(svc1.getHost(), svc2.getHost())
+		Integer metricsComparison = 
+			compareMetrics(svc1.getHost().metrics, svc2.getHost().metrics)
 		
 		Boolean result = false
 		
 		Host src, dst
-		if(metricsComparison <= 0 && fitsOnHost(svc1, svc2, svc1.getHost())) {
+		if(metricsComparison > 0 && fitsOnHost(svc1.metrics, svc2.metrics,
+			 svc1.getHost().metrics)) {
 			LOG.debug("Moving {} to {}...", svc2.name, svc1.host.name)
 			src = svc2.host
 			dst = svc1.host
@@ -115,7 +140,8 @@ class AdaptationPlanner {
 				addToScript(svc2, src, dst)
 			}
 		}
-		else if(metricsComparison > 0 && fitsOnHost(svc1, svc2, svc2.getHost())) {
+		else if(metricsComparison < 0 && fitsOnHost(svc1.metrics, svc2.metrics, 
+			svc2.getHost().metrics)) {
 			LOG.debug("Moving {} to {}...", svc1.name, svc2.host.name)
 			src = svc1.host
 			dst = svc2.host
