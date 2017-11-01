@@ -87,7 +87,7 @@ class ModelHandler implements ReificationInterface {
 					def m
 					synchronized(messages) {
 						// DO NOT ACCESS BY INDEX 
-						// IT IS A LINKED LIST O(n) TO ACCESS ANY ELEMENT
+						// IT IS A LINKED LIST! O(n) TO ACCESS ANY ELEMENT
 						m = messages.remove(0)
 					}
 					
