@@ -17,7 +17,7 @@ class MonitoringApplicationTests extends GroovyTestCase {
 		assert properties["cluster.inspection.port"]
 		assert properties["cluster.inspection.timeout"]
 		
-		assert properties["cluster.inspection.port"] == "9999"
+		assert properties["cluster.inspection.port"]
 		
 		assert properties["messages.inspection.host"]
 		assert properties["messages.inspection.port"]
