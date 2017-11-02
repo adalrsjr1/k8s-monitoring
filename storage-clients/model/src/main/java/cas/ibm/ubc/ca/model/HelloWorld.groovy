@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.emfjson.jackson.resource.JsonResourceFactory
 
-import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import model.Application
 import model.Cluster
@@ -122,7 +121,6 @@ class HelloWorld {
 //			e.printStackTrace();
 //		}
 		
-		ClusterAdapter.move(cluster, "application1", "service1", "host1", "host2")
 	}
 
 	// PLAIN

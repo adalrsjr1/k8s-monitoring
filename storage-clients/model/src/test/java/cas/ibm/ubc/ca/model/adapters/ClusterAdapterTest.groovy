@@ -60,13 +60,5 @@ class ClusterAdapterTest extends GroovyTestCase {
 		
 	}
 
-	public void testModelUpdate() {
-
-		ClusterAdapter.updateModel(cluster, "application1", "service1", "host1", "host2")
-
-		assert cluster.hosts["host1"].getServices().size() == 0
-		assert cluster.hosts["host2"].getServices().size() == 1
-
-	}
 
 }
