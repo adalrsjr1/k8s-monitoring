@@ -11,17 +11,18 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+        <skipTests>true</skipTests>
 	</properties>
 
 	<modules>
 		<module>./model</module>
-        <module>./interfaces</module>
+		<module>./interfaces</module>
 		<module>./influx-client</module>
 		<module>./k8s-client</module>
 		<module>./zipkin-client</module>
-		
+
 		<module>./monitoring</module>
-		
+
 		<module>./model-manager</module>
 	</modules>
 
