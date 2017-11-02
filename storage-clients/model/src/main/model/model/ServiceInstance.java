@@ -36,7 +36,7 @@ public interface ServiceInstance extends Service {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Messages</em>' containment reference list.
-	 * @model containment="true"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	List<Message> getMessages();

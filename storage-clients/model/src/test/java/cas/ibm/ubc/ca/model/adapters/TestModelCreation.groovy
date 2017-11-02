@@ -2,6 +2,7 @@ package cas.ibm.ubc.ca.model.adapters
 
 import static org.junit.Assert.*
 
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -10,7 +11,7 @@ import org.eclipse.emf.common.util.URI as EmfURI
 
 import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
-
+import model.Affinity
 import model.Application
 import model.Cluster
 import model.Environment
@@ -43,6 +44,17 @@ class TestModelCreation extends GroovyTestCase {
 		applications = gson.fromJson(jsonReader, Map.class)
 	}
 	
+	void tearDown() {
+		File f = new File("src/test/resources/")
+		if(f.isDirectory()) {
+			f.listFiles().each {
+				if(it.name.contains(".xmi")) {
+					it.delete()
+				}
+			}
+		}
+	}
+	
 	ResourceSet getXmiResourceSet() {
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -51,6 +63,71 @@ class TestModelCreation extends GroovyTestCase {
 		// Obtain a new resource set
 		ResourceSet resSet = new ResourceSetImpl();
 		return resSet
+	}
+	
+	void addToResource(Resource res, EObject elem) {
+		if(res) {
+			res.getContents().add(0, elem)
+		}
+	}
+	
+	private Cluster loadModel(EmfURI emfURI) {
+		ResourceSet rs = getXmiResourceSet()
+		
+		Resource resource = rs.getResource(emfURI, true)
+		
+		return resource.getContents().get(0)
+	}
+	
+	void testRandomFullModelWorkflow() {
+		ResourceSet rs = getXmiResourceSet()
+		
+		EmfURI emfURI = EmfURI.createURI("src/test/resources/modelFull.xmi")
+		Resource resource = rs.createResource(emfURI)
+		
+		ModelFactory factory = ModelFactoryAdapter.INSTANCE
+		
+		Cluster cluster = factory.createCluster()
+		addToResource(resource, cluster)
+		
+		Application app = factory.createApplication(resource)
+		app.name = "app"
+		
+		cluster.applications["app"] = app
+		
+		ServiceInstance svc1 = factory.createServiceInstance(resource)
+		svc1.name = "svc1"
+		
+		ServiceInstance svc2 = factory.createServiceInstance(resource)
+		svc1.name = "svc2"
+		
+		Message msg = factory.createMessage(resource)
+		msg.setSource(svc1)
+		msg.setDestination(svc2)
+		
+		svc1.getMessages().add(0, msg)
+		
+		app.services["svc1"] = svc1
+		app.services["svc2"] = svc2
+		
+		Affinity aff = factory.createAffinity(resource)
+		aff.degree = 3.14
+		aff.setWith(svc2)
+		
+		svc1.hasAffinities.add(0, aff)
+		
+		resource.save(Collections.EMPTY_MAP)
+		
+		Cluster clusterLoaded = loadModel(emfURI)
+		assert clusterLoaded
+		
+		assert clusterLoaded.applications["app"] 
+		assert 2 == clusterLoaded.applications["app"].services.size()
+		assert 1 == clusterLoaded.applications["app"].services["svc1"].getMessages().size()
+		assert clusterLoaded.applications["app"].services["svc1"].getMessages()[0].destination ==
+		clusterLoaded.applications["app"].services["svc2"]
+		assert 3.14f == clusterLoaded.applications["app"].services["svc1"].hasAffinities[0].degree
+		assert clusterLoaded.applications["app"].services["svc2"] == clusterLoaded.applications["app"].services["svc2"]
 	}
 	
 	void test() {

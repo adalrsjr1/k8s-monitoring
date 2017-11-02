@@ -38,47 +38,53 @@ class ModelManager {
 	private final AdaptationPlanner planner
 	
 	private Boolean stopped = false
+	private static int version = 1
 	
 	public ModelManager(ModelManagerConfig config) {
-		this.monitoringInterval = config.get("modelmanager.monitoring.interval")
+		this.monitoringInterval = Long.parseLong(config.get("modelmanager.monitoring.interval"))
 		this.modelStorageUrl = config.get("modelmanager.model.storage")
 		this.timeUnit = TimeUnit.valueOf(config.get("modelmanager.monitoring.timeunit").toUpperCase())
 		
 		monitoring = new MonitoringApplication()
-		modelHandler = new ModelHandler(this.monitoringUrl)
+		modelHandler = new ModelHandler(this.modelStorageUrl)
 			
 		analyzer = new AffinitiesAnalyzer()
 		planner = new AdaptationPlanner(modelHandler)	 
 	}
 	
 	public Cluster createModel() {
-		return modelHandler.updateModel(
-			monitoring.cluster(), 
+		Cluster cluster = modelHandler.updateModel(
+			"${version++}", 
+			monitoring.environment(), 
 			monitoring.hosts(), 
 			monitoring.applications(), 
 			monitoring.services(), 
-			monitoring.messages(),
-			[monitoring.metricsHost("cpu/utilization", TimeInterval.last(monitoringInterval, timeUnit)),
-			monitoring.metricsHost("memory/utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+			monitoring.messages(TimeInterval.last(monitoringInterval, timeUnit)),
+			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+			[monitoring.metricsHost("cpu/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+			monitoring.metricsHost("memory/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
 			monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
 			monitoring.metricsService("memory/usage", TimeInterval.last(monitoringInterval, timeUnit)),
 			])
+		
+		return cluster
 	}
 	
 	public Cluster updateModel() {
 		Cluster cluster
 		try {
-			lock.writeLock()
+//			lock.writeLock()
 			modelHandler.saveModel()
 			cluster = createModel()
-			analyzer.calculate(cluster)
+			analyzer.calculate(cluster, modelHandler.resource)
 		}
 		catch(Exception e) {
 			LOG.error "It cannot possible to create/update the model"
-			throw new RuntimeException(e)
+			e.printStackTrace()
+//			throw new RuntimeException(e)
 		}
 		finally {
-			lock.writeLock().unlock()
+//			lock.writeLock().unlock()
 			return cluster
 		}
 	}
@@ -90,25 +96,27 @@ class ModelManager {
 	
 	public void start() {
 		
-		threads.execute {
+//		threads.execute {
 			Stopwatch watcher = Stopwatch.createStarted()
-			while(!stopped) {
-				watcher.reset()
-				watcher.start()
+//			while(!stopped) {
+//				watcher.reset()
+//				watcher.start()
 				
 				LOG.info "Updating model..."
 				updateModel()
 				LOG.info "Model updated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 				
 				watcher.reset()
+				watcher.start()
 				
 				LOG.info "Calculating affinities..."
-				analyzer.calculate(modelHandler.getCluster())
+				def cluster = modelHandler.getCluster(monitoring.environment())
+//				analyzer.calculate(cluster, modelHandler.getResource())
 				LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
-				
-				Thread.sleep(this.monitoringInterval)
-			}
-		}
+				modelHandler.saveModel()
+//				Thread.sleep(this.monitoringInterval)
+//			}
+//		}
 	}
 	
 	void move(String application, String serviceId, String sourceHost, String destinationHost) {

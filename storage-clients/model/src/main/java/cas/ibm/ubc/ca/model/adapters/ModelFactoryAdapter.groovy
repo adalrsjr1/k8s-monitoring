@@ -5,8 +5,10 @@ import org.eclipse.emf.common.notify.Notification
 import org.eclipse.emf.common.notify.Notifier
 import org.eclipse.emf.common.notify.impl.AdapterImpl
 import org.eclipse.emf.common.notify.impl.NotificationImpl
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.impl.EAttributeImpl
+import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.util.EContentAdapter
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
@@ -52,7 +54,7 @@ class ModelFactoryAdapter implements ModelFactory {
 			&& newValue instanceof Message) {
 				synchronized(notifier) {
 					notifier.totalMessages += 1L
-					notifier.totalData += newValue.messageSize
+					notifier.totalData += newValue != null ? newValue.messageSize : 0 
 				}
 			}
 			// updating service by setting the message values (reference)
@@ -61,7 +63,7 @@ class ModelFactoryAdapter implements ModelFactory {
 			&& notification.getFeature().getName() == "messageSize") {
 				synchronized(notifier) {
 					Service service = notifier.eContainer()
-					service.totalData += newValue
+					service.totalData += newValue != null ? newValue : 0
 				}
 			}
 		}
@@ -143,16 +145,28 @@ class ModelFactoryAdapter implements ModelFactory {
 	private Adapter adapter = new AdapterImpl() {
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification)
-			LOG.debug "${notification}"
+//			LOG.debug "${notification}"
 		}
 	}
 
 	private ModelFactoryAdapter() { }
+	
+	private void addToResource(Resource resource, EObject element) {
+		if(resource) {
+			resource.getContents().add(0, element)
+		}
+	}
 
 	@Override
 	public Cluster createCluster() {
 		Cluster cluster = factory.createCluster()
 		cluster.eAdapters().add(adapter)
+		return cluster
+	}
+	
+	public Cluster createCluster(res) {
+		Cluster cluster = createCluster()
+		addToResource(res, cluster)
 		return cluster
 	}
 
@@ -163,12 +177,24 @@ class ModelFactoryAdapter implements ModelFactory {
 		application.eAdapters().add(applicationAdapter)
 		return application
 	}
+	
+	public Application createApplication(Resource res) {
+		Application application = createApplication() 
+		addToResource(res, application)
+		return application
+	}
 
 	@Override
 	public Affinity createAffinity() {
 		Affinity affinity = factory.createAffinity()
 		affinity.eAdapters().add(adapter)
 		return affinity;
+	}
+	
+	public Affinity createAffinity(Resource res) {
+		Affinity affinity = createAffinity()
+		addToResource(res, affinity)
+		return affinity
 	}
 
 	@Override
@@ -179,11 +205,23 @@ class ModelFactoryAdapter implements ModelFactory {
 		return serviceInstance
 
 	}
+	
+	public ServiceInstance createServiceInstance(Resource res) {
+		ServiceInstance serviceInstance = createServiceInstance()
+		addToResource(res, serviceInstance)
+		return serviceInstance
+	}
 
 	@Override
 	public Message createMessage() {
 		Message message = factory.createMessage()
 //		message.eAdapters().add(adapter)
+		return message
+	}
+	
+	public Message createMessage(Resource res) {
+		Message message = createMessage()
+		addToResource(res, message)
 		return message
 	}
 
@@ -192,6 +230,12 @@ class ModelFactoryAdapter implements ModelFactory {
 		Host host = factory.createHost()
 		host.eAdapters().add(adapter)
 		host.eAdapters().add(hostAdapter)
+		return host
+	}
+	
+	public Host createHost(Resource res) {
+		Host host = createHost()
+		addToResource(res, host)
 		return host
 	}
 

@@ -1,9 +1,10 @@
 package cas.ibm.ubc.ca.model.manager
 
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.ReentrantReadWriteLock
+import java.util.concurrent.atomic.AtomicInteger
 import org.eclipse.emf.common.util.URI as EmfURI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -38,18 +39,14 @@ class ModelHandler implements ReificationInterface {
 	private String modelStoragePath
 	private Resource resource
 
-	public Cluster cluster
+	private final Collection history = new TreeSet()
 
+	public Cluster cluster
 
 	public ModelHandler(String modelStoragePath) {
 		this.modelStoragePath = modelStoragePath
-
 		resourceSet = getXmiResourceSet()
 		resource = createResource(modelStoragePath, "${version++}", resourceSet)
-	}
-
-	public Cluster getCluster() {
-		cluster
 	}
 
 	private ResourceSet getXmiResourceSet() {
@@ -69,14 +66,26 @@ class ModelHandler implements ReificationInterface {
 		return resource
 	}
 
-	static int threads = Runtime.getRuntime().availableProcessors();
-	static def tPool = Executors.newFixedThreadPool(threads)
-	private void createMessages(Cluster cluster, Map services, List messages) {
-		
+	public Resource getResource() {
+		return resource
+	}
 
+	public Cluster getCluster(String environment) {
+		if(cluster) {
+			return cluster
+		}
+		cluster = createCluster(environment)
+		return cluster
+	}
+
+	
+	private void createMessages(Cluster cluster, Map services, List messages) {
+		int threads = Runtime.getRuntime().availableProcessors();
+		ExecutorService tPool = Executors.newFixedThreadPool(threads)
+		
 		def tasks = messages.size()
 		int chunckSize = (tasks + threads - 1 ) / threads
-
+		AtomicInteger counter = new AtomicInteger()
 		CountDownLatch latch = new CountDownLatch(threads)
 
 		for(int i = 0; i < threads; i++) {
@@ -86,36 +95,38 @@ class ModelHandler implements ReificationInterface {
 				for(int j = start; j < end; j++) {
 					def m
 					synchronized(messages) {
-						// DO NOT ACCESS BY INDEX 
+						// DO NOT ACCESS BY INDEX
 						// IT IS A LINKED LIST! O(n) TO ACCESS ANY ELEMENT
 						m = messages.remove(0)
 					}
-					
-					Message msg = factory.createMessage()
-					ServiceInstance s = services[m["sourceName"]]
 
+					ServiceInstance s = services[m["sourceName"]]
+					Message msg
 					synchronized (s) {
-						s.messages << msg
+						msg = factory.createMessage(resource)
+						s.messages.add(0, msg)
 						msg.source = s
 					}
 
 					msg.avgResponseTime = m["totalTime"]
-
-					msg.destination = services[m["targetName"]]
+					def destination = services[m["targetName"]]
+					msg.destination = destination == null || destination == "" ? s : destination
 					msg.messageSize = m["totalSize"]
 					msg.name = ""
 					msg.timestamp = m["timestamp"]
 					msg.uid = m["correlationId"]
 
+					counter.incrementAndGet()
 				}
 				latch.countDown()
 			})
-
 		}
+
+		
 		
 		latch.await()
-		
-//		tPool.shutdown()
+		tPool.shutdown();
+		LOG.info "Number of messages {}" , counter.get()
 	}
 
 	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
@@ -150,17 +161,14 @@ class ModelHandler implements ReificationInterface {
 	private Map createServices(Cluster cluster, List services) {
 		Map modelServices = [:]
 		services.each { s ->
-			Service service = factory.createServiceInstance()
+			Service service = factory.createServiceInstance(getResource())
+
 			service.name = s.name
 			service.id = s.uid
 			service.address = s.address
 			service.application = s.application
 
 			service.containers.addAll(s.containers)
-
-			if(resource) {
-				resource.getContents().add(service)
-			}
 
 			if(cluster.applications.containsKey(service.application)) {
 				cluster.applications[s.application].services[service.id] = service
@@ -171,33 +179,27 @@ class ModelHandler implements ReificationInterface {
 			}.services[service.id] = service
 
 			modelServices[service.id] = service
+			modelServices[service.name] = service
 		}
 		return modelServices
 	}
 
 	private void createApplications(Cluster cluster, Map applications) {
 		applications.each { k, v ->
-			Application app = factory.createApplication()
+			Application app = factory.createApplication(getResource())
 			app.name = k
 			app.weight = v
 
-			if(resource) {
-				resource.getContents().add(app)
-			}
 			cluster.applications[(k)] = app
 		}
 	}
 
 	private void createHosts(Cluster cluster, List hosts) {
 		hosts.each { item ->
-			Host host = factory.createHost()
+			Host host = factory.createHost(getResource())
 			host.name = item.name
 			item.hostAddress.each {
 				host.hostAddress << it
-			}
-
-			if(resource) {
-				resource.getContents().add(host)
 			}
 
 			cluster.hosts[item.name] = host
@@ -205,12 +207,8 @@ class ModelHandler implements ReificationInterface {
 	}
 
 	private Cluster createCluster(String environment) {
-		Cluster cluster = factory.createCluster()
+		Cluster cluster = factory.createCluster(getResource())
 		cluster.environment = Environment.getByName(environment)
-
-		if(resource) {
-			resource.getContents().add(cluster)
-		}
 
 		return cluster
 	}
@@ -224,19 +222,19 @@ class ModelHandler implements ReificationInterface {
 		createHosts(cluster, hosts)
 		Map modelServices = createServices(cluster, services)
 		createMetrics(cluster, metricsKeys, metrics)
-		
-		createMessages(cluster, modelServices, messages)
-		
 
-		LOG.info("Model created with {} messages in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
+		createMessages(cluster, modelServices, messages)
+		LOG.info("Model created in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
 	}
 
 	@Synchronized
-	public Cluster updateModel(String version, String environment, List hosts, List applications,
+	public Cluster updateModel(String version, String environment, List hosts, Map applications,
 			List services, List messages, List metricsKeys, List metrics) {
 
 		if(resource) {
-			saveModel()
+			String lastVersion = saveModel()
+			history.add(lastVersion)
+
 			destroyResource()
 		}
 		createResource(modelStoragePath, version, resourceSet)
@@ -252,7 +250,7 @@ class ModelHandler implements ReificationInterface {
 		resourceSet.getResources().remove(resource)
 	}
 
-	public void saveModel() {
+	public String saveModel() {
 		try {
 			if(resource) {
 				Stopwatch watcher = Stopwatch.createStarted()
@@ -260,15 +258,39 @@ class ModelHandler implements ReificationInterface {
 				resource.save(Collections.EMPTY_MAP)
 				LOG.info ("The model was save [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms.")
 				watcher.stop()
-				return
+				return resource.getURI().toString()
 			}
 			LOG.info ("The model can't be saved. The resource wasn't created.")
+
 		}
 		catch(IOException e) {
 			LOG.info ("The model wasn't save.")
 			LOG.error("The current model cannot be saved. Caused by {}", e.message)
 			throw new RuntimeException(e)
 		}
+		return ""
+	}
+
+	public Cluster loadModel(String url) {
+		Resource resource
+		try {
+			ResourceSet rs = getXmiResourceSet()
+			EmfURI emfURI = EmfURI.createURI(url)
+			Stopwatch watcher = Stopwatch.createStarted()
+			LOG.info "Loading model..."
+			resource = rs.getResource(emfURI, true)
+			LOG.info ("The model was save [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms.")
+		}
+		catch(IOException e) {
+			LOG.info ("The model wasn't loaded.")
+			LOG.error("The current model cannot be loaded. Caused by {}", e.message)
+			throw new RuntimeException(e)
+		}
+		return resource.getContents().get(0)
+	}
+
+	public Collection getHistory() {
+		return history
 	}
 
 	@Override

@@ -23,15 +23,12 @@ class MonitoringApplication implements InspectionInterface {
 	private MessagesInspectionInterface messagesMonitor
 	private MetricsInspectionInterface metricsMonitor
 
-	private final clusterEnvironment
-	
 	private Properties properties
 
 	public MonitoringApplication() {
+		LOG.info "Instantiating monitoring..."
 		properties = loadProperties()
 
-		clusterEnvironment = properties["cluster.environment"]
-		
 		clusterMonitor = ClusterInspectionInterfaceFactory.create(
 			properties["cluster.inspection.host"] + ":" + properties["cluster.inspection.port"], 
 			properties["cluster.inspection.timeout"])
@@ -49,7 +46,7 @@ class MonitoringApplication implements InspectionInterface {
 			properties["metrics.inspection.influx.user"],
 			properties["metrics.inspection.influx.password"],
 			properties["metrics.inspection.influx.database"])
-		
+		LOG.info "Monitoring instantiated."
 	}
 
 	private static Properties loadProperties() {
@@ -113,7 +110,7 @@ class MonitoringApplication implements InspectionInterface {
 	}
 
 	public String environment() {
-		return clusterEnvironment;
+		return this.cluster()
 	}
 	
 }

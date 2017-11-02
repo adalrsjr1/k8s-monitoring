@@ -116,7 +116,7 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 	public void testCalculate() {
 		AffinitiesAnalyzer analyzer = new AffinitiesAnalyzer()
 		
-		analyzer.calculate(cluster)
+		analyzer.calculate(cluster,null)
 		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		

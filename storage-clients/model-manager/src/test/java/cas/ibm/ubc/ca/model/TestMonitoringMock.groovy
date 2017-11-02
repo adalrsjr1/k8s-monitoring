@@ -13,7 +13,7 @@ class TestMonitoringMock extends GroovyTestCase {
 	}
 	
 	void testApplications() {
-		assert ["default":1.0,"kube-public":1.0,"kube-system":0.5,"sock-shop":0.33333,"zipkin":0.635]
+		assert ["default":1.0,"kube-public":1.0,"kube-system":0.5,"sock-shop":0.33333,"zipkin":0.635] ==
 		monitor.applications()
 	}
 	

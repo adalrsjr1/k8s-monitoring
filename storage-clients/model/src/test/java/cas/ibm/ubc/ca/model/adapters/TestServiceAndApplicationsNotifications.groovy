@@ -168,6 +168,24 @@ class TestServiceAndApplicationsNotifications extends GroovyTestCase {
 		
 	}
 	
+	void testMessageCreation() {
+		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
+		Application application = factory.createApplication()
+		ServiceInstance service = factory.createServiceInstance()
+		service.name = "svc"
+		service.id = "svc"
+		
+		application.services["svc"] = service
+		
+		service.messages << factory.createMessage()
+		assert service.totalMessages == 1L
+		assert application.totalMessages == 1L
+		
+		service.messages << factory.createMessage()
+		assert service.totalMessages == 2L
+		assert application.totalMessages == 2L
+	}
+	
 	void testFullApplication() {
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		Application application = factory.createApplication()

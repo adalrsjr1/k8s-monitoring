@@ -1,65 +1,83 @@
 package cas.ibm.ubc.ca.k8s;
 
-import java.util.Collections;
+import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.diff.JsonDiff;
 
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
+import io.kubernetes.client.ApiResponse;
 import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.AppsV1beta1Api;
 import io.kubernetes.client.models.AppsV1beta1Deployment;
 import io.kubernetes.client.models.AppsV1beta1DeploymentList;
-import io.kubernetes.client.models.V1LabelSelector;
-import io.kubernetes.client.models.V1LabelSelectorRequirement;
 import io.kubernetes.client.util.Config;
 
+
+// using the kubectl: kubectl --kubeconfig=$KUBE_TEST patch deployment web-server -p '{"spec": {"template":{"spec":{"nodeSelector":{"kubernetes.io/hostname":"swarm"}}}}}'
 public class Hello {
 
-	public static void setLabelToPods() { 
-		// Use the CoreV1Api to get the pods and set their labels
+	static final ObjectMapper mapper = new ObjectMapper();
+	
+	public static Map[] determineJsonPatch(Object current, Object desired) {
+		
+		JsonNode desiredNode = mapper.convertValue(desired, JsonNode.class);
+		JsonNode currentNode = mapper.convertValue(current, JsonNode.class);
+
+		return mapper.convertValue(JsonDiff.asJson(currentNode, desiredNode), Map[].class);
 	}
-	
-	https://github.com/kubernetes-client/java/blob/master/kubernetes/docs/CoreV1Api.md#patchNamespacedPod
-	
-	public static void main(String[] args) throws ApiException {
-		ApiClient client = Config.fromUrl("");
+
+	public static AppsV1beta1Deployment getDeployment(AppsV1beta1Api v1betaApi, String name) throws Exception {
+		AppsV1beta1DeploymentList list = v1betaApi.listDeploymentForAllNamespaces(null, null, null, null, null, null, null, null, null);
+
+		for(AppsV1beta1Deployment deployment : list.getItems()) {
+			String deploymentName = deployment.getMetadata().getName();
+			if(name.equals(deploymentName)) {
+				return deployment;
+			}
+		}
+		return null;
+	}
+
+
+	static Map<String, String> getNodeSelector(AppsV1beta1Deployment deployment) {
+		return deployment.getSpec().getTemplate().getSpec().getNodeSelector();
+	}
+
+	/*
+	 * Does not implement this class using static methods!!!
+	 */
+	public static void main(String[] args) throws Exception {
+		// solution based on this snippet:
+		// https://github.com/spinnaker/clouddriver/pull/1868/files#diff-150b8912ec8e0cd49b16cb79345b11e7R98'
+		String service = "web-server"; // use "redis-cache" or "web-server"
+		String node = "swarm5"; // use "swarm1" or "swarm5"
+
+		// the client is using the proxy address
+		ApiClient client = Config.fromUrl("http://127.0.0.1:8001");
 		Configuration.setDefaultApiClient(client);
 
-		client.setConnectTimeout(10);
+		AppsV1beta1Api v1betaApi = new AppsV1beta1Api(client);
 
-		// set pod's labels
-		setLabelToPods();
-	
-		// update the deployment config
-		AppsV1beta1Api api = new AppsV1beta1Api(client); 
-
-		AppsV1beta1DeploymentList list;
-
-		list = api.listDeploymentForAllNamespaces(null, null, null, null, null, null, null, null, null);
-		AppsV1beta1Deployment dep;
+		// both "current" and "desired" must have the same attributes
+		// but they cannot be the same object
+		AppsV1beta1Deployment current = Hello.getDeployment(v1betaApi, service);
+		AppsV1beta1Deployment desired = Hello.getDeployment(v1betaApi, service);
 		
-		for(AppsV1beta1Deployment item : list.getItems()) {
-			
-			String name = item.getMetadata().getName();
-			String namespace = item.getMetadata().getNamespace();
-			AppsV1beta1Deployment body = item;
-			
-			V1LabelSelector selector = new V1LabelSelector();
-			selector.putMatchLabelsItem("key1", "value1");
-			selector.putMatchLabelsItem("key2", "value2");
-			
-			// documentation of Selector Requiremetn
-			// https://github.com/kubernetes-client/java/blob/1db144d9bc4690f6ce0137497cac7af0e1bb3f3c/kubernetes/docs/V1LabelSelectorRequirement.md
-			V1LabelSelectorRequirement requirement = new V1LabelSelectorRequirement();
-			requirement.setKey("key1");
-			requirement.setOperator("In"); 
-			requirement.setValues(Collections.singletonList("value1"));
-			
-			body.getSpec().setSelector(selector);
-			
-			api.patchNamespacedDeployment(name, namespace, body, null); // it should move re-deploy the pods and moving them
-			
+		getNodeSelector(desired).put("kubernetes.io/hostname", node);
+		Map[] result = determineJsonPatch(current, desired);
+		try {
+
+			ApiResponse<AppsV1beta1Deployment> response = v1betaApi.patchNamespacedDeploymentWithHttpInfo(service, "default", result, "true");
+			System.out.println(response);
 		}
-				
+		catch (ApiException e) {
+			System.out.println(e.getResponseBody());
+			e.printStackTrace();
+		}
+
 	}
-	
+
 }

@@ -105,7 +105,7 @@ class MonitoringMock implements InspectionInterface {
 		Gson gson = new Gson()
 		Type type = new TypeToken<Message>(){}.getType();
 		for(int i = 0; i < timeInterval.getIntervalInMillis(); i++) {
-			l << gson.fromJson(br.readLine(), type)
+			l.add(0, gson.fromJson(br.readLine(), type))
 		}
 		
 		br.close()

@@ -2,6 +2,8 @@
 # Created by https://www.gitignore.io/api/java,kubernetes,docker
 */**/.attach_pid*
 */**/src/test/resource/*.xmi
+*.xmi
+*.bz2
 
 #!! ERROR: docker is undefined. Use list command to see defined gitignore types !!#
 

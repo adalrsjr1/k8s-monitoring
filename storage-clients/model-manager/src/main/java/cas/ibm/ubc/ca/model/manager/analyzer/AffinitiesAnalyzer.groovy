@@ -1,6 +1,7 @@
 package cas.ibm.ubc.ca.model.manager.analyzer
 
 import org.eclipse.emf.common.util.ECollections
+import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -21,7 +22,6 @@ class AffinitiesAnalyzer {
 	
 	private Map messagesCache(Cluster cluster) {
 		Map map = [:] 
-		
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		
 		int count = 0
@@ -34,8 +34,8 @@ class AffinitiesAnalyzer {
 				Service src = obj.getSource()
 				Service dst = obj.getDestination()
 				
-				String key = "${src.name}:${dst.name}"
-				String keyReverse = "${dst.name}:${src.name}"
+				String key = "${src?.name}:${dst?.name}"
+				String keyReverse = "${dst?.name}:${src?.name}"
 				
 				if(!map.containsKey(key) && !map.containsKey(keyReverse)) {
 					map[key] = [0,0, null, null] as ArrayList
@@ -52,7 +52,7 @@ class AffinitiesAnalyzer {
 				// result[source:destination] = [#messages, #data, src, dst]
 				// graph unidirected		
 				map[key][0] += 1
-				map[key][1] += obj.messageSize
+				map[key][1] += obj.messageSize != null ? obj.messageSize : 0
 				map[key][2] = src
 				map[key][3] = dst
 			}
@@ -62,6 +62,7 @@ class AffinitiesAnalyzer {
 	}
 	
 	private Float normalize(Long number, Long total) {
+		if(number == 0) return 0
 		return (Double) number / total
 	}
 	
@@ -72,7 +73,7 @@ class AffinitiesAnalyzer {
 		normalize(data, totalData) * (1.0f - weight)
 	}
 
-	public void calculate(Cluster cluster) {
+	public void calculate(Cluster cluster, Resource resource) {
 		Stopwatch watch = Stopwatch.createStarted()
 		Map cache = messagesCache(cluster)
 		
@@ -91,12 +92,11 @@ class AffinitiesAnalyzer {
 				msgSize, application.totalData, application.weight)
 			
 
-			Affinity aff = factory.createAffinity()
-						
+			Affinity aff = factory.createAffinity(resource)
+			
 			aff.setDegree(value)
 			aff.setWith(dst)
-			
-			
+						
 			src.hasAffinities << aff
 			services << src
 		}

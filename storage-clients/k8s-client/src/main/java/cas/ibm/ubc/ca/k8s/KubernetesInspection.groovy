@@ -2,6 +2,9 @@ package cas.ibm.ubc.ca.k8s
 
 import java.util.Map
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
@@ -19,7 +22,7 @@ import io.kubernetes.client.util.Config
 
 // https://github.com/kubernetes-client/java/blob/master/kubernetes/README.md
 class KubernetesInspection implements ClusterInspectionInterface {
-
+	private static Logger LOG = LoggerFactory.getLogger(KubernetesInspection.class)
 	final String url
 	final int timeout
 
@@ -149,8 +152,11 @@ class KubernetesInspection implements ClusterInspectionInterface {
 
 		V1NamespaceList list = api.listNamespace(null, null, null, null, null, null, null, null, null)
 
-		return list.getItems().inject([]) { List result, V1Namespace item ->
-			result << item.metadata.name
+		return list.getItems().inject([:]) { result, V1Namespace item ->
+			// the number 1 is the weight to calculate the affinities
+			// based on #messages or size of messages
+			LOG.warn "CHANGE THE WEIGHT OF APPLICATIONS!!!"
+			result[item.metadata.name] = 1.0
 			result
 		}
 

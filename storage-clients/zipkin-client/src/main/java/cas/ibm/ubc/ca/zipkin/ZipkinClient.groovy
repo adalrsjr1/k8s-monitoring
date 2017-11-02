@@ -90,11 +90,11 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		println ""
 	}
 	
-	public static void main(String[] args) throws Exception {
-		
-		ZipkinClient client = new ZipkinClient("10.66.66.32", 30002, 10000, TimeUnit.SECONDS)
-		println client.messages(TimeInterval.last(2, TimeUnit.DAYS))				 
-	}
+//	public static void main(String[] args) throws Exception {
+//		
+//		ZipkinClient client = new ZipkinClient("10.66.66.32", 30002, 10000, TimeUnit.SECONDS)
+//		println client.messages(TimeInterval.last(2, TimeUnit.DAYS))				 
+//	}
 
 	private Endpoint findServerEndpoint(span, trace) {
 		def childSpan = trace.find { it.parentId == span.id }
