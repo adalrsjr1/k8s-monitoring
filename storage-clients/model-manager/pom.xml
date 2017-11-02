@@ -13,6 +13,35 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<!-- get all project dependencies -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- MainClass in mainfest make a executable jar -->
+					<archive>
+						<manifest>
+							<mainClass>cas.ibm.ubc.ca.model.manager.Application</mainClass>
+						</manifest>
+					</archive>
+
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- bind to the packaging phase -->
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<!-- 2.8.0-01 and later require maven-compiler-plugin 3.1 or higher -->
 				<version>3.6.1</version>
@@ -34,9 +63,10 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+
 		</plugins>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -50,28 +80,26 @@
 		</dependency>
 		<!-- LOCAL -->
 		<dependency>
+			<groupId>cas.ibm.ubc.ca.model</groupId>
+			<artifactId>model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>cas.ibm.ubc.ca.interfaces</groupId>
 			<artifactId>interfaces</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>cas.ibm.ubc.ca.monitoring</groupId>
-			<artifactId>monitoring</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+            <groupId>cas.ibm.ubc.ca.monitoring</groupId>
+            <artifactId>monitoring</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>   
 		<!-- LOCAL -->
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
 			<version>3.9.0</version>
 		</dependency>
-		<!-- MODEL -->
-		<dependency>
-			<groupId>cas.ibm.ubc.ca.model</groupId>
-			<artifactId>model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- MODEL -->
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
