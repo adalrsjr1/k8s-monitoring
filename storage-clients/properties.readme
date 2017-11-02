@@ -1,0 +1,28 @@
+# pass some of these configs throgh JVM
+# -Dkey=value
+# 
+# e.g.: -Dcluster.inspection.host=localhost
+#
+#
+# Kubernetes host 
+# localhosts 8001 only if proxy is enable
+cluster.inspection.host=localhost
+cluster.inspection.port=8001
+# milliseconds
+cluster.inspection.timeout=1000
+
+# Zipkin
+messages.inspection.host=10.66.66.32
+messages.inspection.port=30002
+# milliseconds
+messages.inspection.timeout=1000
+
+# Influxdb
+metrics.inspection.host=10.66.66.32
+metrics.inspection.port=30356
+metrics.inspection.influx.user=user
+metrics.inspection.influx.password=user
+metrics.inspection.influx.database=k8s
+
+# Don't change it at least you know what are doing!!!
+modelmanager.model.storage="src/main/resources/model/"

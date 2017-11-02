@@ -28,6 +28,7 @@ class MonitoringApplication implements InspectionInterface {
 	public MonitoringApplication() {
 		LOG.info "Instantiating monitoring..."
 		properties = loadProperties()
+		properties.putAll(System.getProperties())
 
 		clusterMonitor = ClusterInspectionInterfaceFactory.create(
 			properties["cluster.inspection.host"] + ":" + properties["cluster.inspection.port"], 

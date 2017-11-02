@@ -11,6 +11,7 @@ class ModelManagerConfig {
 
 	public ModelManagerConfig() {
 		properties = loadProperties()
+		properties.putAll(System.getProperties())
 	}
 	
 	private static Properties loadProperties() {

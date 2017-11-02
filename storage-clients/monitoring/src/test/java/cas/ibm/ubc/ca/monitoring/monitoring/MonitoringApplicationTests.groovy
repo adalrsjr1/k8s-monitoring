@@ -8,6 +8,7 @@ class MonitoringApplicationTests extends GroovyTestCase {
 
 	void testLoadProperties() { 
 		Properties properties  = MonitoringApplication.loadProperties()
+		properties.putAll(System.getProperties())
 
 		assert properties != null
 		assert properties.isEmpty() == false		
@@ -15,6 +16,8 @@ class MonitoringApplicationTests extends GroovyTestCase {
 		assert properties["cluster.inspection.host"]
 		assert properties["cluster.inspection.port"]
 		assert properties["cluster.inspection.timeout"]
+		
+		assert properties["cluster.inspection.port"] == "9999"
 		
 		assert properties["messages.inspection.host"]
 		assert properties["messages.inspection.port"]
