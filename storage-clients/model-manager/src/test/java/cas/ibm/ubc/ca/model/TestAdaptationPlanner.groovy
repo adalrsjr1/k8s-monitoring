@@ -168,7 +168,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 			assert planner.compareMetrics(null,null) == 1
 			assert planner.fitsOnHost(null,null,null) == true
 
-			assert planner.move(affinity) == true
+			assert planner.canMove(affinity) == true
 			assert svc1.host == host1
 			assert svc2.host == host1
 		}
@@ -205,7 +205,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 			assert planner.compareMetrics(null,null) == -1
 			assert planner.fitsOnHost(null,null,null) == true
 
-			assert planner.move(affinity) == true
+			assert planner.canMove(affinity) == true
 			assert svc1.host == host2
 			assert svc2.host == host2
 		}
@@ -292,7 +292,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		AdaptationPlanner planner = new AdaptationPlanner(null)
 
-		assert planner.move(affinity)
+		assert planner.canMove(affinity)
 		assert 2 ==  c.hosts["host1"].services.size()
 		assert 0 == c.hosts["host2"].services.size()
 		assert new Moviment(null, "svc2", "host2", "host1") == planner.adaptationScript[0]
@@ -317,7 +317,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		AdaptationPlanner planner = new AdaptationPlanner(null)
 
-		assert planner.move(affinity)
+		assert planner.canMove(affinity)
 		assert 2 ==  c.hosts["host2"].services.size()
 		assert 0 == c.hosts["host1"].services.size()
 		assert new Moviment(null, "svc1", "host1", "host2") == planner.adaptationScript[0]
@@ -343,7 +343,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		AdaptationPlanner planner = new AdaptationPlanner(null)
 
-		assert planner.move(affinity) == false
+		assert planner.canMove(affinity) == false
 		assert 1 ==  c.hosts["host2"].services.size()
 		assert 1 == c.hosts["host1"].services.size()
 		assert 1 == planner.affinitiesWaiting.size()

@@ -1,79 +1,75 @@
 package cas.ibm.ubc.ca.model.manager
 
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.ReentrantReadWriteLock
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
-import com.google.common.util.concurrent.ThreadFactoryBuilder
 
 import cas.ibm.ubc.ca.interfaces.InspectionInterface
+import cas.ibm.ubc.ca.interfaces.ReificationInterface
+import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
-import cas.ibm.ubc.ca.model.adapters.ClusterAdapter
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
 import cas.ibm.ubc.ca.monitoring.MonitoringApplication
 import model.Cluster
 
-class ModelManager {
-	private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock()
+class ModelManager implements ReificationInterface {
 	private static final Logger LOG = LoggerFactory.getLogger(ModelManager.class)
-	
-	private final ExecutorService threads = Executors.newCachedThreadPool(
-		new ThreadFactoryBuilder().setNameFormat("model-manager-%d").build())
-	
+
 	private final Long monitoringInterval
 	private final String monitoringUrl
 	private final String modelStorageUrl
 	private final TimeUnit timeUnit
-	
+
 	private final InspectionInterface monitoring
 	private final ModelHandler modelHandler
-	
+
 	private final AffinitiesAnalyzer analyzer
 	private final AdaptationPlanner planner
-	
+
+	private final ReificationInterface managedCluster
+
 	private Boolean stopped = false
 	private static int version = 1
-	
-	public ModelManager(ModelManagerConfig config) {
+
+	public ModelManager(ModelManagerConfig config, ReificationInterface managedCluster) {
 		this.monitoringInterval = Long.parseLong(config.get("modelmanager.monitoring.interval"))
 		this.modelStorageUrl = config.get("modelmanager.model.storage")
 		this.timeUnit = TimeUnit.valueOf(config.get("modelmanager.monitoring.timeunit").toUpperCase())
-		
+
 		monitoring = new MonitoringApplication()
 		modelHandler = new ModelHandler(this.modelStorageUrl)
-			
+
+		this.managedCluster = managedCluster
+
 		analyzer = new AffinitiesAnalyzer()
-		planner = new AdaptationPlanner(modelHandler)	 
+		planner = new AdaptationPlanner(modelHandler)
 	}
-	
+
 	public Cluster createModel() {
 		Cluster cluster = modelHandler.updateModel(
-			"${version++}", 
-			monitoring.environment(), 
-			monitoring.hosts(), 
-			monitoring.applications(), 
-			monitoring.services(), 
-			monitoring.messages(TimeInterval.last(monitoringInterval, timeUnit)),
-			["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
-			[monitoring.metricsHost("cpu/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
-			monitoring.metricsHost("memory/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
-			monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
-			monitoring.metricsService("memory/usage", TimeInterval.last(monitoringInterval, timeUnit)),
-			])
-		
+				"${version++}",
+				monitoring.environment(),
+				monitoring.hosts(),
+				monitoring.applications(),
+				monitoring.services(),
+				monitoring.messages(TimeInterval.last(monitoringInterval, timeUnit)),
+				["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+				[monitoring.metricsHost("cpu/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsHost("memory/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsService("memory/usage", TimeInterval.last(monitoringInterval, timeUnit)),
+				])
+
 		return cluster
 	}
-	
+
 	public Cluster updateModel() {
 		Cluster cluster
 		try {
-//			lock.writeLock()
 			modelHandler.saveModel()
 			cluster = createModel()
 			analyzer.calculate(cluster, modelHandler.resource)
@@ -81,59 +77,69 @@ class ModelManager {
 		catch(Exception e) {
 			LOG.error "It cannot possible to create/update the model"
 			e.printStackTrace()
-//			throw new RuntimeException(e)
 		}
 		finally {
-//			lock.writeLock().unlock()
 			return cluster
 		}
 	}
-	
+
 	public void stop() {
 		stop = true
-		threads.shutdown()
 	}
-	
+
 	public void start() {
-		
-//		threads.execute {
-			Stopwatch watcher = Stopwatch.createStarted()
-//			while(!stopped) {
-//				watcher.reset()
-//				watcher.start()
-				
-				LOG.info "Updating model..."
-				updateModel()
-				LOG.info "Model updated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
-				
-				watcher.reset()
-				watcher.start()
-				
-				LOG.info "Calculating affinities..."
-				def cluster = modelHandler.getCluster(monitoring.environment())
-//				analyzer.calculate(cluster, modelHandler.getResource())
-				LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
-				modelHandler.saveModel()
-//				Thread.sleep(this.monitoringInterval)
-//			}
-//		}
+
+		Stopwatch watcher = Stopwatch.createStarted()
+
+		LOG.info "Updating model..."
+		updateModel()
+		LOG.info "Model updated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
+
+		watcher.reset()
+		watcher.start()
+
+		LOG.info "Calculating affinities..."
+		def cluster = modelHandler.getOrCreateCluster(monitoring.environment())
+		LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
+		modelHandler.saveModel()
+
+		watcher.reset()
+		watcher.start()
+
+		LOG.info "Applying adaptation on Model..."
+		List adaptationScript = planner.execute(cluster)
+		move(adaptationScript)
+		LOG.info "Adaptation Complete [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
+		modelHandler.saveModel()
 	}
-	
-	void move(String application, String serviceId, String sourceHost, String destinationHost) {
+
+	@Override
+	public boolean move(List<Moviment> adaptationScript) {
+		adaptationScript.each {
+			move(it)
+		}
+	}
+
+	@Override
+	public boolean move(Moviment moviment) {
+		if(moviment == Moviment.nonMove()) {
+			LOG.trace "<<<NON_MOVE>>>"
+			return true
+		}
+		LOG.trace ("moving on model [{}] ...", moviment.toString())
 		try {
-			lock.writeLock()
 			Stopwatch watcher = Stopwatch.createStarted()
 			LOG.info "Reconfiguring application..."
-			ClusterAdapter.move(modelHandler.getCluster(), 
-				application, 
-				serviceId, 
-				sourceHost, 
-				destinationHost)
+			managedCluster.move(moviment)
 			LOG.info "Application reconfigured [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms"
 			modelHandler.saveModel()
 		}
-		finally {
-			lock.writeLock().unlock()
+		catch(Exception e) {
+			LOG.warn "New placement cannot be applied into cluster..."
+			modelHandler.undoMoveOnModel(moviment)
+			LOG.error(e.getCause())
+			e.printStackTrace()
 		}
 	}
+
 }

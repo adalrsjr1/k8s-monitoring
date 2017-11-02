@@ -23,7 +23,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Affinity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="with" eType="#//Service"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="degree" ordered="false"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"
+        defaultValueLiteral="0.0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceInstance" eSuperTypes="#//Service">
     <eStructuralFeatures xsi:type="ecore:EReference" name="messages" ordered="false"
@@ -59,7 +60,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringToDoubleMap" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
+        defaultValueLiteral="0.0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementWithResources" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceLimit" upperBound="-1"

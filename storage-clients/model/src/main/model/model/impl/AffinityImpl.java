@@ -47,7 +47,7 @@ public class AffinityImpl extends MinimalEObjectImpl.Container implements Affini
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Float DEGREE_EDEFAULT = null;
+	protected static final Float DEGREE_EDEFAULT = new Float(0.0F);
 
 	/**
 	 * The cached value of the '{@link #getDegree() <em>Degree</em>}' attribute.

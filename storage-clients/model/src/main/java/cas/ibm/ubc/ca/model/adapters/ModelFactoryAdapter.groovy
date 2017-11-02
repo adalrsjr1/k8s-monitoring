@@ -63,7 +63,7 @@ class ModelFactoryAdapter implements ModelFactory {
 			&& notification.getFeature().getName() == "messageSize") {
 				synchronized(notifier) {
 					Service service = notifier.eContainer()
-					service.totalData += newValue != null ? newValue : 0
+					service.totalData += newValue != null ?: 0
 				}
 			}
 		}

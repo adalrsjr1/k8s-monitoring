@@ -3,8 +3,10 @@ package cas.ibm.ubc.ca.model.manager
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+
 import org.eclipse.emf.common.util.URI as EmfURI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -16,10 +18,8 @@ import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
 
-import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
-import groovy.transform.Synchronized
 import model.Application
 import model.Cluster
 import model.ElementWithResources
@@ -29,7 +29,7 @@ import model.Message
 import model.Service
 import model.ServiceInstance
 
-class ModelHandler implements ReificationInterface {
+class ModelHandler {
 	private static Logger LOG = LoggerFactory.getLogger(ModelHandler.class)
 	private static final ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 	private static Long version = 1
@@ -70,15 +70,18 @@ class ModelHandler implements ReificationInterface {
 		return resource
 	}
 
-	public Cluster getCluster(String environment) {
+	public Cluster getOrCreateCluster(String environment) {
 		if(cluster) {
 			return cluster
 		}
 		cluster = createCluster(environment)
 		return cluster
 	}
-
 	
+	public Cluster getCluster() {
+		return cluster
+	}
+
 	private void createMessages(Cluster cluster, Map services, List messages) {
 		int threads = Runtime.getRuntime().availableProcessors();
 		ExecutorService tPool = Executors.newFixedThreadPool(threads)
@@ -226,8 +229,29 @@ class ModelHandler implements ReificationInterface {
 		createMessages(cluster, modelServices, messages)
 		LOG.info("Model created in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
 	}
+	
+	public Cluster updateModelFromAsyncMonitoring(String version, Future<String> environment, 
+		Future<List> hosts, Future<Map> applications, Future<List> services, Future<List> messages, 
+		List metricsKeys, Future<List> metrics) {
+		
+		while(!environment.isDone() && !hosts.isDone() && !applications.isDone() &&
+			!services.isDone() && !messages.isDone() && !metrics.isDone()) {
+			
+			environment.isDone()	?:  LOG.info ("Loading environment...")
+			hosts.isDone()			?:  LOG.info ("Loading hosts...")
+			applications.isDone()	?:  LOG.info ("Loading applications...")
+			services.isDone() 		?:  LOG.info ("Loading services...")
+			messages.isDone() 		?:  LOG.info ("Loading messages...")
+			metrics.isDone()		?:  LOG.info ("Loading metrics...")
+			
+			Thread.sleep(100)
+		}
+		
+		return updateModel(version, environment, hosts, applications, services, messages,
+			metricsKeys, metrics)
+		
+	}
 
-	@Synchronized
 	public Cluster updateModel(String version, String environment, List hosts, Map applications,
 			List services, List messages, List metricsKeys, List metrics) {
 
@@ -293,17 +317,45 @@ class ModelHandler implements ReificationInterface {
 		return history
 	}
 
-	@Override
-	public boolean move(List<Moviment> adaptationScript) {
-		adaptationScript.each {
-			move(it)
+	public boolean moveOnModel(Moviment moviment) {
+		if(moviment == Moviment.nonMove()) {
+			return true
+		}
+		
+		Cluster cluster = getCluster()
+		try {
+			String app = moviment.application
+			String svc = moviment.service
+			String src = moviment.hostSource
+			String dst = moviment.hostDestination
+			
+			Host srcHost = cluster.hosts[src]
+			Host dstHost = cluster.hosts[dst]
+			
+			ServiceInstance service = cluster.applications[app].services.values().find {
+				it.name == svc || it.id == svc
+			}
+			
+			//TODO: there is a bug on model.xmi update
+			// it is mantaining two "intances" at same time
+			// can arise ERRORS when loading 
+				
+			dstHost.services[service.id] = service
+			service.setHost(dstHost)
+			srcHost.services.remove(svc)
+			
+			return true
+		}
+		catch(Exception e) {
+			LOG.warn "The model can't be udpated with the moving: {}", moviment
+			LOG.error e.message
+			return false
 		}
 	}
-
-	@Override
-	public boolean move(Moviment moviment) {
-		LOG.trace ("moving [{}] ...", moviment.toString())
-		return false;
+	
+	public boolean undoMoveOnModel(Moviment moviment) {
+		LOG.warn "Reverting model to: {}", moviment
+		Moviment undo = moviment.createUndoMoviment()
+		return moveOnModel(undo)
 	}
-
 }

@@ -47,6 +47,7 @@ public interface Affinity {
 
 	/**
 	 * Returns the value of the '<em><b>Degree</b></em>' attribute.
+	 * The default value is <code>"0.0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Degree</em>' attribute isn't clear,
@@ -55,7 +56,7 @@ public interface Affinity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Degree</em>' attribute.
 	 * @see #setDegree(Float)
-	 * @model ordered="false"
+	 * @model default="0.0" ordered="false"
 	 * @generated
 	 */
 	Float getDegree();

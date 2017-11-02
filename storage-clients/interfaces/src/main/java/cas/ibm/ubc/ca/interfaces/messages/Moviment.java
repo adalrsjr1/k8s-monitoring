@@ -6,6 +6,8 @@ public class Moviment {
 	public final String hostSource;
 	public final String hostDestination;
 	
+	private static final Moviment NON_MOVE = Moviment.create("", "", "", "");
+	
 	private Moviment(String application, String service, String hostSource, String hostDestination) {
 		super();
 		this.application = application;
@@ -18,6 +20,14 @@ public class Moviment {
 		return new Moviment(application, service, hostSource, hostDestination);
 	}
 
+	public Moviment createUndoMoviment() {
+		return Moviment.create(application, service, hostDestination, hostSource);
+	}
+	
+	public static Moviment nonMove() {
+		return NON_MOVE;
+	}
+	
 	public String getApplication() {
 		return application;
 	}
@@ -79,8 +89,7 @@ public class Moviment {
 
 	@Override
 	public String toString() {
-		return "Moviment [application=" + application + ", service=" + service + ", hostSource=" + hostSource
-				+ ", hostDestination=" + hostDestination + "]";
+		return application + "." + service + " :: " + hostSource + " --> " + hostDestination;
 	}
 	
 }
