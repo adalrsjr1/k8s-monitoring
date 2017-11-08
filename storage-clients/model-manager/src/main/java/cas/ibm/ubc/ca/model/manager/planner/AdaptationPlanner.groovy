@@ -1,5 +1,7 @@
 package cas.ibm.ubc.ca.model.manager.planner
 
+import java.util.Map
+
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,7 +20,6 @@ class AdaptationPlanner {
 
 	private ModelHandler modelHandler
 
-//	private List affinitiesWaiting = []
 	private List<Moviment> adaptationScript = []
 
 	public AdaptationPlanner(ModelHandler modelHandler) {
@@ -64,26 +65,37 @@ class AdaptationPlanner {
 	 */
 	private Boolean innerFitsOnHost(Map metric1, Map metric2, Map limits, Map reservation) {
 		def result = sumMetrics(metric1, metric2)
-		return (compareMetrics(result, limits) && compareMetrics(result, reservation))
+		
+	   return reservation.cpu < limits.cpu && reservation.memory < limits.memory \
+			   && result.cpu < limits.cpu && result.memory < limits.memory
 	}
 
+	private Double cores(Host host) {
+		return host.resourceLimit.cpu / 1000.0
+	}
+	
+	private Boolean checkServicesPerCore(Host host) {
+		return (host.services.size() + 1) <= cores(host)
+	}
+	
 	private Boolean fitsOnHost(ServiceInstance svc1, ServiceInstance svc2, Host host) {
-		Map zero = [:]
-		if(!host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+		Map zero = ["cpu":0.0, "memory":0.0]
+		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
 			return innerFitsOnHost(svc1.metrics, svc2.metrics, host.resourceLimit, host.resourceReserved)
 		}
 		
-		if(host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+		if(checkServicesPerCore(host) && host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
 			return innerFitsOnHost(zero, svc2.metrics, host.resourceLimit, host.resourceReserved)
 		}
 		
-		if(!host.services.containsKey(svc1.id) && host.services.containsKey(svc2.id)) {
+		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && host.services.containsKey(svc2.id)) {
 			return innerFitsOnHost(svc1.metrics, zero, host.resourceLimit, host.resourceReserved)
 		}
 		
 		return false
 		
 	}
+	
 	private Map sumMetrics(Map metric1, Map metric2) {
 		Map result = [:]
 
@@ -149,11 +161,7 @@ class AdaptationPlanner {
 		ServiceInstance svc1 = getAffinityServiceSrc(affinity)
 		ServiceInstance svc2 = affinity.getWith()
 
-		Double metricsComparison =
-				compareMetrics(svc1.getHost().metrics, svc2.getHost().metrics)
-
 		Moviment result
-
 		Host src, dst
 		
 		def moveService = { svc, hsource, htarget ->
@@ -161,8 +169,8 @@ class AdaptationPlanner {
 				return createMove(svc, hsource, htarget)
 			}
 		}
-
-		if(!moved.contains(svc2) && metricsComparison > 0 && fitsOnHost(svc1, svc2, svc1.getHost())) {
+		
+		if(!moved.contains(svc2) && fitsOnHost(svc1, svc2, svc1.getHost())) {
 			LOG.debug("Moving {} to {}...", svc2.name, svc1.host.name)
 			src = svc2.host
 			dst = svc1.host
@@ -170,7 +178,7 @@ class AdaptationPlanner {
 			moved << svc1
 			moved << svc2
 		}
-		else if(!moved.contains(svc1) && metricsComparison < 0 && fitsOnHost(svc1, svc2, svc2.getHost())) {
+		else if(!moved.contains(svc1) && fitsOnHost(svc1, svc2, svc2.getHost())) {
 			LOG.debug("Moving {} to {}...", svc1.name, svc2.host.name)
 			src = svc1.host
 			dst = svc2.host
@@ -181,30 +189,18 @@ class AdaptationPlanner {
 		else {
 			LOG.info("The moviment {}-[{}]->{} will not be applied",
 					getAffinityServiceSrc(affinity).name, affinity.degree, affinity.with.name)
-			// service cannot be moved from some reason
-//			affinitiesWaiting << affinity
 			result = Moviment.nonMove()
 		}
-
-//		if(!modelHandler.moveOnModel(result)) {
-//			modelHandler.undoMoveOnModel(result)
-//		}
 
 		return result
 	}
 
-//	private void waitingAffinitiesHandler(List affinities) {
-//		LOG.warn "WaitingAffinitiesHandler not implemented yet!!!"
-//	}
-
-	List<Moviment> execute(List affinities) {
+	List<Moviment> execute(Queue affinities) {
 		Set moved = [] as Set
 		while( affinities.size() > 0 ) {
-			def obj = affinities.remove()
-			adaptationScript << canMove(obj)
+			def obj = affinities.poll()
+			adaptationScript << canMove(obj, moved)
 		}
-//		waitingAffinitiesHandler(affinitiesWaiting)
-
 		return adaptationScript
 	}
 

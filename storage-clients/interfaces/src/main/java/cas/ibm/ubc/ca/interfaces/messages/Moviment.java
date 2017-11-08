@@ -89,7 +89,10 @@ public class Moviment {
 
 	@Override
 	public String toString() {
-		return application + "." + service + " :: " + hostSource + " --> " + hostDestination;
+		if(this == nonMove()) {
+			return "nonMove";
+		}
+		return hostSource + " --> " + hostDestination + "[" + application + "." + service + "]";
 	}
 	
 }

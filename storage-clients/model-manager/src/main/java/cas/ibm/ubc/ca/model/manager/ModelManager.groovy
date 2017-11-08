@@ -137,7 +137,7 @@ class ModelManager implements ReificationInterface {
 		}
 		catch(Exception e) {
 			LOG.warn "New placement cannot be applied into cluster..."
-			modelHandler.undoMoveOnModel(moviment)
+//			modelHandler.undoMoveOnModel(moviment)
 			LOG.error(e.getCause())
 			e.printStackTrace()
 		}

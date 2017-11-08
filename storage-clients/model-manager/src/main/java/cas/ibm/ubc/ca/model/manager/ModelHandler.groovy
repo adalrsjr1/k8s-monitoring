@@ -178,9 +178,11 @@ class ModelHandler {
 				cluster.applications[s.application].services[service.id] = service
 			}
 
-			cluster.hosts.values().find { h ->
+			Host host = cluster.hosts.values().find { h ->
 				h.hostAddress.contains(s.hostAddress)
-			}.services[service.id] = service
+			}
+			host.services[service.id] = service
+			host.resourceReserved.putAll(service.metrics)
 
 			modelServices[service.id] = service
 			modelServices[service.name] = service
@@ -319,23 +321,25 @@ class ModelHandler {
 	}
 	
 	// target += source
-	private void mergeMap(Map target, Map source) {
+	private Map mergeMap(Map target, Map source) {
 		Set keys = source.keySet()
 		for( String key in keys) {
-			Double value = target.getOrDefault(key, 0.0)
+			def value = target.getOrDefault(key, 0.0)
 			value += source[key]
 			target[key] = value
 		}
+		return target
 	}
 	
 	// target -= source
-	private void splitMap(Map target, Map source) {
+	private Map splitMap(Map target, Map source) {
 		Set keys = source.keySet()
 		for( String key in keys) {
-			Double value = target.getOrDefault(key, 0.0)
+			def value = target.getOrDefault(key, 0.0)
 			value -= source[key]
 			target[key] = value
 		}
+		return target
 	}
 	
 	// implements undo
