@@ -17,6 +17,7 @@ import java.util.Map;
  *   <li>{@link model.Host#getName <em>Name</em>}</li>
  *   <li>{@link model.Host#getServices <em>Services</em>}</li>
  *   <li>{@link model.Host#getHostAddress <em>Host Address</em>}</li>
+ *   <li>{@link model.Host#getResourceReserved <em>Resource Reserved</em>}</li>
  * </ul>
  *
  * @model
@@ -78,5 +79,21 @@ public interface Host extends ElementWithResources {
 	 * @generated
 	 */
 	List<String> getHostAddress();
+
+	/**
+	 * Returns the value of the '<em><b>Resource Reserved</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link java.lang.Double},
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Resource Reserved</em>' map isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Resource Reserved</em>' map.
+	 * @model mapType="model.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
+	 * @generated
+	 */
+	Map<String, Double> getResourceReserved();
 
 } // Host

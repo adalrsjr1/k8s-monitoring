@@ -57,6 +57,8 @@
         eType="#//StringToServiceInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostAddress" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resourceReserved" upperBound="-1"
+        eType="#//StringToDoubleMap" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringToDoubleMap" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

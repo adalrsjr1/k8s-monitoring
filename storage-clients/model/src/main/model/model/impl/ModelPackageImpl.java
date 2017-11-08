@@ -586,13 +586,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST__HOST_ADDRESS = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Resource Reserved</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HOST__RESOURCE_RESERVED = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Host</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Host</em>' class.
@@ -1486,6 +1495,20 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the map '{@link model.Host#getResourceReserved <em>Resource Reserved</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Resource Reserved</em>'.
+	 * @see model.Host#getResourceReserved()
+	 * @see #getHost()
+	 * @generated
+	 */
+	public EReference getHost_ResourceReserved() {
+		return (EReference)hostEClass.getEStructuralFeatures().get(3);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Double Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1880,6 +1903,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEAttribute(hostEClass, HOST__NAME);
 		createEReference(hostEClass, HOST__SERVICES);
 		createEAttribute(hostEClass, HOST__HOST_ADDRESS);
+		createEReference(hostEClass, HOST__RESOURCE_RESERVED);
 
 		stringToDoubleMapEClass = createEClass(STRING_TO_DOUBLE_MAP);
 		createEAttribute(stringToDoubleMapEClass, STRING_TO_DOUBLE_MAP__KEY);
@@ -1991,6 +2015,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEAttribute(getHost_Name(), ecorePackage.getEString(), "name", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHost_Services(), this.getStringToServiceInstance(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHost_ResourceReserved(), this.getStringToDoubleMap(), null, "resourceReserved", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToDoubleMapEClass, Map.Entry.class, "StringToDoubleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToDoubleMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2313,6 +2338,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute HOST__HOST_ADDRESS = eINSTANCE.getHost_HostAddress();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Reserved</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference HOST__RESOURCE_RESERVED = eINSTANCE.getHost_ResourceReserved();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.StringToDoubleMapImpl <em>String To Double Map</em>}' class.

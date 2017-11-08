@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.k8s;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,9 @@ import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.AppsV1beta1Api;
 import io.kubernetes.client.models.AppsV1beta1Deployment;
 import io.kubernetes.client.models.AppsV1beta1DeploymentList;
+import io.kubernetes.client.models.AppsV1beta1DeploymentSpec;
+import io.kubernetes.client.models.V1PodSpec;
+import io.kubernetes.client.models.V1PodTemplateSpec;
 import io.kubernetes.client.util.Config;
 
 
@@ -43,7 +47,15 @@ public class Hello {
 
 
 	static Map<String, String> getNodeSelector(AppsV1beta1Deployment deployment) {
-		return deployment.getSpec().getTemplate().getSpec().getNodeSelector();
+		AppsV1beta1DeploymentSpec spec = deployment.getSpec();
+		
+		V1PodTemplateSpec temp = spec.getTemplate();
+		
+		V1PodSpec podSpec = temp.getSpec();
+		
+		Map<String, String> map = podSpec.getNodeSelector();
+		
+		return map;
 	}
 
 	/*
@@ -52,6 +64,7 @@ public class Hello {
 	public static void main(String[] args) throws Exception {
 		// solution based on this snippet:
 		// https://github.com/spinnaker/clouddriver/pull/1868/files#diff-150b8912ec8e0cd49b16cb79345b11e7R98'
+		String namespace = "default";
 		String service = "web-server"; // use "redis-cache" or "web-server"
 		String node = "swarm5"; // use "swarm1" or "swarm5"
 
@@ -66,12 +79,27 @@ public class Hello {
 		AppsV1beta1Deployment current = Hello.getDeployment(v1betaApi, service);
 		AppsV1beta1Deployment desired = Hello.getDeployment(v1betaApi, service);
 		
-		getNodeSelector(desired).put("kubernetes.io/hostname", node);
-		Map[] result = determineJsonPatch(current, desired);
+//		getNodeSelector(desired);
+		
+		Map<String, String> nodeSelector = getNodeSelector(desired);
+		Map[] result;
+		if(nodeSelector == null) {
+			result = new Map[]{new HashMap<String, String>()};
+			result[0].put("op", "add");
+			result[0].put("path","/spec/template/spec/nodeSelector");
+			Map<String, String> patch = new HashMap<>();
+			patch.put("kubernetes.io/hostname", node);
+			result[0].put("value",patch);
+		}
+		else {
+			nodeSelector.put("kubernetes.io/hostname", node);
+			result = determineJsonPatch(current, desired);
+		}
+		
 		try {
-
-			ApiResponse<AppsV1beta1Deployment> response = v1betaApi.patchNamespacedDeploymentWithHttpInfo(service, "default", result, "true");
-			System.out.println(response);
+			
+			ApiResponse<AppsV1beta1Deployment> response = v1betaApi.patchNamespacedDeploymentWithHttpInfo(service, namespace, result, "true");
+			System.out.println(response.getData());
 		}
 		catch (ApiException e) {
 			System.out.println(e.getResponseBody());

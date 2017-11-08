@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.HostImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.HostImpl#getServices <em>Services</em>}</li>
  *   <li>{@link model.impl.HostImpl#getHostAddress <em>Host Address</em>}</li>
+ *   <li>{@link model.impl.HostImpl#getResourceReserved <em>Resource Reserved</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,6 +81,16 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * @ordered
 	 */
 	protected EList<String> hostAddress;
+
+	/**
+	 * The cached value of the '{@link #getResourceReserved() <em>Resource Reserved</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceReserved()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, Double> resourceReserved;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -150,11 +161,25 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Map<String, Double> getResourceReserved() {
+		if (resourceReserved == null) {
+			resourceReserved = new EcoreEMap<String,Double>(ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, ModelPackageImpl.HOST__RESOURCE_RESERVED);
+		}
+		return resourceReserved.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackageImpl.HOST__SERVICES:
 				return ((InternalEList<?>)((EMap.InternalMapView<String, ServiceInstance>)getServices()).eMap()).basicRemove(otherEnd, msgs);
+			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getResourceReserved()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -174,6 +199,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				else return getServices();
 			case ModelPackageImpl.HOST__HOST_ADDRESS:
 				return getHostAddress();
+			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
+				if (coreType) return ((EMap.InternalMapView<String, Double>)getResourceReserved()).eMap();
+				else return getResourceReserved();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -197,6 +225,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				getHostAddress().clear();
 				getHostAddress().addAll((Collection<? extends String>)newValue);
 				return;
+			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getResourceReserved()).eMap()).set(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -218,6 +249,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 			case ModelPackageImpl.HOST__HOST_ADDRESS:
 				getHostAddress().clear();
 				return;
+			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
+				getResourceReserved().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -236,6 +270,8 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				return services != null && !services.isEmpty();
 			case ModelPackageImpl.HOST__HOST_ADDRESS:
 				return hostAddress != null && !hostAddress.isEmpty();
+			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
+				return resourceReserved != null && !resourceReserved.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

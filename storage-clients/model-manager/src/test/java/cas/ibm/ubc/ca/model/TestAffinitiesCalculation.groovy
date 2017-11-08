@@ -121,9 +121,9 @@ class TestAffinitiesCalculation extends GroovyTestCase{
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		
 		def aux = ["svc1:svc2", 
+		 "svc1:svc3",
 		 "svc1:svc4",
 		 "svc1:svc5",
-		 "svc1:svc3",
 		 "svc2:svc3",
 		 "svc3:svc4"]
 		

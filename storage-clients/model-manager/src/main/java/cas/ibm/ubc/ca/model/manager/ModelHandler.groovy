@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.model.manager
 
+import java.util.Map
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -316,46 +317,89 @@ class ModelHandler {
 	public Collection getHistory() {
 		return history
 	}
-
-	public boolean moveOnModel(Moviment moviment) {
-		if(moviment == Moviment.nonMove()) {
-			return true
-		}
-		
-		Cluster cluster = getCluster()
-		try {
-			String app = moviment.application
-			String svc = moviment.service
-			String src = moviment.hostSource
-			String dst = moviment.hostDestination
-			
-			Host srcHost = cluster.hosts[src]
-			Host dstHost = cluster.hosts[dst]
-			
-			ServiceInstance service = cluster.applications[app].services.values().find {
-				it.name == svc || it.id == svc
-			}
-			
-			//TODO: there is a bug on model.xmi update
-			// it is mantaining two "intances" at same time
-			// can arise ERRORS when loading 
-				
-			dstHost.services[service.id] = service
-			service.setHost(dstHost)
-			srcHost.services.remove(svc)
-			
-			return true
-		}
-		catch(Exception e) {
-			LOG.warn "The model can't be udpated with the moving: {}", moviment
-			LOG.error e.message
-			return false
+	
+	// target += source
+	private void mergeMap(Map target, Map source) {
+		Set keys = source.keySet()
+		for( String key in keys) {
+			Double value = target.getOrDefault(key, 0.0)
+			value += source[key]
+			target[key] = value
 		}
 	}
 	
-	public boolean undoMoveOnModel(Moviment moviment) {
-		LOG.warn "Reverting model to: {}", moviment
-		Moviment undo = moviment.createUndoMoviment()
-		return moveOnModel(undo)
+	// target -= source
+	private void splitMap(Map target, Map source) {
+		Set keys = source.keySet()
+		for( String key in keys) {
+			Double value = target.getOrDefault(key, 0.0)
+			value -= source[key]
+			target[key] = value
+		}
 	}
+	
+	// implements undo
+	public Boolean moveOnModel(ServiceInstance service, Host hostDestination) {
+		Boolean result = false
+		try {
+			Host src = service.getHost()
+			hostDestination.services[(service.name)] = service
+			mergeMap(hostDestination.resourceReserved, service.metrics)
+			
+			src.services.remove(service.name)
+			splitMap(src.resourceReserved, service.metrics)
+			result = true
+		}
+		catch(Exception e) {
+			result = false
+			LOG.error e.getMessage()
+			throw new RuntimeException(e)
+		}
+		finally {
+			return result
+		}
+	}
+	
+//	public Boolean undoMoveOnModel(ServiceInstance service, Host hostDestination) {
+//		LOG.warn "Reverting model to: {}", moviment
+//		Moviment undo = moviment.createUndoMoviment()
+//		return moveOnModel(service, hostDestination)
+//	}
+
+//	public boolean moveOnModel(Moviment moviment) {
+//		if(moviment == Moviment.nonMove()) {
+//			return true
+//		}
+//		
+//		Cluster cluster = getCluster()
+//		try {
+//			String app = moviment.application
+//			String svc = moviment.service
+//			String src = moviment.hostSource
+//			String dst = moviment.hostDestination
+//			
+//			Host srcHost = cluster.hosts[src]
+//			Host dstHost = cluster.hosts[dst]
+//			
+//			ServiceInstance service = cluster.applications[app].services.values().find {
+//				it.name == svc || it.id == svc
+//			}
+//			
+//			//TODO: there is a bug on model.xmi update
+//			// it is mantaining two "intances" at same time
+//			// can arise ERRORS when loading 
+//				
+//			dstHost.services[service.id] = service
+//			service.setHost(dstHost)
+//			srcHost.services.remove(svc)
+//			
+//			return true
+//		}
+//		catch(Exception e) {
+//			LOG.warn "The model can't be udpated with the moving: {}", moviment
+//			LOG.error e.message
+//			return false
+//		}
+//	}
+//	
 }

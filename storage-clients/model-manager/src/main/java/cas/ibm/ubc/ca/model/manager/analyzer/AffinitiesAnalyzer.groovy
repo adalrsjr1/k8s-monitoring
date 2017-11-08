@@ -73,13 +73,21 @@ class AffinitiesAnalyzer {
 		normalize(data, totalData) * (1.0f - weight)
 	}
 
-	public void calculate(Cluster cluster, Resource resource) {
+	public Queue calculate(Cluster cluster, Resource resource) {
 		Stopwatch watch = Stopwatch.createStarted()
 		Map cache = messagesCache(cluster)
 		
 		ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 		
 		Set services = [] as Set
+		def comparator = new Comparator() {
+			@Override
+			public int compare(def o1, def o2) {
+				return Float.compare( o2.getDegree(), o1.getDegree() )
+			}
+		}
+		
+		Queue affinities = new PriorityQueue(comparator)
 		
 		cache.each { k, v ->
 			ServiceInstance src = v[2]
@@ -98,22 +106,18 @@ class AffinitiesAnalyzer {
 			aff.setWith(dst)
 						
 			src.hasAffinities << aff
+			affinities << aff
 			services << src
 		}
 		
-		def comparator = new Comparator() {
-			@Override
-			public int compare(def o1, def o2) {
-				return Float.compare( o2.getDegree(), o1.getDegree() )
-			}
-		}
-		
-		services.each { Service svc ->
-			ECollections.sort(svc.getHasAffinities(), comparator)
-		}
+//		services.each { Service svc ->
+//			ECollections.sort(svc.getHasAffinities(), comparator)
+//		}
 		
 		LOG.info("Affinities calculated in {} ms", watch.elapsed(TimeUnit.MILLISECONDS))
 		watch.stop()
+		
+		return affinities
 	}	
 	
 }

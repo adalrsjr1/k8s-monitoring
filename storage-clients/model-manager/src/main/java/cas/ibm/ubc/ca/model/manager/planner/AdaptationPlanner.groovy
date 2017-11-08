@@ -18,7 +18,7 @@ class AdaptationPlanner {
 
 	private ModelHandler modelHandler
 
-	private List affinitiesWaiting = []
+//	private List affinitiesWaiting = []
 	private List<Moviment> adaptationScript = []
 
 	public AdaptationPlanner(ModelHandler modelHandler) {
@@ -62,11 +62,28 @@ class AdaptationPlanner {
 	 * @param host
 	 * @return
 	 */
-	private Boolean fitsOnHost(Map metric1, Map metric2, Map host) {
+	private Boolean innerFitsOnHost(Map metric1, Map metric2, Map limits, Map reservation) {
 		def result = sumMetrics(metric1, metric2)
-		return compareMetrics(result, host)
+		return (compareMetrics(result, limits) && compareMetrics(result, reservation))
 	}
 
+	private Boolean fitsOnHost(ServiceInstance svc1, ServiceInstance svc2, Host host) {
+		Map zero = [:]
+		if(!host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+			return innerFitsOnHost(svc1.metrics, svc2.metrics, host.resourceLimit, host.resourceReserved)
+		}
+		
+		if(host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+			return innerFitsOnHost(zero, svc2.metrics, host.resourceLimit, host.resourceReserved)
+		}
+		
+		if(!host.services.containsKey(svc1.id) && host.services.containsKey(svc2.id)) {
+			return innerFitsOnHost(svc1.metrics, zero, host.resourceLimit, host.resourceReserved)
+		}
+		
+		return false
+		
+	}
 	private Map sumMetrics(Map metric1, Map metric2) {
 		Map result = [:]
 
@@ -86,26 +103,30 @@ class AdaptationPlanner {
 
 	}
 
+//	// TODO: implement undo for cases where the merge/split fails
+//	private Boolean moveService(ServiceInstance service, Host hostDestination) {
+//		Boolean result = false
+//		try {
+//			Host src = service.getHost()
+//			hostDestination.services[(service.name)] = service
+//			mergeMap(hostDestination.resourceReserved, service.metrics)
+//			
+//			src.services.remove(service.name)
+//			splitMap(src.resourceReserved, service.metrics)
+//			result = true
+//		}
+//		catch(Exception e) {
+//			result = false
+//			LOG.error e.getMessage()
+//			throw new RuntimeException(e)
+//		}
+//		finally {
+//			return result
+//		}
+//	}
+	
 	private ServiceInstance getAffinityServiceSrc(Affinity affinity) {
 		return affinity.eContainer()
-	}
-
-	private Boolean moveService(ServiceInstance service, Host hostDestination) {
-		Boolean result = false
-		try {
-			Host src = service.getHost()
-			hostDestination.services[(service.name)] = service
-			src.services.remove(service.name)
-			result = true
-		}
-		catch(Exception e) {
-			result = false
-			LOG.error e.getMessage()
-			throw new RuntimeException(e)
-		}
-		finally {
-			return result
-		}
 	}
 
 	private Moviment createMove(Service service, Host source, Host destination) {
@@ -123,8 +144,8 @@ class AdaptationPlanner {
 		return Moviment.create(application, service,
 				hostSource, hostDestination)
 	}
-
-	private Moviment canMove(Affinity affinity) {
+	
+	private Moviment canMove(Affinity affinity, Set moved) {
 		ServiceInstance svc1 = getAffinityServiceSrc(affinity)
 		ServiceInstance svc2 = affinity.getWith()
 
@@ -134,57 +155,55 @@ class AdaptationPlanner {
 		Moviment result
 
 		Host src, dst
+		
+		def moveService = { svc, hsource, htarget ->
+			if( modelHandler.moveOnModel(svc, htarget) ) {
+				return createMove(svc, hsource, htarget)
+			}
+		}
 
-		if(metricsComparison > 0 && fitsOnHost(svc1.metrics, svc2.metrics,
-		svc1.getHost().metrics)) {
+		if(!moved.contains(svc2) && metricsComparison > 0 && fitsOnHost(svc1, svc2, svc1.getHost())) {
 			LOG.debug("Moving {} to {}...", svc2.name, svc1.host.name)
 			src = svc2.host
 			dst = svc1.host
-			if(moveService(svc2, dst)) {
-				result = createMove(svc2, src, dst)
-			}
+			result = moveService(svc2, src, dst)
+			moved << svc1
+			moved << svc2
 		}
-		else if(metricsComparison < 0 && fitsOnHost(svc1.metrics, svc2.metrics,
-		svc2.getHost().metrics)) {
+		else if(!moved.contains(svc1) && metricsComparison < 0 && fitsOnHost(svc1, svc2, svc2.getHost())) {
 			LOG.debug("Moving {} to {}...", svc1.name, svc2.host.name)
 			src = svc1.host
 			dst = svc2.host
-			if(moveService(svc1, svc2.getHost())) {
-				result = createMove(svc1, src, dst)
-			}
+			result = moveService(svc1, src, dst)
+			moved << svc1
+			moved << svc2
 		}
 		else {
-			LOG.info("affinity {}-[{}]->{} cannot be applied yet!",
+			LOG.info("The moviment {}-[{}]->{} will not be applied",
 					getAffinityServiceSrc(affinity).name, affinity.degree, affinity.with.name)
 			// service cannot be moved from some reason
-			affinitiesWaiting << affinity
+//			affinitiesWaiting << affinity
 			result = Moviment.nonMove()
 		}
 
-		if(!modelHandler.moveOnModel(result)) {
-			modelHandler.undoMoveOnModel(result)
-		}
+//		if(!modelHandler.moveOnModel(result)) {
+//			modelHandler.undoMoveOnModel(result)
+//		}
 
 		return result
 	}
 
-	private void waitingAffinitiesHandler(List affinities) {
-		LOG.warn "WaitingAffinitiesHandler not implemented yet!!!"
-	}
+//	private void waitingAffinitiesHandler(List affinities) {
+//		LOG.warn "WaitingAffinitiesHandler not implemented yet!!!"
+//	}
 
-	List<Moviment> execute(Cluster cluster) {
-
-		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
-
-		while( iterator.hasNext() ) {
-			def obj = iterator.next()
-
-			if(obj instanceof Affinity) {
-				adaptationScript << canMove(obj)
-			}
+	List<Moviment> execute(List affinities) {
+		Set moved = [] as Set
+		while( affinities.size() > 0 ) {
+			def obj = affinities.remove()
+			adaptationScript << canMove(obj)
 		}
-
-		waitingAffinitiesHandler(affinitiesWaiting)
+//		waitingAffinitiesHandler(affinitiesWaiting)
 
 		return adaptationScript
 	}
