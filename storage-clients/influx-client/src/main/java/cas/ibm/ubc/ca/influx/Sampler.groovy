@@ -56,38 +56,12 @@ public class Sampler implements MetricsInspectionInterface {
 	                           .get(1)
 	}
 	
-	/* // measurements
-	 * cpu/limit
-	 * cpu/node_allocatable
-	 * cpu/node_capacity
-	 * cpu/node_reservation
-	 * cpu/node_utilization
-	 * cpu/request
-	 * cpu/usage
-	 * cpu/usage_rate
-	 * memory/cache
-	 * memory/limit
-	 * memory/node_allocatable
-	 * memory/node_capacity
-	 * memory/node_reservation
-	 * memory/node_utilization
-	 * memory/request
-	 * memory/usage
-	 */
-	private String tagCpuMemory(String tag) {
-		if(tag.contains("cpu"))
-			return "cpu"
-		if(tag.contains("memory"))
-			return "memory"
-		return tag
-	}
-		
 	private Map<String, Double> parseList(QueryResult queryResult) {
 		Map result = [:]
 		
 		getSeriesList(queryResult).each {
 			
-			def tag = tagCpuMemory(it.getTags().values()[0])
+			def tag = it.getTags().values()[0]
 			
 			def value = it.getValues()
 					.get(0)
