@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ServiceImpl#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.impl.ServiceImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.ServiceImpl#getApplication <em>Application</em>}</li>
+ *   <li>{@link model.impl.ServiceImpl#getStateful <em>Stateful</em>}</li>
  * </ul>
  *
  * @generated
@@ -83,6 +84,26 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * @ordered
 	 */
 	protected String application = APPLICATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStateful() <em>Stateful</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStateful()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean STATEFUL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStateful() <em>Stateful</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStateful()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean stateful = STATEFUL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -162,6 +183,27 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Boolean getStateful() {
+		return stateful;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStateful(Boolean newStateful) {
+		Boolean oldStateful = stateful;
+		stateful = newStateful;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.SERVICE__STATEFUL, oldStateful, stateful));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -185,6 +227,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return getName();
 			case ModelPackageImpl.SERVICE__APPLICATION:
 				return getApplication();
+			case ModelPackageImpl.SERVICE__STATEFUL:
+				return getStateful();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,6 +252,9 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__APPLICATION:
 				setApplication((String)newValue);
 				return;
+			case ModelPackageImpl.SERVICE__STATEFUL:
+				setStateful((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -229,6 +276,9 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 			case ModelPackageImpl.SERVICE__APPLICATION:
 				setApplication(APPLICATION_EDEFAULT);
 				return;
+			case ModelPackageImpl.SERVICE__STATEFUL:
+				setStateful(STATEFUL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -247,6 +297,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackageImpl.SERVICE__APPLICATION:
 				return APPLICATION_EDEFAULT == null ? application != null : !APPLICATION_EDEFAULT.equals(application);
+			case ModelPackageImpl.SERVICE__STATEFUL:
+				return STATEFUL_EDEFAULT == null ? stateful != null : !STATEFUL_EDEFAULT.equals(stateful);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -265,6 +317,8 @@ public abstract class ServiceImpl extends ElementWithResourcesImpl implements Se
 		result.append(name);
 		result.append(", application: ");
 		result.append(application);
+		result.append(", stateful: ");
+		result.append(stateful);
 		result.append(')');
 		return result.toString();
 	}

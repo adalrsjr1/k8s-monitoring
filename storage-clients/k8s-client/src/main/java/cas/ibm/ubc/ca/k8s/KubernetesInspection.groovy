@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 import cas.ibm.ubc.ca.interfaces.ClusterInspectionInterface
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
+import io.kubernetes.client.apis.AppsV1beta1Api
 import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Namespace
 import io.kubernetes.client.models.V1NamespaceList
@@ -18,6 +19,8 @@ import io.kubernetes.client.models.V1Pod
 import io.kubernetes.client.models.V1PodList
 import io.kubernetes.client.models.V1Service
 import io.kubernetes.client.models.V1ServiceList
+import io.kubernetes.client.models.V1beta1StatefulSet
+import io.kubernetes.client.models.V1beta1StatefulSetList
 import io.kubernetes.client.util.Config
 
 // https://github.com/kubernetes-client/java/blob/master/kubernetes/README.md
@@ -27,6 +30,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 	final int timeout
 
 	private CoreV1Api api
+	private AppsV1beta1Api betaApi
 
 	/**
 	 * Timeout == 0 -> no timeout
@@ -36,7 +40,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 	public KubernetesInspection(String url, int timeout) {
 		this.url = url
 		this.timeout = timeout
-		api = client()
+		client()
 	}
 	
 	private KubernetesInspection() { } 
@@ -47,7 +51,8 @@ class KubernetesInspection implements ClusterInspectionInterface {
 
 		client.setConnectTimeout(timeout);
 
-		return new CoreV1Api(client);
+		betaApi = new AppsV1beta1Api(client)
+		api = new CoreV1Api(client);
 	}
 
 	@Override
@@ -59,6 +64,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 		// allocatable gives the amount of resources that are availabe to Pods {metrics}
 		// capacity gives the limit of resources that are avilable in the node {limits}
 		return list.getItems().inject([]) { List result, V1Node item ->
+			LOG.warn "test if limits have key [cpu, memory] and cpu,memory both int"
 			Map host = [
 				name: item.metadata.name,
 				limits: item.status.capacity,
@@ -75,12 +81,21 @@ class KubernetesInspection implements ClusterInspectionInterface {
 		}
 	}
 
+	private Boolean isStateful(V1beta1StatefulSetList list, String name) {
+		return list.getItems().find { statefulService ->
+			statefulService.spec.serviceName == name
+		} != null
+	}
+	
 	private List auxServices() {
 		V1ServiceList list = api.listServiceForAllNamespaces(null, null, null, null, null, null, null, null, null)
-
+		V1beta1StatefulSetList statefulServices = betaApi.listStatefulSetForAllNamespaces(null, null, null, null, null, null, null, null, null)
 		return list.getItems().inject([]) { List result, V1Service item ->
+			String name = item.metadata.name
+			
 			Map service = [
-				name: item.metadata.name,
+				name: name,
+				stateful: isStateful(statefulServices, name),
 				application: item.metadata.namespace,
 				selector: item.spec.selector,
 				ports: item.spec.ports.inject([]) {r,p -> r << p.port},

@@ -240,13 +240,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE__APPLICATION = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Stateful</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE__STATEFUL = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Service</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Service</em>' class.
@@ -357,6 +366,15 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int SERVICE_INSTANCE__APPLICATION = SERVICE__APPLICATION;
+
+	/**
+	 * The feature id for the '<em><b>Stateful</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__STATEFUL = SERVICE__STATEFUL;
 
 	/**
 	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
@@ -1200,6 +1218,20 @@ public class ModelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.Service#getStateful <em>Stateful</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Stateful</em>'.
+	 * @see model.Service#getStateful()
+	 * @see #getService()
+	 * @generated
+	 */
+	public EAttribute getService_Stateful() {
+		return (EAttribute)serviceEClass.getEStructuralFeatures().get(3);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link model.Affinity <em>Affinity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1876,6 +1908,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(serviceEClass, SERVICE__HAS_AFFINITIES);
 		createEAttribute(serviceEClass, SERVICE__NAME);
 		createEAttribute(serviceEClass, SERVICE__APPLICATION);
+		createEAttribute(serviceEClass, SERVICE__STATEFUL);
 
 		affinityEClass = createEClass(AFFINITY);
 		createEReference(affinityEClass, AFFINITY__WITH);
@@ -1988,6 +2021,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getService_HasAffinities(), this.getAffinity(), null, "hasAffinities", null, 0, -1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getService_Name(), ecorePackage.getEString(), "name", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getService_Application(), ecorePackage.getEString(), "application", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getService_Stateful(), ecorePackage.getEBooleanObject(), "stateful", null, 0, 1, Service.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(affinityEClass, Affinity.class, "Affinity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAffinity_With(), this.getService(), null, "with", null, 0, 1, Affinity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2146,6 +2180,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute SERVICE__APPLICATION = eINSTANCE.getService_Application();
+
+		/**
+		 * The meta object literal for the '<em><b>Stateful</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute SERVICE__STATEFUL = eINSTANCE.getService_Stateful();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.AffinityImpl <em>Affinity</em>}' class.

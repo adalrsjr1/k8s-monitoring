@@ -16,6 +16,7 @@ import java.util.List;
  *   <li>{@link model.Service#getHasAffinities <em>Has Affinities</em>}</li>
  *   <li>{@link model.Service#getName <em>Name</em>}</li>
  *   <li>{@link model.Service#getApplication <em>Application</em>}</li>
+ *   <li>{@link model.Service#getStateful <em>Stateful</em>}</li>
  * </ul>
  *
  * @model abstract="true"
@@ -86,5 +87,30 @@ public interface Service extends ElementWithResources {
 	 * @generated
 	 */
 	void setApplication(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Stateful</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Stateful</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Stateful</em>' attribute.
+	 * @see #setStateful(Boolean)
+	 * @model
+	 * @generated
+	 */
+	Boolean getStateful();
+
+	/**
+	 * Sets the value of the '{@link model.Service#getStateful <em>Stateful</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Stateful</em>' attribute.
+	 * @see #getStateful()
+	 * @generated
+	 */
+	void setStateful(Boolean value);
 
 } // Service

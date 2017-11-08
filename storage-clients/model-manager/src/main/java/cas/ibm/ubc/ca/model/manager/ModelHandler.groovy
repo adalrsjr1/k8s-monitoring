@@ -180,10 +180,10 @@ class ModelHandler {
 				ServiceInstance service = eObject
 
 				createMetric(service, service.id, keys, metrics)
+				mergeMap(service.host.resourceReserved, service.metrics)
 			}
 			else if(eObject instanceof Host) {
 				Host host = eObject
-
 				createMetric(host, host.name, keys, metrics)
 			}
 		}
@@ -196,6 +196,7 @@ class ModelHandler {
 
 			service.name = s.name
 			service.id = s.uid
+			service.stateful = s.stateful
 			service.address = s.address
 			service.application = s.application
 
@@ -209,7 +210,6 @@ class ModelHandler {
 				h.hostAddress.contains(s.hostAddress)
 			}
 			host.services[service.id] = service
-			host.resourceReserved.putAll(service.metrics)
 
 			modelServices[service.id] = service
 			modelServices[service.name] = service
@@ -231,9 +231,11 @@ class ModelHandler {
 		hosts.each { item ->
 			Host host = factory.createHost(getResource())
 			host.name = item.name
+			host.resourceLimit.putAll(item.limits)
 			item.hostAddress.each {
 				host.hostAddress << it
 			}
+			
 
 			cluster.hosts[item.name] = host
 		}
@@ -260,6 +262,7 @@ class ModelHandler {
 		LOG.info("Model created in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
 	}
 	
+	// TODO: implement this
 	public Cluster updateModelFromAsyncMonitoring(String version, Future<String> environment, 
 		Future<List> hosts, Future<Map> applications, Future<List> services, Future<List> messages, 
 		List metricsKeys, Future<List> metrics) {
