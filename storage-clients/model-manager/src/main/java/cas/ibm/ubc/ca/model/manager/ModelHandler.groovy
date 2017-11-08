@@ -133,13 +133,40 @@ class ModelHandler {
 		LOG.info "Number of messages {}" , counter.get()
 	}
 
+	/* // measurements
+	 * cpu/limit
+	 * cpu/node_allocatable
+	 * cpu/node_capacity
+	 * cpu/node_reservation
+	 * cpu/node_utilization
+	 * cpu/request
+	 * cpu/usage
+	 * cpu/usage_rate
+	 * memory/cache
+	 * memory/limit
+	 * memory/node_allocatable
+	 * memory/node_capacity
+	 * memory/node_reservation
+	 * memory/node_utilization
+	 * memory/request
+	 * memory/usage
+	 */
+	private String keyCpuMemory(String tag) {
+		if(tag.contains("cpu"))
+			return "cpu"
+		if(tag.contains("memory"))
+			return "memory"
+		return tag
+	}
+	
 	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
 
 		Iterator keyIt = keys.iterator()
 		Iterator metricsIt = metrics.iterator()
 
 		while(keyIt.hasNext() && metricsIt.hasNext()) {
-			def key = keyIt.next()
+			def key = keyCpuMemory(keyIt.next())
+			
 			def metric = metricsIt.next()
 			element.metrics[key] = (Double) metric[id]
 		}
