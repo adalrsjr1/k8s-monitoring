@@ -10,6 +10,9 @@ import cas.ibm.ubc.ca.influx.exception.NoResultsException
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 
+import java.math.RoundingMode
+import java.text.DecimalFormat
+
 public class Sampler implements MetricsInspectionInterface {
 	private InfluxDB client
 	private String database
@@ -32,20 +35,64 @@ public class Sampler implements MetricsInspectionInterface {
 
 		parse(result)
 	}
+	// https://www.ibm.com/support/knowledgecenter/en/SS8TQM_1.1.0/manage_resources/metrics.html
+	/* // measurements
+	 * cpu/limit
+	 * cpu/node_allocatable
+	 * cpu/node_capacity
+	 * cpu/node_reservation
+	 * cpu/node_utilization
+	 * cpu/request
+	 * cpu/usage
+	 * cpu/usage_rate
+	 * memory/cache
+	 * memory/limit
+	 * memory/node_allocatable
+	 * memory/node_capacity
+	 * memory/node_reservation
+	 * memory/node_utilization
+	 * memory/request
+	 * memory/usage
+	 */
 	
-	private String buildQueryMap(String measurement,
+	/* //tags
+	 * container_name
+	 * nodename
+	 * pod_name
+	 * namespace_name
+	 */
+	
+	// https://github.com/kubernetes/heapster/blob/v1.3.0-beta.0/docs/storage-schema.md
+	// https://github.com/kubernetes/heapster/blob/v1.3.0-beta.0/docs/model.md
+	private String mapMeasurement(Measurement measurement, String tag) {
+		if(Measurement.CPU == measurement && tag == "pod_name") 
+			return "cpu/usage_rate" // milicores
+		if(Measurement.CPU == measurement && tag == "nodename")
+			return "cpu/usage_rate" // milicores
+		if(Measurement.MEMORY == measurement && tag == "pod_name")
+			return "memory/usage"
+		if(Measurement.MEMORY == measurement && tag == "nodename")
+			return "memory/usage"
+	}
+	
+	private String buildQueryMap(Measurement measurement,
 			DownsamplerFunction function, String tag, def duration) {
-		"""SELECT ${function}(value)
-       FROM "${measurement}"
-       WHERE time > now() - ${duration}
+		def ratio = ""
+		// transforming memory from bytes to giga
+		if(measurement == Measurement.MEMORY) {
+			ratio = "/${1024**3}"
+		}
+		"""SELECT ${function}(value)${ratio}
+       FROM "${mapMeasurement(measurement, tag)}"
+       WHERE time > now() - ${duration} AND "${tag}" != ''
              GROUP BY ${tag}"""
 	}
 
-	private String buildQuery(String measurement,
+	private String buildQuery(Measurement measurement,
 			DownsamplerFunction function, String tag, String id, def duration) {
 		"""SELECT ${function}(value)
-       FROM "${measurement}"
-       WHERE time > now() - ${duration}
+       FROM "${mapMeasurement(measurement, tag)}"
+       WHERE time > now() - ${duration} AND "${tag}" != ''
              AND ${tag} = '${id}'"""
 	}
 	
@@ -66,8 +113,7 @@ public class Sampler implements MetricsInspectionInterface {
 			def value = it.getValues()
 					.get(0)
 					.get(1)
-					
-			result[tag] = value
+			result[tag] =  Math.floor(value * 100000) / 100000
 		}
 		return result
 	}
@@ -121,25 +167,25 @@ public class Sampler implements MetricsInspectionInterface {
 	 */
 	
 	@Override
-	public Map<String, Double> metricsService(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval) {
 		downsampleMap(measurement, DownsamplerFunction.MEAN,
 			"pod_name", "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
-	public Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsHost(Measurement measurement, TimeInterval timeInterval) {
 		downsampleMap(measurement, DownsamplerFunction.MEAN,
 			"nodename", "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
-	public Double metricService(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricService(String id, Measurement measurement, TimeInterval timeInterval) {
 		downsample(measurement, DownsamplerFunction.MEAN,
 			"pod_name", id, "${timeInterval.getIntervalInMillis()}ms")
 	}
 
 	@Override
-	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricHost(String id, Measurement measurement, TimeInterval timeInterval) {
 		downsample(measurement, DownsamplerFunction.MEAN,
 			"nodename", id, "${timeInterval.getIntervalInMillis()}ms")
 	}

@@ -5,8 +5,13 @@ import java.util.Map;
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval;
 
 public interface MetricsInspectionInterface {
-	Map<String, Double> metricsService(String measurement, TimeInterval timeInterval);
-	Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval);
-	Double metricService(String id, String measurement, TimeInterval timeInterval);
-	Double metricHost(String id, String measurement, TimeInterval timeInterval);
+	
+	public static enum Measurement {
+		CPU, MEMORY
+	}
+	
+	Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval);
+	Map<String, Double> metricsHost(Measurement measurement, TimeInterval timeInterval);
+	Double metricService(String id, Measurement measurement, TimeInterval timeInterval);
+	Double metricHost(String id, Measurement measurement, TimeInterval timeInterval);
 }

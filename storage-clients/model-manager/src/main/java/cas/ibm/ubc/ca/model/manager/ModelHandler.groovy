@@ -18,7 +18,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
-
+import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface.Measurement
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import model.Application
@@ -159,21 +159,22 @@ class ModelHandler {
 		return tag
 	}
 	
-	private void createMetric(ElementWithResources element, String id, List keys, List<Map> metrics) {
+	private void createMetric(ElementWithResources element, String id, List<Measurement> keys, List<Map> metrics) {
 
-		Iterator keyIt = keys.iterator()
+		Iterator<Measurement> keyIt = keys.iterator()
 		Iterator metricsIt = metrics.iterator()
 
 		while(keyIt.hasNext() && metricsIt.hasNext()) {
-			def key = keyCpuMemory(keyIt.next())
-			
+//			def key = keyCpuMemory(keyIt.next())
+			def key = keyIt.next().name().toLowerCase()
 			def metric = metricsIt.next()
+			
 			element.metrics[key] = (Double) metric[id]
 		}
 
 	}
 
-	private void createMetrics(Cluster cluster, List<String> keys, List<Map<String, Double>> metrics) {
+	private void createMetrics(Cluster cluster, List<Measurement> keys, List<Map<String, Double>> metrics) {
 		Iterator iterator = EcoreUtil.getAllContents(cluster, true)
 		for(def eObject in iterator) {
 			if(eObject instanceof ServiceInstance) {

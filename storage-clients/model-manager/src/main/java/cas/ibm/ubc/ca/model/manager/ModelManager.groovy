@@ -14,6 +14,7 @@ import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
 import cas.ibm.ubc.ca.monitoring.MonitoringApplication
+import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface.Measurement
 import model.Cluster
 
 class ModelManager implements ReificationInterface {
@@ -57,11 +58,11 @@ class ModelManager implements ReificationInterface {
 				monitoring.applications(),
 				monitoring.services(),
 				monitoring.messages(TimeInterval.last(monitoringInterval, timeUnit)),
-				["cpu/usage_rate", "memory/node_utilization", "cpu/usage_rate", "memory/usage"],
-				[monitoring.metricsHost("cpu/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
-					monitoring.metricsHost("memory/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
-					monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
-					monitoring.metricsService("memory/usage", TimeInterval.last(monitoringInterval, timeUnit)),
+				[Measurement.CPU, Measurement.MEMORY, Measurement.CPU, Measurement.MEMORY],
+				[monitoring.metricsHost(Measurement.CPU, TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsHost(Measurement.MEMORY, TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsService(Measurement.CPU, TimeInterval.last(monitoringInterval, timeUnit)),
+					monitoring.metricsService(Measurement.MEMORY, TimeInterval.last(monitoringInterval, timeUnit)),
 				])
 
 		return cluster

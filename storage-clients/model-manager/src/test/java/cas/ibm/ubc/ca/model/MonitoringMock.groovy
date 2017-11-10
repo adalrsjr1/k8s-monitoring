@@ -132,22 +132,22 @@ class MonitoringMock implements InspectionInterface {
 	}
 
 	@Override
-	public Map<String, Double> metricsService(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval) {
 		return extractMetrics("services", measurement, timeInterval)
 	}
 
 	@Override
-	public Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsHost(Measurement measurement, TimeInterval timeInterval) {
 		return extractMetrics("hosts", measurement, timeInterval)
 	}
 
 	@Override
-	public Double metricService(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricService(String id, Measurement measurement, TimeInterval timeInterval) {
 		return extractMetrics("services", measurement, timeInterval)[id]
 	}
 
 	@Override
-	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricHost(String id, Measurement measurement, TimeInterval timeInterval) {
 		return extractMetrics("hosts", measurement, timeInterval)[id]
 	}
 

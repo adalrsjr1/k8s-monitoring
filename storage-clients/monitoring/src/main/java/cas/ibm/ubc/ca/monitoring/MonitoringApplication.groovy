@@ -94,19 +94,19 @@ class MonitoringApplication implements InspectionInterface {
 		return messagesMonitor.messages(serviceInstance, timeInterval);
 	}
 
-	public Map<String, Double> metricsService(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricsService(measurement, timeInterval);
 	}
 
-	public Map<String, Double> metricsHost(String measurement, TimeInterval timeInterval) {
+	public Map<String, Double> metricsHost(Measurement measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricsHost(measurement, timeInterval);
 	}
 
-	public Double metricService(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricService(String id, Measurement measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricService(id, measurement, timeInterval);
 	}
 
-	public Double metricHost(String id, String measurement, TimeInterval timeInterval) {
+	public Double metricHost(String id, Measurement measurement, TimeInterval timeInterval) {
 		return metricsMonitor.metricHost(id, measurement, timeInterval);
 	}
 
