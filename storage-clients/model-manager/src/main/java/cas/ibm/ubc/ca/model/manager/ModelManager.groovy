@@ -57,7 +57,7 @@ class ModelManager implements ReificationInterface {
 				monitoring.applications(),
 				monitoring.services(),
 				monitoring.messages(TimeInterval.last(monitoringInterval, timeUnit)),
-				["cpu/node_utilization", "memory/node_utilization", "cpu/usage", "memory/usage"],
+				["cpu/usage_rate", "memory/node_utilization", "cpu/usage_rate", "memory/usage"],
 				[monitoring.metricsHost("cpu/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
 					monitoring.metricsHost("memory/node_utilization", TimeInterval.last(monitoringInterval, timeUnit)),
 					monitoring.metricsService("cpu/usage", TimeInterval.last(monitoringInterval, timeUnit)),
@@ -69,7 +69,7 @@ class ModelManager implements ReificationInterface {
 
 	public List updateModel() {
 		Cluster cluster
-		Queue affinities
+		List affinities
 		try {
 			modelHandler.saveModel()
 			cluster = createModel()

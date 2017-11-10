@@ -73,7 +73,7 @@ class AffinitiesAnalyzer {
 		normalize(data, totalData) * (1.0f - weight)
 	}
 
-	public Queue calculate(Cluster cluster, Resource resource) {
+	public List calculate(Cluster cluster, Resource resource) {
 		Stopwatch watch = Stopwatch.createStarted()
 		Map cache = messagesCache(cluster)
 		
@@ -117,7 +117,7 @@ class AffinitiesAnalyzer {
 		LOG.info("Affinities calculated in {} ms", watch.elapsed(TimeUnit.MILLISECONDS))
 		watch.stop()
 		
-		return affinities
+		return affinities.collect([]) { it }
 	}	
 	
 }

@@ -195,10 +195,10 @@ class AdaptationPlanner {
 		return result
 	}
 
-	List<Moviment> execute(Queue affinities) {
+	List<Moviment> execute(List affinities) {
 		Set moved = [] as Set
 		while( affinities.size() > 0 ) {
-			def obj = affinities.poll()
+			def obj = affinities.remove(0)
 			adaptationScript << canMove(obj, moved)
 		}
 		return adaptationScript

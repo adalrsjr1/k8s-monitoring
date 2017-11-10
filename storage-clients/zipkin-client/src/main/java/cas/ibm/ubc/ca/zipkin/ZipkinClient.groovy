@@ -62,7 +62,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				// missing: message.totalSize
 
 				def serverEndpoint = findServerEndpoint(span, trace)
-				message.targetIp = serverEndpoint.ipv4
+				message.targetIp = serverEndpoint?.ipv4
 				message.targetName = serverEndpoint.serviceName
 
 				messages << message

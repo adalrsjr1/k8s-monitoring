@@ -55,6 +55,20 @@ class KubernetesInspection implements ClusterInspectionInterface {
 		api = new CoreV1Api(client);
 	}
 
+	private static final SIZE =["K":1024, "M":1024**2, "G":1024**3]
+	private Map parseLimits(Map limits) {
+		return limits.inject([:]) { result, k, v ->
+			if(k != "memory") {
+				result[(k)] = Double.parseDouble(v)
+				return result
+			}
+			
+			String[] aux = v.split("(?=[M|G|K])")
+			result[(k)] = Double.parseDouble(aux[0])// * SIZE[aux[1].charAt(0).toString()]
+			return result
+		}
+	}
+	
 	@Override
 	// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
 	public List hosts() {
@@ -64,10 +78,11 @@ class KubernetesInspection implements ClusterInspectionInterface {
 		// allocatable gives the amount of resources that are availabe to Pods {metrics}
 		// capacity gives the limit of resources that are avilable in the node {limits}
 		return list.getItems().inject([]) { List result, V1Node item ->
+			item.spec.
 			LOG.warn "test if limits have key [cpu, memory] and cpu,memory both int"
 			Map host = [
 				name: item.metadata.name,
-				limits: item.status.capacity,
+				limits: parseLimits(item.status.capacity),
 				metrics: [:],
 				services: [],
 				hostAddress: item.status.addresses.inject([]) { List r, V1NodeAddress a ->

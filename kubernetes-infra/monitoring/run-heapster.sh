@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG=../admin.conf
+CONFIG=$1
 
 kubectl --kubeconfig $CONFIG create -f influxdb.yaml
 kubectl --kubeconfig $CONFIG create -f heapster.yaml

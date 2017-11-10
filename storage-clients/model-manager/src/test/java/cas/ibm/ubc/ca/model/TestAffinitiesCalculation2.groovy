@@ -71,10 +71,10 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		c = createService( "c", createMetrics(920, 880) )
 		d = createService( "d", createMetrics(270, 140) )
 		
-		hostA = createHost("hostA", createMetrics(2000, 2000), a )
-		hostB = createHost("hostB", createMetrics(2000, 2000), b )
-		hostC = createHost("hostC", createMetrics(2000, 2000), c )
-		hostD = createHost("hostD", createMetrics(2000, 2000), d )
+		hostA = createHost("hostA", createMetrics(2000, 4000), a )
+		hostB = createHost("hostB", createMetrics(2000, 4000), b )
+		hostC = createHost("hostC", createMetrics(2000, 4000), c )
+		hostD = createHost("hostD", createMetrics(2000, 4000), d )
 
 		queue << createAffinity(a, b, 0.80f)
 		queue << createAffinity(b, c, 0.72f)
@@ -98,10 +98,10 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		c = createService( "c", createMetrics(370, 230) )
 		d = createService( "d", createMetrics(130, 40) )
 		
-		hostA = createHost("hostA", createMetrics(2000, 2000), a )
-		hostB = createHost("hostB", createMetrics(2000, 2000), b )
-		hostC = createHost("hostC", createMetrics(2000, 2000), c )
-		hostD = createHost("hostD", createMetrics(2000, 2000), d )
+		hostA = createHost("hostA", createMetrics(2000, 4000), a )
+		hostB = createHost("hostB", createMetrics(2000, 4000), b )
+		hostC = createHost("hostC", createMetrics(2000, 4000), c )
+		hostD = createHost("hostD", createMetrics(2000, 4000), d )
 
 		queue << createAffinity(a, b, 0.80f)
 		queue << createAffinity(a, c, 0.80f)
@@ -124,10 +124,10 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		c = createService( "c", createMetrics(530, 230) )
 		d = createService( "d", createMetrics(130, 40) )
 		
-		hostA = createHost("hostA", createMetrics(2000, 2000), a )
-		hostB = createHost("hostB", createMetrics(2000, 2000), b )
-		hostC = createHost("hostC", createMetrics(2000, 2000), c )
-		hostD = createHost("hostD", createMetrics(2000, 2000), d )
+		hostA = createHost("hostA", createMetrics(2000, 4000), a )
+		hostB = createHost("hostB", createMetrics(2000, 4000), b )
+		hostC = createHost("hostC", createMetrics(2000, 4000), c )
+		hostD = createHost("hostD", createMetrics(2000, 4000), d )
 
 		queue << createAffinity(a, b, 0.80f)
 		queue << createAffinity(a, c, 0.80f)
@@ -150,10 +150,10 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		c = createService( "c", createMetrics(330, 190) )
 		d = createService( "d", createMetrics(170, 70) )
 		
-		hostA = createHost("hostA", createMetrics(2000, 2000), a )
-		hostB = createHost("hostB", createMetrics(2000, 2000), b )
-		hostC = createHost("hostC", createMetrics(2000, 2000), c )
-		hostD = createHost("hostD", createMetrics(2000, 2000), d )
+		hostA = createHost("hostA", createMetrics(2000, 4000), a )
+		hostB = createHost("hostB", createMetrics(2000, 4000), b )
+		hostC = createHost("hostC", createMetrics(2000, 4000), c )
+		hostD = createHost("hostD", createMetrics(2000, 4000), d )
 
 		queue << createAffinity(a, b, 0.33f)
 		queue << createAffinity(a, c, 0.33f)
@@ -176,10 +176,10 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		c = createService( "c", createMetrics(170, 70) )
 		d = createService( "d", createMetrics(170, 70) )
 		
-		hostA = createHost("hostA", createMetrics(2000, 2000), a )
-		hostB = createHost("hostB", createMetrics(2000, 2000), b )
-		hostC = createHost("hostC", createMetrics(2000, 2000), c )
-		hostD = createHost("hostD", createMetrics(2000, 2000), d )
+		hostA = createHost("hostA", createMetrics(2000, 4000), a )
+		hostB = createHost("hostB", createMetrics(2000, 4000), b )
+		hostC = createHost("hostC", createMetrics(2000, 4000), c )
+		hostD = createHost("hostD", createMetrics(2000, 4000), d )
 
 		queue << createAffinity(a, b, 0.33f)
 		queue << createAffinity(b, c, 0.33f)
