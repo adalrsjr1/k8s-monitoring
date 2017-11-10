@@ -58,6 +58,7 @@ class AffinitiesAnalyzer {
 			}
 			
 		}	
+		LOG.info "{} Messages processed!", count
 		return map
 	}
 	

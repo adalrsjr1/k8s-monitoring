@@ -68,7 +68,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				messages << message
 			}
 		}
-
+		println ">>>> >>>> " + messages.size()
 		messages
 	}
 

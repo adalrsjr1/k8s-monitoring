@@ -87,10 +87,12 @@ class MonitoringApplication implements InspectionInterface {
 	}
 
 	public List messages(TimeInterval timeInterval) {
+		println ">>> " + messagesMonitor.messages(timeInterval).size()
 		return messagesMonitor.messages(timeInterval);
 	}
 
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
+		println ">>> " + messagesMonitor.messages(serviceInstance, timeInterval).size()
 		return messagesMonitor.messages(serviceInstance, timeInterval);
 	}
 
