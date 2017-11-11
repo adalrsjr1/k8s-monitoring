@@ -19,10 +19,11 @@ public class ZipkinClient implements MessagesInspectionInterface {
 	//http://www.vogella.com/tutorials/JavaLibrary-OkHttp/article.html
 	// http://zipkin.io/zipkin-api/#/paths/
 
-	private ZipkinRequestor requestor;
-
-	public ZipkinClient(host, port, timeout, TimeUnit timeunit) {
+	private ZipkinRequestor requestor
+	private int limit = 1000
+	public ZipkinClient(host, port, timeout, limit, TimeUnit timeunit) {
 		requestor = new ZipkinRequestor(host, port, timeout, timeunit)
+		this.limit = limit
 	}
 	
 	public ZipkinClient(host, port) {
@@ -39,7 +40,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		def params = [
 			endTs: timeInterval.getEnd(),
 			lookback: timeInterval.getIntervalInMillis(),
-			limit: 1000
+			limit: limit
 		]
 		def tracesList = requestor.getTraces(params)
 		def messages = []
@@ -69,7 +70,6 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				messages << message
 			}
 		}
-		println ">>>> >>>> " + messages.size()
 		messages
 	}
 

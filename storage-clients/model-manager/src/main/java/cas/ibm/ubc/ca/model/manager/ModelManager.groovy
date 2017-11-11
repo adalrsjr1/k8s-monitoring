@@ -70,11 +70,14 @@ class ModelManager implements ReificationInterface {
 
 	public List updateModel() {
 		Cluster cluster
-		List affinities
+		List affinities = []
+		Stopwatch watcher = Stopwatch.createStarted()
 		try {
 			modelHandler.saveModel()
 			cluster = createModel()
+			LOG.info "Calculating affinities..."
 			affinities = analyzer.calculate(cluster, modelHandler.resource)
+			LOG.info "Affinities calculated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 		}
 		catch(Exception e) {
 			LOG.error "It cannot possible to create/update the model"
@@ -98,14 +101,10 @@ class ModelManager implements ReificationInterface {
 		LOG.info "Model updated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 
 		watcher.reset()
-		watcher.start()
-
-		LOG.info "Calculating affinities..."
+		
 		def cluster = modelHandler.getOrCreateCluster(monitoring.environment())
-		LOG.info "Affinities calcuated [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms."
 		modelHandler.saveModel()
 
-		watcher.reset()
 		watcher.start()
 
 		LOG.info "Applying adaptation on Model..."

@@ -27,10 +27,10 @@ class AdaptationPlanner {
 	}
 
 	/**
-	 * Calculte if metric1 is greater of less than metric2
-	 * If metric1 > metric2 then return > 0
-	 * If metric1 < metric2 then return < 0
-	 * If metric == metric2 then return 0
+	 * <p>Calculte if metric1 is greater of less than metric2</p>
+	 * <p>If metric1 > metric2 then return > 0</p>
+	 * <p>If metric1 < metric2 then return < 0</p>
+	 * <p>If metric == metric2 then return 0</p>
 	 * @param metric1
 	 * @param metric2
 	 * @return
@@ -66,7 +66,11 @@ class AdaptationPlanner {
 	private Boolean innerFitsOnHost(Map metric1, Map metric2, Map limits, Map reservation) {
 		def result = sumMetrics(metric1, metric2)
 		
-	   return reservation.cpu < limits.cpu && reservation.memory < limits.memory \
+		LOG.debug "svc1:        {}", metric1
+		LOG.debug "svc2:        {}", metric2
+		LOG.debug "limits:      {}", limits
+		LOG.debug "reservation: {}", reservation
+		return reservation.cpu < limits.cpu && reservation.memory < limits.memory \
 			   && result.cpu < limits.cpu && result.memory < limits.memory
 	}
 

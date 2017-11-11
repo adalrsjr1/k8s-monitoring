@@ -92,7 +92,7 @@ public class Moviment {
 		if(this == nonMove()) {
 			return "nonMove";
 		}
-		return hostSource + " --> " + hostDestination + "[" + application + "." + service + "]";
+		return hostSource + "[" + application + "." + service + "]" + " --> " + hostDestination + "[" + application + "." + service + "]";
 	}
 	
 }

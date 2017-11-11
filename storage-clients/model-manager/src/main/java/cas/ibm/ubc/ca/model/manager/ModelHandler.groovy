@@ -83,7 +83,7 @@ class ModelHandler {
 		return cluster
 	}
 
-	private void createMessages(Cluster cluster, Map services, List messages) {
+	private Integer createMessages(Cluster cluster, Map services, List messages) {
 		int threads = Runtime.getRuntime().availableProcessors();
 		ExecutorService tPool = Executors.newFixedThreadPool(threads)
 		
@@ -130,7 +130,7 @@ class ModelHandler {
 		
 		latch.await()
 		tPool.shutdown();
-		LOG.info "Number of messages {}" , counter.get()
+		return counter.get()
 	}
 
 	/* // measurements
@@ -259,8 +259,8 @@ class ModelHandler {
 		Map modelServices = createServices(cluster, services)
 		createMetrics(cluster, metricsKeys, metrics)
 
-		createMessages(cluster, modelServices, messages)
-		LOG.info("Model created in {} ms", messages.size(), watch.elapsed(TimeUnit.MILLISECONDS))
+		def messagesCount = createMessages(cluster, modelServices, messages)
+		LOG.info("Model created in {} ms", messagesCount, watch.elapsed(TimeUnit.MILLISECONDS))
 	}
 	
 	// TODO: implement this
@@ -379,10 +379,13 @@ class ModelHandler {
 		try {
 			Host src = service.getHost()
 			hostDestination.services[(service.name)] = service
-			mergeMap(hostDestination.resourceReserved, service.metrics)
-			
+			LOG.debug "before move:: reserverd: {} to add: {}", hostDestination.resourceReserved, service.metrics
 			src.services.remove(service.name)
 			splitMap(src.resourceReserved, service.metrics)
+			LOG.debug "splitting  :: reserverd: {} to add: {}", hostDestination.resourceReserved, service.metrics
+			mergeMap(hostDestination.resourceReserved, service.metrics)
+			LOG.debug "merging    :: reserverd: {} to add: {}", hostDestination.resourceReserved, service.metrics
+			LOG.debug "after  move:: reserverd: {} to add: {}", hostDestination.resourceReserved, service.metrics
 			result = true
 		}
 		catch(Exception e) {

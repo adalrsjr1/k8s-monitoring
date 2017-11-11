@@ -115,8 +115,8 @@ class AffinitiesAnalyzer {
 //			ECollections.sort(svc.getHasAffinities(), comparator)
 //		}
 		
-		LOG.info("Affinities calculated in {} ms", watch.elapsed(TimeUnit.MILLISECONDS))
-		watch.stop()
+		LOG.info("Affinities calculated in {} ms", watch.elapsed(TimeUnit.MILLISECONDS).toString())
+		
 		
 		return affinities.collect([]) { it }
 	}	

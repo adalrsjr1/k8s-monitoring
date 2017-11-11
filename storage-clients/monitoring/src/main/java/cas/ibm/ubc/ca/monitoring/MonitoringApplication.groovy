@@ -38,6 +38,7 @@ class MonitoringApplication implements InspectionInterface {
 			properties["messages.inspection.host"], 
 			properties["messages.inspection.port"], 
 			properties["messages.inspection.timeout"], 
+			properties["messages.inspection.limit"],
 			TimeUnit.MILLISECONDS)
 		
 		
@@ -87,12 +88,10 @@ class MonitoringApplication implements InspectionInterface {
 	}
 
 	public List messages(TimeInterval timeInterval) {
-		println ">>> " + messagesMonitor.messages(timeInterval).size()
 		return messagesMonitor.messages(timeInterval);
 	}
 
 	public List messages(String serviceInstance, TimeInterval timeInterval) {
-		println ">>> " + messagesMonitor.messages(serviceInstance, timeInterval).size()
 		return messagesMonitor.messages(serviceInstance, timeInterval);
 	}
 
