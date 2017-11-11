@@ -77,7 +77,7 @@ class AdaptationPlanner {
 	private Double cores(Host host) {
 		return host.resourceLimit.cpu / 1000.0
 	}
-	
+		
 	private Boolean checkServicesPerCore(Host host) {
 //		return (host.services.size() + 1) <= cores(host)
 		return true
