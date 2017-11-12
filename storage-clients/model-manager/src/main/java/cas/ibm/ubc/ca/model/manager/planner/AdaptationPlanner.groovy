@@ -79,8 +79,10 @@ class AdaptationPlanner {
 	}
 		
 	private Boolean checkServicesPerCore(Host host) {
-//		return (host.services.size() + 1) <= cores(host)
-		return true
+//		int n = 1
+//		println "${(host.services.size() + 1) <= cores(host) * n} ${host.services.size() + 1} ${cores(host)*n}"
+		return (host.services.size() + 1) <= cores(host) * n
+//		return true
 	}
 	
 	private Boolean fitsOnHost(ServiceInstance svc1, ServiceInstance svc2, Host host) {

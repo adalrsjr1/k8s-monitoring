@@ -65,7 +65,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 
 				def serverEndpoint = findServerEndpoint(span, trace)
 				message.targetIp = serverEndpoint?.ipv4
-				message.targetName = serverEndpoint.serviceName
+				message.targetName = serverEndpoint?.serviceName
 
 				messages << message
 			}

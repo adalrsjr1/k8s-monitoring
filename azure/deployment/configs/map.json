@@ -34,11 +34,11 @@
 			"orders-db": "micro5",
 			"orders": "micro6",
 			"payment": "micro7",
-			"front-end": "micro8",
-			"queue-master": "micro8",
-			"shipping": "micro9",
-			"user-db": "micro10",
-			"user": "micro11"
+			"front-end": "master",
+			"queue-master": "master",
+			"shipping": "micro8",
+			"user-db": "micro9",
+			"user": "micro10"
 		}
 	},
 	{
@@ -55,10 +55,10 @@
 			"orders-db": "micro5",
 			"orders": "micro2",
 			"payment": "micro2",
-			"front-end": "micro6",
-			"queue-master": "micro6",
+			"front-end": "master",
+			"queue-master": "master",
 			"shipping": "micro2",
-			"user-db": "micro7",
+			"user-db": "micro6",
 			"user": "micro2"
 		}
 	},
@@ -76,8 +76,8 @@
 			"orders-db": "micro3",
 			"orders": "micro3",
 			"payment": "micro5",
-			"front-end": "micro6",
-			"queue-master": "micro6",
+			"front-end": "master",
+			"queue-master": "master",
 			"shipping": "micro2",
 			"user-db": "micro4",
 			"user": "micro4"

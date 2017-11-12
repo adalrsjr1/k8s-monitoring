@@ -246,7 +246,7 @@ spec:
               - all
           readOnlyRootFilesystem: true
       nodeSelector:
-        kubernetes.io/hostname: micro8
+        kubernetes.io/hostname: master
         beta.kubernetes.io/os: linux
 ---
 apiVersion: v1
@@ -456,7 +456,7 @@ spec:
           hostPath:
             path: /var/run/docker.sock
       nodeSelector:
-        kubernetes.io/hostname: micro8
+        kubernetes.io/hostname: master
         beta.kubernetes.io/os: linux
 ---
 apiVersion: v1
@@ -565,7 +565,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        kubernetes.io/hostname: micro9
+        kubernetes.io/hostname: micro8
         beta.kubernetes.io/os: linux
 ---
 apiVersion: v1
@@ -620,7 +620,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        kubernetes.io/hostname: micro10
+        kubernetes.io/hostname: micro9
         beta.kubernetes.io/os: linux
 ---
 apiVersion: v1
@@ -672,7 +672,7 @@ spec:
               - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
       nodeSelector:
-        kubernetes.io/hostname: micro11
+        kubernetes.io/hostname: micro10
         beta.kubernetes.io/os: linux
 ---
 apiVersion: v1
@@ -695,6 +695,8 @@ kind: Deployment
 metadata:
   name: zipkin
   labels:
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: zipkin
     name: zipkin
   namespace: zipkin
 spec:
