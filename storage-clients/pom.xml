@@ -20,9 +20,8 @@
 		<module>./influx-client</module>
 		<module>./k8s-client</module>
 		<module>./zipkin-client</module>
-
 		<module>./monitoring</module>
-
+		<module>./k8s-runtime</module>
 		<module>./model-manager</module>
 	</modules>
 

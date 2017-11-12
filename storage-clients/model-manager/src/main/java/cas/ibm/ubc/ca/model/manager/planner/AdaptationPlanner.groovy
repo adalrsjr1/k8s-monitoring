@@ -79,7 +79,7 @@ class AdaptationPlanner {
 	}
 		
 	private Boolean checkServicesPerCore(Host host) {
-//		int n = 1
+		int n = 1
 //		println "${(host.services.size() + 1) <= cores(host) * n} ${host.services.size() + 1} ${cores(host)*n}"
 		return (host.services.size() + 1) <= cores(host) * n
 //		return true
