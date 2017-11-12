@@ -26,8 +26,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		this.limit = limit
 	}
 	
-	public ZipkinClient(host, port) {
-		this(host, port, 10, TimeUnit.SECONDS)
+	public ZipkinClient(host, port, limit = 1000) {
+		this(host, port, 10, limit, TimeUnit.SECONDS)
 	}
 
 	@Override
