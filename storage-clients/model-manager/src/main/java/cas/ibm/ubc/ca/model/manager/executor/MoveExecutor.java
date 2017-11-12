@@ -128,7 +128,7 @@ public class MoveExecutor implements ReificationInterface {
 			adaptationScript.stream().forEach(c);
 		} 
 		catch (Exception e) {
-			LOG.warn("one or more messages weren't applyed sucessfuly");
+			LOG.warn("one or more messages weren't applied sucessfuly");
 			LOG.error(e.getMessage());
 		}
 		return true;
