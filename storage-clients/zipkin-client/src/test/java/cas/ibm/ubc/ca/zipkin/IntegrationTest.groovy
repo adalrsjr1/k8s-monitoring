@@ -4,6 +4,8 @@ import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 
 import cas.ibm.ubc.ca.zipkin.pogos.Message
 
+import com.google.gson.Gson
+
 import java.time.Instant
 
 import java.util.Map
@@ -16,13 +18,27 @@ class IntegrationTest extends GroovyTestCase {
 	private ZipkinClient client
 	private Map clientSpan
 	private Map serverSpan
+	private ZipkinRequestor requestorTestsHelper
 
 	void setUp() {
 		clientSpan = clientSpan()
 		serverSpan = serverSpan()
-		requestor().createSpans(spansList())
+		requestorTestsHelper = new ZipkinRequestor(HOST, PORT, 10,
+			TimeUnit.SECONDS)
+		requestorTestsHelper.createSpans(spansList())
 
 		client = MessagesInspectionInterfaceFactory.create(HOST, PORT)
+	}
+
+	void testReturnsManyMessages() {
+		def file = ZipkinRequestorFile.getFile('orders')
+		def list = new Gson().fromJson(file, Collection.class)
+		list.each { listItem -> requestorTestsHelper.createSpans(listItem) }
+
+		def timeInterval = TimeInterval.create(1510322462339, 1510322562339)
+		def messages = fetchMessages(null, timeInterval)
+
+		assert messages.size == 120
 	}
 
 	void testReturnsNonEmptyMessages() {
@@ -57,17 +73,13 @@ class IntegrationTest extends GroovyTestCase {
 		assertEquals(3, fetchMessages().size)
 	}
 
-	private fetchMessages(serviceInstance = null) {
-		def timeInterval = TimeInterval.last(60, TimeUnit.SECONDS)
+	private fetchMessages(serviceInstance = null, interval = null) {
+		def timeInterval = interval ?: TimeInterval.last(60, TimeUnit.SECONDS)
 
 		if(serviceInstance != null)
 			client.messages(serviceInstance, timeInterval)
 		else
 			client.messages(timeInterval)
-	}
-
-	private requestor() {
-		new ZipkinRequestor(HOST, PORT, 10, TimeUnit.SECONDS)
 	}
 
 	private spansList() {
