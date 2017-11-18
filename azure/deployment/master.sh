@@ -10,5 +10,5 @@ if [ $1 == start ]; then
   az vm start -g adalberto -n master
 elif [ $1 == stop ]; then
   echo stopping master
-  az vm stop -g adalberto -n master
+  az vm deallocate -g adalberto -n master
 fi

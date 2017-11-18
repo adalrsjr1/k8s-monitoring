@@ -87,7 +87,8 @@ class AdaptationPlanner {
 	
 	private Boolean fitsOnHost(ServiceInstance svc1, ServiceInstance svc2, Host host) {
 		Map zero = ["cpu":0.0, "memory":0.0]
-		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+//		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
+		if(true) {	
 			return innerFitsOnHost(svc1.metrics, svc2.metrics, host.resourceLimit, host.resourceReserved)
 		}
 		

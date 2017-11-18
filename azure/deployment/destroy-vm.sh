@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 2 ]; then
-   echo "usage: ./create-vm <name> <# replicas>"
+   echo "usage: ./destroy-vm <name> <# replicas>"
    exit 1
 fi
 

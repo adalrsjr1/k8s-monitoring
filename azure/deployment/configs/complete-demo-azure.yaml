@@ -232,10 +232,10 @@ spec:
       containers:
       - name: front-end
         image: weaveworksdemos/front-end
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+        #resources:
+        #  requests:
+        #    cpu: 100m
+        #    memory: 100Mi
         ports:
         - containerPort: 8079
         securityContext:
@@ -445,7 +445,7 @@ spec:
     spec:
       containers:
       - name: queue-master
-        image: gfads/queue-master
+        image: weaveworksdemos/queue-master
         volumeMounts:
           - mountPath: /var/run/docker.sock
             name: docker-sock

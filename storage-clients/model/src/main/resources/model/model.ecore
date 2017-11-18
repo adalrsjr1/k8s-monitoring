@@ -14,7 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="applications" upperBound="-1"
         eType="#//StringToApplication" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Service" abstract="true" eSuperTypes="#//ElementWithResources">
+  <eClassifiers xsi:type="ecore:EClass" name="Service" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasAffinities" ordered="false"
         upperBound="-1" eType="#//Affinity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -27,7 +27,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"
         defaultValueLiteral="0.0"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ServiceInstance" eSuperTypes="#//Service">
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceInstance" eSuperTypes="#//Service #//ElementWithResources">
     <eStructuralFeatures xsi:type="ecore:EReference" name="messages" ordered="false"
         upperBound="-1" eType="#//Message" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
