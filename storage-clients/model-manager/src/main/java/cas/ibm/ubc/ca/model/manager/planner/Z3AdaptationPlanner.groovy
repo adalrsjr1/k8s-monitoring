@@ -1,7 +1,9 @@
 package cas.ibm.ubc.ca.model.manager.planner
 
+import java.lang.reflect.Type
 import java.util.List
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.spotify.docker.client.DockerClient
 import com.spotify.docker.client.exceptions.DockerException
 import com.spotify.docker.client.messages.AutoValue_Container
@@ -142,8 +144,8 @@ class CallZ3OnDocker {
 }
 
 class Z3AdaptationPlanner implements AdaptationPlanner {
-	static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3"
-	
+	private static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3"
+	private static final Gson GSON = new Gson()
 	Z3AdaptationPlanner() {
 		CallZ3OnDockerConfig config = CallZ3OnDockerConfig.builder()
 														  .containerName("z3")
@@ -192,8 +194,7 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 			result << affinityToMap(affinity)
 		}
 		
-		Gson gson = new Gson()
-		return gson.toJson(affinitiesMap)
+		return GSON.toJson(affinitiesMap)
 	}
 	
 	private keepJson(String json) {
@@ -202,24 +203,35 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 		}
 	}
 	
-	private List<Moviment> jsonToMoviments(String json) {
-		
+	private Map affinitiesSources(List affinities) {
+		return affinities.inject([:]){ map, Affinity affinity ->
+			ServiceInstance source = affinity.eContainer
+			map << [(source.id) : Moviment.create(source.application, 
+				source.id, source.host.name, "")] 
+		}
 	}
 	
-	private String getZ3Results() {
+	private List<Moviment> jsonToMoviments(Map affinitiesSource, String json) {
+		Type type = new TypeToken<List<Map>>() {}.getType();
+		List partialMoves = GSON.fromJson(json, type)
 		
+		return partialMoves.inject([]) { list, partialMove ->
+			Moviment moviment = affinitiesSource[partialMove["job"]]
+			list << Moviment.create(moviment.application, 
+				moviment.service, moviment.hostSource, partialMove["hosts"])
+		}
 	}
 	
-	private void runOnZ3() {
-		CallZ3OnDocker.instance.execOnZ3(RESOURCES_PATH + "allocz3.py")
+	
+	private String runOnZ3() {
+		return CallZ3OnDocker.instance.execOnZ3(RESOURCES_PATH + "allocz3.py")
 	}
 	
 	@Override
 	public List<Moviment> execute(List affinities) {
 		String affinitiesJson = affinitiesToJson(affinities)
 		keepJson(affinitiesJson)
-		runOnZ3()
-		String z3Results = getZ3Results()
+		String z3Results = runOnZ3()
 		return jsonToMoviments(z3Results)
 	}
 
