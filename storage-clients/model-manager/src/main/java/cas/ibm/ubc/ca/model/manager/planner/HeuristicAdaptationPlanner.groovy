@@ -1,8 +1,5 @@
 package cas.ibm.ubc.ca.model.manager.planner
 
-import java.util.Map
-
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -10,19 +7,18 @@ import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.manager.ModelHandler
 import groovy.transform.Memoized
 import model.Affinity
-import model.Cluster
 import model.Host
 import model.Service
 import model.ServiceInstance
 
-class AdaptationPlanner {
-	private static final Logger LOG = LoggerFactory.getLogger(AdaptationPlanner.class)
+class HeuristicAdaptationPlanner implements AdaptationPlanner {
+	private static final Logger LOG = LoggerFactory.getLogger(HeuristicAdaptationPlanner.class)
 
 	private ModelHandler modelHandler
 
 	private List<Moviment> adaptationScript = []
 
-	public AdaptationPlanner(ModelHandler modelHandler) {
+	public HeuristicAdaptationPlanner(ModelHandler modelHandler) {
 		this.modelHandler = modelHandler
 	}
 
@@ -203,6 +199,7 @@ class AdaptationPlanner {
 		return result
 	}
 
+	@Override
 	List<Moviment> execute(List affinities) {
 		Set moved = [] as Set
 		while( affinities.size() > 0 ) {

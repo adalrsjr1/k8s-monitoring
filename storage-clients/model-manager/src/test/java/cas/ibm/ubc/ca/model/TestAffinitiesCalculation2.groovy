@@ -2,7 +2,7 @@ package cas.ibm.ubc.ca.model
 
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.ModelHandler
-import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import cas.ibm.ubc.ca.model.manager.planner.HeuristicAdaptationPlanner
 import model.Affinity
 import model.Host
 import model.Service
@@ -55,7 +55,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 	
 	void testSumMetrics() {
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		assert planner.sumMetrics(["a":1.0], ["a":1.0]) == ["a":2.0]
 	}
@@ -82,7 +82,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		queue << createAffinity(c, d, 0.53f)
 				
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		println planner.execute(queue)
 	}
@@ -108,7 +108,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		queue << createAffinity(c, d, 0.25f)
 				
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		println planner.execute(queue)
 	}
@@ -134,7 +134,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		queue << createAffinity(c, d, 0.25f)
 				
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		println planner.execute(queue)
 	}
@@ -160,7 +160,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		queue << createAffinity(a, d, 0.33f)
 				
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		println planner.execute(queue)
 	}
@@ -187,7 +187,7 @@ class TestAffinitiesCalculation2 extends GroovyTestCase {
 		queue << createAffinity(c, d, 0.33f)
 				
 		ModelHandler handler = new ModelHandler("")
-		AdaptationPlanner planner = new AdaptationPlanner(handler)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(handler)
 		
 		println planner.execute(queue)
 	}

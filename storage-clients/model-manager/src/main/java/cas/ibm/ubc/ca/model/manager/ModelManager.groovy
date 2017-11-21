@@ -13,6 +13,7 @@ import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import cas.ibm.ubc.ca.model.manager.planner.HeuristicAdaptationPlanner
 import cas.ibm.ubc.ca.monitoring.MonitoringApplication
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface.Measurement
 import model.Cluster
@@ -47,7 +48,7 @@ class ModelManager implements ReificationInterface {
 		this.managedCluster = managedCluster
 
 		analyzer = new AffinitiesAnalyzer()
-		planner = new AdaptationPlanner(modelHandler)
+		planner = new HeuristicAdaptationPlanner(modelHandler)
 	}
 
 	public Cluster createModel() {

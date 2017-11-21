@@ -8,7 +8,7 @@ import cas.ibm.ubc.ca.interfaces.ReificationInterface
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import cas.ibm.ubc.ca.model.manager.ModelHandler
-import cas.ibm.ubc.ca.model.manager.planner.AdaptationPlanner
+import cas.ibm.ubc.ca.model.manager.planner.HeuristicAdaptationPlanner
 import groovy.mock.interceptor.MockFor
 import groovy.mock.interceptor.StubFor
 import model.Affinity
@@ -126,7 +126,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 	ModelFactoryAdapter factory = ModelFactoryAdapter.getINSTANCE()
 
 	void testMoveService() {
-		AdaptationPlanner planner = new AdaptationPlanner(null)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 		ServiceInstance service = factory.createServiceInstance()
 		Host hostDestination = factory.createHost()
@@ -158,12 +158,12 @@ class TestAdaptationPlanner extends GroovyTestCase {
 		affinity.setWith(svc2)
 		svc1.hasAffinities << affinity
 
-		def proxy = ProxyMetaClass.getInstance(AdaptationPlanner)
+		def proxy = ProxyMetaClass.getInstance(HeuristicAdaptationPlanner)
 		def interceptor = new AdaptationPlannerInterceptorCompareMetricsGreaterThen1()
 		proxy.interceptor = interceptor
 
 		proxy.use {
-			AdaptationPlanner planner = new AdaptationPlanner(null)
+			HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 			assert planner.compareMetrics(null,null) == 1
 			assert planner.fitsOnHost(null,null,null) == true
@@ -195,12 +195,12 @@ class TestAdaptationPlanner extends GroovyTestCase {
 		affinity.setWith(svc2)
 		svc1.hasAffinities << affinity
 
-		def proxy = ProxyMetaClass.getInstance(AdaptationPlanner)
+		def proxy = ProxyMetaClass.getInstance(HeuristicAdaptationPlanner)
 		def interceptor = new AdaptationPlannerInterceptorCompareMetricsLessThen1()
 		proxy.interceptor = interceptor
 
 		proxy.use {
-			AdaptationPlanner planner = new AdaptationPlanner(null)
+			HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 			assert planner.compareMetrics(null,null) == -1
 			assert planner.fitsOnHost(null,null,null) == true
@@ -212,7 +212,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 	}
 
 	void testMagnitude() {
-		AdaptationPlanner planner = new AdaptationPlanner(null)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 		assert 0 == planner.magnitude([0,0,0])
 		assert Math.sqrt(2.0) == planner.magnitude([1,1])
@@ -290,7 +290,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		def affinity = c.hosts["host1"].services["svc1"].hasAffinities[0]
 
-		AdaptationPlanner planner = new AdaptationPlanner(null)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 		assert planner.canMove(affinity)
 		assert 2 ==  c.hosts["host1"].services.size()
@@ -315,7 +315,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		def affinity = c.hosts["host1"].services["svc1"].hasAffinities[0]
 
-		AdaptationPlanner planner = new AdaptationPlanner(null)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 		assert planner.canMove(affinity)
 		assert 2 ==  c.hosts["host2"].services.size()
@@ -341,7 +341,7 @@ class TestAdaptationPlanner extends GroovyTestCase {
 
 		def affinity = c.hosts["host1"].services["svc1"].hasAffinities[0]
 
-		AdaptationPlanner planner = new AdaptationPlanner(null)
+		HeuristicAdaptationPlanner planner = new HeuristicAdaptationPlanner(null)
 
 		assert planner.canMove(affinity) == Moviment.nonMove()
 		assert 1 ==  c.hosts["host2"].services.size()

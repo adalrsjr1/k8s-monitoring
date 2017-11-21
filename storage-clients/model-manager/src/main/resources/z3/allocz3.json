@@ -1,0 +1,29 @@
+[
+  {
+    "affinity": 12,
+    "source" : {
+      "name": "orders-db",
+      "host": {
+        "name": "micro1",
+        "cpu": "2000",
+        "memory": 4096,
+        "cores": 2
+      },
+      "cpu": 123,
+      "memory": 678,
+      "stateful": true
+    },
+    "target" : {
+      "name": "orders",
+      "host": {
+        "name": "micro2",
+        "cpu": "2000",
+        "memory": 4096,
+        "cores": 2
+      },
+      "cpu": "234",
+      "memory": 456,
+      "stateful": false
+    }
+  }
+]
