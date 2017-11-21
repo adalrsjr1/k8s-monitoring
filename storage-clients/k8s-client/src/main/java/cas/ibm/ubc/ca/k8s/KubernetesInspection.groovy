@@ -189,7 +189,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 			// the number 1 is the weight to calculate the affinities
 			// based on #messages or size of messages
 			LOG.warn "CHANGE THE WEIGHT OF APPLICATIONS!!!"
-			result[item.metadata.name] = 1.0
+			result[item.metadata.name] = 0.5
 			result
 		}
 

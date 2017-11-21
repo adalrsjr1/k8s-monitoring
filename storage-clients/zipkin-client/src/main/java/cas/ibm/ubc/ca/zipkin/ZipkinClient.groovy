@@ -44,7 +44,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		]
 		def tracesList = requestor.getTraces(params)
 		def messages = []
-
+		
+		Random random = new Random(System.currentTimeMillis())
 		tracesList.each { trace ->
 			trace.each { span ->
 				def clientSendAnnotation = span.annotations.find {
@@ -60,7 +61,8 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				message.totalTime = span.duration
 				message.sourceIp = clientSendAnnotation.endpoint.ipv4
 				message.sourceName = clientSendAnnotation.endpoint.serviceName
-
+				message.totalSize = random.nextInt(4096).toLong() + 1L
+				
 				// missing: message.totalSize
 
 				def serverEndpoint = findServerEndpoint(span, trace)
