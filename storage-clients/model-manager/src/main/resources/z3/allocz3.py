@@ -1,4 +1,4 @@
-#Sam Bayless, 2017
+#Sam Bayless, 2017 <https://github.com/sambayless>
 #License: CC0 and/or MIT
 
 from z3 import *
