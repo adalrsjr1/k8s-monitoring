@@ -27,20 +27,26 @@ class Node:
         self.available_cpu = IntVal(available_cpu)
         self.available_memory = IntVal(available_memory)
 
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return isinstance(other, Node) and self.name == other.name
 
 expected_runtimes=dict()
 
 data = json.load(open('allocz3.json'))
 
+
 def dictToNode(d):
-  return Node(d['name'], d['cpu'], d['memory'])
+    return Node(d['name'], d['cpu'], d['memory'])
 
 def dictToJob(d):
-  return Job(d['name'], d['cpu'], d['memory'])
+    return Job(d['name'], d['cpu'], d['memory'])
 
 affinities = dict()
 jobs = []
-nodes = []
+nodes = set()
 for affinity in data:
     j1 = dictToJob(affinity['source'])
     j2 = dictToJob(affinity['target'])
@@ -48,8 +54,13 @@ for affinity in data:
     jobs.append(j2)
     assert (j1 != j2)
     affinities[(j1,j2)] = affinity['affinity']
-    nodes.append(dictToNode(affinity['source']['host']))
-    nodes.append(dictToNode(affinity['target']['host']))
+    n1 = dictToNode(affinity['source']['host'])
+    n2 = dictToNode(affinity['target']['host'])
+
+    if n1 not in nodes:
+        nodes.add(n1)
+    if n2 not in nodes:
+        nodes.add(n2)
 
 #for i in range(10):
 #    # generate some nodes with random settings.
@@ -105,13 +116,12 @@ for j in jobs:
          node_placements[n].append((p,j))
          job_placements[j][n] =p
 
-
     #Assert that each job is placed on _exactly_ one node
     # there are several encodings that can achieve this constraint, and you may need to play around with a few to find
     # the one that has the best performance. Below I am using a Pseudo-Boolean encoding. But arithmetic
     # encodings are also possible (commented out below)
-    s.add(z3.PbEq(node_choices_pb, 1))
-    #s.add(Sum([If(b, 1, 0) for b in node_choices]) == 1)
+    #s.add(z3.PbEq(node_choices_pb, 1)) # this not work for just one node
+    s.add(Sum([If(b, 1, 0) for b in node_choices]) == 1)
 
 
 # assert that, for each node, the sum of the jobs placed on that node do not exceed the available CPU
@@ -149,18 +159,18 @@ for (j1, j2),val in affinities.items():
 s.maximize(affinity_score ) # The objective function should be an integer (or real) that Z3 will minimize or maximize.
 
 
-print("Solving...")
+#print("Solving...")
 r =  s.check()
-print(str(r))
+#print(str(r))
 if r==sat: # attempt to solve the instance, and return True if it could be solved
-    print("Found valid placement")
+    #print("Found valid placement")
     m = s.model() # the model contains the actual assignments found by Z3 for each variable
 
     # print out the objective function we are minimizing
     # m.evaluate(x,True) extracts the sat solver's solution from the model
     # and then .as_long() converts that solution into a python long that we can print
     a = m.evaluate(affinity_score,model_completion=True).as_long()
-    print("Affinity score is %d" % (a))
+    #print("Affinity score is %d" % (a))
     assert(a>=0)
 
     # print out the allocation found by Z3
@@ -191,4 +201,4 @@ if r==sat: # attempt to solve the instance, and return True if it could be solve
 
 else:
     #print("Could not find a valid placement")
-    print("{}")
+    print("[]")

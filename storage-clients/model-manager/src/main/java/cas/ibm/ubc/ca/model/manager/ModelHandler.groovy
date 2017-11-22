@@ -356,6 +356,7 @@ class ModelHandler {
 		Set keys = source.keySet()
 		for( String key in keys) {
 			def value = target.getOrDefault(key, 0.0)
+			LOG.debug ("key: {} value: {}", key, value)
 			value += source[key]
 			target[key] = value
 		}

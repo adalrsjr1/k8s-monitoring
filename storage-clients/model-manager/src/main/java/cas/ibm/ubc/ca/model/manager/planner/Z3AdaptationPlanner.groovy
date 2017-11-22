@@ -4,6 +4,7 @@ import java.lang.reflect.Type
 import java.util.List
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.spotify.docker.client.DefaultDockerClient
 import com.spotify.docker.client.DockerClient
 import com.spotify.docker.client.exceptions.DockerException
 import com.spotify.docker.client.messages.AutoValue_Container
@@ -12,6 +13,7 @@ import com.spotify.docker.client.messages.ContainerCreation
 import com.spotify.docker.client.messages.HostConfig
 import com.spotify.docker.client.messages.HostConfig.Bind
 import cas.ibm.ubc.ca.interfaces.messages.Moviment
+import cas.ibm.ubc.ca.model.manager.ModelHandler
 import groovy.transform.builder.Builder
 import model.Affinity
 import model.Host
@@ -30,7 +32,7 @@ class CallZ3OnDockerConfig {
 }
 
 class CallZ3OnDocker {
-	private static String SCRIPT_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/com.sanbox/src/main/resources/z3"
+	private static String SCRIPT_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3/"
 	private static String IMAGE_NAME = "adalrsjr1/z3"
 	private static String CONTAINER_WORKDIR = "/home/z3"
 	private static String CONTAINER_NAME = "z3"
@@ -82,7 +84,7 @@ class CallZ3OnDocker {
 		Bind bind = Bind.builder()
 						.from(SCRIPT_PATH)
 						.to(CONTAINER_WORKDIR)
-						.readOnly(true)
+						.readOnly(false)
 						.build()
 		
 		HostConfig hostConfig = HostConfig.builder()
@@ -113,10 +115,12 @@ class CallZ3OnDocker {
 	
 	// the java-client api has a bug to run command programatically
 	String execOnZ3(String script) {
+		String result = ""
 		try {
 			def process = "docker exec ${CONTAINER_NAME} python $script".execute()
 			process.waitFor()
-			return process.text
+			result = process.text
+			return result
 		}
 		catch(DockerException e) {
 			stopZ3()
@@ -130,23 +134,16 @@ class CallZ3OnDocker {
 			startZ3()
 		}
 	}
-		
-	
-	public static void main(String[] args) {
-		CallZ3OnDockerConfig config = CallZ3OnDockerConfig.builder()
-													  .containerName("z4")
-													  .build()
-		CallZ3OnDocker.create()
-		println CallZ3OnDocker.instance.execOnZ3("hello.py")
-		CallZ3OnDocker.getInstance().stopZ3()
-			
-	}
 }
 
 class Z3AdaptationPlanner implements AdaptationPlanner {
-	private static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3"
+	private static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3/"
 	private static final Gson GSON = new Gson()
-	Z3AdaptationPlanner() {
+	
+	private ModelHandler handler
+	
+	Z3AdaptationPlanner(ModelHandler handler) {
+		this.handler = handler
 		CallZ3OnDockerConfig config = CallZ3OnDockerConfig.builder()
 														  .containerName("z3")
 														  .build()
@@ -155,35 +152,29 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 	
 	private Map hostToMap(Host hostObj) {
 		Map hostMap = [:]
-		with(hostObj) {
-			hostMap["name"] = name
-			hostMap["cpu"] = resourceReserved["cpu"]
-			hostMap["memory"] = resourceReserved["memory"]
-			hostMap["cores"] = metrics["cores"]
-		}
+		hostMap["name"] = hostObj.name
+		hostMap["cpu"] = Math.round(hostObj.resourceReserved["cpu"])
+		hostMap["memory"] = Math.round(hostObj.resourceReserved["memory"]*1000)
+		hostMap["cores"] = hostObj.metrics["cores"]
 		return hostMap	
 	}
 	
 	private Map serviceToMap(ServiceInstance serviceObj) {
 		Map serviceMap = [:]
-		with(serviceObj) {
-			serviceMap["name"] = id
-			serviceMap["host"] = hostToMap(host)
-			serviceMap["cpu"] = metrics["cpu"]
-			serviceMap["memory"] = metrics["memory"]
-			serviceMap["stateful"] = stateful
- 		}
+		serviceMap["name"] = serviceObj.name
+		serviceMap["host"] = hostToMap(serviceObj.host)
+		serviceMap["cpu"] = Math.round(serviceObj.metrics["cpu"])
+		serviceMap["memory"] = Math.round(serviceObj.metrics["memory"]*1000.0)
+		serviceMap["stateful"] = serviceObj.stateful
 		return serviceMap
 	}
 	
 	private Map affinityToMap(Affinity affinityObj) {
 		
 		Map affinityMap = [:]
-		with(affinityObj) {
-			affinityMap["affinity"] = degree
-			affinityMap["source"] = serviceToMap(affinityObj.eContainer)
-			affinityMap["target"] = serviceToMap(with)
-		}
+		affinityMap["affinity"] = Math.round(affinityObj.degree * 100.0)
+		affinityMap["source"] = serviceToMap(affinityObj.eContainer)
+		affinityMap["target"] = serviceToMap(affinityObj.with)
 		
 		return affinityMap
 	}
@@ -198,33 +189,50 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 	}
 	
 	private keepJson(String json) {
-		new File(RESOURCES_PATH + "allocz3.json").withWriter("UTF-8") { writer ->
-			writer.write(json)
+		
+		new File(RESOURCES_PATH + "allocz3.json").withWriter("UTF-8") { out ->
+			out.print(json)
 		}
 	}
 	
-	private Map affinitiesSources(List affinities) {
-		return affinities.inject([:]){ map, Affinity affinity ->
-			ServiceInstance source = affinity.eContainer
-			map << [(source.id) : Moviment.create(source.application, 
-				source.id, source.host.name, "")] 
-		}
-	}
-	
-	private List<Moviment> jsonToMoviments(Map affinitiesSource, String json) {
+	private List<Moviment> createMoves(List affinities, String json) {
+		
 		Type type = new TypeToken<List<Map>>() {}.getType();
 		List partialMoves = GSON.fromJson(json, type)
 		
-		return partialMoves.inject([]) { list, partialMove ->
-			Moviment moviment = affinitiesSource[partialMove["job"]]
-			list << Moviment.create(moviment.application, 
-				moviment.service, moviment.hostSource, partialMove["hosts"])
+		Map services = affinities.inject([:]) {map,  Affinity affinity ->
+			map[(affinity.eContainer.name)] = affinity.eContainer
+			map[(affinity.with.name)] = affinity.with
+			return map
 		}
+		
+		def getService = { map, key ->
+			map[key]
+		}
+		
+		def getApplication = { map, key ->
+			getService(map, key).application
+		}
+		
+		def getHost = { map, key ->
+			getService(map, key).host.name
+		}
+		
+		return (partialMoves.inject([] as Set) { list, partialMove ->
+			if(partialMove) {
+				Moviment moviment = Moviment.create(getApplication(services, partialMove['job']),
+					partialMove['job'],
+					getHost(services, partialMove['job']),
+					partialMove['host'])
+				list << moviment
+			}
+			list
+		}) as List
 	}
 	
 	
 	private String runOnZ3() {
-		return CallZ3OnDocker.instance.execOnZ3(RESOURCES_PATH + "allocz3.py")
+		return CallZ3OnDocker.instance.execOnZ3("allocz3.py")
 	}
 	
 	@Override
@@ -232,7 +240,8 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 		String affinitiesJson = affinitiesToJson(affinities)
 		keepJson(affinitiesJson)
 		String z3Results = runOnZ3()
-		return jsonToMoviments(z3Results)
+		
+		return createMoves(affinities, z3Results)
 	}
 
 }

@@ -1,4 +1,4 @@
-
+storage-clients/com.sanbox/
 # Created by https://www.gitignore.io/api/java,kubernetes,docker
 */**/.attach_pid*
 */**/src/test/resource/*.xmi
