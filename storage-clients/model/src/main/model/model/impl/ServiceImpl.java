@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class ServiceImpl extends ElementWithResourcesImpl implements Service {
+public abstract class ServiceImpl extends MinimalEObjectImpl.Container implements Service {
 	/**
 	 * The cached value of the '{@link #getHasAffinities() <em>Has Affinities</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

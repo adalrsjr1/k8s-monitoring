@@ -50,8 +50,8 @@ class ModelFactoryAdapter implements ModelFactory {
 
 			// updating service by adding a new message
 			if(notification.getEventType() == Notification.ADD
-			&& notifier instanceof ServiceInstance
-			&& newValue instanceof Message) {
+				&& notifier instanceof ServiceInstance
+				&& newValue instanceof Message) {
 				synchronized(notifier) {
 					notifier.totalMessages += 1L
 					notifier.totalData += newValue != null ? newValue.messageSize : 0 
@@ -59,12 +59,13 @@ class ModelFactoryAdapter implements ModelFactory {
 			}
 			// updating service by setting the message values (reference)
 			else if(notification.getEventType() == Notification.SET
-			&& notifier instanceof Message
-			&& notification.getFeature().getName() == "messageSize") {
+					&& notifier instanceof Message
+					&& notification.getFeature().getName() == "messageSize") {
 				synchronized(notifier) {
 					Service service = notifier.eContainer()
 					service.totalData += newValue != null ? newValue : 0
 				}
+				
 			}
 		}
 	}

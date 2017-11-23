@@ -2,6 +2,9 @@ package cas.ibm.ubc.ca.model.manager.planner
 
 import java.lang.reflect.Type
 import java.util.List
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.spotify.docker.client.DefaultDockerClient
@@ -137,6 +140,8 @@ class CallZ3OnDocker {
 }
 
 class Z3AdaptationPlanner implements AdaptationPlanner {
+	private static final Logger LOG = LoggerFactory.getLogger(Z3AdaptationPlanner)
+	
 	private static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3/"
 	private static final Gson GSON = new Gson()
 	
@@ -240,7 +245,8 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 		String affinitiesJson = affinitiesToJson(affinities)
 		keepJson(affinitiesJson)
 		String z3Results = runOnZ3()
-		
+		LOG.debug("adaptation plan by Z3:\n{}",z3Results)
+		LOG.info("applying Z3 optminization")
 		return createMoves(affinities, z3Results)
 	}
 

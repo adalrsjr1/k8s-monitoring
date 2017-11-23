@@ -22,7 +22,7 @@ import java.util.List;
  * @model abstract="true"
  * @generated
  */
-public interface Service extends ElementWithResources {
+public interface Service {
 	/**
 	 * Returns the value of the '<em><b>Has Affinities</b></em>' containment reference list.
 	 * The list contents are of type {@link model.Affinity}.

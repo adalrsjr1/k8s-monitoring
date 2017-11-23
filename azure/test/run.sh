@@ -36,7 +36,7 @@ do_check() {
 }
 
 do_exec() {
-  sleep $INITIAL_DELAY
+  #sleep $INITIAL_DELAY
 
   # check if host is running
   STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${TARGET_HOST}) 
@@ -45,8 +45,12 @@ do_exec() {
       exit 1
   fi
 
-  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning $CLIENTS clients and $REQUESTS total requests."
-  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 --num-request=$REQUESTS --no-web --only-summary
+  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning $CLIENTS \
+  clients and $REQUESTS total requests, waiting $INITIAL_DELAY between \
+  each spawn."
+  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS \
+  --hatch-rate=$INITIAL_DELAY --num-request=$REQUESTS --no-web --only-summary \
+  --print-stats
   echo "done"
 }
 

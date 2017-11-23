@@ -149,42 +149,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int ELEMENT_WITH_RESOURCES = 7;
 
 	/**
-	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT = 0;
-
-	/**
-	 * The feature id for the '<em><b>Metrics</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ELEMENT_WITH_RESOURCES__METRICS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Element With Resources</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ELEMENT_WITH_RESOURCES_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Element With Resources</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ELEMENT_WITH_RESOURCES_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link model.impl.ServiceImpl <em>Service</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -195,31 +159,13 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE__RESOURCE_LIMIT = ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT;
-
-	/**
-	 * The feature id for the '<em><b>Metrics</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE__METRICS = ELEMENT_WITH_RESOURCES__METRICS;
-
-	/**
 	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE__HAS_AFFINITIES = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 0;
+	public static final int SERVICE__HAS_AFFINITIES = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -228,7 +174,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE__NAME = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 1;
+	public static final int SERVICE__NAME = 1;
 
 	/**
 	 * The feature id for the '<em><b>Application</b></em>' attribute.
@@ -237,7 +183,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE__APPLICATION = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 2;
+	public static final int SERVICE__APPLICATION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Stateful</b></em>' attribute.
@@ -246,7 +192,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE__STATEFUL = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
+	public static final int SERVICE__STATEFUL = 3;
 
 	/**
 	 * The number of structural features of the '<em>Service</em>' class.
@@ -255,7 +201,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 4;
+	public static final int SERVICE_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Service</em>' class.
@@ -264,7 +210,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_OPERATION_COUNT = ELEMENT_WITH_RESOURCES_OPERATION_COUNT + 0;
+	public static final int SERVICE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link model.impl.AffinityImpl <em>Affinity</em>}' class.
@@ -323,24 +269,6 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_INSTANCE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE_INSTANCE__RESOURCE_LIMIT = SERVICE__RESOURCE_LIMIT;
-
-	/**
-	 * The feature id for the '<em><b>Metrics</b></em>' map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SERVICE_INSTANCE__METRICS = SERVICE__METRICS;
-
-	/**
 	 * The feature id for the '<em><b>Has Affinities</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -377,13 +305,31 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int SERVICE_INSTANCE__STATEFUL = SERVICE__STATEFUL;
 
 	/**
+	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__RESOURCE_LIMIT = SERVICE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SERVICE_INSTANCE__METRICS = SERVICE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__MESSAGES = SERVICE_FEATURE_COUNT + 0;
+	public static final int SERVICE_INSTANCE__MESSAGES = SERVICE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -392,7 +338,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__ID = SERVICE_FEATURE_COUNT + 1;
+	public static final int SERVICE_INSTANCE__ID = SERVICE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Address</b></em>' attribute.
@@ -401,7 +347,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__ADDRESS = SERVICE_FEATURE_COUNT + 2;
+	public static final int SERVICE_INSTANCE__ADDRESS = SERVICE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Containers</b></em>' attribute list.
@@ -410,7 +356,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 3;
+	public static final int SERVICE_INSTANCE__CONTAINERS = SERVICE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Total Messages</b></em>' attribute.
@@ -419,7 +365,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__TOTAL_MESSAGES = SERVICE_FEATURE_COUNT + 4;
+	public static final int SERVICE_INSTANCE__TOTAL_MESSAGES = SERVICE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Total Data</b></em>' attribute.
@@ -428,7 +374,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__TOTAL_DATA = SERVICE_FEATURE_COUNT + 5;
+	public static final int SERVICE_INSTANCE__TOTAL_DATA = SERVICE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Host</b></em>' reference.
@@ -437,7 +383,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE__HOST = SERVICE_FEATURE_COUNT + 6;
+	public static final int SERVICE_INSTANCE__HOST = SERVICE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Service Instance</em>' class.
@@ -446,7 +392,7 @@ public class ModelPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 7;
+	public static final int SERVICE_INSTANCE_FEATURE_COUNT = SERVICE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Service Instance</em>' class.
@@ -549,6 +495,42 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int MESSAGE_OPERATION_COUNT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Resource Limit</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES__METRICS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Element With Resources</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Element With Resources</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ELEMENT_WITH_RESOURCES_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link model.impl.HostImpl <em>Host</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -613,13 +595,22 @@ public class ModelPackageImpl extends EPackageImpl {
 	public static final int HOST__RESOURCE_RESERVED = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Cores</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HOST__CORES = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Host</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 4;
+	public static final int HOST_FEATURE_COUNT = ELEMENT_WITH_RESOURCES_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Host</em>' class.
@@ -1541,6 +1532,20 @@ public class ModelPackageImpl extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the attribute '{@link model.Host#getCores <em>Cores</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cores</em>'.
+	 * @see model.Host#getCores()
+	 * @see #getHost()
+	 * @generated
+	 */
+	public EAttribute getHost_Cores() {
+		return (EAttribute)hostEClass.getEStructuralFeatures().get(4);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Double Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1937,6 +1942,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		createEReference(hostEClass, HOST__SERVICES);
 		createEAttribute(hostEClass, HOST__HOST_ADDRESS);
 		createEReference(hostEClass, HOST__RESOURCE_RESERVED);
+		createEAttribute(hostEClass, HOST__CORES);
 
 		stringToDoubleMapEClass = createEClass(STRING_TO_DOUBLE_MAP);
 		createEAttribute(stringToDoubleMapEClass, STRING_TO_DOUBLE_MAP__KEY);
@@ -2001,8 +2007,8 @@ public class ModelPackageImpl extends EPackageImpl {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		serviceEClass.getESuperTypes().add(this.getElementWithResources());
 		serviceInstanceEClass.getESuperTypes().add(this.getService());
+		serviceInstanceEClass.getESuperTypes().add(this.getElementWithResources());
 		hostEClass.getESuperTypes().add(this.getElementWithResources());
 
 		// Initialize classes, features, and operations; add parameters
@@ -2050,6 +2056,7 @@ public class ModelPackageImpl extends EPackageImpl {
 		initEReference(getHost_Services(), this.getStringToServiceInstance(), null, "services", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHost_HostAddress(), ecorePackage.getEString(), "hostAddress", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHost_ResourceReserved(), this.getStringToDoubleMap(), null, "resourceReserved", null, 0, -1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHost_Cores(), ecorePackage.getEIntegerObject(), "cores", null, 0, 1, Host.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringToDoubleMapEClass, Map.Entry.class, "StringToDoubleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToDoubleMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2388,6 +2395,14 @@ public class ModelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference HOST__RESOURCE_RESERVED = eINSTANCE.getHost_ResourceReserved();
+
+		/**
+		 * The meta object literal for the '<em><b>Cores</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute HOST__CORES = eINSTANCE.getHost_Cores();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.StringToDoubleMapImpl <em>String To Double Map</em>}' class.

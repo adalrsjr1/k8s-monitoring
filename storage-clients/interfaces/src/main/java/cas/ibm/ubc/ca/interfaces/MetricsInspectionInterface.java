@@ -7,7 +7,17 @@ import cas.ibm.ubc.ca.interfaces.messages.TimeInterval;
 public interface MetricsInspectionInterface {
 	
 	public static enum Measurement {
-		CPU, MEMORY
+		CPU("cpu"), MEMORY("memory");
+		
+		private String name;
+
+		Measurement(String name) {
+	    this.name = name;
+	  }
+
+	  public String toString() {
+	    return name;
+	  }
 	}
 	
 	/**

@@ -22,6 +22,26 @@ public class Sampler implements MetricsInspectionInterface {
 		this.database = database
 	}
 
+	public Map downsampleDerivativeMap(Object... args) {
+		Query query = new Query(buildDerivativeQueryMap(*args), database)
+		QueryResult result = client.query(query)
+
+		Query queryGroup = new Query(buildDerivativeGroupQueryMap(*args), database)
+		QueryResult resultGroup = client.query(queryGroup)
+		
+		parseList(resultGroup)
+	}
+	
+	public double downsampleDerivative(Object... args) {
+		Query query = new Query(buildDerivativeQuery(*args), database)
+		QueryResult result = client.query(query)
+
+		Query queryGroup = new Query(buildDerivativeGroupQuery(*args), database)
+		QueryResult resultGroup = client.query(queryGroup)
+		
+		parseList(resultGroup)
+	}
+	
 	public Map downsampleMap(Object... args) {
 		Query query = new Query(buildQueryMap(*args), database)
 		QueryResult result = client.query(query)
@@ -65,14 +85,41 @@ public class Sampler implements MetricsInspectionInterface {
 	// https://github.com/kubernetes/heapster/blob/v1.3.0-beta.0/docs/storage-schema.md
 	// https://github.com/kubernetes/heapster/blob/v1.3.0-beta.0/docs/model.md
 	private String mapMeasurement(Measurement measurement, String tag) {
-		if(Measurement.CPU == measurement && tag == "pod_name") 
-			return "cpu/usage_rate" // milicores
+		if(Measurement.CPU == measurement && tag == "pod_name")
+			return "cpu/usage" 
+//			return "cpu/usage_rate" // milicores
 		if(Measurement.CPU == measurement && tag == "nodename")
 			return "cpu/usage_rate" // milicores
 		if(Measurement.MEMORY == measurement && tag == "pod_name")
 			return "memory/usage"
 		if(Measurement.MEMORY == measurement && tag == "nodename")
 			return "memory/usage"
+	}
+	// SELECT non_negative_derivative(sum(value))/1000000000 AS "result" INTO deriv_runtime FROM "cpu/usage" \
+	//		WHERE time > now() - 5h AND time < now() -3h AND pod_name = '' GROUP BY time(1m)
+	// SELECT max(result) from deriv_runtime WHERE pod_name != '' GROUP BY pod_name
+	// https://github.com/google/cadvisor/issues/1232
+	// https://github.com/influxdata/influxdb/issues/5898
+	private String buildDerivativeQueryMap(Measurement measurement, DownsamplerFunction function, String tag, def duration) {
+		"""SELECT non_negative_derivative(${function}(value))/1000000000 AS "result" INTO deriv_runtime
+       FROM "${mapMeasurement(measurement, tag)}"
+       WHERE time > now() - ${duration} AND "${tag}" != ''
+             GROUP BY time(1s), ${tag}"""
+	}
+	
+	private String buildDerivativeGroupQueryMap(Measurement measurement, DownsamplerFunction function, String tag, def duration) {
+		"SELECT max(result) from deriv_runtime WHERE pod_name != '' GROUP BY ${tag}"
+	}
+	
+	private String buildDerivativeQuery(Measurement measurement, DownsamplerFunction function, String tag, String id, def duration) {
+		"""SELECT non_negative_derivative(${function}(value))/1000000000 AS "result" INTO deriv_runtime 
+       FROM "${mapMeasurement(measurement, tag)}"
+       WHERE time > now() - ${duration} AND "${tag}" != ''
+             AND ${tag} = '${id}' GROUP BY time(1s), ${tag}""" 
+	}
+	
+	private String buildDerivativeGroupQuery(Measurement measurement, DownsamplerFunction function, String tag, String id, def duration) {
+		"SELECT max(result) from deriv_runtime WHERE pod_name != '' AND pod_name = '${id}'GROUP BY ${tag}"
 	}
 	
 	private String buildQueryMap(Measurement measurement,
@@ -113,7 +160,7 @@ public class Sampler implements MetricsInspectionInterface {
 			def value = it.getValues()
 					.get(0)
 					.get(1)
-			result[tag] =  Math.floor(value * 100000) / 100000
+			result[tag] =  Math.floor(value * 100000) / 100000 // decrease the precision point
 		}
 		return result
 	}
@@ -168,26 +215,57 @@ public class Sampler implements MetricsInspectionInterface {
 	
 	@Override
 	public Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval) {
-		downsampleMap(measurement, DownsamplerFunction.MEAN,
-			"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+//		downsampleMap(measurement, DownsamplerFunction.MEAN,
+//			"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+		if(measurement == Measurement.CPU) {
+			return downsampleDerivativeMap(measurement, DownsamplerFunction.SUM,
+				"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+		}
+		else {
+			return downsampleMap(measurement, DownsamplerFunction.MEAN,
+				"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+		}
 	}
 
 	@Override
 	public Map<String, Double> metricsHost(Measurement measurement, TimeInterval timeInterval) {
-		downsampleMap(measurement, DownsamplerFunction.MEAN,
-			"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		downsampleMap(measurement, DownsamplerFunction.MEAN,
+//			"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		if(measurement == Measurement.CPU) {
+//			return downsampleDerivativeMap(measurement, DownsamplerFunction.SUM,
+//				"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		}
+//		else {
+//			return downsampleMap(measurement, DownsamplerFunction.MEAN,
+//				"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		}
+		
+		return ["cpu":0.0, "memory":0.0]
 	}
 
 	@Override
 	public Double metricService(String id, Measurement measurement, TimeInterval timeInterval) {
-		downsample(measurement, DownsamplerFunction.MEAN,
-			"pod_name", id, "${timeInterval.getIntervalInMillis()}ms")
+		if(measurement == Measurement.CPU) {
+			return downsampleDerivative(measurement, DownsamplerFunction.SUM,
+				"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+		}
+		else {
+			return downsample(measurement, DownsamplerFunction.SUM,
+				"pod_name", "${timeInterval.getIntervalInMillis()}ms")
+		}
 	}
 
 	@Override
 	public Double metricHost(String id, Measurement measurement, TimeInterval timeInterval) {
-		downsample(measurement, DownsamplerFunction.MEAN,
-			"nodename", id, "${timeInterval.getIntervalInMillis()}ms")
+//		if(measurement == Measurement.CPU) {
+//			return downsampleDerivative(measurement, DownsamplerFunction.SUM,
+//				"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		}
+//		else {
+//			return downsample(measurement, DownsamplerFunction.SUM,
+//				"nodename", "${timeInterval.getIntervalInMillis()}ms")
+//		}
+		return 0.0
 	}
 
 	

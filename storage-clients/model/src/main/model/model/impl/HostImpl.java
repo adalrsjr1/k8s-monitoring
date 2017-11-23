@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.HostImpl#getServices <em>Services</em>}</li>
  *   <li>{@link model.impl.HostImpl#getHostAddress <em>Host Address</em>}</li>
  *   <li>{@link model.impl.HostImpl#getResourceReserved <em>Resource Reserved</em>}</li>
+ *   <li>{@link model.impl.HostImpl#getCores <em>Cores</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,6 +92,26 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * @ordered
 	 */
 	protected EMap<String, Double> resourceReserved;
+
+	/**
+	 * The default value of the '{@link #getCores() <em>Cores</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCores()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer CORES_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCores() <em>Cores</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCores()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer cores = CORES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -173,6 +194,27 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Integer getCores() {
+		return cores;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCores(Integer newCores) {
+		Integer oldCores = cores;
+		cores = newCores;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackageImpl.HOST__CORES, oldCores, cores));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -202,6 +244,8 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
 				if (coreType) return ((EMap.InternalMapView<String, Double>)getResourceReserved()).eMap();
 				else return getResourceReserved();
+			case ModelPackageImpl.HOST__CORES:
+				return getCores();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -228,6 +272,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getResourceReserved()).eMap()).set(newValue);
 				return;
+			case ModelPackageImpl.HOST__CORES:
+				setCores((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -252,6 +299,9 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
 				getResourceReserved().clear();
 				return;
+			case ModelPackageImpl.HOST__CORES:
+				setCores(CORES_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -272,6 +322,8 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 				return hostAddress != null && !hostAddress.isEmpty();
 			case ModelPackageImpl.HOST__RESOURCE_RESERVED:
 				return resourceReserved != null && !resourceReserved.isEmpty();
+			case ModelPackageImpl.HOST__CORES:
+				return CORES_EDEFAULT == null ? cores != null : !CORES_EDEFAULT.equals(cores);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -290,6 +342,8 @@ public class HostImpl extends ElementWithResourcesImpl implements Host {
 		result.append(name);
 		result.append(", hostAddress: ");
 		result.append(hostAddress);
+		result.append(", cores: ");
+		result.append(cores);
 		result.append(')');
 		return result.toString();
 	}

@@ -25,7 +25,7 @@ import java.util.List;
  * @model
  * @generated
  */
-public interface ServiceInstance extends Service {
+public interface ServiceInstance extends Service, ElementWithResources {
 	/**
 	 * Returns the value of the '<em><b>Messages</b></em>' containment reference list.
 	 * The list contents are of type {@link model.Message}.

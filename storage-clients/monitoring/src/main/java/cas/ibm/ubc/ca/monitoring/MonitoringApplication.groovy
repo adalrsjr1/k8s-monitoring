@@ -47,7 +47,8 @@ class MonitoringApplication implements InspectionInterface {
 			properties["metrics.inspection.port"], 
 			properties["metrics.inspection.influx.user"],
 			properties["metrics.inspection.influx.password"],
-			properties["metrics.inspection.influx.database"])
+			properties["metrics.inspection.influx.database"], 
+			properties["metrics.inspection.influx.timeout"])
 		LOG.info "Monitoring instantiated."
 	}
 

@@ -50,7 +50,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 		Configuration.setDefaultApiClient(client);
 
 		client.setConnectTimeout(timeout);
-
+		
 		betaApi = new AppsV1beta1Api(client)
 		api = new CoreV1Api(client);
 	}
@@ -86,6 +86,7 @@ class KubernetesInspection implements ClusterInspectionInterface {
 			Map host = [
 				name: item.metadata.name,
 				limits: parseLimits(item.status.capacity),
+				cores: parseLimits(item.status.capacity)['cpu'] / 1000,
 				metrics: [:],
 				services: [],
 				hostAddress: item.status.addresses.inject([]) { List r, V1NodeAddress a ->

@@ -23,36 +23,6 @@ class HeuristicAdaptationPlanner implements AdaptationPlanner {
 	}
 
 	/**
-	 * <p>Calculte if metric1 is greater of less than metric2</p>
-	 * <p>If metric1 > metric2 then return > 0</p>
-	 * <p>If metric1 < metric2 then return < 0</p>
-	 * <p>If metric == metric2 then return 0</p>
-	 * @param metric1
-	 * @param metric2
-	 * @return
-	 */
-	private Double compareMetrics(Map metric1, Map metric2) {
-		return magnitude(metric1.values() as List) - magnitude(metric2.values() as List)
-	}
-
-	@Memoized
-	/**
-	 * Vector norm L2
-	 * @param l
-	 * @return
-	 */
-	private Double magnitude(List l) {
-		Double sum = 0
-
-		sum = l.inject(sum) { r, i ->
-			def value = i == null ? 0 : i
-			r += value * value
-			return r
-		}
-		return sum
-	}
-
-	/**
 	 * Calculate if the sum of metric1 and metric2 fits on host
 	 * @param metric1
 	 * @param metric2
@@ -62,29 +32,24 @@ class HeuristicAdaptationPlanner implements AdaptationPlanner {
 	private Boolean innerFitsOnHost(Map metric1, Map metric2, Map limits, Map reservation) {
 		def result = sumMetrics(metric1, metric2)
 		
-		LOG.debug "svc1:        {}", metric1
-		LOG.debug "svc2:        {}", metric2
-		LOG.debug "limits:      {}", limits
+		LOG.debug "       svc1: {}", metric1
+		LOG.debug "       svc2: {}", metric2
+		LOG.debug "     limits: {}", limits
 		LOG.debug "reservation: {}", reservation
 		return reservation.cpu < limits.cpu && reservation.memory < limits.memory \
 			   && result.cpu < limits.cpu && result.memory < limits.memory
 	}
 
-	private Double cores(Host host) {
-		return host.resourceLimit.cpu / 1000.0
-	}
-		
 	private Boolean checkServicesPerCore(Host host) {
-		int n = 1
+//		int n = 1
 //		println "${(host.services.size() + 1) <= cores(host) * n} ${host.services.size() + 1} ${cores(host)*n}"
-		return (host.services.size() + 1) <= cores(host) * n
-//		return true
+//		return (host.services.size() + 1) <= cores(host) * n
+		return true
 	}
 	
 	private Boolean fitsOnHost(ServiceInstance svc1, ServiceInstance svc2, Host host) {
 		Map zero = ["cpu":0.0, "memory":0.0]
-//		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
-		if(true) {	
+		if(checkServicesPerCore(host) && !host.services.containsKey(svc1.id) && !host.services.containsKey(svc2.id)) {
 			return innerFitsOnHost(svc1.metrics, svc2.metrics, host.resourceLimit, host.resourceReserved)
 		}
 		

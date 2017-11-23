@@ -5,6 +5,8 @@ package model.impl;
 import java.util.Collection;
 import java.util.List;
 
+import java.util.Map;
+import model.ElementWithResources;
 import model.Host;
 import model.Message;
 import model.ServiceInstance;
@@ -13,14 +15,17 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -31,6 +36,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getResourceLimit <em>Resource Limit</em>}</li>
+ *   <li>{@link model.impl.ServiceInstanceImpl#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getMessages <em>Messages</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getId <em>Id</em>}</li>
  *   <li>{@link model.impl.ServiceInstanceImpl#getAddress <em>Address</em>}</li>
@@ -43,6 +50,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance {
+	/**
+	 * The cached value of the '{@link #getResourceLimit() <em>Resource Limit</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, Double> resourceLimit;
+
+	/**
+	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetrics()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, Double> metrics;
+
 	/**
 	 * The cached value of the '{@link #getMessages() <em>Messages</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -170,6 +197,30 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	protected EClass eStaticClass() {
 		return ModelPackageImpl.Literals.SERVICE_INSTANCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map<String, Double> getResourceLimit() {
+		if (resourceLimit == null) {
+			resourceLimit = new EcoreEMap<String,Double>(ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT);
+		}
+		return resourceLimit.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map<String, Double> getMetrics() {
+		if (metrics == null) {
+			metrics = new EcoreEMap<String,Double>(ModelPackageImpl.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, ModelPackageImpl.SERVICE_INSTANCE__METRICS);
+		}
+		return metrics.map();
 	}
 
 	/**
@@ -326,6 +377,10 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap()).basicRemove(otherEnd, msgs);
+			case ModelPackageImpl.SERVICE_INSTANCE__METRICS:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getMetrics()).eMap()).basicRemove(otherEnd, msgs);
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return ((InternalEList<?>)getMessages()).basicRemove(otherEnd, msgs);
 		}
@@ -340,6 +395,12 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT:
+				if (coreType) return ((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap();
+				else return getResourceLimit();
+			case ModelPackageImpl.SERVICE_INSTANCE__METRICS:
+				if (coreType) return ((EMap.InternalMapView<String, Double>)getMetrics()).eMap();
+				else return getMetrics();
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return getMessages();
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
@@ -368,6 +429,12 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getResourceLimit()).eMap()).set(newValue);
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__METRICS:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getMetrics()).eMap()).set(newValue);
+				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				getMessages().addAll((Collection<? extends Message>)newValue);
@@ -403,6 +470,12 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT:
+				getResourceLimit().clear();
+				return;
+			case ModelPackageImpl.SERVICE_INSTANCE__METRICS:
+				getMetrics().clear();
+				return;
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				getMessages().clear();
 				return;
@@ -436,6 +509,10 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT:
+				return resourceLimit != null && !resourceLimit.isEmpty();
+			case ModelPackageImpl.SERVICE_INSTANCE__METRICS:
+				return metrics != null && !metrics.isEmpty();
 			case ModelPackageImpl.SERVICE_INSTANCE__MESSAGES:
 				return messages != null && !messages.isEmpty();
 			case ModelPackageImpl.SERVICE_INSTANCE__ID:
@@ -452,6 +529,40 @@ public class ServiceInstanceImpl extends ServiceImpl implements ServiceInstance 
 				return host != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == ElementWithResources.class) {
+			switch (derivedFeatureID) {
+				case ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT: return ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT;
+				case ModelPackageImpl.SERVICE_INSTANCE__METRICS: return ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == ElementWithResources.class) {
+			switch (baseFeatureID) {
+				case ModelPackageImpl.ELEMENT_WITH_RESOURCES__RESOURCE_LIMIT: return ModelPackageImpl.SERVICE_INSTANCE__RESOURCE_LIMIT;
+				case ModelPackageImpl.ELEMENT_WITH_RESOURCES__METRICS: return ModelPackageImpl.SERVICE_INSTANCE__METRICS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

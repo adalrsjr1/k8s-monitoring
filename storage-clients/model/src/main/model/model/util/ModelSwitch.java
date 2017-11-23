@@ -79,7 +79,6 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackageImpl.SERVICE: {
 				Service service = (Service)theEObject;
 				T result = caseService(service);
-				if (result == null) result = caseElementWithResources(service);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

@@ -18,6 +18,7 @@ import java.util.Map;
  *   <li>{@link model.Host#getServices <em>Services</em>}</li>
  *   <li>{@link model.Host#getHostAddress <em>Host Address</em>}</li>
  *   <li>{@link model.Host#getResourceReserved <em>Resource Reserved</em>}</li>
+ *   <li>{@link model.Host#getCores <em>Cores</em>}</li>
  * </ul>
  *
  * @model
@@ -95,5 +96,30 @@ public interface Host extends ElementWithResources {
 	 * @generated
 	 */
 	Map<String, Double> getResourceReserved();
+
+	/**
+	 * Returns the value of the '<em><b>Cores</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Cores</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Cores</em>' attribute.
+	 * @see #setCores(Integer)
+	 * @model
+	 * @generated
+	 */
+	Integer getCores();
+
+	/**
+	 * Sets the value of the '{@link model.Host#getCores <em>Cores</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cores</em>' attribute.
+	 * @see #getCores()
+	 * @generated
+	 */
+	void setCores(Integer value);
 
 } // Host

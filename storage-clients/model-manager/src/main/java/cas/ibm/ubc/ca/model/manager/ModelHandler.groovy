@@ -1,6 +1,5 @@
 package cas.ibm.ubc.ca.model.manager
 
-import java.util.Map
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -18,8 +17,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.google.common.base.Stopwatch
+
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface.Measurement
-import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.model.adapters.ModelFactoryAdapter
 import model.Application
 import model.Cluster
@@ -159,17 +158,51 @@ class ModelHandler {
 		return tag
 	}
 	
+	private void createVoidMetric(ElementWithResources element, String id, List<Measurement> keys) {
+		createMetric(element, id, keys, [[:],[:]])
+	}
+	
+	private void createHostMetric(ElementWithResources element, String id, Measurement key, Map metric) {
+		Host host = element
+		host.metrics[key.name] = (Double) metric[id] ?: 0
+	}
+	
+	private Double transformCpuValue(Integer cores, Double cpu) {
+		if(cpu == null)
+			return 0
+		def value = cpu * 100 / cores
+		if(value <= 100) {
+			return value
+		}
+		return 100
+	}
+	
+	private void createServiceMetric(ElementWithResources element, String id, Measurement key, Map metric) {
+		ServiceInstance svc = element
+		if(key.name == "cpu") {
+			svc.metrics[key.name] = transformCpuValue(svc.host.cores, metric[id])
+		}
+		else if (key.name == "memory") {
+			svc.metrics[key.name] = (Double) metric[id] ?: 0
+		}
+	}
+	
 	private void createMetric(ElementWithResources element, String id, List<Measurement> keys, List<Map> metrics) {
-
+		assert keys.size() == metrics.size()
+		
 		Iterator<Measurement> keyIt = keys.iterator()
 		Iterator metricsIt = metrics.iterator()
 
 		while(keyIt.hasNext() && metricsIt.hasNext()) {
-//			def key = keyCpuMemory(keyIt.next())
-			def key = keyIt.next().name().toLowerCase()
+			def key = keyIt.next()
 			def metric = metricsIt.next()
-			
-			element.metrics[key] = (Double) metric[id]
+
+			if(element instanceof Host) {
+				createHostMetric(element, id, key, metric)
+			}
+			else if(element instanceof ServiceInstance) {
+				createServiceMetric(element, id, key, metric)
+			}
 		}
 
 	}
@@ -181,11 +214,10 @@ class ModelHandler {
 				ServiceInstance service = eObject
 
 				createMetric(service, service.id, keys, metrics)
+				LOG.debug("created metric for {} metrics: {}", service.name, service.metrics)
 				mergeMap(service.host.resourceReserved, service.metrics)
-			}
-			else if(eObject instanceof Host) {
-				Host host = eObject
-				createMetric(host, host.name, keys, metrics)
+				mergeMap(service.host.metrics, service.metrics)
+				LOG.debug("host name: {} metrics: {}", service.host.name, service.host.metrics)
 			}
 		}
 	}
@@ -232,7 +264,14 @@ class ModelHandler {
 		hosts.each { item ->
 			Host host = factory.createHost(getResource())
 			host.name = item.name
+			host.cores = item.cores
 			host.resourceLimit.putAll(item.limits)
+			host.resourceLimit["cpu"] /= (host.cores * 10) // passing limits to percentage
+			
+			createVoidMetric(host, host.name, [Measurement.CPU, Measurement.MEMORY])
+			
+			LOG.debug("host cores: {}", host.cores)
+			LOG.debug("host limit: {}", host.resourceLimit)
 			item.hostAddress.each {
 				host.hostAddress << it
 			}
@@ -357,8 +396,9 @@ class ModelHandler {
 		for( String key in keys) {
 			def value = target.getOrDefault(key, 0.0)
 			LOG.debug ("key: {} value: {}", key, value)
-			value += source[key]
-			target[key] = value
+//			value += source[key]
+			value += Math.round(source[key])
+			target[key] = (Double)value
 		}
 		return target
 	}
@@ -368,8 +408,9 @@ class ModelHandler {
 		Set keys = source.keySet()
 		for( String key in keys) {
 			def value = target.getOrDefault(key, 0.0)
-			value -= source[key]
-			target[key] = value
+//			value -= source[key]
+			value -= Math.round(source[key])
+			target[key] = (Double)value
 		}
 		return target
 	}
