@@ -1,5 +1,6 @@
 package cas.ibm.ubc.ca.model.manager
 
+import java.lang.reflect.Constructor
 import java.util.concurrent.TimeUnit
 
 import org.slf4j.Logger
@@ -26,7 +27,8 @@ class ModelManager implements ReificationInterface {
 	private final String monitoringUrl
 	private final String modelStorageUrl
 	private final TimeUnit timeUnit
-
+	private final String plannerName
+	
 	private final InspectionInterface monitoring
 	private final ModelHandler modelHandler
 
@@ -38,19 +40,29 @@ class ModelManager implements ReificationInterface {
 	private Boolean stopped = false
 	private static int version = 1
 
+	private static AdaptationPlanner instantiatePlanner(String classname, modelHandler) {
+		String CLASSNAME_PREFIX = "cas.ibm.ubc.ca.model.manager.planner."
+		Class<AdaptationPlanner> plannerClass = Class.forName(CLASSNAME_PREFIX + classname)
+		Constructor constructor = plannerClass.getConstructor(ModelHandler.class)
+		
+		return constructor.newInstance(modelHandler)
+	}
+	
 	public ModelManager(ModelManagerConfig config, ReificationInterface managedCluster) {
 		this.monitoringInterval = Long.parseLong(config.get("modelmanager.monitoring.interval"))
 		this.modelStorageUrl = config.get("modelmanager.model.storage")
 		this.timeUnit = TimeUnit.valueOf(config.get("modelmanager.monitoring.timeunit").toUpperCase())
-
+		this.plannerName = config.get("modelmanager.planner.class")
+		
 		monitoring = new MonitoringApplication()
 		modelHandler = new ModelHandler(this.modelStorageUrl)
 
 		this.managedCluster = managedCluster
 
 		analyzer = new AffinitiesAnalyzer()
+		planner = ModelManager.instantiatePlanner(this.plannerName, modelHandler)
 //		planner = new HeuristicAdaptationPlanner(modelHandler)
-		planner = new Z3AdaptationPlanner(modelHandler)
+//		planner = new Z3AdaptationPlanner(modelHandler)
 	}
 
 	public Cluster createModel() {

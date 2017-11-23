@@ -46,7 +46,7 @@ public class IntegrationTest {
 	public void setClient() {
 		influxDB = InfluxDBFactory.connect("http://"+INFLUX_HOST + ":" + INFLUX_PORT, INFLUX_USER, INFLUX_PASS);
 		
-		MetricsInspectionInterface inspection = MetricsInspectionInterfaceFactory.create(INFLUX_HOST, INFLUX_PORT, INFLUX_USER, INFLUX_PASS, DB_NAME);
+		MetricsInspectionInterface inspection = MetricsInspectionInterfaceFactory.create(INFLUX_HOST, INFLUX_PORT, INFLUX_USER, INFLUX_PASS, DB_NAME,1000);
 		assertNotNull(inspection);		
 		sampler = (Sampler)inspection;
 	}
