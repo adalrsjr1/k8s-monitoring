@@ -61,13 +61,15 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				message.totalTime = span.duration
 				message.sourceIp = clientSendAnnotation.endpoint.ipv4
 				message.sourceName = clientSendAnnotation.endpoint.serviceName
-				message.totalSize = random.nextInt(4096).toLong() + 1L
-				
-				// missing: message.totalSize
+				fetchTotalSizeFromDbQueryResultSizeAnnotation(message, span)
+				if(message.totalSize == null)
+					message.totalSize = random.nextInt(4096).toLong() + 1L
+				// missing: message.totalSize for web RPCs
 
 				def serverEndpoint = findServerEndpoint(span, trace)
 				message.targetIp = serverEndpoint?.ipv4
 				message.targetName = serverEndpoint?.serviceName
+				fetchTargetNameFromPeerAddressAnnotation(message, span)
 
 				messages << message
 			}
@@ -105,5 +107,28 @@ public class ZipkinClient implements MessagesInspectionInterface {
 		def childSpanServerEndpoint = childSpan?.getServerEndpoint()
 
 		spanServerEndpoint ?: childSpanServerEndpoint
+	}
+
+	private void fetchTargetNameFromPeerAddressAnnotation(message, span) {
+		if(message.targetName)
+			return
+
+		def peerAddress = span.binaryAnnotations.find {
+			it.key == 'peer.address'
+		}?.value
+		if(peerAddress == null)
+			return
+
+		message.targetName = peerAddress.split(':')[0]
+	}
+
+	private void fetchTotalSizeFromDbQueryResultSizeAnnotation(message, span) {
+		def size = span.binaryAnnotations.find {
+			it.key == 'db.query.result.size'
+		}?.value
+		if(size == null)
+			return
+
+		message.totalSize = Long.valueOf(size)
 	}
 }
