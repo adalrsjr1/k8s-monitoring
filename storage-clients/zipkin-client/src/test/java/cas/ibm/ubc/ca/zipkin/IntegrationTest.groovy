@@ -35,10 +35,19 @@ class IntegrationTest extends GroovyTestCase {
 		def list = new Gson().fromJson(file, Collection.class)
 		list.each { listItem -> requestorTestsHelper.createSpans(listItem) }
 
-		def timeInterval = TimeInterval.create(1510322462339, 1510322562339)
+		def timeInterval = TimeInterval.create(1511792041243, 1511792341243)
 		def messages = fetchMessages(null, timeInterval)
 
-		assert messages.size == 120
+		assert messages.size == 1344
+		messages.each { message ->
+			assert message.timestamp != null
+			assert message.totalTime != null
+			//assert message.totalSize != null // web RPCs missing this info
+			//assert message.targetIp != null  // db RPCs missing this info
+			assert message.targetName != null
+			assert message.sourceIp != null
+			assert message.sourceName != null
+ 		}
 	}
 
 	void testReturnsNonEmptyMessages() {
@@ -66,11 +75,21 @@ class IntegrationTest extends GroovyTestCase {
 	}
 
 	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
-		assertEquals(2, fetchMessages('orders').size)
+		assertEquals(3, fetchMessages('orders').size)
 	}
 
 	void testReturnsAllMessagesSentFromAnyServiceWithinGivenInterval() {
-		assertEquals(3, fetchMessages().size)
+		assertEquals(4, fetchMessages().size)
+	}
+
+	void testReturnsMessageExtractedFromDbSpan() {
+		def messages = fetchMessages('orders')
+		def dbMessage = messages.find {
+			it.targetName == 'orders-db'
+		}
+
+		assert dbMessage != null
+		assert dbMessage.totalSize == 545
 	}
 
 	private fetchMessages(serviceInstance = null, interval = null) {
@@ -89,7 +108,8 @@ class IntegrationTest extends GroovyTestCase {
 			anotherClientSpan(),
 			olderClientSpan(),
 			multipleHostsClientSpan(),
-			multipleHostsClientSpanChild()
+			multipleHostsClientSpanChild(),
+			dbSpan()
 		]
 	}
 
@@ -229,6 +249,31 @@ class IntegrationTest extends GroovyTestCase {
 			parentId: '9ac2c468d01d5bed',
 			timestamp: System.currentTimeMillis() * 1000,
 			duration: 2792
+		]
+	}
+
+	private dbSpan() {
+		[
+			traceId: '804712224c4ed401',
+			id: '054a5f71953cc779',
+			name: 'crudrepository.save(..)',
+			timestamp: System.currentTimeMillis() * 1000,
+			duration: 35000,
+			annotations: [
+				[
+					timestamp: System.currentTimeMillis() * 1000,
+					value: 'cs',
+					endpoint: [
+						serviceName: "orders",
+						ipv4: "10.0.0.3",
+						port: 80
+					]
+				]
+			],
+			binaryAnnotations: [
+				[key: "db.query.result.size", value: "545"],
+				[key: "peer.address", value: "orders-db:27017"]
+			]
 		]
 	}
 }
