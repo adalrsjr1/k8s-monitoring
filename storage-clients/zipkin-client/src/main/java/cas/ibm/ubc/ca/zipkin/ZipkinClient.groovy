@@ -62,9 +62,7 @@ public class ZipkinClient implements MessagesInspectionInterface {
 				message.sourceIp = clientSendAnnotation.endpoint.ipv4
 				message.sourceName = clientSendAnnotation.endpoint.serviceName
 				fetchTotalSizeFromDbQueryResultSizeAnnotation(message, span)
-				if(message.totalSize == null)
-					message.totalSize = random.nextInt(4096).toLong() + 1L
-				// missing: message.totalSize for web RPCs
+				fetchTotalSizeFromContentLengthAnnotations(message, span)
 
 				def serverEndpoint = findServerEndpoint(span, trace)
 				message.targetIp = serverEndpoint?.ipv4
@@ -130,5 +128,20 @@ public class ZipkinClient implements MessagesInspectionInterface {
 			return
 
 		message.totalSize = Long.valueOf(size)
+	}
+
+	private void fetchTotalSizeFromContentLengthAnnotations(message, span) {
+		if(message.totalSize != null)
+			return
+		def requestSize = span.binaryAnnotations.find {
+			it.key == 'http.content-length'
+		}?.value
+		def responseSize = span.binaryAnnotations.find {
+			it.key == 'http.response.content-length'
+		}?.value
+		if (requestSize == null || responseSize == null)
+			return
+
+		message.totalSize = Long.valueOf(requestSize) + Long.valueOf(responseSize)
 	}
 }
