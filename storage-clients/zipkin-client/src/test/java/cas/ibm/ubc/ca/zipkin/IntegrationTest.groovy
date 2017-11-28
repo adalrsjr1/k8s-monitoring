@@ -35,14 +35,14 @@ class IntegrationTest extends GroovyTestCase {
 		def list = new Gson().fromJson(file, Collection.class)
 		list.each { listItem -> requestorTestsHelper.createSpans(listItem) }
 
-		def timeInterval = TimeInterval.create(1511792041243, 1511792341243)
+		def timeInterval = TimeInterval.create(1511903041954, 1511905041954)
 		def messages = fetchMessages(null, timeInterval)
 
-		assert messages.size == 1344
+		assert messages.size == 1502
 		messages.each { message ->
 			assert message.timestamp != null
 			assert message.totalTime != null
-			//assert message.totalSize != null // web RPCs missing this info
+			assert message.totalSize != null
 			//assert message.targetIp != null  // db RPCs missing this info
 			assert message.targetName != null
 			assert message.sourceIp != null
@@ -63,8 +63,11 @@ class IntegrationTest extends GroovyTestCase {
 	void testReturnsProperMessageAttributes() {
 		def serverSpanSrEndpoint = serverSpan.annotations.get(0).endpoint
 		def clientSpanCsEndpoint = clientSpan.annotations.get(0).endpoint
-		def message = fetchMessages('orders').get(0)
+		def message = fetchMessages('orders').find {
+			it.correlationId == clientSpan.traceId
+		}
 
+		assert message != null
 		assertEquals(clientSpan.traceId, message.correlationId)
 		assertEquals(clientSpan.timestamp, message.timestamp)
 		assertEquals(clientSpan.duration, message.totalTime)
@@ -72,6 +75,7 @@ class IntegrationTest extends GroovyTestCase {
 		assertEquals(clientSpanCsEndpoint.serviceName, message.sourceName)
 		assertEquals(serverSpanSrEndpoint.ipv4, message.targetIp)
 		assertEquals(serverSpanSrEndpoint.serviceName, message.targetName)
+		assertEquals(284, message.totalSize)
 	}
 
 	void testOnlyReturnsMessagesSentFromSpecifiedServiceWithinGivenInterval() {
@@ -129,6 +133,16 @@ class IntegrationTest extends GroovyTestCase {
 						ipv4: "10.0.0.3",
 						port: 80
 					]
+				]
+			],
+			binaryAnnotations: [
+				[
+					key: 'http.content-length',
+					value: '0'
+				],
+				[
+					key: 'http.response.content-length',
+					value: '284'
 				]
 			]
 		]
