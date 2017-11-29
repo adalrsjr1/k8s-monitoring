@@ -1,11 +1,14 @@
-package cas.ibm.ubc.ca.zipkin.pogos;
+package cas.ibm.ubc.ca.zipkin.pogos
 
-import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import cas.ibm.ubc.ca.zipkin.interfaces.ISpan
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 import groovy.transform.Canonical
 import groovy.transform.ToString
+
+import java.util.List
 /*
  * Generated automatically
  *  # http://www.jsonschema2pojo.org/
@@ -13,7 +16,7 @@ import groovy.transform.ToString
  */
 //@Canonical
 //@ToString(includeNames=true)
-class Trace {
+class Trace implements ISpan {
 
 	@SerializedName("traceId")
 	@Expose
@@ -42,8 +45,4 @@ class Trace {
 	@SerializedName("binaryAnnotations")
 	@Expose
     List<BinaryAnnotation> binaryAnnotations = null;	
-
-	Endpoint getServerEndpoint() {
-		annotations?.find { it.value == 'sr' }?.endpoint
-	}
 }
