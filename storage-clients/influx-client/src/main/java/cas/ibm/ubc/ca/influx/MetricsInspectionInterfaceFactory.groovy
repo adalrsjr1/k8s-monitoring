@@ -12,7 +12,7 @@ import org.influxdb.InfluxDBFactory
 
 class MetricsInspectionInterfaceFactory {
 
-	public static MetricsInspectionInterface create(host, port, user, password, database, timeout) {
+	public static MetricsInspectionInterface create(host, port, user, password, database, timeout="1000") {
 		String url = "http://${host}:${port}"
 		Integer intTimeout = Integer.parseInt(timeout)
 		def builder = new OkHttpClient.Builder().readTimeout(intTimeout, TimeUnit.MILLISECONDS).connectTimeout(intTimeout, TimeUnit.MILLISECONDS);

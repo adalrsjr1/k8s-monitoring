@@ -5,7 +5,7 @@ import static org.influxdb.dto.QueryResult.Series
 import org.influxdb.InfluxDB
 import org.influxdb.dto.Query
 import org.influxdb.dto.QueryResult
-
+import cas.ibm.ubc.ca.influx.QueryArgs.QueryType
 import cas.ibm.ubc.ca.influx.exception.NoResultsException
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval
@@ -21,7 +21,47 @@ public class Sampler implements MetricsInspectionInterface {
 		this.client = client
 		this.database = database
 	}
-
+	
+	private QueryResult executeQueryMap(QueryArgs args) {
+		InfluxdbQuery queryStatement = QueryFactory.create(args)
+		println queryStatement.query()
+		Query query = new Query(queryStatement.queryMap(), database)
+		QueryResult result = client.query(query)
+		
+		if(QueryType.DERIVATIVE == args.type) {
+			InfluxdbDerivativeQuery derivativeQueryStatement = (InfluxdbDerivativeQuery) queryStatement
+			query = new Query(derivativeQueryStatement.groupQueryMap(), database)
+			result = client.query(query)
+		}
+		
+		return result
+	}
+	
+	private QueryResult executeQuery(QueryArgs args) {
+		InfluxdbQuery queryStatement = QueryFactory.create(args)
+		println queryStatement.query()
+		Query query = new Query(queryStatement.query(), database)
+		QueryResult result = client.query(query)
+		
+		if(QueryType.DERIVATIVE == args.type) {
+			InfluxdbDerivativeQuery derivativeQueryStatement = (InfluxdbDerivativeQuery) queryStatement
+			query = new Query(derivativeQueryStatement.groupQuery(), database)
+			result = client.query(query)
+		}
+		
+		return result
+	}
+	
+	public Map downsampleMap(QueryArgs args) {
+		QueryResult result = executeQueryMap(args)
+		parseList(result)
+	}
+	
+	public double downsampleValue(QueryArgs args) {
+		QueryResult result = executeQuery(args)
+		parse(result)
+	}
+	
 	public Map downsampleDerivativeMap(Object... args) {
 		Query query = new Query(buildDerivativeQueryMap(*args), database)
 		QueryResult result = client.query(query)
@@ -86,8 +126,8 @@ public class Sampler implements MetricsInspectionInterface {
 	// https://github.com/kubernetes/heapster/blob/v1.3.0-beta.0/docs/model.md
 	private String mapMeasurement(Measurement measurement, String tag) {
 		if(Measurement.CPU == measurement && tag == "pod_name")
-			return "cpu/usage" 
-//			return "cpu/usage_rate" // milicores
+//			return "cpu/usage" 
+			return "cpu/usage_rate" // milicores
 		if(Measurement.CPU == measurement && tag == "nodename")
 			return "cpu/usage_rate" // milicores
 		if(Measurement.MEMORY == measurement && tag == "pod_name")
@@ -101,6 +141,7 @@ public class Sampler implements MetricsInspectionInterface {
 	// https://github.com/google/cadvisor/issues/1232
 	// https://github.com/influxdata/influxdb/issues/5898
 	private String buildDerivativeQueryMap(Measurement measurement, DownsamplerFunction function, String tag, def duration) {
+		// millicores to percentage
 		"""SELECT non_negative_derivative(${function}(value))/1000000000 AS "result" INTO deriv_runtime
        FROM "${mapMeasurement(measurement, tag)}"
        WHERE time > now() - ${duration} AND "${tag}" != ''
@@ -215,6 +256,18 @@ public class Sampler implements MetricsInspectionInterface {
 	
 	@Override
 	public Map<String, Double> metricsService(Measurement measurement, TimeInterval timeInterval) {
+		
+		QueryArgs args =  QueryArgs.builder().measurement(measurement)
+			   .function(DownsamplerFunction.MEAN)
+			   .tag("pod_name")
+			   .duration(timeInterval.getIntervalInMillis())
+			   .type(QueryType.SIMPLE)
+			   .build()
+			   
+		return downsampleMap(args)
+		
+		
+		
 //		downsampleMap(measurement, DownsamplerFunction.MEAN,
 //			"pod_name", "${timeInterval.getIntervalInMillis()}ms")
 		if(measurement == Measurement.CPU) {
@@ -245,6 +298,17 @@ public class Sampler implements MetricsInspectionInterface {
 
 	@Override
 	public Double metricService(String id, Measurement measurement, TimeInterval timeInterval) {
+		QueryArgs args =  ARGS_BUILDER.measurement(measurement)
+							     .function(DownsamplerFunction.MEAN)
+								 .tag("pod_name")
+								 .duration(timeInterval.getIntervalInMillis())
+								 .type(QueryType.SIMPLE)
+								 .build()
+		
+		return downsample(args)
+		
+		
+		
 		if(measurement == Measurement.CPU) {
 			return downsampleDerivative(measurement, DownsamplerFunction.SUM,
 				"pod_name", "${timeInterval.getIntervalInMillis()}ms")
