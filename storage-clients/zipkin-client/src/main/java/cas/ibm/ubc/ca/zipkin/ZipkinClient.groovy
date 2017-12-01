@@ -20,6 +20,7 @@ import cas.ibm.ubc.ca.zipkin.pogos.Trace
 public class ZipkinClient implements MessagesInspectionInterface {
 	final static String \
 		CLIENT_SEND_ANNOTATION = 'cs',
+		DB_QUERY_SIZE_ANNOTATION = 'db.query.size',
 		DB_QUERY_RESULT_SIZE_ANNOTATION = 'db.query.result.size',
 		HTTP_REQUEST_CONTENT_LENGTH_ANNOTATION = 'http.content-length',
 		HTTP_RESPONSE_CONTENT_LENGTH_ANNOTATION = 'http.response.content-length',

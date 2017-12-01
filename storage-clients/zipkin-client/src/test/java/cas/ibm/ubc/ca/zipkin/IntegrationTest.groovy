@@ -35,10 +35,10 @@ class IntegrationTest extends GroovyTestCase {
 		def list = new Gson().fromJson(file, Collection.class)
 		list.each { listItem -> requestorTestsHelper.createSpans(listItem) }
 
-		def timeInterval = TimeInterval.create(1511903041954, 1511905041954)
+		def timeInterval = TimeInterval.create(1512099016063, 1512099216063)
 		def messages = fetchMessages(null, timeInterval)
 
-		assert messages.size == 1502
+		assert messages.size == 13
 		messages.each { message ->
 			assert message.timestamp != null
 			assert message.totalTime != null
@@ -93,7 +93,7 @@ class IntegrationTest extends GroovyTestCase {
 		}
 
 		assert dbMessage != null
-		assert dbMessage.totalSize == 545
+		assert dbMessage.totalSize == 960
 	}
 
 	private fetchMessages(serviceInstance = null, interval = null) {
@@ -286,6 +286,7 @@ class IntegrationTest extends GroovyTestCase {
 			],
 			binaryAnnotations: [
 				[key: "db.query.result.size", value: "545"],
+				[key: "db.query.size", value: "415"],
 				[key: "peer.address", value: "orders-db:27017"]
 			]
 		]

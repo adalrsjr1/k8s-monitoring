@@ -13,6 +13,7 @@ class TraceDecorator implements ISpan {
 	private Endpoint serverEndpoint
 	private Annotation clientSendAnnotation
 	private Long dbQueryResultSize
+	private Long dbQuerySize
 	private Long requestSize
 	private Long responseSize
 	private String peerAddress
@@ -23,6 +24,7 @@ class TraceDecorator implements ISpan {
 			this.serverEndpoint = findServerEndpoint()
 			this.clientSendAnnotation = findClientSendAnnotation()
 			this.dbQueryResultSize = findDbQueryResultSize()
+			this.dbQuerySize = findDbQuerySize()
 			this.requestSize = findRequestContentLength()
 			this.responseSize = findResponseContentLength()
 			this.peerAddress = findPeerAddress()
@@ -39,6 +41,10 @@ class TraceDecorator implements ISpan {
 
 	private Long findDbQueryResultSize() {
 		findAndParseBinaryAnnotationValueToLong(DB_QUERY_RESULT_SIZE_ANNOTATION)
+	}
+
+	private Long findDbQuerySize() {
+		findAndParseBinaryAnnotationValueToLong(DB_QUERY_SIZE_ANNOTATION)
 	}
 
 	private Long findRequestContentLength() {
