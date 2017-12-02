@@ -43,8 +43,11 @@ class MessageBuilder {
 	private void fetchTotalSizeFromDbQueryResultSizeAnnotation() {
 		if(span.dbQueryResultSize == null)
 			return
+		Long size = span.dbQueryResultSize
+		if(span.dbQuerySize != null)
+			size += span.dbQuerySize
 
-		message.totalSize = Long.valueOf(span.dbQueryResultSize)
+		message.totalSize = size
 	}
 
 	private void fetchTotalSizeFromContentLengthAnnotations() {
