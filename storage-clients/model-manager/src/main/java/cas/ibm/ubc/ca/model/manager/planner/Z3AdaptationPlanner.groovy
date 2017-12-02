@@ -158,9 +158,10 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 	private Map hostToMap(Host hostObj) {
 		Map hostMap = [:]
 		hostMap["name"] = hostObj.name
-		hostMap["cpu"] = Math.round(hostObj.resourceReserved["cpu"])
-		hostMap["memory"] = Math.round(hostObj.resourceReserved["memory"]*1000)
+		hostMap["cpu"] = Math.round(hostObj.resourceLimit["cpu"])
+		hostMap["memory"] = Math.round(hostObj.resourceLimit["memory"]*1000)
 		hostMap["cores"] = hostObj.metrics["cores"]
+		
 		return hostMap	
 	}
 	

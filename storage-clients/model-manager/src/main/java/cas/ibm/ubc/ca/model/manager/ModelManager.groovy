@@ -66,6 +66,7 @@ class ModelManager implements ReificationInterface {
 	}
 
 	public Cluster createModel() {
+		
 		Cluster cluster = modelHandler.updateModel(
 				"${version++}",
 				monitoring.environment(),

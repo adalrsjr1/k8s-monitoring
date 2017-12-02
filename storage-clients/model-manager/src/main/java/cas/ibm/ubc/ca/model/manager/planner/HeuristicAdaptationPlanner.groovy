@@ -169,7 +169,11 @@ class HeuristicAdaptationPlanner implements AdaptationPlanner {
 		Set moved = [] as Set
 		while( affinities.size() > 0 ) {
 			def obj = affinities.remove(0)
-			adaptationScript << canMove(obj, moved)
+			def move = canMove(obj, moved)
+			
+			if(move != Moviment.nonMove()) {
+				adaptationScript << move
+			}
 		}
 		return adaptationScript
 	}

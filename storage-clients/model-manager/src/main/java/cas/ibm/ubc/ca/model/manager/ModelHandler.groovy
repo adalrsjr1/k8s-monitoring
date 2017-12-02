@@ -105,9 +105,9 @@ class ModelHandler {
 
 					ServiceInstance s = services[m["sourceName"]]
 					Message msg
-					synchronized (s) {
+					synchronized (s.messages) {
 						msg = factory.createMessage(resource)
-						s.messages.add(0, msg)
+						s.messages.add(0,msg)
 						msg.source = s
 					}
 
@@ -168,17 +168,19 @@ class ModelHandler {
 	}
 	
 	private Double transformCpuValue(Integer cores, Double cpu) {
-		if(cpu == null)
-			return 0
-		def value = cpu * 100 / cores
-		if(value <= 100) {
-			return value
-		}
-		return 100
+//		if(cpu == null)
+//			return 0
+//		def value = cpu * 100 / cores
+//		if(value <= 100) {
+//			return value
+//		}
+//		return 100
+		return Math.round(cpu ?: 0)
 	}
 	
 	private void createServiceMetric(ElementWithResources element, String id, Measurement key, Map metric) {
 		ServiceInstance svc = element
+		
 		if(key.name == "cpu") {
 			svc.metrics[key.name] = transformCpuValue(svc.host.cores, metric[id])
 		}
@@ -212,7 +214,7 @@ class ModelHandler {
 		for(def eObject in iterator) {
 			if(eObject instanceof ServiceInstance) {
 				ServiceInstance service = eObject
-
+				
 				createMetric(service, service.id, keys, metrics)
 				LOG.debug("created metric for {} metrics: {}", service.name, service.metrics)
 				mergeMap(service.host.resourceReserved, service.metrics)
@@ -233,7 +235,8 @@ class ModelHandler {
 			service.address = s.address
 			service.application = s.application
 
-			service.containers.addAll(s.containers)
+			if(s.containers)
+				service.containers.addAll(s.containers)
 
 			if(cluster.applications.containsKey(service.application)) {
 				cluster.applications[s.application].services[service.id] = service
@@ -242,6 +245,7 @@ class ModelHandler {
 			Host host = cluster.hosts.values().find { h ->
 				h.hostAddress.contains(s.hostAddress)
 			}
+			
 			host.services[service.id] = service
 
 			modelServices[service.id] = service
@@ -264,18 +268,17 @@ class ModelHandler {
 		hosts.each { item ->
 			Host host = factory.createHost(getResource())
 			host.name = item.name
-			host.cores = item.cores
+//			host.cores = item.cores
 			host.resourceLimit.putAll(item.limits)
-			host.resourceLimit["cpu"] /= (host.cores * 10) // passing limits to percentage
-			
+				
+//			host.resourceLimit["cpu"] /= (host.cores * 10) // passing limits to percentage
+			host.cores = host.resourceLimit["cpu"] / 1000
 			createVoidMetric(host, host.name, [Measurement.CPU, Measurement.MEMORY])
-			
 			LOG.debug("host cores: {}", host.cores)
 			LOG.debug("host limit: {}", host.resourceLimit)
 			item.hostAddress.each {
 				host.hostAddress << it
 			}
-			
 
 			cluster.hosts[item.name] = host
 		}
@@ -327,7 +330,6 @@ class ModelHandler {
 
 	public Cluster updateModel(String version, String environment, List hosts, Map applications,
 			List services, List messages, List metricsKeys, List metrics) {
-
 		if(resource) {
 			String lastVersion = saveModel()
 			history.add(lastVersion)
@@ -335,7 +337,6 @@ class ModelHandler {
 			destroyResource()
 		}
 		createResource(modelStoragePath, version, resourceSet)
-
 		cluster = createCluster(environment)
 		fillModel(cluster, environment, hosts, applications,
 				services, messages, metricsKeys, metrics)
