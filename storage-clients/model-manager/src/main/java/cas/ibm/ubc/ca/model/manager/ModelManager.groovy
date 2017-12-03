@@ -40,11 +40,13 @@ class ModelManager implements ReificationInterface {
 	private Boolean stopped = false
 	private static int version = 1
 
-	private static AdaptationPlanner instantiatePlanner(String classname, modelHandler) {
+	private static AdaptationPlanner instantiatePlanner(String classname, modelHandler, config) {
 		String CLASSNAME_PREFIX = "cas.ibm.ubc.ca.model.manager.planner."
 		Class<AdaptationPlanner> plannerClass = Class.forName(CLASSNAME_PREFIX + classname)
 		Constructor constructor = plannerClass.getConstructor(ModelHandler.class)
 		
+		if(classname.contains("Z3"))
+			return constructor.newInstance(modelHandler, config.get("modelmanager.planner.z3.wait_time"))
 		return constructor.newInstance(modelHandler)
 	}
 	
@@ -60,7 +62,7 @@ class ModelManager implements ReificationInterface {
 		this.managedCluster = managedCluster
 
 		analyzer = new AffinitiesAnalyzer()
-		planner = ModelManager.instantiatePlanner(this.plannerName, modelHandler)
+		planner = ModelManager.instantiatePlanner(this.plannerName, modelHandler, config)
 //		planner = new HeuristicAdaptationPlanner(modelHandler)
 //		planner = new Z3AdaptationPlanner(modelHandler)
 	}

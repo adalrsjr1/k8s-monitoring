@@ -107,7 +107,16 @@ class ModelHandler {
 					Message msg
 					synchronized (s.messages) {
 						msg = factory.createMessage(resource)
-						s.messages.add(0,msg)
+						while(true) {
+							try {
+								s.messages.add(0,msg)
+								break
+							}
+							catch(Exception e) {
+								
+							}
+							
+						}
 						msg.source = s
 					}
 

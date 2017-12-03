@@ -4,6 +4,11 @@ import sys
 import random
 import time
 import json
+from pprint import pprint
+import networkx as nx
+import matplotlib.pyplot as plt
+
+random.seed(31)
 
 def randomHosts(prefix, n):
   hosts = [None] * n
@@ -30,7 +35,7 @@ def randomServices(hostPrefix, nHost, svcPrefix, nSvc):
   uid = 0
   while len(services) < nHost:
     name = svcPrefix + str(uid)
-    hostName = hostPrefix + str(random.randint(0, nHost-1))
+    hostName = hostPrefix + str(uid)
     services.append({
         'uid': name,
         'name': name,
@@ -82,8 +87,7 @@ def randomMetrics(hostPrefix, nHost, svcPrefix, nSvc):
   return metrics
  
 
-cache = dict()
-def randomMessage(svcPrefix, nSvc):
+def randomMessage(svcPrefix, nSvc, cache):
   t = int(round(time.time() * 1000000000))
 
   size = nSvc
@@ -103,36 +107,151 @@ def randomMessage(svcPrefix, nSvc):
   "totalTime" : random.randint(1,100), "targetIp": target, "sourceIp": source,\
   "sourceName": source, "targetName": target}
 
+cache = {}
 def randomMessages(svcPrefix, nSvc, nMessages):
   messages = []
   for i in range(0,nMessages):
-    messages.append(randomMessage(svcPrefix, nSvc))
+    messages.append(randomMessage(svcPrefix, nSvc, cache))
 
   return messages
 
-#if len(sys.argv) == 2:
-#  sys.stdout = open("messages.json", "w")
-#  for i in range(0, int(sys.argv[1])):
-#    print json.dumps(randomMessage(services))
-#else:
-#  exit()
+def randomSparseGraph(v, p):  
+  isConnected = False
+  increment = p 
+  g = None
+  while not isConnected:
+    g = nx.fast_gnp_random_graph(v,p)
+    p = p + increment
+    isConnected = nx.is_connected(g)
+  return g
+  #nx.write_adjlist(g, sys.stdout)
+  #print g.edges()
+  print(g.number_of_edges())
+  print(p)
+  #nx.draw(g)
+  #plt.show()
 
-nSvcs = int(sys.argv[1])
-nHosts = int(sys.argv[2])
-nMsgs = int(sys.argv[3])
+def randomMessagesGraph(prefix, nSvc, nMessages):
+  g = randomSparseGraph(nSvc, 0.00001)
 
-path = '/home/adalrsjr1/Code/ibm-stack/benchmarking-input/'
+  messages = []
+  edges = g.edges()
+  edges_size = len(edges)
 
-random.seed(31)
+  for e in edges:
+    messages.append( messageInstance( prefix+str(e[0]), prefix+str(e[1]) ) )
 
-with open(path+'hosts-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as hostsFile:
-  hostsFile.write(json.dumps(randomHosts('micro_', nHosts)))
+  for i in range(nMessages):
+    index = random.randint(0, edges_size-1)
+    messages.append( messages[index] )
 
-with open(path+'svcs-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as svcsFile:
-  svcsFile.write(json.dumps(randomServices('micro_', nHosts, 'svc_', nSvcs)))
+  return messages
+ 
+def messageInstance(source, target):
+  t = int(round(time.time() * 1000000000))
 
-with open(path+'msgs-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as msgsFile:
-  msgsFile.write(json.dumps(randomMessages('svc_', nSvcs, nMsgs)))
+  return {"correlationId": t, "timestamp": t, "totalSize":int(random.gauss(100,10)),\
+  "totalTime" : int(random.gauss(100,10)), "targetIp": target, "sourceIp": source,\
+  "sourceName": source, "targetName": target}
 
-with open(path+'metrics-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as metricsFile:
-  metricsFile.write(json.dumps(randomMetrics('micro_', nHosts, 'svc_', nSvcs)))
+def generateFiles(nHosts, nSvcs, nMsgs):
+  path = '/home/adalrsjr1/Code/ibm-stack/benchmarking-input/'
+
+  with open(path+'hosts-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as hostsFile:
+    hostsFile.write(json.dumps(randomHosts('micro_', nHosts)))
+
+  with open(path+'svcs-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as svcsFile:
+    svcsFile.write(json.dumps(randomServices('micro_', nHosts, 'svc_', nSvcs)))
+
+  with open(path+'msgs-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as msgsFile:
+    msgsFile.write(json.dumps(randomMessagesGraph('svc_', nSvcs, nMsgs)))
+
+  with open(path+'metrics-random-'+str(nHosts)+'-'+str(nSvcs)+'-'+str(nMsgs)+'.json', 'w') as metricsFile:
+    metricsFile.write(json.dumps(randomMetrics('micro_', nHosts, 'svc_', nSvcs)))
+ 
+#nSvcs = int(sys.argv[1])
+#nHosts = int(sys.argv[2])
+#nMsgs = int(sys.argv[3])
+
+
+nSvcs = 10
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 11
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 12
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 13
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 14
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 15
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 20
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 50
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 100
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+nSvcs = 1000
+nHosts = nSvcs
+generateFiles(nSvcs,nHosts,10)
+generateFiles(nSvcs,nHosts,100)
+generateFiles(nSvcs,nHosts,1000)
+generateFiles(nSvcs,nHosts,10000)
+generateFiles(nSvcs,nHosts,100000)
+generateFiles(nSvcs,nHosts,1000000)
+

@@ -2,6 +2,8 @@ package cas.ibm.ubc.ca.model.manager.planner
 
 import java.lang.reflect.Type
 import java.util.List
+import java.util.concurrent.TimeUnit
+
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -23,11 +25,12 @@ import model.Host
 import model.ServiceInstance
 
 @Builder
-class CallZ3OnDockerConfig {
+class CallZ3Config {
 	String scriptPath
 	String imageName
 	String containerWorkdir
 	String containerName
+	Long waitTime
 	
 	boolean isEmpty() {
 		return !scriptPath && !imageName && !containerWorkdir && !containerName
@@ -39,6 +42,7 @@ class CallZ3OnDocker {
 	private static String IMAGE_NAME = "adalrsjr1/z3"
 	private static String CONTAINER_WORKDIR = "/home/z3"
 	private static String CONTAINER_NAME = "z3"
+	private static Long WAIT_TIME = 60000 // 1 MINUTE
 	private static String CONTAINER_ID
 	private static CallZ3OnDocker INSTANCE
 	
@@ -52,18 +56,19 @@ class CallZ3OnDocker {
 			CONTAINER_ID = startZ3()
 	}
 	
-	private static void setConfig(CallZ3OnDockerConfig config) {
+	private static void setConfig(CallZ3Config config) {
 		CallZ3OnDocker.CONTAINER_NAME = config.containerName ?: CONTAINER_NAME
 		CallZ3OnDocker.CONTAINER_WORKDIR = config.containerWorkdir ?: CONTAINER_WORKDIR
 		CallZ3OnDocker.IMAGE_NAME = config.imageName ?: IMAGE_NAME
 		CallZ3OnDocker.SCRIPT_PATH = config.scriptPath ?: SCRIPT_PATH
+		CallZ3OnDocker.WAIT_TIME = config.waitTime ?: WAIT_TIME
 	}
 	
 	public static synchronized CallZ3OnDocker getInstance() {
 		return INSTANCE
 	}
 	
-	public static CallZ3OnDocker create(CallZ3OnDockerConfig config) {
+	public static CallZ3OnDocker create(CallZ3Config config) {
 		if(config) {
 			setConfig(config)
 		}
@@ -118,10 +123,11 @@ class CallZ3OnDocker {
 	
 	// the java-client api has a bug to run command programatically
 	String execOnZ3(String script) {
+		init()
 		String result = ""
 		try {
 			def process = "docker exec ${CONTAINER_NAME} python $script".execute()
-			process.waitFor()
+			process.waitForOrKill(WAIT_TIME)
 			result = process.text
 			return result
 		}
@@ -139,20 +145,60 @@ class CallZ3OnDocker {
 	}
 }
 
+class CallZ3OnBareMetal {
+	private static String SCRIPT_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3"
+	private static Long WAIT_TIME = 60000
+
+	private static CallZ3OnBareMetal INSTANCE
+	
+	private static void setConfig(CallZ3Config config) {
+		CallZ3OnBareMetal.WAIT_TIME = config.waitTime ?: WAIT_TIME
+	}
+	
+	private CallZ3OnBareMetal() {}
+	
+	public static synchronized CallZ3OnBareMetal getInstance() {
+		return INSTANCE
+	}
+	
+	public static CallZ3OnBareMetal create(CallZ3Config config) {
+		if(config) {
+			setConfig(config)
+		}
+		INSTANCE = new CallZ3OnBareMetal()
+		return getInstance()
+	}
+		
+	public String execOnZ3(String script) {
+		def result = ""
+		def t = CallZ3OnBareMetal.WAIT_TIME
+		try {
+			def process = "python $SCRIPT_PATH/$script".execute()
+			process.waitForOrKill(t)
+			result = process.text
+			return result
+		}
+		catch(Exception e) {
+			throw new RuntimeException("Z3 is taking more than ${TimeUnit.MILLISECONDS.toMinutes(t)} minutes")
+		}
+	}
+}
+
 class Z3AdaptationPlanner implements AdaptationPlanner {
 	private static final Logger LOG = LoggerFactory.getLogger(Z3AdaptationPlanner)
-	
 	private static final String RESOURCES_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3/"
 	private static final Gson GSON = new Gson()
 	
 	private ModelHandler handler
 	
-	Z3AdaptationPlanner(ModelHandler handler) {
+	Z3AdaptationPlanner(ModelHandler handler, Long z3WaitTime) {
 		this.handler = handler
-		CallZ3OnDockerConfig config = CallZ3OnDockerConfig.builder()
-														  .containerName("z3")
-														  .build()
-		CallZ3OnDocker.create(config)
+		CallZ3Config config = CallZ3Config.builder()
+										  .containerName("z3")
+										  .waitTime(z3WaitTime) // 1 Minute
+										  .build()
+//		CallZ3OnDocker.create(config)
+		CallZ3OnBareMetal.create(config)
 	}
 	
 	private Map hostToMap(Host hostObj) {
@@ -236,9 +282,9 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 		}) as List
 	}
 	
-	
 	private String runOnZ3() {
-		return CallZ3OnDocker.instance.execOnZ3("allocz3.py")
+//		return CallZ3OnDocker.instance.execOnZ3("allocz3.py")
+		return CallZ3OnBareMetal.instance.execOnZ3("allocz3.py")
 	}
 	
 	@Override

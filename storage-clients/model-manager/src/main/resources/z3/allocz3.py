@@ -35,7 +35,8 @@ class Node:
 
 expected_runtimes=dict()
 
-data = json.load(open('allocz3.json'))
+data = \
+  json.load(open('/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3/allocz3.json'))
 
 
 def dictToNode(d):

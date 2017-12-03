@@ -154,7 +154,15 @@ class ModelFactoryAdapter implements ModelFactory {
 	
 	private void addToResource(Resource resource, EObject element) {
 		if(resource) {
-			resource.getContents().add(0, element)
+			while(true) {
+				try {
+					resource.getContents().add(0, element)
+					break
+				}
+				catch(Exception e) {
+					
+				}
+			}
 		}
 	}
 
