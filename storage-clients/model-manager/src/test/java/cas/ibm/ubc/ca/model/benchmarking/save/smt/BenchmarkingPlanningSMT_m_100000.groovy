@@ -104,7 +104,7 @@ class BenchmarkingPlanningSMT_m_100000 {
 	
 	
 	public static void printNumberMoves(text) {
-		BenchmarkConfig.appendToFile(MOVES_FILENAME, text)
+		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+text)
 	}
 	
 	@Rule
