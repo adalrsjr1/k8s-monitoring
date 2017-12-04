@@ -115,61 +115,31 @@ class BenchmarkingPlanningSMT_m_100000 {
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
-		def x = createMock(10,10,MESSAGES); printNumberMoves("10_10_${MESSAGES}.txt",x)
+		def x = createMock(10,10,MESSAGES); printNumberMoves("saves-smt.txt","10_10_${MESSAGES}=${x}")
 	}
-	
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_11_Services() {
-		def x = createMock(11,11,MESSAGES); printNumberMoves("11_11_${MESSAGES}.txt",x)
+	void testBuildModel_11_Messages_11_Services() {
+		def x = createMock(11,11,MESSAGES); printNumberMoves("saves-smt.txt","11_11_${MESSAGES}=${x}")
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_12_Services() {
-		def x = createMock(12,12,MESSAGES); printNumberMoves("12_12_${MESSAGES}.txt",x)
+	void testBuildModel_12_Messages_12_Services() {
+		def x = createMock(12,12,MESSAGES); printNumberMoves("saves-smt.txt","12_12_${MESSAGES}=${x}")
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_13_Services() {
-		def x = createMock(13,13,MESSAGES); printNumberMoves("13_13_${MESSAGES}.txt",x)
+	void testBuildModel_13_Messages_13_Services() {
+		def x = createMock(13,13,MESSAGES); printNumberMoves("saves-smt.txt","13_13_${MESSAGES}=${x}")
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_14_Services() {
-		def x = createMock(14,14,MESSAGES); printNumberMoves("14_14_${MESSAGES}.txt",x)
+	void testBuildModel_14_Messages_14_Services() {
+		def x = createMock(14,14,MESSAGES); printNumberMoves("saves-smt.txt","14_14_${MESSAGES}=${x}")
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_15_Services() {
-		def x = createMock(15,15,MESSAGES); printNumberMoves("15_15_${MESSAGES}.txt",x)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_20_Services() {
-		def x = createMock(20,20,MESSAGES); printNumberMoves("20_20_${MESSAGES}.txt",x)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_50_Services() {
-		def x = createMock(50,50,MESSAGES); printNumberMoves("50_50_${MESSAGES}.txt",x)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_100_Services() {
-		def x = createMock(100,100,MESSAGES); printNumberMoves("100_100_${MESSAGES}.txt",x)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_1000_Services() {
-		def x = createMock(1000,1000,MESSAGES); printNumberMoves("1000_1000_${MESSAGES}.txt",x)
+	void testBuildModel_15_Messages_15_Services() {
+		def x = createMock(15,15,MESSAGES); printNumberMoves("saves-smt.txt","15_15_${MESSAGES}=${x}")
 	}
 }

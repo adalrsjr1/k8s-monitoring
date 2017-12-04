@@ -132,8 +132,7 @@ def randomSparseGraph(v, p):
   #plt.show()
 
 def randomMessagesGraph(prefix, nSvc, nMessages):
-  g = randomSparseGraph(nSvc, 0.00001)
-
+  g = nx.barabasi_albert_graph(nSvc,nSvc-1, 31)
   messages = []
   edges = g.edges()
   edges_size = len(edges)
@@ -141,17 +140,17 @@ def randomMessagesGraph(prefix, nSvc, nMessages):
   for e in edges:
     messages.append( messageInstance( prefix+str(e[0]), prefix+str(e[1]) ) )
 
-  for i in range(nMessages):
+  for i in range(nMessages-edges_size):
     index = random.randint(0, edges_size-1)
-    messages.append( messages[index] )
+    messages.append( messages[i % edges_size] )
 
   return messages
  
 def messageInstance(source, target):
   t = int(round(time.time() * 1000000000))
 
-  return {"correlationId": t, "timestamp": t, "totalSize":int(random.gauss(100,10)),\
-  "totalTime" : int(random.gauss(100,10)), "targetIp": target, "sourceIp": source,\
+  return {"correlationId": t, "timestamp": t, "totalSize":100,\
+  "totalTime" : 10, "targetIp": target, "sourceIp": source,\
   "sourceName": source, "targetName": target}
 
 def generateFiles(nHosts, nSvcs, nMsgs):
@@ -173,6 +172,23 @@ def generateFiles(nHosts, nSvcs, nMsgs):
 #nHosts = int(sys.argv[2])
 #nMsgs = int(sys.argv[3])
 
+def files(start, stop, step):
+  for i in range(start, stop, step):
+    for j in range(6):
+      generateFiles(i, i, 10**j)
+
+
+g = nx.barabasi_albert_graph(10,9,31)
+nx.draw(g)
+plt.show()
+
+sys.exit(1)
+
+files(10,21,1)
+files(20,101,10)
+files(100, 1001, 100)
+
+sys.exit(1)
 
 nSvcs = 10
 nHosts = nSvcs

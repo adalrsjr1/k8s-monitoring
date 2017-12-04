@@ -112,61 +112,141 @@ class BenchmarkingPlanningHeuristic_m_10 {
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
-		def x = createMock(10,10,MESSAGES); printNumberMoves("10_10_${MESSAGES}.txt",x)
+		def x = createMock(10,10,MESSAGES); printNumberMoves("saves-heuristic.txt","10_10_${MESSAGES}=${x}")
 	}
-	
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_11_Services() {
-		def x = createMock(11,11,MESSAGES); printNumberMoves("11_11_${MESSAGES}.txt",x)
+	void testBuildModel_11_Messages_11_Services() {
+		def x = createMock(11,11,MESSAGES); printNumberMoves("saves-heuristic.txt","11_11_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_12_Services() {
-		def x = createMock(12,12,MESSAGES); printNumberMoves("12_12_${MESSAGES}.txt",x)
+	void testBuildModel_12_Messages_12_Services() {
+		def x = createMock(12,12,MESSAGES); printNumberMoves("saves-heuristic.txt","12_12_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_13_Services() {
-		def x = createMock(13,13,MESSAGES); printNumberMoves("13_13_${MESSAGES}.txt",x)
+	void testBuildModel_13_Messages_13_Services() {
+		def x = createMock(13,13,MESSAGES); printNumberMoves("saves-heuristic.txt","13_13_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_14_Services() {
-		def x = createMock(14,14,MESSAGES); printNumberMoves("14_14_${MESSAGES}.txt",x)
+	void testBuildModel_14_Messages_14_Services() {
+		def x = createMock(14,14,MESSAGES); printNumberMoves("saves-heuristic.txt","14_14_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_15_Services() {
-		def x = createMock(15,15,MESSAGES); printNumberMoves("15_15_${MESSAGES}.txt",x)
+	void testBuildModel_15_Messages_15_Services() {
+		def x = createMock(15,15,MESSAGES); printNumberMoves("saves-heuristic.txt","15_15_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_20_Services() {
-		def x = createMock(20,20,MESSAGES); printNumberMoves("20_20_${MESSAGES}.txt",x)
+	void testBuildModel_16_Messages_16_Services() {
+		def x = createMock(16,16,MESSAGES); printNumberMoves("saves-heuristic.txt","16_16_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_50_Services() {
-		def x = createMock(50,50,MESSAGES); printNumberMoves("50_50_${MESSAGES}.txt",x)
+	void testBuildModel_17_Messages_17_Services() {
+		def x = createMock(17,17,MESSAGES); printNumberMoves("saves-heuristic.txt","17_17_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_100_Services() {
-		def x = createMock(100,100,MESSAGES); printNumberMoves("100_100_${MESSAGES}.txt",x)
+	void testBuildModel_18_Messages_18_Services() {
+		def x = createMock(18,18,MESSAGES); printNumberMoves("saves-heuristic.txt","18_18_${MESSAGES}=${x}")
 	}
-	
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_1000_Services() {
-		def x = createMock(1000,1000,MESSAGES); printNumberMoves("1000_1000_${MESSAGES}.txt",x)
+	void testBuildModel_19_Messages_19_Services() {
+		def x = createMock(19,19,MESSAGES); printNumberMoves("saves-heuristic.txt","19_19_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_20_Messages_20_Services() {
+		def x = createMock(20,20,MESSAGES); printNumberMoves("saves-heuristic.txt","20_20_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_30_Messages_30_Services() {
+		def x = createMock(30,30,MESSAGES); printNumberMoves("saves-heuristic.txt","30_30_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_40_Messages_40_Services() {
+		def x = createMock(40,40,MESSAGES); printNumberMoves("saves-heuristic.txt","40_40_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_50_Messages_50_Services() {
+		def x = createMock(50,50,MESSAGES); printNumberMoves("saves-heuristic.txt","50_50_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_60_Messages_60_Services() {
+		def x = createMock(60,60,MESSAGES); printNumberMoves("saves-heuristic.txt","60_60_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_70_Messages_70_Services() {
+		def x = createMock(70,70,MESSAGES); printNumberMoves("saves-heuristic.txt","70_70_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_80_Messages_80_Services() {
+		def x = createMock(80,80,MESSAGES); printNumberMoves("saves-heuristic.txt","80_80_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_90_Messages_90_Services() {
+		def x = createMock(90,90,MESSAGES); printNumberMoves("saves-heuristic.txt","90_90_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_100_Messages_100_Services() {
+		def x = createMock(100,100,MESSAGES); printNumberMoves("saves-heuristic.txt","100_100_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_200_Messages_200_Services() {
+		def x = createMock(200,200,MESSAGES); printNumberMoves("saves-heuristic.txt","200_200_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_300_Messages_300_Services() {
+		def x = createMock(300,300,MESSAGES); printNumberMoves("saves-heuristic.txt","300_300_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_400_Messages_400_Services() {
+		def x = createMock(400,400,MESSAGES); printNumberMoves("saves-heuristic.txt","400_400_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_500_Messages_500_Services() {
+		def x = createMock(500,500,MESSAGES); printNumberMoves("saves-heuristic.txt","500_500_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_600_Messages_600_Services() {
+		def x = createMock(600,600,MESSAGES); printNumberMoves("saves-heuristic.txt","600_600_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_700_Messages_700_Services() {
+		def x = createMock(700,700,MESSAGES); printNumberMoves("saves-heuristic.txt","700_700_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_800_Messages_800_Services() {
+		def x = createMock(800,800,MESSAGES); printNumberMoves("saves-heuristic.txt","800_800_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_900_Messages_900_Services() {
+		def x = createMock(900,900,MESSAGES); printNumberMoves("saves-heuristic.txt","900_900_${MESSAGES}=${x}")
+	}
+	@Test
+	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
+	void testBuildModel_1000_Messages_1000_Services() {
+		def x = createMock(1000,1000,MESSAGES); printNumberMoves("saves-heuristic.txt","1000_1000_${MESSAGES}=${x}")
 	}
 }

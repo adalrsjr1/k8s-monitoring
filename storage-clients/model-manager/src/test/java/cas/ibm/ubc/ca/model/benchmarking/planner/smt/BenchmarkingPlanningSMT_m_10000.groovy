@@ -93,61 +93,31 @@ class BenchmarkingPlanningSMT_m_10000 {
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
-		createMock(10,10,MESSAGES)
+		def x = createMock(10,10,MESSAGES)
 	}
-	
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_11_Services() {
-		createMock(11,11,MESSAGES)
+	void testBuildModel_11_Messages_11_Services() {
+		def x = createMock(11,11,MESSAGES)
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_12_Services() {
-		createMock(12,12,MESSAGES)
+	void testBuildModel_12_Messages_12_Services() {
+		def x = createMock(12,12,MESSAGES)
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_13_Services() {
-		createMock(13,13,MESSAGES)
+	void testBuildModel_13_Messages_13_Services() {
+		def x = createMock(13,13,MESSAGES)
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_14_Services() {
-		createMock(14,14,MESSAGES)
+	void testBuildModel_14_Messages_14_Services() {
+		def x = createMock(14,14,MESSAGES)
 	}
-	
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_15_Services() {
-		createMock(15,15,MESSAGES)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_20_Services() {
-		createMock(20,20,MESSAGES)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_50_Services() {
-		createMock(50,50,MESSAGES)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_100_Services() {
-		createMock(100,100,MESSAGES)
-	}
-	
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
-	void testBuildModel_10_Messages_1000_Services() {
-		createMock(1000,1000,MESSAGES)
+	void testBuildModel_15_Messages_15_Services() {
+		def x = createMock(15,15,MESSAGES)
 	}
 }
