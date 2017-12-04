@@ -186,7 +186,7 @@ class BenchmarkingAnalysis_m_100 {
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
 	void testBuildModel_400_Messages_400_Services() {
-		def x = createMock(400,400,MESSAGES)
+		def x = createMock(400,400,MESSAGES)10
 	}
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 1)
