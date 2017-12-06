@@ -108,6 +108,10 @@ class BenchmarkingPlanningSMT_m_10000 {
 		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+text)
 	}
 	
+	public static void printNumberMoves(file, text) {
+		BenchmarkConfig.appendToFile(file, this.getSimpleName()+text)
+	}
+	
 	@Rule
 	public TestRule benchmarkRun = new BenchmarkRule();
 	// 1_1_10_1_2 == 1x10^2 == 100

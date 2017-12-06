@@ -77,7 +77,7 @@ class ModelHandler {
 		cluster = createCluster(environment)
 		return cluster
 	}
-	
+
 	public Cluster getCluster() {
 		return cluster
 	}
@@ -85,7 +85,7 @@ class ModelHandler {
 	private Integer createMessages(Cluster cluster, Map services, List messages) {
 		int threads = Runtime.getRuntime().availableProcessors();
 		ExecutorService tPool = Executors.newFixedThreadPool(threads)
-		
+
 		def tasks = messages.size()
 		int chunckSize = (tasks + threads - 1 ) / threads
 		AtomicInteger counter = new AtomicInteger()
@@ -96,47 +96,45 @@ class ModelHandler {
 			int end = Math.min(start + chunckSize, tasks)
 			tPool.execute({
 				for(int j = start; j < end; j++) {
-					def m
-					synchronized(messages) {
-						// DO NOT ACCESS BY INDEX
-						// IT IS A LINKED LIST! O(n) TO ACCESS ANY ELEMENT
-						m = messages.remove(0)
+					try {
+						def m
+						synchronized(messages) {
+							// DO NOT ACCESS BY INDEX
+							// IT IS A LINKED LIST! O(n) TO ACCESS ANY ELEMENT
+							m = messages.remove(0)
+						}
+
+						ServiceInstance s = services[m["sourceName"]]
+						Message msg
+						synchronized (s.messages) {
+							msg = factory.createMessage(resource)
+
+							s.messages.push(msg)
+
+							msg.source = s
+						}
+
+						msg.avgResponseTime = m["totalTime"]
+						def destination = services[m["targetName"]]
+						msg.destination = destination == null || destination == "" ? s : destination
+						msg.messageSize = m["totalSize"]
+						msg.name = ""
+						msg.timestamp = m["timestamp"]
+						msg.uid = m["correlationId"]
+
+						counter.incrementAndGet()
 					}
-
-					ServiceInstance s = services[m["sourceName"]]
-					Message msg
-					synchronized (s.messages) {
-						msg = factory.createMessage(resource)
-//						while(true) {
-							try {
-								s.messages.push(msg)
-//								break
-							}
-							catch(ArrayIndexOutOfBoundsException e) {
-								LOG.warn(e.message)
-								continue
-							}
-							
-//						}
-						msg.source = s
+					catch(ArrayIndexOutOfBoundsException e) {
+						LOG.warn(e.message)
+						continue
 					}
-
-					msg.avgResponseTime = m["totalTime"]
-					def destination = services[m["targetName"]]
-					msg.destination = destination == null || destination == "" ? s : destination
-					msg.messageSize = m["totalSize"]
-					msg.name = ""
-					msg.timestamp = m["timestamp"]
-					msg.uid = m["correlationId"]
-
-					counter.incrementAndGet()
 				}
 				latch.countDown()
 			})
 		}
 
-		
-		
+
+
 		latch.await()
 		tPool.shutdown();
 		return counter.get()
@@ -167,30 +165,30 @@ class ModelHandler {
 			return "memory"
 		return tag
 	}
-	
+
 	private void createVoidMetric(ElementWithResources element, String id, List<Measurement> keys) {
 		createMetric(element, id, keys, [[:],[:]])
 	}
-	
+
 	private void createHostMetric(ElementWithResources element, String id, Measurement key, Map metric) {
 		Host host = element
 		host.metrics[key.name] = (Double) metric[id] ?: 0
 	}
-	
+
 	private Double transformCpuValue(Integer cores, Double cpu) {
-//		if(cpu == null)
-//			return 0
-//		def value = cpu * 100 / cores
-//		if(value <= 100) {
-//			return value
-//		}
-//		return 100
+		//		if(cpu == null)
+		//			return 0
+		//		def value = cpu * 100 / cores
+		//		if(value <= 100) {
+		//			return value
+		//		}
+		//		return 100
 		return Math.round(cpu ?: 0)
 	}
-	
+
 	private void createServiceMetric(ElementWithResources element, String id, Measurement key, Map metric) {
 		ServiceInstance svc = element
-		
+
 		if(key.name == "cpu") {
 			svc.metrics[key.name] = transformCpuValue(svc.host.cores, metric[id])
 		}
@@ -198,10 +196,10 @@ class ModelHandler {
 			svc.metrics[key.name] = (Double) metric[id] ?: 0
 		}
 	}
-	
+
 	private void createMetric(ElementWithResources element, String id, List<Measurement> keys, List<Map> metrics) {
 		assert keys.size() == metrics.size()
-		
+
 		Iterator<Measurement> keyIt = keys.iterator()
 		Iterator metricsIt = metrics.iterator()
 
@@ -224,7 +222,7 @@ class ModelHandler {
 		for(def eObject in iterator) {
 			if(eObject instanceof ServiceInstance) {
 				ServiceInstance service = eObject
-				
+
 				createMetric(service, service.id, keys, metrics)
 				LOG.debug("created metric for {} metrics: {}", service.name, service.metrics)
 				mergeMap(service.host.resourceReserved, service.metrics)
@@ -255,7 +253,7 @@ class ModelHandler {
 			Host host = cluster.hosts.values().find { h ->
 				h.hostAddress.contains(s.hostAddress)
 			}
-			
+
 			host.services[service.id] = service
 
 			modelServices[service.id] = service
@@ -278,10 +276,10 @@ class ModelHandler {
 		hosts.each { item ->
 			Host host = factory.createHost(getResource())
 			host.name = item.name
-//			host.cores = item.cores
+			//			host.cores = item.cores
 			host.resourceLimit.putAll(item.limits)
-				
-//			host.resourceLimit["cpu"] /= (host.cores * 10) // passing limits to percentage
+
+			//			host.resourceLimit["cpu"] /= (host.cores * 10) // passing limits to percentage
 			host.cores = host.resourceLimit["cpu"] / 1000
 			createVoidMetric(host, host.name, [Measurement.CPU, Measurement.MEMORY])
 			LOG.debug("host cores: {}", host.cores)
@@ -314,28 +312,28 @@ class ModelHandler {
 		def messagesCount = createMessages(cluster, modelServices, messages)
 		LOG.info("Model created in {} ms", messagesCount, watch.elapsed(TimeUnit.MILLISECONDS))
 	}
-	
+
 	// TODO: implement this
-	public Cluster updateModelFromAsyncMonitoring(String version, Future<String> environment, 
-		Future<List> hosts, Future<Map> applications, Future<List> services, Future<List> messages, 
-		List metricsKeys, Future<List> metrics) {
-		
+	public Cluster updateModelFromAsyncMonitoring(String version, Future<String> environment,
+			Future<List> hosts, Future<Map> applications, Future<List> services, Future<List> messages,
+			List metricsKeys, Future<List> metrics) {
+
 		while(!environment.isDone() && !hosts.isDone() && !applications.isDone() &&
-			!services.isDone() && !messages.isDone() && !metrics.isDone()) {
-			
+		!services.isDone() && !messages.isDone() && !metrics.isDone()) {
+
 			environment.isDone()	?:  LOG.info ("Loading environment...")
 			hosts.isDone()			?:  LOG.info ("Loading hosts...")
 			applications.isDone()	?:  LOG.info ("Loading applications...")
 			services.isDone() 		?:  LOG.info ("Loading services...")
 			messages.isDone() 		?:  LOG.info ("Loading messages...")
 			metrics.isDone()		?:  LOG.info ("Loading metrics...")
-			
+
 			Thread.sleep(100)
 		}
-		
+
 		return updateModel(version, environment, hosts, applications, services, messages,
-			metricsKeys, metrics)
-		
+				metricsKeys, metrics)
+
 	}
 
 	public Cluster updateModel(String version, String environment, List hosts, Map applications,
@@ -400,32 +398,32 @@ class ModelHandler {
 	public Collection getHistory() {
 		return history
 	}
-	
+
 	// target += source
 	private Map mergeMap(Map target, Map source) {
 		Set keys = source.keySet()
 		for( String key in keys) {
 			def value = target.getOrDefault(key, 0.0)
 			LOG.debug ("key: {} value: {}", key, value)
-//			value += source[key]
+			//			value += source[key]
 			value += Math.round(source[key])
 			target[key] = (Double)value
 		}
 		return target
 	}
-	
+
 	// target -= source
 	private Map splitMap(Map target, Map source) {
 		Set keys = source.keySet()
 		for( String key in keys) {
 			def value = target.getOrDefault(key, 0.0)
-//			value -= source[key]
+			//			value -= source[key]
 			value -= Math.round(source[key])
 			target[key] = (Double)value
 		}
 		return target
 	}
-	
+
 	// implements undo
 	public Boolean moveOnModel(ServiceInstance service, Host hostDestination) {
 		Boolean result = false
@@ -450,47 +448,47 @@ class ModelHandler {
 			return result
 		}
 	}
-	
-//	public Boolean undoMoveOnModel(ServiceInstance service, Host hostDestination) {
-//		LOG.warn "Reverting model to: {}", moviment
-//		Moviment undo = moviment.createUndoMoviment()
-//		return moveOnModel(service, hostDestination)
-//	}
 
-//	public boolean moveOnModel(Moviment moviment) {
-//		if(moviment == Moviment.nonMove()) {
-//			return true
-//		}
-//		
-//		Cluster cluster = getCluster()
-//		try {
-//			String app = moviment.application
-//			String svc = moviment.service
-//			String src = moviment.hostSource
-//			String dst = moviment.hostDestination
-//			
-//			Host srcHost = cluster.hosts[src]
-//			Host dstHost = cluster.hosts[dst]
-//			
-//			ServiceInstance service = cluster.applications[app].services.values().find {
-//				it.name == svc || it.id == svc
-//			}
-//			
-//			//TODO: there is a bug on model.xmi update
-//			// it is mantaining two "intances" at same time
-//			// can arise ERRORS when loading 
-//				
-//			dstHost.services[service.id] = service
-//			service.setHost(dstHost)
-//			srcHost.services.remove(svc)
-//			
-//			return true
-//		}
-//		catch(Exception e) {
-//			LOG.warn "The model can't be udpated with the moving: {}", moviment
-//			LOG.error e.message
-//			return false
-//		}
-//	}
-//	
+	//	public Boolean undoMoveOnModel(ServiceInstance service, Host hostDestination) {
+	//		LOG.warn "Reverting model to: {}", moviment
+	//		Moviment undo = moviment.createUndoMoviment()
+	//		return moveOnModel(service, hostDestination)
+	//	}
+
+	//	public boolean moveOnModel(Moviment moviment) {
+	//		if(moviment == Moviment.nonMove()) {
+	//			return true
+	//		}
+	//
+	//		Cluster cluster = getCluster()
+	//		try {
+	//			String app = moviment.application
+	//			String svc = moviment.service
+	//			String src = moviment.hostSource
+	//			String dst = moviment.hostDestination
+	//
+	//			Host srcHost = cluster.hosts[src]
+	//			Host dstHost = cluster.hosts[dst]
+	//
+	//			ServiceInstance service = cluster.applications[app].services.values().find {
+	//				it.name == svc || it.id == svc
+	//			}
+	//
+	//			//TODO: there is a bug on model.xmi update
+	//			// it is mantaining two "intances" at same time
+	//			// can arise ERRORS when loading
+	//
+	//			dstHost.services[service.id] = service
+	//			service.setHost(dstHost)
+	//			srcHost.services.remove(svc)
+	//
+	//			return true
+	//		}
+	//		catch(Exception e) {
+	//			LOG.warn "The model can't be udpated with the moving: {}", moviment
+	//			LOG.error e.message
+	//			return false
+	//		}
+	//	}
+	//
 }
