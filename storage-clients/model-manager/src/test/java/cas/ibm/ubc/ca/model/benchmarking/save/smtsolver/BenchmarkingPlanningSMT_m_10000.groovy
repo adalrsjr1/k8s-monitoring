@@ -14,7 +14,7 @@ import cas.ibm.ubc.ca.model.benchmarking.MonitoringMock
 import cas.ibm.ubc.ca.model.manager.ModelHandler;
 import cas.ibm.ubc.ca.model.manager.analyzer.AffinitiesAnalyzer
 import cas.ibm.ubc.ca.model.manager.planner.HeuristicAdaptationPlanner
-import cas.ibm.ubc.ca.model.manager.planner.Z3AdaptationPlanner
+import cas.ibm.ubc.ca.model.manager.planner.Z3SolverAdaptationPlanner
 import groovy.transform.CompileStatic;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
@@ -86,7 +86,7 @@ class BenchmarkingPlanningSMT_m_10000 {
 		}
 		int initial_size = map.size()
 		
-		Z3AdaptationPlanner planner = new Z3AdaptationPlanner(handler,BenchmarkConfig.Z3_WAIT_TIME)
+		Z3SolverAdaptationPlanner planner = new Z3SolverAdaptationPlanner(handler,BenchmarkConfig.Z3_WAIT_TIME)
 		map = planner.execute(affinities).inject(map) { Map result, Moviment m ->
 			result[m.service] = m.hostDestination
 			result
