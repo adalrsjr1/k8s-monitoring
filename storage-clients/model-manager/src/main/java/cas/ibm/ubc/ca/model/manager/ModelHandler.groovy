@@ -107,16 +107,17 @@ class ModelHandler {
 					Message msg
 					synchronized (s.messages) {
 						msg = factory.createMessage(resource)
-						while(true) {
+//						while(true) {
 							try {
-								s.messages.add(0,msg)
-								break
+								s.messages.push(msg)
+//								break
 							}
-							catch(Exception e) {
-								
+							catch(ArrayIndexOutOfBoundsException e) {
+								LOG.warn(e.message)
+								continue
 							}
 							
-						}
+//						}
 						msg.source = s
 					}
 
