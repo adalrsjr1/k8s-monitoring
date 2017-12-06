@@ -112,47 +112,42 @@ class BenchmarkingPlanningSMT_m_100000 {
 	// 1_1_10_1_2 == 1x10^2 == 100
 	// svcs hosts messages
 	static final int MESSAGES = 100000
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
 		def x = createMock(10,10,MESSAGES); printNumberMoves("saves-smt.txt","10_10_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_11_Messages_11_Services() {
 		def x = createMock(11,11,MESSAGES); printNumberMoves("saves-smt.txt","11_11_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_12_Messages_12_Services() {
 		def x = createMock(12,12,MESSAGES); printNumberMoves("saves-smt.txt","12_12_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_13_Messages_13_Services() {
 		def x = createMock(13,13,MESSAGES); printNumberMoves("saves-smt.txt","13_13_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_14_Messages_14_Services() {
 		def x = createMock(14,14,MESSAGES); printNumberMoves("saves-smt.txt","14_14_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_15_Messages_15_Services() {
 		def x = createMock(15,15,MESSAGES); printNumberMoves("saves-smt.txt","15_15_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_20_Messages_20_Services() {
 		def x = createMock(20,20,MESSAGES); printNumberMoves("saves-smt.txt","20_20_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
-	void testBuildModel_25_Messages_25_Services() {
-		def x = createMock(25,25,MESSAGES); printNumberMoves("saves-smt.txt","25_25_${MESSAGES}=${x}")
-	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_30_Messages_30_Services() {
 		def x = createMock(30,30,MESSAGES); printNumberMoves("saves-smt.txt","30_30_${MESSAGES}=${x}")

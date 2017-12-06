@@ -127,11 +127,6 @@ class BenchmarkingPlanningSMT_m_1000 {
 	}
 	@Test(timeout=60000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
-	void testBuildModel_25_Messages_25_Services() {
-		def x = createMock(25,25,MESSAGES);
-	}
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_30_Messages_30_Services() {
 		def x = createMock(30,30,MESSAGES);
 	}
