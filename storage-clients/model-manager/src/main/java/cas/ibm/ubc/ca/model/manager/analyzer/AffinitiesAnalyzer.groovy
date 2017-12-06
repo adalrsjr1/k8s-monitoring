@@ -90,26 +90,56 @@ class AffinitiesAnalyzer {
 		
 		Queue affinities = new PriorityQueue(comparator)
 		
-		cache.each { k, v ->
-			ServiceInstance src = v[2]
-			ServiceInstance dst = v[3]
+		for(def elem in cache) {
+			def k = elem.key
+			def v = elem.value
 			
-			Application application = cluster.applications[src.getApplication()]
-			int nMsg = v[0]
-			int msgSize = v[1]
-			def value = affinity(nMsg, application.totalMessages,
-				msgSize, application.totalData, application.weight)
-			
-
-			Affinity aff = factory.createAffinity(resource)
-			
-			aff.setDegree(value)
-			aff.setWith(dst)
-						
-			src.hasAffinities << aff
-			affinities << aff
-			services << src
+			try {
+				ServiceInstance src = v[2]
+				ServiceInstance dst = v[3]
+				
+				Application application = cluster.applications[ src.getApplication() ]
+				int nMsg = v[0]
+				int msgSize = v[1]
+				def value = affinity(nMsg, application.totalMessages,
+					msgSize, application.totalData, application.weight)
+				
+	
+				Affinity aff = factory.createAffinity(resource)
+				
+				aff.setDegree(value)
+				aff.setWith(dst)
+							
+				src.hasAffinities << aff
+				affinities << aff
+				services << src
+			}
+			catch(NullPointerException e) {
+				LOG.error(e.message)
+				continue
+			}
 		}
+		
+//		cache.each { k, v ->
+//			ServiceInstance src = v[2]
+//			ServiceInstance dst = v[3]
+//			
+//			Application application = cluster.applications[ src.getApplication() ]
+//			int nMsg = v[0]
+//			int msgSize = v[1]
+//			def value = affinity(nMsg, application.totalMessages,
+//				msgSize, application.totalData, application.weight)
+//			
+//
+//			Affinity aff = factory.createAffinity(resource)
+//			
+//			aff.setDegree(value)
+//			aff.setWith(dst)
+//						
+//			src.hasAffinities << aff
+//			affinities << aff
+//			services << src
+//		}
 		
 //		services.each { Service svc ->
 //			ECollections.sort(svc.getHasAffinities(), comparator)
