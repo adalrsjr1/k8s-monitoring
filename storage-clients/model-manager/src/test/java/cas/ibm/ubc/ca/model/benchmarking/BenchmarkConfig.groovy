@@ -7,7 +7,7 @@ class BenchmarkConfig {
 	public static final String PROCESS_NAME_NO_ARGS = "python /home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/test/resources/random_generator.py"
 	public static final double MIN = 0.0
 	public static final double MAX = 1000.0 
-	public static final long Z3_WAIT_TIME = 60*1000*1L
+	public static final long Z3_WAIT_TIME = 60*1000*10L
 	
 	public static loadConfig() {
 		Properties p = new Properties();
