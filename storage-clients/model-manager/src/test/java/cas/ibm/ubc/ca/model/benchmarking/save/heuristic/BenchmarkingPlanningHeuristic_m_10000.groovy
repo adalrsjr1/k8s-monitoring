@@ -102,7 +102,7 @@ class BenchmarkingPlanningHeuristic_m_10000 {
 	
 	public static void printNumberMoves(filename, text) {
 		BenchmarkConfig.createFile(filename)
-		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+text)
+		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+"_"+text)
 	}
 	
 	@Rule

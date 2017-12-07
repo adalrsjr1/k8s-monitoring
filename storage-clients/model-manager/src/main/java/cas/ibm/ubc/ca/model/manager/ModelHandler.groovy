@@ -125,7 +125,7 @@ class ModelHandler {
 						counter.incrementAndGet()
 					}
 					catch(ArrayIndexOutOfBoundsException e) {
-						LOG.warn(e.message)
+						LOG.warn(e.getCause().toString())
 						continue
 					}
 				}
