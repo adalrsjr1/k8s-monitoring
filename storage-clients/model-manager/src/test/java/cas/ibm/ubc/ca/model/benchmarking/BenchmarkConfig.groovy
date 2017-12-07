@@ -59,7 +59,7 @@ class BenchmarkConfig {
 	}
 	
 	public static void appendToFile(name, text) {
-		if(checkFile(name)) {
+		if(!checkFile(name)) {
 			createFile(name)
 		}
 		new File(BENCHMARK_PATH+"$name").append(text+"\n", "UTF-8")
