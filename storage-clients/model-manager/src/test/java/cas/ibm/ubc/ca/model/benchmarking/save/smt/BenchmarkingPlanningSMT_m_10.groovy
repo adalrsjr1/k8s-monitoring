@@ -110,7 +110,7 @@ class BenchmarkingPlanningSMT_m_10 {
 	}
 	
 	public static void printNumberMoves(file, text) {
-		BenchmarkConfig.appendToFile(file, this.getSimpleName()+text)
+		BenchmarkConfig.appendToFile(file, this.getSimpleName()+"_"+text)
 	}
 	
 	@Rule
@@ -121,16 +121,16 @@ class BenchmarkingPlanningSMT_m_10 {
 	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
-		def x = createMock(10,10,MESSAGES); printNumberMoves("saves-smt.txt","10_10_${MESSAGES}=${x}")
+		def x = createMock(10,10,MESSAGES); printNumberMoves("savings.txt","10_10_${MESSAGES}=${x}")
 	}
 	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_11_Messages_11_Services() {
-		def x = createMock(11,11,MESSAGES); printNumberMoves("saves-smt.txt","11_11_${MESSAGES}=${x}")
+		def x = createMock(11,11,MESSAGES); printNumberMoves("savings.txt","11_11_${MESSAGES}=${x}")
 	}
 	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_12_Messages_12_Services() {
-		def x = createMock(12,12,MESSAGES); printNumberMoves("saves-smt.txt","12_12_${MESSAGES}=${x}")
+		def x = createMock(12,12,MESSAGES); printNumberMoves("savings.txt","12_12_${MESSAGES}=${x}")
 	}
 }
