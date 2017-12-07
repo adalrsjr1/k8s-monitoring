@@ -27,9 +27,9 @@ import java.util.concurrent.TimeUnit;
 import model.Affinity
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-1000_messages")
+@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-10_messages")
 @BenchmarkHistoryChart(labelWith = LabelType.RUN_ID, maxRuns = 20)
-class BenchmarkingPlanningSMT_m_1000 {
+class BenchmarkingPlanningSMTSolver_m_10 {
 	static final String MOVES_FILENAME = "benchmarking-planner-smt_solver-moves.txt"
 	static final String BENCHMARKING_PATH = BenchmarkConfig.BENCHMARK_PATH
 	@AfterClass
@@ -89,45 +89,46 @@ class BenchmarkingPlanningSMT_m_1000 {
 	public TestRule benchmarkRun = new BenchmarkRule();
 	// 1_1_10_1_2 == 1x10^2 == 100
 	// svcs hosts messages
-	static final int MESSAGES = 1000
-	@Test(timeout=60000L)
+	static final int MESSAGES = 10
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
 		def x = createMock(10,10,MESSAGES)
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_11_Messages_11_Services() {
 		def x = createMock(11,11,MESSAGES)
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_12_Messages_12_Services() {
 		def x = createMock(12,12,MESSAGES)
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_13_Messages_13_Services() {
 		def x = createMock(13,13,MESSAGES);
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_14_Messages_14_Services() {
 		def x = createMock(14,14,MESSAGES);
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_15_Messages_15_Services() {
 		def x = createMock(15,15,MESSAGES);
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_20_Messages_20_Services() {
 		def x = createMock(20,20,MESSAGES);
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_30_Messages_30_Services() {
 		def x = createMock(30,30,MESSAGES);
 	}
+	
 }

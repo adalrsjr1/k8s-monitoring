@@ -1,4 +1,4 @@
-package cas.ibm.ubc.ca.model.benchmarking.planner.smtsolver;
+package cas.ibm.ubc.ca.model.benchmarking.save.smtsolver;
 
 import org.junit.AfterClass
 import org.junit.BeforeClass;
@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import cas.ibm.ubc.ca.interfaces.MetricsInspectionInterface.Measurement;
+import cas.ibm.ubc.ca.interfaces.messages.Moviment
 import cas.ibm.ubc.ca.interfaces.messages.TimeInterval;
 import cas.ibm.ubc.ca.model.benchmarking.BenchmarkConfig
 import cas.ibm.ubc.ca.model.benchmarking.MonitoringMock
@@ -25,11 +26,12 @@ import com.carrotsearch.junitbenchmarks.annotation.LabelType;
 import org.junit.runners.MethodSorters;
 import java.util.concurrent.TimeUnit;
 import model.Affinity
+import model.ServiceInstance
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-100_messages")
+@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-hosts_diff-10_messages")
 @BenchmarkHistoryChart(labelWith = LabelType.RUN_ID, maxRuns = 20)
-class BenchmarkingPlanningSMT_m_100 {
+class BenchmarkingPlanningSMTSolver_m_10 {
 	static final String MOVES_FILENAME = "benchmarking-planner-smt_solver-moves.txt"
 	static final String BENCHMARKING_PATH = BenchmarkConfig.BENCHMARK_PATH
 	@AfterClass
@@ -69,9 +71,31 @@ class BenchmarkingPlanningSMT_m_100 {
 		def cluster = handler.cluster
 		def resource = handler.resource
 		def affinities = analyzer.calculate(cluster, resource)
-		Z3SolverAdaptationPlanner planner = new Z3SolverAdaptationPlanner(handler,BenchmarkConfig.Z3_WAIT_TIME)
-		return planner.execute(affinities).size()
 		
+		return calculateHostsDiff(handler, cluster, affinities)
+		
+	}
+	
+	private static int calculateHostsDiff(def handler, def cluster, def affinities) {
+		Iterator it = cluster.applications["APP"].services.values().iterator()
+		Map map = [:]
+		while(it.hasNext()) {
+			ServiceInstance s = it.next()
+			map[s.name] = s.host.name
+		}
+		int initial_size = map.size()
+		
+		Z3SolverAdaptationPlanner planner = new Z3SolverAdaptationPlanner(handler,BenchmarkConfig.Z3_WAIT_TIME)
+		map = planner.execute(affinities).inject(map) { Map result, Moviment m ->
+			result[m.service] = m.hostDestination
+			result
+		}
+		
+		int final_size = map.values().toUnique().size()
+		int diff = initial_size - final_size
+		
+		
+		return diff
 	}
 	
 	@BeforeClass
@@ -82,58 +106,56 @@ class BenchmarkingPlanningSMT_m_100 {
 	
 	
 	public static void printNumberMoves(text) {
-		BenchmarkConfig.appendToFile(MOVES_FILENAME, text)
+		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+"_"+text)
+	}
+	
+	public static void printNumberMoves(file, text) {
+		BenchmarkConfig.appendToFile(file, this.getSimpleName()+text)
 	}
 	
 	@Rule
 	public TestRule benchmarkRun = new BenchmarkRule();
 	// 1_1_10_1_2 == 1x10^2 == 100
 	// svcs hosts messages
-	static final int MESSAGES = 100
-	@Test(timeout=60000L)
+	static final int MESSAGES = 10
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {
-		def x = createMock(10,10,MESSAGES)
+		def x = createMock(10,10,MESSAGES); printNumberMoves("saves-smt_solver.txt","10_10_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_11_Messages_11_Services() {
-		def x = createMock(11,11,MESSAGES)
+		def x = createMock(11,11,MESSAGES); printNumberMoves("saves-smt_solver.txt","11_11_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_12_Messages_12_Services() {
-		def x = createMock(12,12,MESSAGES)
+		def x = createMock(12,12,MESSAGES); printNumberMoves("saves-smt_solver.txt","12_12_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_13_Messages_13_Services() {
-		def x = createMock(13,13,MESSAGES);
+		def x = createMock(13,13,MESSAGES); printNumberMoves("saves-smt_solver.txt","13_13_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_14_Messages_14_Services() {
-		def x = createMock(14,14,MESSAGES);
+		def x = createMock(14,14,MESSAGES); printNumberMoves("saves-smt_solver.txt","14_14_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_15_Messages_15_Services() {
-		def x = createMock(15,15,MESSAGES);
+		def x = createMock(15,15,MESSAGES); printNumberMoves("saves-smt_solver.txt","15_15_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_20_Messages_20_Services() {
-		def x = createMock(20,20,MESSAGES);
+		def x = createMock(20,20,MESSAGES); printNumberMoves("saves-smt_solver.txt","20_20_${MESSAGES}=${x}")
 	}
-	@Test(timeout=60000L)
-	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
-	void testBuildModel_25_Messages_25_Services() {
-		def x = createMock(25,25,MESSAGES);
-	}
-	@Test(timeout=60000L)
+	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_30_Messages_30_Services() {
-		def x = createMock(30,30,MESSAGES);
+		def x = createMock(30,30,MESSAGES); printNumberMoves("saves-smt_solver.txt","30_30_${MESSAGES}=${x}")
 	}
-	
 }

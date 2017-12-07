@@ -29,9 +29,9 @@ import model.Affinity
 import model.ServiceInstance
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-hosts_diff-10_messages")
+@BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-hosts_diff-10000_messages")
 @BenchmarkHistoryChart(labelWith = LabelType.RUN_ID, maxRuns = 20)
-class BenchmarkingPlanningSMT_m_10 {
+class BenchmarkingPlanningSMTSolver_m_10000 {
 	static final String MOVES_FILENAME = "benchmarking-planner-smt_solver-moves.txt"
 	static final String BENCHMARKING_PATH = BenchmarkConfig.BENCHMARK_PATH
 	@AfterClass
@@ -72,6 +72,7 @@ class BenchmarkingPlanningSMT_m_10 {
 		def resource = handler.resource
 		def affinities = analyzer.calculate(cluster, resource)
 		
+		
 		return calculateHostsDiff(handler, cluster, affinities)
 		
 	}
@@ -93,8 +94,6 @@ class BenchmarkingPlanningSMT_m_10 {
 		
 		int final_size = map.values().toUnique().size()
 		int diff = initial_size - final_size
-		
-		
 		return diff
 	}
 	
@@ -117,7 +116,7 @@ class BenchmarkingPlanningSMT_m_10 {
 	public TestRule benchmarkRun = new BenchmarkRule();
 	// 1_1_10_1_2 == 1x10^2 == 100
 	// svcs hosts messages
-	static final int MESSAGES = 10
+	static final int MESSAGES = 10000
 	@Test(timeout=600000L)
 	@BenchmarkOptions(benchmarkRounds = 1, warmupRounds = 1)
 	void testBuildModel_10_Messages_10_Services() {

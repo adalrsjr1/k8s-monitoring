@@ -51,7 +51,7 @@ class BenchmarkConfig {
 	}
 	
 	public static void createFile(name) {
-		new File(BENCHMARK_PATH+"$name").createNewFile()
+//		new File(BENCHMARK_PATH+"$name").createNewFile()
 	}
 	
 	public static void appendToFile(name, text) {

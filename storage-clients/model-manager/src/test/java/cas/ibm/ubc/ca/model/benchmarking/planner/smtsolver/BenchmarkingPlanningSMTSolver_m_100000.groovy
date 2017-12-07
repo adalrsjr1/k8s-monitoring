@@ -29,7 +29,7 @@ import model.Affinity
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @BenchmarkMethodChart(filePrefix = "model-planning-smt_solver-100000_messages")
 @BenchmarkHistoryChart(labelWith = LabelType.RUN_ID, maxRuns = 20)
-class BenchmarkingPlanningSMT_m_100000 {
+class BenchmarkingPlanningSMTSolver_m_100000 {
 	static final String MOVES_FILENAME = "benchmarking-planner-smt_solver-moves.txt"
 	static final String BENCHMARKING_PATH = BenchmarkConfig.BENCHMARK_PATH
 	@AfterClass
