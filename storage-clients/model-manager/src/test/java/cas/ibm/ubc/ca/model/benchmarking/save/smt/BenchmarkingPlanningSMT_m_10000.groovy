@@ -104,9 +104,12 @@ class BenchmarkingPlanningSMT_m_10000 {
 	}
 	
 	
-	public static void printNumberMoves(filename, text) {
-		BenchmarkConfig.createFile(filename)
+	public static void printNumberMoves(text) {
 		BenchmarkConfig.appendToFile(MOVES_FILENAME, this.getSimpleName()+"_"+text)
+	}
+	
+	public static void printNumberMoves(file, text) {
+		BenchmarkConfig.appendToFile(file, this.getSimpleName()+text)
 	}
 	
 	@Rule
