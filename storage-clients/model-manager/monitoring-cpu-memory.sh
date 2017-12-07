@@ -6,6 +6,8 @@ PID_1=$1
 PROC=$2
 JAVA=$(ps -p $PID_1 -o %cpu,%mem | tail -n 1)
 
+FILE=$3
+
 pat="\D+"
 
 while [[ $JAVA != *"CPU"* ]]; do
@@ -13,6 +15,6 @@ while [[ $JAVA != *"CPU"* ]]; do
   JAVA=$(ps -p $PID_1 -o %cpu,%mem | tail -n 1)
   Z3=$(ps -p $PID_2 -o %cpu,%mem | tail -n 1)
 
-  echo "$JAVA    $Z3"
+  echo "$JAVA    $Z3" >> $FILE
   sleep 1
 done
