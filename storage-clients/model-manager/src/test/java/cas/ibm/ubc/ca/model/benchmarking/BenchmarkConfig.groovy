@@ -50,11 +50,18 @@ class BenchmarkConfig {
 		}
 	}
 	
+	public static boolean checkFile(name) {
+		return new File(BENCHMARK_PATH+"$name").exists()
+	}
+	
 	public static void createFile(name) {
-//		new File(BENCHMARK_PATH+"$name").createNewFile()
+		new File(BENCHMARK_PATH+"$name").createNewFile()
 	}
 	
 	public static void appendToFile(name, text) {
+		if(checkFile(name)) {
+			createFile(name)
+		}
 		new File(BENCHMARK_PATH+"$name").append(text+"\n", "UTF-8")
 	}
 	
