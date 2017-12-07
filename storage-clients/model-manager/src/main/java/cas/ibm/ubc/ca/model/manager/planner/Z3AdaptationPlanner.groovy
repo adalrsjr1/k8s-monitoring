@@ -276,6 +276,7 @@ class Z3AdaptationPlanner implements AdaptationPlanner {
 					partialMove['job'],
 					getHost(services, partialMove['job']),
 					partialMove['host'])
+				LOG.info moviment.toString()
 				list << moviment
 			}
 			list

@@ -159,7 +159,7 @@ for (j1, j2),val in affinities.items():
     affinity_score = If(Or(both_jobs_on_same_node),affinity_score+val,affinity_score)
 
 #s.maximize(affinity_score ) # The objective function should be an integer (or real) that Z3 will minimize or maximize.
-s.add(affinity_score > 0)
+s.add(affinity_score > 1)
 
 #print("Solving...")
 r =  s.check()

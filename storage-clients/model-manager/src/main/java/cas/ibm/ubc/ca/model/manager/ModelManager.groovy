@@ -40,13 +40,16 @@ class ModelManager implements ReificationInterface {
 	private Boolean stopped = false
 	private static int version = 1
 
-	private static AdaptationPlanner instantiatePlanner(String classname, modelHandler, config) {
+	private static AdaptationPlanner instantiatePlanner(String classname, modelHandler, ModelManagerConfig config) {
 		String CLASSNAME_PREFIX = "cas.ibm.ubc.ca.model.manager.planner."
 		Class<AdaptationPlanner> plannerClass = Class.forName(CLASSNAME_PREFIX + classname)
-		Constructor constructor = plannerClass.getConstructor(ModelHandler.class)
+		Constructor constructor = null
 		
-		if(classname.contains("Z3"))
-			return constructor.newInstance(modelHandler, config.get("modelmanager.planner.z3.wait_time"))
+		if(classname.contains("Z3")) {
+			constructor = plannerClass.getConstructor(ModelHandler.class, Long.class)
+			return constructor.newInstance(modelHandler, Long.parseLong(config.get("modelmanager.planner.z3.wait_time")))
+		}
+		constructor = plannerClass.getConstructor(ModelHandler.class)
 		return constructor.newInstance(modelHandler)
 	}
 	

@@ -361,7 +361,7 @@ class ModelHandler {
 			if(resource) {
 				Stopwatch watcher = Stopwatch.createStarted()
 				LOG.info ("Saving model...")
-				resource.save(Collections.EMPTY_MAP)
+//				resource.save(Collections.EMPTY_MAP)
 				LOG.info ("The model was save [${watcher.elapsed(TimeUnit.MILLISECONDS)}] ms.")
 				watcher.stop()
 				return resource.getURI().toString()
