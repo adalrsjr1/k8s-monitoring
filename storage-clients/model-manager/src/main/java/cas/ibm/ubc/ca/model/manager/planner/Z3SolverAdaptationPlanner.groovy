@@ -26,7 +26,7 @@ import model.ServiceInstance
 
 class CallZ3SolverOnBareMetal {
 	private static String SCRIPT_PATH = "/home/adalrsjr1/Code/ibm-stack/storage-clients/model-manager/src/main/resources/z3"
-	private static Long WAIT_TIME = 60000
+	private static Long WAIT_TIME = 600000
 
 	private static CallZ3SolverOnBareMetal INSTANCE
 	

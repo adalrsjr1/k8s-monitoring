@@ -42,7 +42,7 @@ class CallZ3OnDocker {
 	private static String IMAGE_NAME = "adalrsjr1/z3"
 	private static String CONTAINER_WORKDIR = "/home/z3"
 	private static String CONTAINER_NAME = "z3"
-	private static Long WAIT_TIME = 60000 // 1 MINUTE
+	private static Long WAIT_TIME = 600000 // 1 MINUTE
 	private static String CONTAINER_ID
 	private static CallZ3OnDocker INSTANCE
 	
