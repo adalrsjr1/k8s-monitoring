@@ -53,8 +53,8 @@ def append_file(name, text):
   with open(name, 'a') as file:
     file.write(text)
 
-def main(name):
-  k8ss = split_k8s_file('complete-demo-azure.yaml')
+def main(name, deployment_file):
+  k8ss = split_k8s_file(deployment_file)
   config = get_custom_config('map.json', name)
 
   for key, value in config.items():
@@ -66,6 +66,7 @@ def main(name):
     append_file(name+'.yaml', text)
     append_file(name+'.yaml', '---\n')
 
-if len(sys.argv) == 2:
-  name = sys.argv[1]
-  main(name)
+if len(sys.argv) == 3:
+  name = sys.argv[2]
+  deployment_file = sys.argv[1]
+  main(name, deployment_file)

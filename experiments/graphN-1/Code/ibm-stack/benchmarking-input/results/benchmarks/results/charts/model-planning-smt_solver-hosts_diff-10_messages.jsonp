@@ -1,0 +1,26 @@
+receiveJsonpData({
+"cols": [
+{"label": "method", "type": "string"},
+{"label": "Average time [s]", "type": "number"},
+{"label": "StdDev", "type": "number"},
+{"label": "GC time [s]", "type": "number"},
+{"label": "GC average [s]", "type": "number"},
+{"label": "StdDev", "type": "number"},
+{"label": "GC calls", "type": "number"},
+{"label": "benchmark rounds", "type": "number"},
+{"label": "warmup rounds", "type": "number"},
+{"label": "Total benchmark time", "type": "number"},
+{"label": "Total warmup time", "type": "number"}
+],
+"rows": [
+{"c": [{"v": "testBuildModel_10_Messages_10_Services"}, {"v": 0.23}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.23}, {"v": 0.25}]},
+{"c": [{"v": "testBuildModel_11_Messages_11_Services"}, {"v": 0.28}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.28}, {"v": 0.27}]},
+{"c": [{"v": "testBuildModel_12_Messages_12_Services"}, {"v": 0.32}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.32}, {"v": 0.33}]},
+{"c": [{"v": "testBuildModel_13_Messages_13_Services"}, {"v": 0.35}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.35}, {"v": 0.35}]},
+{"c": [{"v": "testBuildModel_14_Messages_14_Services"}, {"v": 0.39}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.39}, {"v": 0.39}]},
+{"c": [{"v": "testBuildModel_15_Messages_15_Services"}, {"v": 0.61}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.61}, {"v": 0.44}]},
+{"c": [{"v": "testBuildModel_20_Messages_20_Services"}, {"v": 0.73}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.73}, {"v": 0.76}]},
+{"c": [{"v": "testBuildModel_30_Messages_30_Services"}, {"v": 2.78}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 2.78}, {"v": 2.86}]},
+{"c": [{"v": "testBuildModel_40_Messages_40_Services"}, {"v": 11.57}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 11.57}, {"v": 5.84}]},
+{"c": [{"v": "testBuildModel_50_Messages_50_Services"}, {"v": 19.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 19.0}, {"v": 12.39}]}
+]});

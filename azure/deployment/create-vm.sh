@@ -10,9 +10,9 @@ N=$2
 SSH_KEY=$3
 SIZE="Basic_A2"
 
-for i in $(seq 1 $N); do
+for i in $(seq 0 $N); do
   echo $NAME$i
-  az vm create --resource-group adalberto --location brazilsouth --name $NAME$i \
---image k8s-base --admin-username micro --ssh-key-value $SSH_KEY --size $SIZE \
+  az vm create --resource-group kubernetes --location brazilsouth --name $NAME$i \
+--image base --admin-username micro --ssh-key-value $SSH_KEY --size $SIZE \
 --no-wait
 done

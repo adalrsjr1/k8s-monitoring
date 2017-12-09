@@ -1,0 +1,24 @@
+receiveJsonpData({
+"cols": [
+{"label": "method", "type": "string"},
+{"label": "Average time [s]", "type": "number"},
+{"label": "StdDev", "type": "number"},
+{"label": "GC time [s]", "type": "number"},
+{"label": "GC average [s]", "type": "number"},
+{"label": "StdDev", "type": "number"},
+{"label": "GC calls", "type": "number"},
+{"label": "benchmark rounds", "type": "number"},
+{"label": "warmup rounds", "type": "number"},
+{"label": "Total benchmark time", "type": "number"},
+{"label": "Total warmup time", "type": "number"}
+],
+"rows": [
+{"c": [{"v": "testBuildModel_10_Messages_10_Services"}, {"v": 0.24}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.24}, {"v": 0.24}]},
+{"c": [{"v": "testBuildModel_11_Messages_11_Services"}, {"v": 0.27}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.27}, {"v": 0.27}]},
+{"c": [{"v": "testBuildModel_12_Messages_12_Services"}, {"v": 0.31}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.31}, {"v": 0.3}]},
+{"c": [{"v": "testBuildModel_13_Messages_13_Services"}, {"v": 0.37}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.37}, {"v": 0.35}]},
+{"c": [{"v": "testBuildModel_14_Messages_14_Services"}, {"v": 0.4}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.4}, {"v": 0.4}]},
+{"c": [{"v": "testBuildModel_15_Messages_15_Services"}, {"v": 0.44}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.44}, {"v": 0.47}]},
+{"c": [{"v": "testBuildModel_20_Messages_20_Services"}, {"v": 0.74}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 0.74}, {"v": 0.71}]},
+{"c": [{"v": "testBuildModel_30_Messages_30_Services"}, {"v": 2.85}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0.0}, {"v": 0}, {"v": 1}, {"v": 1}, {"v": 2.85}, {"v": 2.35}]}
+]});

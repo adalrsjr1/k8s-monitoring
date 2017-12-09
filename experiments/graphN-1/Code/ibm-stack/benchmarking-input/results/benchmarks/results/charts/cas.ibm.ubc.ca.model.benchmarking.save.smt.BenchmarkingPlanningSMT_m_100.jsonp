@@ -1,0 +1,12 @@
+receiveJsonpData({
+"cols": [
+{"label": "Run", "type": "string"},
+{"label": "Custom key", "type": "string"},
+{"label": "Timestamp", "type": "string"},
+{"label": "testBuildModel_10_Messages_10_Services", "type": "string"} ,
+{"label": "testBuildModel_11_Messages_11_Services", "type": "string"} ,
+{"label": "testBuildModel_12_Messages_12_Services", "type": "string"} ],
+"rows": [
+{"c": [{"v": "17"}, {"v": "[17]"}, {"v": "2017-12-07 01:37:14.363"}, {"v": 12.181}, {"v": 231.277}, {"v": 0.241}]},
+{"c": [{"v": "18"}, {"v": "[18]"}, {"v": "2017-12-07 09:20:27.222"}, {"v": 12.193}, {"v": 223.973}, {"v": 0.235}]}
+]});

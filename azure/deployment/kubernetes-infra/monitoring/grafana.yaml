@@ -48,6 +48,8 @@ spec:
           path: /etc/ssl/certs
       - name: grafana-storage
         emptyDir: {}
+      nodeSelector:
+        kubernetes.io/hostname: micro0
 ---
 apiVersion: v1
 kind: Service

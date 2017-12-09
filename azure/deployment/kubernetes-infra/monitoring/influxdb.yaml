@@ -21,7 +21,7 @@ spec:
       - name: influxdb-storage
         emptyDir: {}
       nodeSelector:
-        kubernetes.io/hostname: master
+        kubernetes.io/hostname: micro0
 ---
 apiVersion: v1
 kind: Service

@@ -21,12 +21,12 @@
 		}
 	},
   {
-		"name": "deploy1",
+		"name": "origin",
 		"deployment": {
-			"rabbitmq": "master",
-			"zipkin": "master",
-			"zipkin-mysql": "master",
-			"zipkin-cron": "master",
+			"rabbitmq": "micro0",
+			"zipkin": "micro0",
+			"zipkin-mysql": "micro0",
+			"zipkin-cron": "micro0",
 			"carts-db": "micro1",
 			"carts": "micro2",
 			"catalogue-db": "micro3",
@@ -34,8 +34,8 @@
 			"orders-db": "micro5",
 			"orders": "micro6",
 			"payment": "micro7",
-			"front-end": "master",
-			"queue-master": "master",
+			"front-end": "micro12",
+			"queue-master": "micro0",
 			"shipping": "micro8",
 			"user-db": "micro9",
 			"user": "micro10"
@@ -44,10 +44,10 @@
 	{
 		"name": "deploy2",
 		"deployment": {
-			"rabbitmq": "master",
-			"zipkin": "master",
-			"zipkin-mysql": "master",
-			"zipkin-cron": "master",
+			"rabbitmq": "micro0",
+			"zipkin": "micro0",
+			"zipkin-mysql": "micro0",
+			"zipkin-cron": "micro0",
 			"carts-db": "micro1",
 			"carts": "micro2",
 			"catalogue-db": "micro3",
@@ -55,8 +55,8 @@
 			"orders-db": "micro5",
 			"orders": "micro2",
 			"payment": "micro2",
-			"front-end": "master",
-			"queue-master": "master",
+			"front-end": "micro12",
+			"queue-master": "micro0",
 			"shipping": "micro2",
 			"user-db": "micro6",
 			"user": "micro2"
@@ -65,10 +65,10 @@
 	{
 		"name": "deploy3",
 		"deployment": {
-			"rabbitmq": "master",
-			"zipkin": "master",
-			"zipkin-mysql": "master",
-			"zipkin-cron": "master",
+			"rabbitmq": "micro0",
+			"zipkin": "micro0",
+			"zipkin-mysql": "micro0",
+			"zipkin-cron": "micro0",
 			"carts-db": "micro1",
 			"carts": "micro1",
 			"catalogue-db": "micro2",
@@ -76,8 +76,8 @@
 			"orders-db": "micro3",
 			"orders": "micro3",
 			"payment": "micro5",
-			"front-end": "master",
-			"queue-master": "master",
+			"front-end": "micro12",
+			"queue-master": "micro0",
 			"shipping": "micro2",
 			"user-db": "micro4",
 			"user": "micro4"

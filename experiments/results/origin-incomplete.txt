@@ -1,0 +1,641 @@
+
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+micro12.brazilsouth.cloudapp.azure.com:30001 is not accessible
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:29:28,403] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:29:28,403] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:31:08,700] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:31:08,700] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:32:22,884] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:32:22,884] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1125     0(0.00%)     634     404    1697  |     610   15.80
+ GET /basket.html                                                1113     0(0.00%)     615     391    1366  |     590   13.80
+ DELETE /cart                                                    1125     0(0.00%)     532     241    1292  |     520   13.80
+ POST /cart                                                      1068    59(5.24%)     706     296    1162  |     710   12.70
+ GET /catalogue                                                  1118     0(0.00%)     734     422    1416  |     730   16.20
+ GET /category.html                                              1118     0(0.00%)     612     397    1094  |     590   13.90
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         131     0(0.00%)     621     394    1029  |     590    1.60
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         137     0(0.00%)     640     442    1697  |     600    1.60
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         142     0(0.00%)     627     431    1396  |     600    1.80
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         105     0(0.00%)     628     422    1042  |     630    1.60
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         134     0(0.00%)     623     422     929  |     600    2.10
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         133     0(0.00%)     630     402    1066  |     600    0.90
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         111     0(0.00%)     650     434    1062  |     620    1.20
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         135     0(0.00%)     639     464    1356  |     610    1.60
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         102     0(0.00%)     604     426    1048  |     580    1.50
+ GET /login                                                      1123     0(0.00%)     951     489    1779  |     970   15.60
+ POST /orders                                                     977  143(12.77%)    1168     594    1866  |    1200   12.90
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9897   202(2.04%)                                     128.60
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1125    610    650    680    700    810    860   1000   1100   1697
+ GET /basket.html                                                 1113    590    630    660    690    800    860    970   1100   1366
+ DELETE /cart                                                     1125    520    570    600    610    650    730    850    860   1292
+ POST /cart                                                       1068    710    770    810    830    880    960   1000   1100   1162
+ GET /catalogue                                                   1118    730    770    800    810    880    980   1000   1100   1416
+ GET /category.html                                               1118    590    630    660    680    770    830    860   1000   1094
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          131    590    640    670    680    810    840    920   1000   1029
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          137    600    650    690    730    830    980   1000   1100   1697
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          142    600    650    670    680    790    860   1100   1300   1396
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          105    630    660    680    710    810    830    860    910   1042
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          134    600    650    680    690    810    850    880    930    929
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          133    600    650    670    710    780    850    890   1000   1066
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          111    620    680    720    740    840    860   1000   1100   1062
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          135    610    670    690    730    810    860    960   1100   1356
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          102    590    630    650    670    790    840    870    880   1048
+ GET /login                                                       1123    970   1000   1000   1100   1100   1200   1200   1300   1779
+ POST /orders                                                      977   1200   1200   1300   1300   1400   1400   1600   1700   1866
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 109                POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 231                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:32:23,820] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:32:23,820] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:34:04,132] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:34:04,132] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:35:17,777] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:35:17,778] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1118     0(0.00%)     617     460     996  |     600   15.20
+ GET /basket.html                                                1119     0(0.00%)     611     423    1033  |     600   15.60
+ DELETE /cart                                                    1116     0(0.00%)     522     309     846  |     510   15.00
+ POST /cart                                                      1081    40(3.57%)     712     320    1111  |     710   15.80
+ GET /catalogue                                                  1121     0(0.00%)     732     492    1098  |     720   15.60
+ GET /category.html                                              1124     0(0.00%)     616     447    1125  |     600   15.20
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         111     0(0.00%)     615     437     890  |     600    1.40
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         128     0(0.00%)     619     487     893  |     600    1.30
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         132     0(0.00%)     631     442     879  |     610    1.70
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         117     0(0.00%)     615     456     860  |     600    1.70
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         140     0(0.00%)     606     487     870  |     590    1.90
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         116     0(0.00%)     609     462     874  |     610    2.00
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         122     0(0.00%)     621     424     858  |     610    1.70
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         131     0(0.00%)     630     458     878  |     610    2.40
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         123     0(0.00%)     604     445     818  |     590    1.40
+ GET /login                                                      1137     0(0.00%)     947     536    1394  |     940   15.40
+ POST /orders                                                     940  183(16.30%)    1158     662    1701  |    1200   10.00
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9876   223(2.26%)                                     133.30
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1118    600    630    650    670    730    790    830    850    996
+ GET /basket.html                                                 1119    600    630    650    660    720    760    840    850   1033
+ DELETE /cart                                                     1116    510    560    580    600    640    690    780    800    846
+ POST /cart                                                       1081    710    750    780    810    870    930   1000   1000   1111
+ GET /catalogue                                                   1121    720    760    790    810    870    910    960   1000   1098
+ GET /category.html                                               1124    600    630    650    670    730    800    840    860   1125
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          111    600    630    650    660    700    770    830    850    890
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          128    600    630    660    680    750    810    840    860    893
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          132    610    640    690    720    790    820    850    870    879
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          117    600    630    650    660    740    790    810    840    860
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          140    590    610    650    670    710    800    850    850    870
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          116    610    630    640    650    700    740    820    870    874
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          122    620    640    670    680    720    770    810    820    858
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          131    610    640    680    700    770    810    840    850    878
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          123    590    610    650    670    720    750    790    800    818
+ GET /login                                                       1137    940   1000   1000   1100   1100   1200   1300   1300   1394
+ POST /orders                                                      940   1200   1200   1200   1300   1400   1500   1600   1600   1701
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 58                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 282                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:35:18,773] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:35:18,773] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:36:59,143] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:36:59,143] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:38:08,734] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:38:08,735] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1118     0(0.00%)     590     404    1084  |     580   16.80
+ GET /basket.html                                                1117     0(0.00%)     591     421     902  |     580   16.60
+ DELETE /cart                                                    1119     0(0.00%)     484     216     935  |     470   15.40
+ POST /cart                                                      1085    36(3.21%)     670     250    1610  |     660   14.80
+ GET /catalogue                                                  1120     0(0.00%)     705     487    1653  |     700   17.60
+ GET /category.html                                              1130     0(0.00%)     586     395    1050  |     570   15.90
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         122     0(0.00%)     603     452     985  |     600    2.00
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         126     0(0.00%)     593     452     999  |     570    1.50
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         120     0(0.00%)     593     418     870  |     560    2.50
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         121     0(0.00%)     593     419     961  |     570    1.40
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         110     0(0.00%)     604     412    1000  |     590    1.20
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         130     0(0.00%)     602     434    1019  |     580    1.70
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         132     0(0.00%)     608     419    1013  |     600    1.60
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         142     0(0.00%)     591     449     872  |     570    2.50
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         123     0(0.00%)     599     463    1001  |     580    1.00
+ GET /login                                                      1124     0(0.00%)     885     581    1377  |     880   16.70
+ POST /orders                                                     954  170(15.12%)    1076     498    1576  |    1100   14.20
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9893   206(2.08%)                                     143.40
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1118    580    610    630    640    700    780    830    890   1084
+ GET /basket.html                                                 1117    580    610    630    640    720    790    850    860    902
+ DELETE /cart                                                     1119    470    520    550    570    620    660    740    780    935
+ POST /cart                                                       1085    660    730    770    790    860    950    980   1000   1610
+ GET /catalogue                                                   1120    700    740    770    790    850    910    990   1000   1653
+ GET /category.html                                               1130    570    610    630    650    700    790    830    840   1050
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          122    600    620    640    660    700    770    860    880    985
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          126    570    620    640    650    700    790    840    870    999
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          120    570    620    650    660    720    820    840    850    870
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          121    570    610    620    640    760    790    840    860    961
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          110    590    620    650    680    740    790    830    840   1000
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          130    590    620    650    660    730    820    850    860   1019
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          132    600    640    660    660    710    790    860    860   1013
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          142    570    600    630    650    700    800    840    850    872
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          123    580    620    650    660    720    800    840    850   1001
+ GET /login                                                       1124    880    940    980   1000   1100   1100   1300   1300   1377
+ POST /orders                                                      954   1100   1100   1200   1200   1300   1400   1400   1500   1576
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 51                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 254                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:38:09,573] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:38:09,573] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:39:49,810] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:39:49,810] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:41:01,108] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:41:01,108] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1115     0(0.00%)     589     390     847  |     580   16.30
+ GET /basket.html                                                1111     0(0.00%)     574     387     809  |     570   16.70
+ DELETE /cart                                                    1124     0(0.00%)     485     210     796  |     490   16.30
+ POST /cart                                                      1061    70(6.19%)     695     272    1084  |     700   15.30
+ GET /catalogue                                                  1119     0(0.00%)     712     396    1028  |     710   17.00
+ GET /category.html                                              1117     0(0.00%)     588     384     815  |     590   16.10
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         135     0(0.00%)     586     386     821  |     580    1.30
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         139     0(0.00%)     611     424    1044  |     610    2.10
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         124     0(0.00%)     605     405    1036  |     610    2.60
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         118     0(0.00%)     599     403     829  |     600    1.20
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         127     0(0.00%)     600     398     832  |     600    2.30
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         108     0(0.00%)     607     424     782  |     600    1.50
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         118     0(0.00%)     604     397    1030  |     610    1.80
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         133     0(0.00%)     595     392     772  |     600    1.60
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         126     0(0.00%)     611     408     791  |     610    1.70
+ GET /login                                                      1129     0(0.00%)     923     475    1380  |     920   18.30
+ POST /orders                                                     900  225(20.00%)    1150     495    1672  |    1200   13.70
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9804   295(3.01%)                                     145.80
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1115    580    620    650    660    700    720    740    760    847
+ GET /basket.html                                                 1111    570    600    630    640    690    710    750    780    809
+ DELETE /cart                                                     1124    490    530    560    580    630    680    720    740    796
+ POST /cart                                                       1061    700    770    810    830    890    920    970   1000   1084
+ GET /catalogue                                                   1119    710    750    790    810    860    900    940    960   1028
+ GET /category.html                                               1117    590    630    650    670    690    730    760    780    815
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          135    580    620    640    650    680    720    780    800    821
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          139    610    650    670    680    710    750    790    800   1044
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          124    610    650    660    670    690    710    780    780   1036
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          118    600    640    650    670    730    730    760    760    829
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          127    600    640    650    660    690    720    740    750    832
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          108    610    640    660    670    710    730    750    760    782
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          118    610    640    650    680    720    750    790    790   1030
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          133    600    640    650    660    690    710    750    760    772
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          126    610    640    680    690    720    750    780    790    791
+ GET /login                                                       1129    920   1000   1000   1000   1100   1200   1300   1300   1380
+ POST /orders                                                      900   1200   1200   1300   1300   1400   1500   1500   1600   1672
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 103                POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 354                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:41:01,989] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:41:01,989] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:42:42,220] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:42:42,220] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:43:54,581] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:43:54,582] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1119     0(0.00%)     599     396    1087  |     590   14.40
+ GET /basket.html                                                1118     0(0.00%)     596     398    1129  |     590   15.80
+ DELETE /cart                                                    1122     0(0.00%)     499     228     852  |     500   14.80
+ POST /cart                                                      1071    48(4.29%)     701     280    1591  |     720   13.70
+ GET /catalogue                                                  1111     0(0.00%)     718     429    1060  |     710   13.90
+ GET /category.html                                              1127     0(0.00%)     601     418     857  |     600   14.60
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         103     0(0.00%)     611     425     832  |     600    1.10
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         139     0(0.00%)     606     414     834  |     610    2.10
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         109     0(0.00%)     610     415     879  |     600    1.60
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         138     0(0.00%)     600     409     843  |     600    1.70
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         125     0(0.00%)     618     417     832  |     620    1.90
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         139     0(0.00%)     617     450     867  |     610    2.60
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         111     0(0.00%)     598     420     790  |     590    0.90
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         128     0(0.00%)     606     430     846  |     600    1.90
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         129     0(0.00%)     609     433     841  |     610    1.30
+ GET /login                                                      1131     0(0.00%)     938     479    1395  |     940   13.70
+ POST /orders                                                     979  152(13.44%)    1161     533    1801  |    1200   15.10
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9899   200(2.02%)                                     131.10
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1119    590    620    640    650    700    790    830    850   1087
+ GET /basket.html                                                 1118    590    630    650    660    690    770    830    850   1129
+ DELETE /cart                                                     1122    500    530    570    580    620    640    680    730    852
+ POST /cart                                                       1071    720    770    800    820    860    890    970   1000   1591
+ GET /catalogue                                                   1111    710    760    780    800    860    900    970   1000   1060
+ GET /category.html                                               1127    600    620    650    660    710    780    820    830    857
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          103    600    640    670    690    710    790    810    820    832
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          139    610    630    640    670    690    760    810    830    834
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          109    600    640    660    680    730    790    830    840    879
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          138    600    630    640    670    690    720    790    820    843
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          125    620    640    650    670    730    760    830    830    832
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          139    610    650    680    690    780    810    840    840    867
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          111    590    630    650    660    690    740    770    780    790
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          128    600    630    660    670    700    740    820    830    846
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          129    610    640    660    670    700    760    810    820    841
+ GET /login                                                       1131    940   1000   1000   1000   1100   1200   1200   1300   1395
+ POST /orders                                                      979   1200   1200   1300   1300   1400   1500   1600   1700   1801
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 68                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 282                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:43:55,456] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:43:55,456] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:45:35,761] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:45:35,761] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:46:48,024] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:46:48,025] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1139     0(0.00%)     595     384    1053  |     590   15.20
+ GET /basket.html                                                1118     0(0.00%)     596     394    1050  |     590   17.50
+ DELETE /cart                                                    1110     0(0.00%)     505     219    1253  |     500   16.40
+ POST /cart                                                      1063    52(4.66%)     721     243    2717  |     680   16.70
+ GET /catalogue                                                  1127     0(0.00%)     722     402    2434  |     730   16.00
+ GET /category.html                                              1114     0(0.00%)     595     386    1083  |     590   13.70
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         125     0(0.00%)     609     403    1033  |     600    1.70
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         127     0(0.00%)     593     406    1019  |     590    1.50
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         121     0(0.00%)     585     405    1056  |     570    1.30
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         140     0(0.00%)     603     393     846  |     580    1.60
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         125     0(0.00%)     591     416    1062  |     560    1.60
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         121     0(0.00%)     597     425     884  |     580    2.20
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         124     0(0.00%)     595     432     841  |     570    1.90
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         123     0(0.00%)     599     421     846  |     580    1.90
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         110     0(0.00%)     614     456     856  |     600    1.20
+ GET /login                                                      1137     0(0.00%)     896     481    1384  |     900   13.70
+ POST /orders                                                     874  249(22.17%)    1180     590    2891  |    1200   13.50
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9798   301(3.07%)                                     137.60
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1139    590    620    640    650    710    760    840    850   1053
+ GET /basket.html                                                 1118    590    620    640    660    710    760    820    850   1050
+ DELETE /cart                                                     1110    500    540    570    590    620    660    760    810   1253
+ POST /cart                                                       1063    680    750    800    830    910   1000   1300   1900   2717
+ GET /catalogue                                                   1127    730    770    800    810    860    900    960   1000   2434
+ GET /category.html                                               1114    590    620    650    660    720    780    830    850   1083
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          125    600    630    660    690    800    820    830   1000   1033
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          127    590    630    640    660    730    750    840    840   1019
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          121    570    610    630    640    700    750    820    850   1056
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          140    580    630    660    700    750    810    820    840    846
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          125    560    610    640    670    740    770    850    860   1062
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          121    580    630    650    660    710    770    830    830    884
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          124    580    630    660    670    740    770    830    830    841
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          123    580    630    670    690    740    830    840    840    846
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          110    600    640    690    700    740    770    810    830    856
+ GET /login                                                       1137    900    950    980   1000   1100   1100   1200   1300   1384
+ POST /orders                                                      874   1200   1200   1300   1300   1400   1600   2100   2700   2891
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 84                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 432                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:46:48,861] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:46:48,861] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:48:29,047] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:48:29,047] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:49:38,543] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:49:38,545] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1115     0(0.00%)     574     397     838  |     570   17.60
+ GET /basket.html                                                1122     0(0.00%)     569     414     847  |     560   17.40
+ DELETE /cart                                                    1119     0(0.00%)     502     260     823  |     500   17.00
+ POST /cart                                                      1079    50(4.43%)     664     225    1192  |     660   15.60
+ GET /catalogue                                                  1119     0(0.00%)     691     419    1290  |     690   16.80
+ GET /category.html                                              1121     0(0.00%)     572     400     809  |     560   17.90
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         128     0(0.00%)     573     429     998  |     560    1.70
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         112     0(0.00%)     577     454     773  |     580    2.10
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         132     0(0.00%)     590     432     831  |     580    2.40
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         119     0(0.00%)     572     411     793  |     570    1.50
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         129     0(0.00%)     584     416    1001  |     580    1.90
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         123     0(0.00%)     585     434     839  |     590    1.90
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         140     0(0.00%)     575     412     753  |     570    1.90
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         126     0(0.00%)     576     399     792  |     570    2.50
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         112     0(0.00%)     570     444     851  |     570    1.70
+ GET /login                                                      1124     0(0.00%)     920     497    1256  |     930   17.00
+ POST /orders                                                     969  160(14.17%)    1109     595    1538  |    1100   12.60
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9889   210(2.12%)                                     149.50
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1115    570    610    620    640    690    720    760    770    838
+ GET /basket.html                                                 1122    560    600    620    640    670    700    740    770    847
+ DELETE /cart                                                     1119    500    530    560    580    630    670    700    720    823
+ POST /cart                                                       1079    660    710    740    770    850    890    950    990   1192
+ GET /catalogue                                                   1119    690    740    760    780    830    870    910    940   1290
+ GET /category.html                                               1121    560    600    630    640    680    710    750    780    809
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          128    560    590    630    630    690    730    750    800    998
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          112    580    600    620    630    680    700    720    720    773
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          132    580    620    650    670    720    760    790    810    831
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          119    570    600    620    630    680    730    730    740    793
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          129    580    610    620    640    680    720    750    790   1001
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          123    590    610    630    640    670    730    760    800    839
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          140    570    610    630    630    660    690    730    750    753
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          126    570    610    630    640    670    700    730    790    792
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          112    570    590    620    620    650    690    740    750    851
+ GET /login                                                       1124    930    990   1000   1100   1100   1200   1200   1200   1256
+ POST /orders                                                      969   1100   1200   1300   1300   1300   1400   1400   1500   1538
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 79                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 288                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:49:39,354] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:49:39,354] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:51:19,606] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:51:19,606] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:52:31,444] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:52:31,445] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1125     0(0.00%)     607     406    1104  |     590   15.30
+ GET /basket.html                                                1124     0(0.00%)     599     405    1057  |     590   17.00
+ DELETE /cart                                                    1118     0(0.00%)     515     276     928  |     510   16.50
+ POST /cart                                                      1066    50(4.48%)     679     269    1215  |     680   15.90
+ GET /catalogue                                                  1129     0(0.00%)     716     417    1143  |     700   16.30
+ GET /category.html                                              1120     0(0.00%)     599     393    1085  |     580   16.30
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         134     0(0.00%)     597     433    1008  |     590    1.50
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         127     0(0.00%)     604     460     983  |     580    1.70
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         133     0(0.00%)     626     434     869  |     620    1.60
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         136     0(0.00%)     603     427    1010  |     580    1.70
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         122     0(0.00%)     614     434    1069  |     600    1.70
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         112     0(0.00%)     596     464     868  |     580    1.40
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         117     0(0.00%)     605     435     878  |     600    1.70
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         127     0(0.00%)     604     450    1067  |     580    2.00
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         115     0(0.00%)     621     478    1019  |     590    1.60
+ GET /login                                                      1124     0(0.00%)     929     526    1522  |     930   16.30
+ POST /orders                                                     931  189(16.88%)    1118     529    1701  |    1100   12.30
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9860   239(2.42%)                                     140.80
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1125    590    620    650    670    740    830    920   1000   1104
+ GET /basket.html                                                 1124    590    620    640    660    720    810    890    910   1057
+ DELETE /cart                                                     1118    510    560    580    600    660    710    770    860    928
+ POST /cart                                                       1066    680    730    770    810    860    910   1000   1100   1215
+ GET /catalogue                                                   1129    700    770    800    820    870    920   1000   1000   1143
+ GET /category.html                                               1120    580    620    650    670    710    790    860    870   1085
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          134    590    630    640    650    700    750    830    890   1008
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          127    580    610    640    670    730    840    860    890    983
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          133    620    640    670    680    770    820    840    870    869
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          136    580    620    650    660    720    790    860   1000   1010
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          122    600    630    650    670    780    820    870    890   1069
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          112    580    620    640    650    690    770    820    840    868
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          117    600    630    650    660    730    820    860    880    878
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          127    580    610    640    660    750    800    950   1000   1067
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          115    590    620    660    680    750    830    880    980   1019
+ GET /login                                                       1124    930    990   1000   1100   1100   1200   1300   1400   1522
+ POST /orders                                                      931   1100   1200   1300   1300   1400   1400   1600   1600   1701
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 72                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 281                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:52:32,287] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:52:32,287] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:54:12,524] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:54:12,524] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:55:20,609] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:55:20,610] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1119     0(0.00%)     569     382     848  |     570   15.70
+ GET /basket.html                                                1127     0(0.00%)     563     392     857  |     550   16.00
+ DELETE /cart                                                    1124     0(0.00%)     472     228     791  |     460   15.30
+ POST /cart                                                      1065    60(5.33%)     654     269    1052  |     660   14.30
+ GET /catalogue                                                  1117     0(0.00%)     685     474    1032  |     680   16.50
+ GET /category.html                                              1117     0(0.00%)     573     387    1432  |     560   15.70
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         129     0(0.00%)     561     412     810  |     550    2.00
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         112     0(0.00%)     572     402     801  |     570    1.40
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         118     0(0.00%)     570     427     815  |     560    1.70
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         121     0(0.00%)     572     413     821  |     560    1.70
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         130     0(0.00%)     579     429     781  |     570    2.20
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         140     0(0.00%)     570     397     811  |     560    1.80
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         114     0(0.00%)     570     426     841  |     560    1.20
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         126     0(0.00%)     567     430     795  |     570    1.50
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         136     0(0.00%)     586     417     801  |     570    2.00
+ GET /login                                                      1123     0(0.00%)     881     455    1247  |     890   16.50
+ POST /orders                                                     937  184(16.41%)    1061     592    1531  |    1100   14.30
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9855   244(2.48%)                                     139.80
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1119    570    590    610    630    660    700    730    760    848
+ GET /basket.html                                                 1127    550    590    610    620    670    690    730    770    857
+ DELETE /cart                                                     1124    460    510    530    550    590    630    680    740    791
+ POST /cart                                                       1065    660    710    750    770    820    880    930    980   1052
+ GET /catalogue                                                   1117    680    730    750    770    810    850    900    930   1032
+ GET /category.html                                               1117    560    590    620    630    670    720    760    780   1432
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          129    550    570    590    610    670    690    740    780    810
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          112    570    590    620    630    660    720    740    780    801
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          118    560    590    610    640    680    750    780    780    815
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          121    560    580    610    620    670    720    780    800    821
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          130    570    610    630    650    710    730    780    780    781
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          140    570    590    610    620    680    710    740    770    811
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          114    560    590    610    620    680    710    740    770    841
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          126    570    590    610    610    660    710    740    770    795
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          136    570    600    620    640    680    760    790    790    801
+ GET /login                                                       1123    890    950    980   1000   1000   1100   1200   1200   1247
+ POST /orders                                                      937   1100   1100   1200   1200   1300   1300   1400   1400   1531
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 76                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 280                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done
+Default Locust file: locustfile.py
+Will run locustfile.py against micro0.brazilsouth.cloudapp.azure.com:30001. Spawning 100   clients and 10000 total requests, waiting 1 between   each spawn.
+[2017-12-07 12:55:21,478] ganimede/INFO/locust.main: Starting Locust 0.8.1
+[2017-12-07 12:55:21,478] ganimede/INFO/locust.runners: Hatching and swarming 100 clients at the rate 1 clients/s...
+[2017-12-07 12:57:01,674] ganimede/INFO/locust.runners: All locusts hatched: Web: 100
+[2017-12-07 12:57:01,674] ganimede/INFO/locust.runners: Resetting stats
+
+[2017-12-07 12:58:13,106] ganimede/INFO/locust.runners: All locusts dead
+
+[2017-12-07 12:58:13,107] ganimede/INFO/locust.main: Shutting down (exit code 1), bye.
+ Name                                                          # reqs      # fails     Avg     Min     Max  |  Median   req/s
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                           1122     0(0.00%)     605     432     922  |     590   14.40
+ GET /basket.html                                                1113     0(0.00%)     594     420     868  |     590   16.30
+ DELETE /cart                                                    1118     0(0.00%)     502     313     896  |     500   17.00
+ POST /cart                                                      1061    59(5.27%)     698     375    1223  |     690   15.20
+ GET /catalogue                                                  1124     0(0.00%)     712     482    1180  |     700   14.80
+ GET /category.html                                              1120     0(0.00%)     599     435     964  |     580   15.40
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b         121     0(0.00%)     599     468     890  |     580    1.70
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b         133     0(0.00%)     607     453     873  |     590    2.60
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d         123     0(0.00%)     586     442     847  |     580    2.10
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38         112     0(0.00%)     608     445     836  |     590    1.80
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b         128     0(0.00%)     597     472     849  |     580    1.40
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac         107     0(0.00%)     612     436     849  |     600    1.80
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e         144     0(0.00%)     612     444     846  |     590    1.90
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246         121     0(0.00%)     594     433     844  |     580    1.70
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e         137     0(0.00%)     599     401     870  |     570    1.90
+ GET /login                                                      1125     0(0.00%)     904     573    1559  |     890   15.60
+ POST /orders                                                     932  199(17.60%)    1109     623    1712  |    1100   13.30
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Total                                                           9841   258(2.62%)                                     138.90
+
+Percentage of the requests completed within given times
+ Name                                                           # reqs    50%    66%    75%    80%    90%    95%    98%    99%   100%
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GET /                                                            1122    590    620    640    660    720    800    840    850    922
+ GET /basket.html                                                 1113    590    610    640    650    700    750    810    820    868
+ DELETE /cart                                                     1118    500    530    550    570    630    670    710    760    896
+ POST /cart                                                       1061    690    740    770    800    870    940   1000   1000   1223
+ GET /catalogue                                                   1124    700    740    770    790    840    920   1000   1000   1180
+ GET /category.html                                               1120    580    620    650    660    720    790    830    840    964
+ GET /detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b          121    580    620    640    670    710    790    850    860    890
+ GET /detail.html?id=3395a43e-2d88-40de-b95f-e00e1502085b          133    590    620    650    670    740    810    850    850    873
+ GET /detail.html?id=510a0d7e-8e83-4193-b483-e27e09ddc34d          123    580    600    620    640    680    780    810    830    847
+ GET /detail.html?id=808a2de1-1aaa-4c25-a9b9-6612e8f29a38          112    590    620    650    670    740    820    830    830    836
+ GET /detail.html?id=819e1fbf-8b7e-4f6d-811f-693534916a8b          128    590    620    630    650    710    760    840    840    849
+ GET /detail.html?id=837ab141-399e-4c1f-9abc-bace40296bac          107    600    630    660    680    750    820    840    840    849
+ GET /detail.html?id=a0a4f044-b040-410d-8ead-4de0446aec7e          144    590    630    660    690    780    800    840    840    846
+ GET /detail.html?id=d3588630-ad8e-49df-bbd7-3167f7efb246          121    580    620    640    650    710    760    820    840    844
+ GET /detail.html?id=zzz4f044-b040-410d-8ead-4de0446aec7e          137    570    620    650    670    760    820    830    840    870
+ GET /login                                                       1125    890    970   1000   1000   1100   1200   1200   1300   1559
+ POST /orders                                                      932   1100   1200   1200   1300   1400   1400   1500   1600   1712
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Error report
+ # occurences       Error                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------
+ 86                 POST /cart: "HTTPError(u'500 Server Error: Internal Server Error for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/cart',)"
+ 296                POST /orders: "HTTPError(u'406 Client Error: Not Acceptable for url: http://micro0.brazilsouth.cloudapp.azure.com:30001/orders',)"
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+done

@@ -1,0 +1,18 @@
+receiveJsonpData({
+"cols": [
+{"label": "Run", "type": "string"},
+{"label": "Custom key", "type": "string"},
+{"label": "Timestamp", "type": "string"},
+{"label": "testBuildModel_10_Messages_10_Services", "type": "string"} ,
+{"label": "testBuildModel_11_Messages_11_Services", "type": "string"} ,
+{"label": "testBuildModel_12_Messages_12_Services", "type": "string"} ,
+{"label": "testBuildModel_13_Messages_13_Services", "type": "string"} ,
+{"label": "testBuildModel_14_Messages_14_Services", "type": "string"} ,
+{"label": "testBuildModel_15_Messages_15_Services", "type": "string"} ,
+{"label": "testBuildModel_20_Messages_20_Services", "type": "string"} ,
+{"label": "testBuildModel_30_Messages_30_Services", "type": "string"} ],
+"rows": [
+{"c": [{"v": "7"}, {"v": "[7]"}, {"v": "2017-12-06 18:17:52.463"}, {"v": 0.395}, {"v": 0.413}, {"v": 0.578}, {"v": 0.57}, {"v": 0.681}, {"v": 0.71}, {"v": 1.5}, {"v": 4.933}]},
+{"c": [{"v": "8"}, {"v": "[8]"}, {"v": "2017-12-06 21:00:46.078"}, {"v": 0.311}, {"v": 0.365}, {"v": 0.418}, {"v": 0.491}, {"v": 0.574}, {"v": 0.666}, {"v": 1.237}, {"v": 3.932}]},
+{"c": [{"v": "11"}, {"v": "[11]"}, {"v": "2017-12-07 11:18:42.409"}, {"v": 0.311}, {"v": 0.357}, {"v": 0.436}, {"v": 0.491}, {"v": 0.57}, {"v": 0.651}, {"v": 1.348}, {"v": 4.213}]}
+]});
