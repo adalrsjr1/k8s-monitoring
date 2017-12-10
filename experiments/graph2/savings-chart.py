@@ -119,8 +119,62 @@ def plot2(header, data):
   
   plt.show()
 
+def table(header, data):
+  
+  table = {}
+  table2 = np.array([])
+  for l, value in data.items():
+    msg, svc = l.split('_')
+    msg, svc = int(msg), int(svc)
+
+    table2 = np.append(table2, [svc, msg, value])
+
+    if not svc in table:
+      table[svc] = {}
+    table[svc][msg] = value
+
+  return header, np.reshape(table2, (-1,3))
+
+def plotTable(header, table): 
+  # 5 bars 10 100 1000 10000 100000
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+
+  space = 0.3
+
+  conditions = np.unique(table[:,0])
+  categories = np.unique(table[:,1])
+  
+  n = len(conditions)
+
+  width = (1-space) / (len(conditions))
+
+  bars = []
+  for i, cond in enumerate(conditions):
+    indeces = range(1, len(categories)+1)
+    vals = table[table[:,0] == cond][:,2].astype(np.int32)
+    pos = [j - (1-space) / 2. + i * width for j in range (1, len(categories)+1)]
+    bars.append(ax.bar(pos, vals, width=width))
+
+  ax.set_xticks(indeces)
+  ax.set_xticklabels(categories)
+  plt.setp(plt.xticks()[1], rotation=90)
+  ax.set_ylabel("Savings")
+  ax.set_xlabel("Services and Hosts")
+
+#https://stackoverflow.com/questions/4700614/how-to-put-the-legend-out-of-the-plot/43439132#43439132
+  plt.legend(bars, conditions.astype(np.int32), \
+             bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",\
+                mode="expand", borderaxespad=0, ncol=10) 
+  plt.title(header)
+  plt.savefig(header+'.pdf', bbox_inches='tight', orientation='landscape',\
+    papertype='b0', dpi=1000)
+  #plt.show()
+
 data = parse('savings.txt')
 dataSplit = splitData(data)
 
 for item in dataSplit.items():
-  plot2(item[0],item[1])
+  #plot2(item[0],item[1])
+  header, t = table(item[0], item[1])
+  plotTable(header, t)
