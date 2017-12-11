@@ -21,6 +21,8 @@ def getFilesNames(numberMessages, typePlanning):
   creation = prefix + 'creation-' + numberMessages + '_messages.jsonp'
   analysis = prefix + 'analysis-' + numberMessages + '_messages.jsonp'
   planning = prefix + 'planning-' + typePlanning + '-' + numberMessages + '_messages.jsonp'
+  if typePlanning == 'smt' or typePlanning == 'smt_solver':
+    planning = prefix + 'planning-' + typePlanning + '-hosts_diff-' + numberMessages + '_messages.jsonp'
 
   return [creation, analysis, planning]
 
@@ -48,6 +50,7 @@ def fillData(data):
   planning = data[2]
 
   values = createAxisX()
+  print(len(values))
   for value in values:
     if not value in creation['name']:
       nCreation = np.append(creation, np.array([(value, -1.0, -1.0)], dtype=creation.dtype))
@@ -156,7 +159,7 @@ def stackPlot(header, data, save):
       bottom=meanCreation)
 
   planningBar = plt.bar(ind, meanPlanning, width, color='#2728d6', \
-      bottom=meanCreation, yerr=devPlanning)
+      bottom=meanAnalysis+meanCreation, yerr=devPlanning)
 
   x = np.arange(len(creationData['name']))
 
@@ -193,7 +196,10 @@ def createAxisX():
   if _typePlanning == 'Heuristic':
     value = createAxisXHeuristic()
     return value
-  if _typePlanning == 'SMT Solver' or _typePlanning == 'SMT Optimizer':
+  if _typePlanning == 'SMT Solver':
+    value = createAxisXSMT_Solver()
+    return value
+  if _typePlanning == 'SMT Optimizer':
     value = createAxisXSMT()
     return value
   return None
@@ -211,8 +217,16 @@ def createAxisXHeuristic():
 
   return axisX
 
+_messages = 0
+def createAxisXSMT_Solver():
+  if _messages > 10:
+    return np.array([10,11,12,13,14,15,20,30])
+  return np.array([10,11,12,13,14,15,20,30,40,50])
+
 def createAxisXSMT():
-  return np.array([11,12,13,14,15,20,30])
+  if _messages > 100:
+    return np.array([10,11])
+  return np.array([10,11,12])
 
 if __name__ == '__main__':
   typePlanning = sys.argv[1]
@@ -231,14 +245,12 @@ if __name__ == '__main__':
     save = True
   
   for n in range(1, 6):
-    try:
-      numberMessages = str(10**n)
-      plotHeader = 'Performance Chart: Planning by ' + _typePlanning + ' with ' + \
-          numberMessages + ' Messages'
+    numberMessages = str(10**n)
+    _messages = int(numberMessages)
+    plotHeader = 'Performance Chart: Planning by ' + _typePlanning + ' with ' + \
+        numberMessages + ' Messages'
   
-      mainFullPlot(numberMessages, typePlanning, plotHeader, save)
-    except:
-      pass
+    mainFullPlot(numberMessages, typePlanning, plotHeader, save)
 
 #experimentValues = loadJson(sys.argv[1])
 #values = getValues(experimentValues)
