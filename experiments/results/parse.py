@@ -122,8 +122,8 @@ def avg(filename, endpoint, attrName):
   
   arr_without_outliers = reject_outliers(np.array(values))
 
-  return {'mean':np.mean(arr_without_outliers), \
-         'std':np.std(arr_without_outliers)}
+  return {"mean":np.mean(arr_without_outliers), \
+         "std":np.std(arr_without_outliers)}
 
 def usage():
   print 'parse.py <filename> /<endpoint> <reqs|fails|avg|min|max|median|reqs/s>'
@@ -135,7 +135,7 @@ def main(argv):
   endpoint = argv[2]
   attribute = argv[3]
   print filename, endpoint, attribute,\
-        avg(filename, endpoint, attribute)
+        json.dumps(avg(filename, endpoint, attribute))
 
 if __name__ == "__main__":
   main(sys.argv)

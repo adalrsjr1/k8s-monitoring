@@ -1,0 +1,8 @@
+
+heuristic-c.txt /orders avg {"std": 752.63924957445579, "mean": 1991.4000000000001}
+heuristic-i.txt /orders avg {"std": 25.183769023365471, "mean": 1208.3333333333333}
+optimal-i.txt /orders avg {"std": 25.183769023365471, "mean": 1208.3333333333333}
+origin-c.txt /orders avg {"std": 1421.3197247628698, "mean": 2106.1999999999998}
+origin-i.txt /orders avg {"std": 38.447366619834966, "mean": 1129.0}
+solver-c.txt /orders avg {"std": 7514.3955969525587, "mean": 9043.75}
+solver-i.txt /orders avg {"std": 38.893015654056278, "mean": 1328.0}
