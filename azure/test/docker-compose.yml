@@ -1,9 +1,0 @@
-version: '3'
-
-services:
-  user-sim:
-    image: weaveworksdemos/load-test
-    deploy:
-      replicas: 10
-    hostname: user-simulator
-    command: "-d 1 -r 100000 -c 100 -h 192.168.99.100:30001"
