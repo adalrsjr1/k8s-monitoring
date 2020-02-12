@@ -10,7 +10,7 @@ In particular, the performance and resource utilization of a μApp
 depends on the placement of the microservices that compose it.
 However, existing tools for μApps, like Kubernetes, provide minimal
 ability to influence the placement and utilization of a μApp
-deployment. In this paper, we first identify the runtime aspects of
+deployment. In this project, we first identify the runtime aspects of
 microservice execution that impact the placement of microservices in a
 μApp. We then review the challenges of reconfiguring a μApp based on
 these aspects. Our main contribution is an adaptation mechanism, named
