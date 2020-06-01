@@ -20,7 +20,22 @@ resource usage history. We evaluate our REMaP prototype and
 demonstrate that our solution is autonomic, lowers resource
 utilization, and can substantially improve μApp performance.
 
-More in [Improving microservice-based applications with runtime placement adaptation](https://jisajournal.springeropen.com/articles/10.1186/s13174-019-0104-0)
+Learn more about this project in our paper:
+
+[*Improving Microservice-based Applications with Runtime Placement Adaptation*](https://www.cs.ubc.ca/~bestchai/papers/jisa19-microservices-placement.pdf). Adalberto R. Sampaio Junior, Julia Rubin, Ivan Beschastnikh, Nelson Rosa. Journal of Internet Services and Applications (JISA) 2019.
+```
+@article{Sampaio2019,
+  author    = {Adalberto R. Sampaio and Julia Rubin and Ivan Beschastnikh and Nelson S. Rosa},
+  title     = {{Improving microservice-based applications with runtime placement adaptation}},
+  journal   = {J. Internet Serv. Appl.},
+  volume    = {10},
+  number    = {1},
+  pages     = {4:1--4:30},
+  year      = {2019},
+  url       = {https://doi.org/10.1186/s13174-019-0104-0},
+}
+```
+
 
 ## Automatic model generation of Microservice-based applications
 
@@ -71,7 +86,3 @@ adaptation process should be automatically and only guided by the model. The
 first use case that we envision is to adapt microservices applications to
 improve their performance by changing its microservices displacement in a
 cluster.
-
-# Final remarks
-
-It is a Ph.D. project and is in constantly changes.
